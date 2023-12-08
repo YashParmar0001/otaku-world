@@ -17,6 +17,7 @@ class SplashScreen extends StatelessWidget {
           context.go('/login');
         }else if (state is Authenticated) {
           dev.log('User Authenticated', name: 'Auth');
+          context.go('/home');
         }
       },
       child: const Scaffold(

@@ -5,6 +5,10 @@ abstract class AuthState {}
 
 class AuthInitial extends AuthState {}
 
+class Authenticating extends AuthState {}
+
+class LoggingOut extends AuthState {}
+
 class Authenticated extends AuthState {
   Authenticated(this.token);
 
@@ -12,3 +16,9 @@ class Authenticated extends AuthState {
 }
 
 class UnAuthenticated extends AuthState {}
+
+class AuthError extends AuthState {
+  AuthError(this.message);
+
+  final String message;
+}

@@ -1,0 +1,42 @@
+fragment MediaShort on Media {
+    id
+    title {
+        userPreferred
+        english
+        romaji
+        native
+    }
+    coverImage {
+        large
+        extraLarge
+    }
+    meanScore
+    favourites
+    format
+    type
+    episodes
+    chapters
+    status
+    airingSchedule(notYetAired: true, perPage: 1) {
+        nodes {
+            timeUntilAiring
+            episode
+        }
+    }
+    genres
+    season
+    seasonYear
+    startDate {
+        day
+        month
+        year
+    }
+    endDate {
+        day
+        month
+        year
+    }
+    mediaListEntry {
+        id
+    }
+}

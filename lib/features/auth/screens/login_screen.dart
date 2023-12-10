@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
+import 'package:otaku_world/bloc/paginated_data_bloc/paginated_data_bloc.dart';
+import 'package:otaku_world/bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
@@ -33,23 +35,39 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final authCubit = context.read<AuthCubit>();
 
-    return BlocListener<AuthCubit, AuthState>(
-      listener: (context, state) {
-        if (state is Authenticated) {
-          context.read<GraphqlClientCubit>().initializeGraphqlClient(
-                state.token,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AuthCubit, AuthState>(
+          listener: (context, state) {
+            if (state is Authenticated) {
+              context.read<GraphqlClientCubit>().initializeGraphqlClient(
+                    state.token,
+                  );
+            } else if (state is AuthError) {
+              context.pop();
+              UIUtils.showSnackBar(
+                context,
+                'Got error while login: ${state.message}',
               );
-          context.go('/home');
-        } else if (state is AuthError) {
-          context.pop();
-          UIUtils.showSnackBar(
-            context,
-            'Got error while login: ${state.message}',
-          );
-        } else if (state is Authenticating) {
-          UIUtils.showProgressDialog(context);
-        }
-      },
+            } else if (state is Authenticating) {
+              UIUtils.showProgressDialog(context);
+            }
+          },
+        ),
+        BlocListener<GraphqlClientCubit, GraphqlClientState>(
+          listener: (context, state) {
+            if (state is GraphqlClientInitialized) {
+              context
+                  .read<UpcomingEpisodesBloc>()
+                  .add(LoadUpcomingEpisodes(state.client));
+              // context
+              //     .read<UpcomingEpisodesBlocDummy>()
+              //     .add(LoadData(state.client));
+              context.go('/home');
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         appBar: const SimpleAppBar(
           title: '',

@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:otaku_world/bloc/auth/auth_cubit.dart';
+import 'package:otaku_world/theme/app_theme.dart';
+
+import 'config/router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,14 +14,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Otaku World'),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthCubit()..authenticate(),
         ),
-        body: const Center(
-          child: Text('Welcome to the Otaku World!'),
-        ),
+      ],
+      child: MaterialApp.router(
+        theme: AppTheme.getTheme(),
+        routerConfig: router,
       ),
     );
   }

@@ -1,0 +1,14 @@
+part of 'paginated_data_bloc.dart';
+
+abstract class PaginatedDataEvent extends Equatable {
+  const PaginatedDataEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class LoadData extends PaginatedDataEvent {
+  const LoadData(this.client);
+
+  final GraphQLClient client;
+}

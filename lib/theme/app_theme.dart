@@ -6,6 +6,7 @@ class AppTheme {
   static ThemeData getTheme() {
     return ThemeData(
       primaryColor: AppColors.sunsetOrange,
+      colorScheme: ColorScheme.fromSeed(seedColor: AppColors.sunsetOrange),
       scaffoldBackgroundColor: AppColors.raisinBlack,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,

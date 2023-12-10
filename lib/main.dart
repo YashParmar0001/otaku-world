@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
-import 'package:otaku_world/bloc/paginated_data_bloc/paginated_data_bloc.dart';
-import 'package:otaku_world/bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
-import 'package:otaku_world/graphql/__generated/graphql/home/upcoming_episodes.graphql.dart';
+import 'package:otaku_world/bloc/recommended_anime/recommended_anime_bloc.dart';
+import 'package:otaku_world/bloc/recommended_manga/recommended_manga_bloc.dart';
+import 'package:otaku_world/bloc/trending_anime/trending_anime_bloc.dart';
+import 'package:otaku_world/bloc/trending_manga/trending_manga_bloc.dart';
 import 'package:otaku_world/theme/app_theme.dart';
 
+import 'bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import 'config/router.dart';
 
 void main() {
@@ -30,8 +32,16 @@ class MyApp extends StatelessWidget {
           create: (context) => UpcomingEpisodesBloc(),
         ),
         BlocProvider(
-          create: (context) => UpcomingEpisodesBlocDummy<
-              Query$GetUpcomingEpisodes$Page$media, UpcomingEpisode>(),
+          create: (context) => TrendingAnimeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => RecommendedAnimeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => TrendingMangaBloc(),
+        ),
+        BlocProvider(
+          create: (context) => RecommendedMangaBloc(),
         ),
       ],
       child: MaterialApp.router(

@@ -6,10 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/date_symbol_data_http_request.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
-import 'package:otaku_world/bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
+import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
+import 'package:otaku_world/bloc/recommended_anime/recommended_anime_bloc.dart';
+import 'package:otaku_world/bloc/recommended_manga/recommended_manga_bloc.dart';
+import 'package:otaku_world/bloc/trending_anime/trending_anime_bloc.dart';
+import 'package:otaku_world/bloc/trending_manga/trending_manga_bloc.dart';
 import 'package:otaku_world/core/ui/error_text.dart';
+import 'package:otaku_world/core/ui/media_section.dart';
 import 'package:otaku_world/core/ui/shimmer_loader_list.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/graphql/__generated/graphql/home/upcoming_episodes.graphql.dart';
@@ -17,8 +21,8 @@ import 'package:otaku_world/services/caching/image_cache_manager.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/formatting_utils.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
-import 'package:shimmer_animation/shimmer_animation.dart';
 
+import '../../../bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import '../../../constants/string_constants.dart';
 import '../widgets/feature_card.dart';
 
@@ -41,13 +45,12 @@ class HomeScreen extends HookWidget {
           dev.log('Max scrolled', name: 'UpcomingEpisodes');
           final upcomingEpisodesBloc = context.read<UpcomingEpisodesBloc>();
           final hasNextPage =
-              (upcomingEpisodesBloc.state as UpcomingEpisodesLoaded)
-                  .hasNextPage;
+              (upcomingEpisodesBloc.state as PaginatedDataLoaded).hasNextPage;
           if (hasNextPage) {
             final client = (context.read<GraphqlClientCubit>().state
                     as GraphqlClientInitialized)
                 .client;
-            upcomingEpisodesBloc.add(LoadUpcomingEpisodes(client));
+            upcomingEpisodesBloc.add(LoadData(client));
           }
         }
       });
@@ -111,75 +114,35 @@ class HomeScreen extends HookWidget {
             const SizedBox(
               height: 15,
             ),
-            // Recommended Anime Section
-            // MediaSection(
-            //   hook: recommendedAnimeHook,
-            //   sectionHeader: 'Recommended Anime',
-            //   onMorePressed: () {
-            //     context.push('/recommendedAnime');
-            //   },
-            //   onSliderPressed: () {
-            //     recommendedAnimeHook.refetch();
-            //     context.push(
-            //       '/mediaSlider/Recommended Anime',
-            //       extra: recommendedAnimeHook.result.parsedData?.Page?.media,
-            //     );
-            //   },
-            // ),
+            MediaSection<TrendingAnimeBloc>(
+              label: 'Trending Anime',
+              onMorePressed: () {},
+              onSliderPressed: () {},
+            ),
             const SizedBox(
               height: 15,
             ),
-            // Trending Anime Section
-            // MediaSection(
-            //   hook: trendingAnimeHook,
-            //   sectionHeader: 'Trending Anime',
-            //   onMorePressed: () {
-            //     context.push('/trendingAnime');
-            //   },
-            //   onSliderPressed: () {
-            //     trendingAnimeHook.refetch();
-            //     context.push(
-            //       '/mediaSlider/Trending Anime',
-            //       extra: trendingAnimeHook.result.parsedData?.Page?.media,
-            //     );
-            //   },
-            // ),
+            MediaSection<RecommendedAnimeBloc>(
+              label: 'Recommended Anime',
+              onMorePressed: () {},
+              onSliderPressed: () {},
+            ),
             const SizedBox(
               height: 15,
             ),
-            // Recommended Manga Section
-            // MediaSection(
-            //   hook: recommendedMangaHook,
-            //   sectionHeader: 'Recommended Manga',
-            //   onMorePressed: () {
-            //     context.push('/recommendedManga');
-            //   },
-            //   onSliderPressed: () {
-            //     recommendedMangaHook.refetch();
-            //     context.push(
-            //       '/mediaSlider/Recommended Manga',
-            //       extra: recommendedMangaHook.result.parsedData?.Page?.media,
-            //     );
-            //   },
-            // ),
+            MediaSection<TrendingMangaBloc>(
+              label: 'Trending Manga',
+              onMorePressed: () {},
+              onSliderPressed: () {},
+            ),
             const SizedBox(
               height: 15,
             ),
-            // Trending Manga Section
-            // MediaSection(
-            //   hook: trendingMangaHook,
-            //   sectionHeader: 'Trending Manga',
-            //   onMorePressed: () {
-            //     context.push('/trendingManga');
-            //   },
-            //   onSliderPressed: () {
-            //     trendingMangaHook.refetch();
-            //     context.push(
-            //       '/mediaSlider/Trending Manga',
-            //       extra: trendingMangaHook.result.parsedData?.Page?.media,
-            //     );
-            //   },
-            // ),
+            MediaSection<RecommendedMangaBloc>(
+              label: 'Recommended Manga',
+              onMorePressed: () {},
+              onSliderPressed: () {},
+            ),
             const SizedBox(
               height: 15,
             ),
@@ -197,19 +160,18 @@ class HomeScreen extends HookWidget {
   ) {
     return Padding(
       padding: const EdgeInsets.only(left: 15),
-      child: BlocBuilder<UpcomingEpisodesBloc, UpcomingEpisodesState>(
+      child: BlocBuilder<UpcomingEpisodesBloc, PaginatedDataState>(
         builder: (context, state) {
-          if (state is UpcomingEpisodesLoading ||
-              state is UpcomingEpisodesInitial) {
+          if (state is PaginatedDataLoading || state is PaginatedDataInitial) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Upcoming Episodes',
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                    fontFamily: 'Roboto-Condensed',
-                    fontWeight: FontWeight.w500,
-                  ),
+                        fontFamily: 'Roboto-Condensed',
+                        fontWeight: FontWeight.w500,
+                      ),
                 ),
                 const SizedBox(height: 10),
                 ShimmerLoaderList(
@@ -230,8 +192,7 @@ class HomeScreen extends HookWidget {
                 ),
               ],
             );
-
-          } else if (state is UpcomingEpisodesLoaded) {
+          } else if (state is PaginatedDataLoaded) {
             dev.log('Rebuilding the episodes list');
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -239,29 +200,27 @@ class HomeScreen extends HookWidget {
                 Text(
                   'Upcoming Episodes',
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                    fontFamily: 'Roboto-Condensed',
-                    fontWeight: FontWeight.w500,
-                  ),
+                        fontFamily: 'Roboto-Condensed',
+                        fontWeight: FontWeight.w500,
+                      ),
                 ),
                 const SizedBox(height: 10),
                 _buildUpcomingEpisodesList(
-                  state.episodes,
+                  state.list as List<Query$GetUpcomingEpisodes$Page$media?>,
                   state.hasNextPage,
                   screenHeight,
                   controller,
                 ),
               ],
             );
-          } else if (state is UpcomingEpisodesError) {
+          } else if (state is PaginatedDataError) {
             return ErrorText(
                 message: state.message,
                 onTryAgain: () {
                   final client = (context.read<GraphqlClientCubit>().state
-                  as GraphqlClientInitialized)
+                          as GraphqlClientInitialized)
                       .client;
-                  context
-                      .read<UpcomingEpisodesBloc>()
-                      .add(LoadUpcomingEpisodes(client));
+                  context.read<UpcomingEpisodesBloc>().add(LoadData(client));
                 });
           } else {
             return const Text('Unknown State');
@@ -308,10 +267,11 @@ class HomeScreen extends HookWidget {
           if (hasNextPage)
             const SliverToBoxAdapter(
               child: Center(
-                  child: Padding(
-                padding: EdgeInsets.all(5.0),
-                child: CircularProgressIndicator(),
-              )),
+                child: Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: CircularProgressIndicator(),
+                ),
+              ),
             ),
         ],
       ),
@@ -390,7 +350,7 @@ class HomeScreen extends HookWidget {
               child: media.coverImage?.large == null
                   ? _buildPlaceholderImage85x120()
                   : CachedNetworkImage(
-                cacheManager: ImageCacheManager.instance,
+                      cacheManager: ImageCacheManager.instance,
                       imageUrl: media.coverImage!.large!,
                       width: 85,
                       height: 120,

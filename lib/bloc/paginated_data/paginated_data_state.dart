@@ -13,17 +13,17 @@ class PaginatedDataInitial extends PaginatedDataState {
 
 class PaginatedDataLoading extends PaginatedDataState {}
 
-class PaginatedDataLoaded<T> extends PaginatedDataState {
+class PaginatedDataLoaded<E> extends PaginatedDataState {
   const PaginatedDataLoaded({
-    required this.episodes,
+    required this.list,
     required this.hasNextPage,
   });
 
-  final List<T?> episodes;
+  final List<E?> list;
   final bool hasNextPage;
 
   @override
-  List<Object> get props => [episodes, hasNextPage];
+  List<Object> get props => [list, hasNextPage];
 }
 
 class PaginatedDataError extends PaginatedDataState {

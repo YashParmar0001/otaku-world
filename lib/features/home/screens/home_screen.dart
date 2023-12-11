@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/date_symbol_data_http_request.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import 'package:otaku_world/core/ui/error_text.dart';
@@ -17,7 +16,6 @@ import 'package:otaku_world/services/caching/image_cache_manager.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/formatting_utils.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
-import 'package:shimmer_animation/shimmer_animation.dart';
 
 import '../../../constants/string_constants.dart';
 import '../widgets/feature_card.dart';
@@ -84,7 +82,7 @@ class HomeScreen extends HookWidget {
               ),
               child: FeatureCard(
                 onTap: () {
-                  UIUtils.showSnackBar(context, 'Coming soon..');
+                 context.push('/reviews');
                 },
                 heading: HomeConstants.reviewsHeading,
                 subheading: HomeConstants.reviewsSubheading,

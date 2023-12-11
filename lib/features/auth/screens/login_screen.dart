@@ -4,12 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
-import 'package:otaku_world/bloc/paginated_data_bloc/paginated_data_bloc.dart';
+import 'package:otaku_world/bloc/reviews/review_bloc.dart';
 import 'package:otaku_world/bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
-
 import '../../../constants/string_constants.dart';
 import '../../../core/ui/primary_button.dart';
 import '../../../core/ui/primary_outlined_button.dart';
@@ -60,6 +59,9 @@ class LoginScreen extends StatelessWidget {
               context
                   .read<UpcomingEpisodesBloc>()
                   .add(LoadUpcomingEpisodes(state.client));
+
+
+
               // context
               //     .read<UpcomingEpisodesBlocDummy>()
               //     .add(LoadData(state.client));

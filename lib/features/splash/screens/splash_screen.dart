@@ -8,6 +8,7 @@ import 'package:otaku_world/graphql/__generated/graphql/home/upcoming_episodes.g
 import '../../../bloc/auth/auth_cubit.dart';
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
 import '../../../bloc/paginated_data_bloc/paginated_data_bloc.dart';
+import '../../../bloc/reviews/review_bloc.dart';
 import '../../../bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -34,6 +35,7 @@ class SplashScreen extends StatelessWidget {
               context
                   .read<UpcomingEpisodesBloc>()
                   .add(LoadUpcomingEpisodes(state.client));
+              context.read<ReviewBloc>().add(LoadReviews(state.client));
               context
                   .read<UpcomingEpisodesBlocDummy<Query$GetUpcomingEpisodes$Page$media, UpcomingEpisode>>()
                   .add(LoadData(state.client));

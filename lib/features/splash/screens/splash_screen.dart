@@ -1,14 +1,21 @@
-import 'dart:developer' as dev;
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:otaku_world/graphql/__generated/graphql/home/upcoming_episodes.graphql.dart';
+import 'package:otaku_world/bloc/recommended_anime/recommended_anime_bloc.dart';
+import 'package:otaku_world/bloc/recommended_manga/recommended_manga_bloc.dart';
+import 'package:otaku_world/bloc/trending_manga/trending_manga_bloc.dart';
 
 import '../../../bloc/auth/auth_cubit.dart';
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
-import '../../../bloc/paginated_data_bloc/paginated_data_bloc.dart';
+
+
 import '../../../bloc/reviews/review_bloc.dart';
+
+import '../../../bloc/paginated_data/paginated_data_bloc.dart';
+import '../../../bloc/trending_anime/trending_anime_bloc.dart';
+
 import '../../../bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -34,10 +41,23 @@ class SplashScreen extends StatelessWidget {
             if (state is GraphqlClientInitialized) {
               context
                   .read<UpcomingEpisodesBloc>()
-                  .add(LoadUpcomingEpisodes(state.client));
+                  .add(LoadData(state.client));
+
+
               context.read<ReviewBloc>().add(LoadReviews(state.client));
+
+
               context
-                  .read<UpcomingEpisodesBlocDummy<Query$GetUpcomingEpisodes$Page$media, UpcomingEpisode>>()
+                  .read<TrendingAnimeBloc>()
+                  .add(LoadData(state.client));
+              context
+                  .read<RecommendedAnimeBloc>()
+                  .add(LoadData(state.client));
+              context
+                  .read<TrendingMangaBloc>()
+                  .add(LoadData(state.client));
+              context
+                  .read<RecommendedMangaBloc>()
                   .add(LoadData(state.client));
               context.go('/home');
             }

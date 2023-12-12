@@ -1,9 +1,8 @@
 import 'dart:async';
-
-import 'package:bloc/bloc.dart';
-import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
+import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'dart:developer' as dev;
 import '../../graphql/__generated/graphql/reviews/reviews.graphql.dart';
 
@@ -11,61 +10,36 @@ part 'review_event.dart';
 
 part 'review_state.dart';
 
-class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
-  ReviewBloc() : super(ReviewInitial()) {
-    on<LoadReviews>(
-      _onLoadReviews,
-      transformer: droppable(),
+class ReviewBloc
+    extends PaginatedDataBloc<Query$GetReviews, Fragment$Review> {
+  @override
+  Future<QueryResult<Query$GetReviews>> loadData(GraphQLClient client) {
+    return client.query$GetReviews(
+      Options$Query$GetReviews(
+        variables: Variables$Query$GetReviews(
+          page: page,
+        ),
+      ),
     );
   }
 
-  var _page = 1;
-  var _hasNextPage = true;
-  final List<Query$GetReviews$Page$reviews?> _reviews = [];
-
-  FutureOr<void> _onLoadReviews(
-    LoadReviews event,
-    Emitter<ReviewState> emit,
-  ) async {
-    if (_page == 1) emit(ReviewsLoading());
-    final response =
-        await event.client.query$GetReviews(Options$Query$GetReviews(
-      variables: Variables$Query$GetReviews(
-        page: _page,
-      ),
-    ));
-
-    if (response.hasException) {
-      final exception = response.exception!;
-
-      if (exception.linkException != null) {
-        emit(
-          const ReviewsError('Please check your internet connection!'),
-        );
-      } else {
-        emit(
-          const ReviewsError('Some unexpected error has occurred!'),
-        );
-      }
-    } else {
-      final data = response.parsedData!;
-      _hasNextPage = data.Page!.pageInfo!.hasNextPage!;
-      _page++;
-      _reviews.addAll(data.Page!.reviews!);
-      emit(
-        ReviewsLoaded(
-          reviews: List.from(_reviews),
-          hasNextPage: _hasNextPage,
-        ),
-      );
-    }
-  }
-
-
   @override
-  void onTransition(
-      Transition<ReviewEvent, ReviewState> transition) {
-    dev.log(transition.toString(), name: 'ReviewBloc');
-    super.onTransition(transition);
+  void processData(QueryResult<Query$GetReviews> response) {
+    final data = response.parsedData!;
+    hasNextPage = data.Page!.pageInfo!.hasNextPage!;
+    dev.log('Page: $page', name: 'Review Bloc');
+    page++;
+    list.addAll(data.Page!.reviews!);
+    dev.log('Episodes list size: ${list.length}', name: 'ReviewBloc');
   }
+// var _page = 1;
+// var _hasNextPage = true;
+// final List<Query$GetReviews$Page$reviews?> _reviews = [];
+
+// @override
+// void onTransition(
+//     Transition<ReviewEvent, ReviewState> transition) {
+//   dev.log(transition.toString(), name: 'ReviewBloc');
+//   super.onTransition(transition);
+// }
 }

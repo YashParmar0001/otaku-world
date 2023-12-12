@@ -77,7 +77,7 @@ class LoginScreen extends StatelessWidget {
               context
                   .read<RecommendedMangaBloc>()
                   .add(LoadData(state.client));
-              context.read<ReviewBloc>(). add(LoadReviews(state.client));
+              context.read<ReviewBloc>(). add(LoadData(state.client));
               context.go('/home');
             }
           },

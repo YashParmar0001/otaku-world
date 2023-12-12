@@ -112,16 +112,16 @@ class _CopyWithStubImpl$Variables$Query$GetTrendingAnime<TRes>
   call({int? page}) => _res;
 }
 
-class Query$GetTrendingManga {
-  Query$GetTrendingManga({
+class Query$GetTrendingAnime {
+  Query$GetTrendingAnime({
     this.Page,
     this.$__typename = 'Query',
   });
 
-  factory Query$GetTrendingManga.fromJson(Map<String, dynamic> json) {
+  factory Query$GetTrendingAnime.fromJson(Map<String, dynamic> json) {
     final l$Page = json['Page'];
     final l$$__typename = json['__typename'];
-    return Query$GetTrendingManga(
+    return Query$GetTrendingAnime(
       Page: l$Page == null
           ? null
           : Query$GetTrendingAnime$Page.fromJson(
@@ -158,7 +158,7 @@ class Query$GetTrendingManga {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Query$GetTrendingManga) ||
+    if (!(other is Query$GetTrendingAnime) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -176,8 +176,8 @@ class Query$GetTrendingManga {
   }
 }
 
-extension UtilityExtension$Query$GetTrendingAnime on Query$GetTrendingManga {
-  CopyWith$Query$GetTrendingAnime<Query$GetTrendingManga> get copyWith =>
+extension UtilityExtension$Query$GetTrendingAnime on Query$GetTrendingAnime {
+  CopyWith$Query$GetTrendingAnime<Query$GetTrendingAnime> get copyWith =>
       CopyWith$Query$GetTrendingAnime(
         this,
         (i) => i,
@@ -186,8 +186,8 @@ extension UtilityExtension$Query$GetTrendingAnime on Query$GetTrendingManga {
 
 abstract class CopyWith$Query$GetTrendingAnime<TRes> {
   factory CopyWith$Query$GetTrendingAnime(
-    Query$GetTrendingManga instance,
-    TRes Function(Query$GetTrendingManga) then,
+    Query$GetTrendingAnime instance,
+    TRes Function(Query$GetTrendingAnime) then,
   ) = _CopyWithImpl$Query$GetTrendingAnime;
 
   factory CopyWith$Query$GetTrendingAnime.stub(TRes res) =
@@ -207,9 +207,9 @@ class _CopyWithImpl$Query$GetTrendingAnime<TRes>
     this._then,
   );
 
-  final Query$GetTrendingManga _instance;
+  final Query$GetTrendingAnime _instance;
 
-  final TRes Function(Query$GetTrendingManga) _then;
+  final TRes Function(Query$GetTrendingAnime) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -217,7 +217,7 @@ class _CopyWithImpl$Query$GetTrendingAnime<TRes>
     Object? Page = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Query$GetTrendingManga(
+      _then(Query$GetTrendingAnime(
         Page: Page == _undefined
             ? _instance.Page
             : (Page as Query$GetTrendingAnime$Page?),
@@ -359,16 +359,16 @@ const documentNodeQueryGetTrendingAnime = DocumentNode(definitions: [
   ),
   fragmentDefinitionMediaShort,
 ]);
-Query$GetTrendingManga _parserFn$Query$GetTrendingAnime(
+Query$GetTrendingAnime _parserFn$Query$GetTrendingAnime(
         Map<String, dynamic> data) =>
-    Query$GetTrendingManga.fromJson(data);
+    Query$GetTrendingAnime.fromJson(data);
 typedef OnQueryComplete$Query$GetTrendingAnime = FutureOr<void> Function(
   Map<String, dynamic>?,
-  Query$GetTrendingManga?,
+  Query$GetTrendingAnime?,
 );
 
 class Options$Query$GetTrendingAnime
-    extends graphql.QueryOptions<Query$GetTrendingManga> {
+    extends graphql.QueryOptions<Query$GetTrendingAnime> {
   Options$Query$GetTrendingAnime({
     String? operationName,
     Variables$Query$GetTrendingAnime? variables,
@@ -376,7 +376,7 @@ class Options$Query$GetTrendingAnime
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Query$GetTrendingManga? typedOptimisticResult,
+    Query$GetTrendingAnime? typedOptimisticResult,
     Duration? pollInterval,
     graphql.Context? context,
     OnQueryComplete$Query$GetTrendingAnime? onComplete,
@@ -416,7 +416,7 @@ class Options$Query$GetTrendingAnime
 }
 
 class WatchOptions$Query$GetTrendingAnime
-    extends graphql.WatchQueryOptions<Query$GetTrendingManga> {
+    extends graphql.WatchQueryOptions<Query$GetTrendingAnime> {
   WatchOptions$Query$GetTrendingAnime({
     String? operationName,
     Variables$Query$GetTrendingAnime? variables,
@@ -424,7 +424,7 @@ class WatchOptions$Query$GetTrendingAnime
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Query$GetTrendingManga? typedOptimisticResult,
+    Query$GetTrendingAnime? typedOptimisticResult,
     graphql.Context? context,
     Duration? pollInterval,
     bool? eagerlyFetchResults,
@@ -459,14 +459,14 @@ class FetchMoreOptions$Query$GetTrendingAnime extends graphql.FetchMoreOptions {
 }
 
 extension ClientExtension$Query$GetTrendingAnime on graphql.GraphQLClient {
-  Future<graphql.QueryResult<Query$GetTrendingManga>> query$GetTrendingAnime(
+  Future<graphql.QueryResult<Query$GetTrendingAnime>> query$GetTrendingAnime(
           [Options$Query$GetTrendingAnime? options]) async =>
       await this.query(options ?? Options$Query$GetTrendingAnime());
-  graphql.ObservableQuery<Query$GetTrendingManga> watchQuery$GetTrendingAnime(
+  graphql.ObservableQuery<Query$GetTrendingAnime> watchQuery$GetTrendingAnime(
           [WatchOptions$Query$GetTrendingAnime? options]) =>
       this.watchQuery(options ?? WatchOptions$Query$GetTrendingAnime());
   void writeQuery$GetTrendingAnime({
-    required Query$GetTrendingManga data,
+    required Query$GetTrendingAnime data,
     Variables$Query$GetTrendingAnime? variables,
     bool broadcast = true,
   }) =>
@@ -479,7 +479,7 @@ extension ClientExtension$Query$GetTrendingAnime on graphql.GraphQLClient {
         data: data.toJson(),
         broadcast: broadcast,
       );
-  Query$GetTrendingManga? readQuery$GetTrendingAnime({
+  Query$GetTrendingAnime? readQuery$GetTrendingAnime({
     Variables$Query$GetTrendingAnime? variables,
     bool optimistic = true,
   }) {
@@ -491,24 +491,24 @@ extension ClientExtension$Query$GetTrendingAnime on graphql.GraphQLClient {
       ),
       optimistic: optimistic,
     );
-    return result == null ? null : Query$GetTrendingManga.fromJson(result);
+    return result == null ? null : Query$GetTrendingAnime.fromJson(result);
   }
 }
 
-graphql_flutter.QueryHookResult<Query$GetTrendingManga>
+graphql_flutter.QueryHookResult<Query$GetTrendingAnime>
     useQuery$GetTrendingAnime([Options$Query$GetTrendingAnime? options]) =>
         graphql_flutter.useQuery(options ?? Options$Query$GetTrendingAnime());
-graphql.ObservableQuery<Query$GetTrendingManga> useWatchQuery$GetTrendingAnime(
+graphql.ObservableQuery<Query$GetTrendingAnime> useWatchQuery$GetTrendingAnime(
         [WatchOptions$Query$GetTrendingAnime? options]) =>
     graphql_flutter
         .useWatchQuery(options ?? WatchOptions$Query$GetTrendingAnime());
 
 class Query$GetTrendingAnime$Widget
-    extends graphql_flutter.Query<Query$GetTrendingManga> {
+    extends graphql_flutter.Query<Query$GetTrendingAnime> {
   Query$GetTrendingAnime$Widget({
     widgets.Key? key,
     Options$Query$GetTrendingAnime? options,
-    required graphql_flutter.QueryBuilder<Query$GetTrendingManga> builder,
+    required graphql_flutter.QueryBuilder<Query$GetTrendingAnime> builder,
   }) : super(
           key: key,
           options: options ?? Options$Query$GetTrendingAnime(),

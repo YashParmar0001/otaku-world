@@ -1,6 +1,7 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/reviews/reviews.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/formatting_utils.dart';
@@ -10,7 +11,7 @@ import '../../../generated/assets.dart';
 class ReviewCard extends StatelessWidget {
   const ReviewCard({super.key, required this.reviews});
 
-  final Query$GetReviews$Page$reviews reviews;
+  final Fragment$Review reviews;
 
   @override
   Widget build(BuildContext context) {

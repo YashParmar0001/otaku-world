@@ -44,7 +44,7 @@ class SplashScreen extends StatelessWidget {
                   .add(LoadData(state.client));
 
 
-              context.read<ReviewBloc>().add(LoadReviews(state.client));
+              context.read<ReviewBloc>().add(LoadData(state.client));
 
 
               context

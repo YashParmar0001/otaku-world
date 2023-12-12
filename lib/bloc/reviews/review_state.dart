@@ -17,7 +17,7 @@ class ReviewsLoaded extends ReviewState {
     required this.hasNextPage,
   });
 
-  final List<Query$GetReviews$Page$reviews?> reviews;
+  final List<Fragment$Review?> reviews;
   final bool hasNextPage;
 
   @override

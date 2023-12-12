@@ -4,28 +4,7 @@ query  GetReviews($page:Int){
             hasNextPage
         }
         reviews(sort: [CREATED_AT_DESC]){
-            id
-            summary
-            userRating
-            rating
-            ratingAmount
-            createdAt
-            updatedAt
-            user {
-                name
-                avatar {
-                    large
-                }
-            }
-
-            media {
-                averageScore
-                bannerImage
-                title {
-                    userPreferred
-                }
-            }
-
+          ...Review
         }
     }
 }

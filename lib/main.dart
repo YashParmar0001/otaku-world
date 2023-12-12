@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
+import 'package:otaku_world/bloc/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/recommended_anime/recommended_anime_bloc.dart';
 import 'package:otaku_world/bloc/recommended_manga/recommended_manga_bloc.dart';
@@ -42,6 +43,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => RecommendedMangaBloc(),
+        ),
+        BlocProvider(
+          create: (context) => BottomNavBarCubit(),
         ),
       ],
       child: MaterialApp.router(

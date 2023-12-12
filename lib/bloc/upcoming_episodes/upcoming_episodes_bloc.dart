@@ -13,6 +13,8 @@ class UpcomingEpisodesBloc extends PaginatedDataBloc<
       ) async {
     return client.query$GetUpcomingEpisodes(
       Options$Query$GetUpcomingEpisodes(
+        cacheRereadPolicy: CacheRereadPolicy.ignoreAll,
+        fetchPolicy: FetchPolicy.networkOnly,
         variables: Variables$Query$GetUpcomingEpisodes(
           page: page,
         ),

@@ -7,6 +7,12 @@ abstract class PaginatedDataEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+class RefreshData extends PaginatedDataEvent {
+  const RefreshData(this.client);
+
+  final GraphQLClient client;
+}
+
 class LoadData extends PaginatedDataEvent {
   const LoadData(this.client);
 

@@ -2,6 +2,7 @@ import 'dart:developer' as dev;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,6 +15,7 @@ import 'package:otaku_world/bloc/trending_anime/trending_anime_bloc.dart';
 import 'package:otaku_world/bloc/trending_manga/trending_manga_bloc.dart';
 import 'package:otaku_world/core/ui/error_text.dart';
 import 'package:otaku_world/core/ui/media_section.dart';
+import 'package:otaku_world/core/ui/my_refresh_indicator.dart';
 import 'package:otaku_world/core/ui/shimmer_loader_list.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/graphql/__generated/graphql/home/upcoming_episodes.graphql.dart';
@@ -22,6 +24,7 @@ import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/formatting_utils.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
 
+import '../../../bloc/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import '../../../bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import '../../../constants/string_constants.dart';
 import '../widgets/feature_card.dart';
@@ -35,6 +38,9 @@ class HomeScreen extends HookWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     final upcomingEpisodesController = useScrollController();
+    final scaffoldController = useScrollController();
+
+    final bottomBarBloc = context.read<BottomNavBarCubit>();
 
     useEffect(() {
       upcomingEpisodesController.addListener(() {
@@ -54,12 +60,31 @@ class HomeScreen extends HookWidget {
           }
         }
       });
+
+      scaffoldController.addListener(() {
+        final direction = scaffoldController.position.userScrollDirection;
+        if (direction == ScrollDirection.forward) {
+          if (bottomBarBloc.state is BottomNavBarNotVisible) {
+            bottomBarBloc.showBottomBar();
+          }
+        } else if (direction == ScrollDirection.reverse) {
+          if (bottomBarBloc.state is BottomNavBarVisible) {
+            bottomBarBloc.hideBottomBar();
+          }
+        }
+      });
       return null;
     }, const []);
 
-    return RefreshIndicator(
-      onRefresh: () async {},
+    return PlaneIndicator(
+      onRefresh: () async {
+        return Future.delayed(
+          const Duration(seconds: 1),
+          () => _refreshPage(context),
+        );
+      },
       child: SingleChildScrollView(
+        controller: scaffoldController,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -150,6 +175,17 @@ class HomeScreen extends HookWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _refreshPage(BuildContext context) async {
+    final client =
+        (context.read<GraphqlClientCubit>().state as GraphqlClientInitialized)
+            .client;
+    context.read<UpcomingEpisodesBloc>().add(RefreshData(client));
+    context.read<TrendingAnimeBloc>().add(RefreshData(client));
+    context.read<RecommendedAnimeBloc>().add(RefreshData(client));
+    context.read<TrendingMangaBloc>().add(RefreshData(client));
+    context.read<RecommendedMangaBloc>().add(RefreshData(client));
   }
 
   Widget _buildUpcomingEpisodesSection(

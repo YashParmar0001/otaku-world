@@ -57,6 +57,8 @@ abstract class PaginatedDataBloc<Q, E>
 
   void processData(QueryResult<Q> response);
 
+
+
   @override
   void onTransition(
       Transition<PaginatedDataEvent, PaginatedDataState> transition) {

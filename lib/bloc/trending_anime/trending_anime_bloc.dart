@@ -1,14 +1,17 @@
 import 'dart:developer' as dev;
 
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
-import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/home/trending_anime.graphql.dart';
 
+import '../../graphql/__generated/graphql/fragments.graphql.dart';
+
+import '../paginated_data/paginated_data_bloc.dart';
+
+
 class TrendingAnimeBloc
-    extends PaginatedDataBloc<Query$GetTrendingManga, Fragment$MediaShort> {
+    extends PaginatedDataBloc<Query$GetTrendingAnime, Fragment$MediaShort> {
   @override
-  Future<QueryResult<Query$GetTrendingManga>> loadData(GraphQLClient client) {
+  Future<QueryResult<Query$GetTrendingAnime>> loadData(GraphQLClient client) {
     return client.query$GetTrendingAnime(
       Options$Query$GetTrendingAnime(
         variables: Variables$Query$GetTrendingAnime(page: page),
@@ -17,7 +20,7 @@ class TrendingAnimeBloc
   }
 
   @override
-  void processData(QueryResult<Query$GetTrendingManga> response) {
+  void processData(QueryResult<Query$GetTrendingAnime> response) {
     final data = response.parsedData!;
     hasNextPage = data.Page!.pageInfo!.hasNextPage!;
     dev.log('Page: $page', name: 'TrendingAnimeBloc');

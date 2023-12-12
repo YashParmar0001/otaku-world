@@ -1,4 +1,4 @@
-import 'dart:developer' as dev;
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,8 +9,13 @@ import 'package:otaku_world/bloc/trending_manga/trending_manga_bloc.dart';
 
 import '../../../bloc/auth/auth_cubit.dart';
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
+
+
+import '../../../bloc/reviews/review_bloc.dart';
+
 import '../../../bloc/paginated_data/paginated_data_bloc.dart';
 import '../../../bloc/trending_anime/trending_anime_bloc.dart';
+
 import '../../../bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -37,6 +42,11 @@ class SplashScreen extends StatelessWidget {
               context
                   .read<UpcomingEpisodesBloc>()
                   .add(LoadData(state.client));
+
+
+              context.read<ReviewBloc>().add(LoadData(state.client));
+
+
               context
                   .read<TrendingAnimeBloc>()
                   .add(LoadData(state.client));

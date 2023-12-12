@@ -87,7 +87,7 @@ class HomeScreen extends HookWidget {
               ),
               child: FeatureCard(
                 onTap: () {
-                  UIUtils.showSnackBar(context, 'Coming soon..');
+                 context.push('/reviews');
                 },
                 heading: HomeConstants.reviewsHeading,
                 subheading: HomeConstants.reviewsSubheading,

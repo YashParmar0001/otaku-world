@@ -40,3 +40,30 @@ fragment MediaShort on Media {
         id
     }
 }
+fragment Review on Review{
+    id
+    summary
+    userRating
+    rating
+    ratingAmount
+    body
+    score
+    mediaId
+    createdAt
+    updatedAt
+    user {
+        name
+        avatar {
+            large
+        }
+    }
+
+    media {
+        averageScore
+        bannerImage
+        title {
+            userPreferred
+        }
+    }
+
+}

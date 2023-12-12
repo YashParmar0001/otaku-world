@@ -1982,3 +1982,1172 @@ class _CopyWithStubImpl$Fragment$MediaShort$mediaListEntry<TRes>
   }) =>
       _res;
 }
+
+class Fragment$Review {
+  Fragment$Review({
+    required this.id,
+    this.summary,
+    this.userRating,
+    this.rating,
+    this.ratingAmount,
+    this.body,
+    this.score,
+    required this.mediaId,
+    required this.createdAt,
+    required this.updatedAt,
+    this.user,
+    this.media,
+    this.$__typename = 'Review',
+  });
+
+  factory Fragment$Review.fromJson(Map<String, dynamic> json) {
+    final l$id = json['id'];
+    final l$summary = json['summary'];
+    final l$userRating = json['userRating'];
+    final l$rating = json['rating'];
+    final l$ratingAmount = json['ratingAmount'];
+    final l$body = json['body'];
+    final l$score = json['score'];
+    final l$mediaId = json['mediaId'];
+    final l$createdAt = json['createdAt'];
+    final l$updatedAt = json['updatedAt'];
+    final l$user = json['user'];
+    final l$media = json['media'];
+    final l$$__typename = json['__typename'];
+    return Fragment$Review(
+      id: (l$id as int),
+      summary: (l$summary as String?),
+      userRating: l$userRating == null
+          ? null
+          : fromJson$Enum$ReviewRating((l$userRating as String)),
+      rating: (l$rating as int?),
+      ratingAmount: (l$ratingAmount as int?),
+      body: (l$body as String?),
+      score: (l$score as int?),
+      mediaId: (l$mediaId as int),
+      createdAt: (l$createdAt as int),
+      updatedAt: (l$updatedAt as int),
+      user: l$user == null
+          ? null
+          : Fragment$Review$user.fromJson((l$user as Map<String, dynamic>)),
+      media: l$media == null
+          ? null
+          : Fragment$Review$media.fromJson((l$media as Map<String, dynamic>)),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final int id;
+
+  final String? summary;
+
+  final Enum$ReviewRating? userRating;
+
+  final int? rating;
+
+  final int? ratingAmount;
+
+  final String? body;
+
+  final int? score;
+
+  final int mediaId;
+
+  final int createdAt;
+
+  final int updatedAt;
+
+  final Fragment$Review$user? user;
+
+  final Fragment$Review$media? media;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$id = id;
+    _resultData['id'] = l$id;
+    final l$summary = summary;
+    _resultData['summary'] = l$summary;
+    final l$userRating = userRating;
+    _resultData['userRating'] =
+        l$userRating == null ? null : toJson$Enum$ReviewRating(l$userRating);
+    final l$rating = rating;
+    _resultData['rating'] = l$rating;
+    final l$ratingAmount = ratingAmount;
+    _resultData['ratingAmount'] = l$ratingAmount;
+    final l$body = body;
+    _resultData['body'] = l$body;
+    final l$score = score;
+    _resultData['score'] = l$score;
+    final l$mediaId = mediaId;
+    _resultData['mediaId'] = l$mediaId;
+    final l$createdAt = createdAt;
+    _resultData['createdAt'] = l$createdAt;
+    final l$updatedAt = updatedAt;
+    _resultData['updatedAt'] = l$updatedAt;
+    final l$user = user;
+    _resultData['user'] = l$user?.toJson();
+    final l$media = media;
+    _resultData['media'] = l$media?.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$id = id;
+    final l$summary = summary;
+    final l$userRating = userRating;
+    final l$rating = rating;
+    final l$ratingAmount = ratingAmount;
+    final l$body = body;
+    final l$score = score;
+    final l$mediaId = mediaId;
+    final l$createdAt = createdAt;
+    final l$updatedAt = updatedAt;
+    final l$user = user;
+    final l$media = media;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$id,
+      l$summary,
+      l$userRating,
+      l$rating,
+      l$ratingAmount,
+      l$body,
+      l$score,
+      l$mediaId,
+      l$createdAt,
+      l$updatedAt,
+      l$user,
+      l$media,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Fragment$Review) || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) {
+      return false;
+    }
+    final l$summary = summary;
+    final lOther$summary = other.summary;
+    if (l$summary != lOther$summary) {
+      return false;
+    }
+    final l$userRating = userRating;
+    final lOther$userRating = other.userRating;
+    if (l$userRating != lOther$userRating) {
+      return false;
+    }
+    final l$rating = rating;
+    final lOther$rating = other.rating;
+    if (l$rating != lOther$rating) {
+      return false;
+    }
+    final l$ratingAmount = ratingAmount;
+    final lOther$ratingAmount = other.ratingAmount;
+    if (l$ratingAmount != lOther$ratingAmount) {
+      return false;
+    }
+    final l$body = body;
+    final lOther$body = other.body;
+    if (l$body != lOther$body) {
+      return false;
+    }
+    final l$score = score;
+    final lOther$score = other.score;
+    if (l$score != lOther$score) {
+      return false;
+    }
+    final l$mediaId = mediaId;
+    final lOther$mediaId = other.mediaId;
+    if (l$mediaId != lOther$mediaId) {
+      return false;
+    }
+    final l$createdAt = createdAt;
+    final lOther$createdAt = other.createdAt;
+    if (l$createdAt != lOther$createdAt) {
+      return false;
+    }
+    final l$updatedAt = updatedAt;
+    final lOther$updatedAt = other.updatedAt;
+    if (l$updatedAt != lOther$updatedAt) {
+      return false;
+    }
+    final l$user = user;
+    final lOther$user = other.user;
+    if (l$user != lOther$user) {
+      return false;
+    }
+    final l$media = media;
+    final lOther$media = other.media;
+    if (l$media != lOther$media) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Fragment$Review on Fragment$Review {
+  CopyWith$Fragment$Review<Fragment$Review> get copyWith =>
+      CopyWith$Fragment$Review(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Fragment$Review<TRes> {
+  factory CopyWith$Fragment$Review(
+    Fragment$Review instance,
+    TRes Function(Fragment$Review) then,
+  ) = _CopyWithImpl$Fragment$Review;
+
+  factory CopyWith$Fragment$Review.stub(TRes res) =
+      _CopyWithStubImpl$Fragment$Review;
+
+  TRes call({
+    int? id,
+    String? summary,
+    Enum$ReviewRating? userRating,
+    int? rating,
+    int? ratingAmount,
+    String? body,
+    int? score,
+    int? mediaId,
+    int? createdAt,
+    int? updatedAt,
+    Fragment$Review$user? user,
+    Fragment$Review$media? media,
+    String? $__typename,
+  });
+  CopyWith$Fragment$Review$user<TRes> get user;
+  CopyWith$Fragment$Review$media<TRes> get media;
+}
+
+class _CopyWithImpl$Fragment$Review<TRes>
+    implements CopyWith$Fragment$Review<TRes> {
+  _CopyWithImpl$Fragment$Review(
+    this._instance,
+    this._then,
+  );
+
+  final Fragment$Review _instance;
+
+  final TRes Function(Fragment$Review) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? id = _undefined,
+    Object? summary = _undefined,
+    Object? userRating = _undefined,
+    Object? rating = _undefined,
+    Object? ratingAmount = _undefined,
+    Object? body = _undefined,
+    Object? score = _undefined,
+    Object? mediaId = _undefined,
+    Object? createdAt = _undefined,
+    Object? updatedAt = _undefined,
+    Object? user = _undefined,
+    Object? media = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Fragment$Review(
+        id: id == _undefined || id == null ? _instance.id : (id as int),
+        summary:
+            summary == _undefined ? _instance.summary : (summary as String?),
+        userRating: userRating == _undefined
+            ? _instance.userRating
+            : (userRating as Enum$ReviewRating?),
+        rating: rating == _undefined ? _instance.rating : (rating as int?),
+        ratingAmount: ratingAmount == _undefined
+            ? _instance.ratingAmount
+            : (ratingAmount as int?),
+        body: body == _undefined ? _instance.body : (body as String?),
+        score: score == _undefined ? _instance.score : (score as int?),
+        mediaId: mediaId == _undefined || mediaId == null
+            ? _instance.mediaId
+            : (mediaId as int),
+        createdAt: createdAt == _undefined || createdAt == null
+            ? _instance.createdAt
+            : (createdAt as int),
+        updatedAt: updatedAt == _undefined || updatedAt == null
+            ? _instance.updatedAt
+            : (updatedAt as int),
+        user: user == _undefined
+            ? _instance.user
+            : (user as Fragment$Review$user?),
+        media: media == _undefined
+            ? _instance.media
+            : (media as Fragment$Review$media?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+
+  CopyWith$Fragment$Review$user<TRes> get user {
+    final local$user = _instance.user;
+    return local$user == null
+        ? CopyWith$Fragment$Review$user.stub(_then(_instance))
+        : CopyWith$Fragment$Review$user(local$user, (e) => call(user: e));
+  }
+
+  CopyWith$Fragment$Review$media<TRes> get media {
+    final local$media = _instance.media;
+    return local$media == null
+        ? CopyWith$Fragment$Review$media.stub(_then(_instance))
+        : CopyWith$Fragment$Review$media(local$media, (e) => call(media: e));
+  }
+}
+
+class _CopyWithStubImpl$Fragment$Review<TRes>
+    implements CopyWith$Fragment$Review<TRes> {
+  _CopyWithStubImpl$Fragment$Review(this._res);
+
+  TRes _res;
+
+  call({
+    int? id,
+    String? summary,
+    Enum$ReviewRating? userRating,
+    int? rating,
+    int? ratingAmount,
+    String? body,
+    int? score,
+    int? mediaId,
+    int? createdAt,
+    int? updatedAt,
+    Fragment$Review$user? user,
+    Fragment$Review$media? media,
+    String? $__typename,
+  }) =>
+      _res;
+
+  CopyWith$Fragment$Review$user<TRes> get user =>
+      CopyWith$Fragment$Review$user.stub(_res);
+
+  CopyWith$Fragment$Review$media<TRes> get media =>
+      CopyWith$Fragment$Review$media.stub(_res);
+}
+
+const fragmentDefinitionReview = FragmentDefinitionNode(
+  name: NameNode(value: 'Review'),
+  typeCondition: TypeConditionNode(
+      on: NamedTypeNode(
+    name: NameNode(value: 'Review'),
+    isNonNull: false,
+  )),
+  directives: [],
+  selectionSet: SelectionSetNode(selections: [
+    FieldNode(
+      name: NameNode(value: 'id'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'summary'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'userRating'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'rating'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'ratingAmount'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'body'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'score'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'mediaId'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'createdAt'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'updatedAt'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'user'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: SelectionSetNode(selections: [
+        FieldNode(
+          name: NameNode(value: 'name'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        FieldNode(
+          name: NameNode(value: 'avatar'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: SelectionSetNode(selections: [
+            FieldNode(
+              name: NameNode(value: 'large'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            FieldNode(
+              name: NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
+        FieldNode(
+          name: NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    FieldNode(
+      name: NameNode(value: 'media'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: SelectionSetNode(selections: [
+        FieldNode(
+          name: NameNode(value: 'averageScore'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        FieldNode(
+          name: NameNode(value: 'bannerImage'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        FieldNode(
+          name: NameNode(value: 'title'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: SelectionSetNode(selections: [
+            FieldNode(
+              name: NameNode(value: 'userPreferred'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            FieldNode(
+              name: NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
+        FieldNode(
+          name: NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    FieldNode(
+      name: NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
+const documentNodeFragmentReview = DocumentNode(definitions: [
+  fragmentDefinitionReview,
+]);
+
+extension ClientExtension$Fragment$Review on graphql.GraphQLClient {
+  void writeFragment$Review({
+    required Fragment$Review data,
+    required Map<String, dynamic> idFields,
+    bool broadcast = true,
+  }) =>
+      this.writeFragment(
+        graphql.FragmentRequest(
+          idFields: idFields,
+          fragment: const graphql.Fragment(
+            fragmentName: 'Review',
+            document: documentNodeFragmentReview,
+          ),
+        ),
+        data: data.toJson(),
+        broadcast: broadcast,
+      );
+  Fragment$Review? readFragment$Review({
+    required Map<String, dynamic> idFields,
+    bool optimistic = true,
+  }) {
+    final result = this.readFragment(
+      graphql.FragmentRequest(
+        idFields: idFields,
+        fragment: const graphql.Fragment(
+          fragmentName: 'Review',
+          document: documentNodeFragmentReview,
+        ),
+      ),
+      optimistic: optimistic,
+    );
+    return result == null ? null : Fragment$Review.fromJson(result);
+  }
+}
+
+class Fragment$Review$user {
+  Fragment$Review$user({
+    required this.name,
+    this.avatar,
+    this.$__typename = 'User',
+  });
+
+  factory Fragment$Review$user.fromJson(Map<String, dynamic> json) {
+    final l$name = json['name'];
+    final l$avatar = json['avatar'];
+    final l$$__typename = json['__typename'];
+    return Fragment$Review$user(
+      name: (l$name as String),
+      avatar: l$avatar == null
+          ? null
+          : Fragment$Review$user$avatar.fromJson(
+              (l$avatar as Map<String, dynamic>)),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String name;
+
+  final Fragment$Review$user$avatar? avatar;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$name = name;
+    _resultData['name'] = l$name;
+    final l$avatar = avatar;
+    _resultData['avatar'] = l$avatar?.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$name = name;
+    final l$avatar = avatar;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$name,
+      l$avatar,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Fragment$Review$user) || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
+    final l$avatar = avatar;
+    final lOther$avatar = other.avatar;
+    if (l$avatar != lOther$avatar) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Fragment$Review$user on Fragment$Review$user {
+  CopyWith$Fragment$Review$user<Fragment$Review$user> get copyWith =>
+      CopyWith$Fragment$Review$user(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Fragment$Review$user<TRes> {
+  factory CopyWith$Fragment$Review$user(
+    Fragment$Review$user instance,
+    TRes Function(Fragment$Review$user) then,
+  ) = _CopyWithImpl$Fragment$Review$user;
+
+  factory CopyWith$Fragment$Review$user.stub(TRes res) =
+      _CopyWithStubImpl$Fragment$Review$user;
+
+  TRes call({
+    String? name,
+    Fragment$Review$user$avatar? avatar,
+    String? $__typename,
+  });
+  CopyWith$Fragment$Review$user$avatar<TRes> get avatar;
+}
+
+class _CopyWithImpl$Fragment$Review$user<TRes>
+    implements CopyWith$Fragment$Review$user<TRes> {
+  _CopyWithImpl$Fragment$Review$user(
+    this._instance,
+    this._then,
+  );
+
+  final Fragment$Review$user _instance;
+
+  final TRes Function(Fragment$Review$user) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? name = _undefined,
+    Object? avatar = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Fragment$Review$user(
+        name: name == _undefined || name == null
+            ? _instance.name
+            : (name as String),
+        avatar: avatar == _undefined
+            ? _instance.avatar
+            : (avatar as Fragment$Review$user$avatar?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+
+  CopyWith$Fragment$Review$user$avatar<TRes> get avatar {
+    final local$avatar = _instance.avatar;
+    return local$avatar == null
+        ? CopyWith$Fragment$Review$user$avatar.stub(_then(_instance))
+        : CopyWith$Fragment$Review$user$avatar(
+            local$avatar, (e) => call(avatar: e));
+  }
+}
+
+class _CopyWithStubImpl$Fragment$Review$user<TRes>
+    implements CopyWith$Fragment$Review$user<TRes> {
+  _CopyWithStubImpl$Fragment$Review$user(this._res);
+
+  TRes _res;
+
+  call({
+    String? name,
+    Fragment$Review$user$avatar? avatar,
+    String? $__typename,
+  }) =>
+      _res;
+
+  CopyWith$Fragment$Review$user$avatar<TRes> get avatar =>
+      CopyWith$Fragment$Review$user$avatar.stub(_res);
+}
+
+class Fragment$Review$user$avatar {
+  Fragment$Review$user$avatar({
+    this.large,
+    this.$__typename = 'UserAvatar',
+  });
+
+  factory Fragment$Review$user$avatar.fromJson(Map<String, dynamic> json) {
+    final l$large = json['large'];
+    final l$$__typename = json['__typename'];
+    return Fragment$Review$user$avatar(
+      large: (l$large as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? large;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$large = large;
+    _resultData['large'] = l$large;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$large = large;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$large,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Fragment$Review$user$avatar) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$large = large;
+    final lOther$large = other.large;
+    if (l$large != lOther$large) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Fragment$Review$user$avatar
+    on Fragment$Review$user$avatar {
+  CopyWith$Fragment$Review$user$avatar<Fragment$Review$user$avatar>
+      get copyWith => CopyWith$Fragment$Review$user$avatar(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Fragment$Review$user$avatar<TRes> {
+  factory CopyWith$Fragment$Review$user$avatar(
+    Fragment$Review$user$avatar instance,
+    TRes Function(Fragment$Review$user$avatar) then,
+  ) = _CopyWithImpl$Fragment$Review$user$avatar;
+
+  factory CopyWith$Fragment$Review$user$avatar.stub(TRes res) =
+      _CopyWithStubImpl$Fragment$Review$user$avatar;
+
+  TRes call({
+    String? large,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Fragment$Review$user$avatar<TRes>
+    implements CopyWith$Fragment$Review$user$avatar<TRes> {
+  _CopyWithImpl$Fragment$Review$user$avatar(
+    this._instance,
+    this._then,
+  );
+
+  final Fragment$Review$user$avatar _instance;
+
+  final TRes Function(Fragment$Review$user$avatar) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? large = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Fragment$Review$user$avatar(
+        large: large == _undefined ? _instance.large : (large as String?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Fragment$Review$user$avatar<TRes>
+    implements CopyWith$Fragment$Review$user$avatar<TRes> {
+  _CopyWithStubImpl$Fragment$Review$user$avatar(this._res);
+
+  TRes _res;
+
+  call({
+    String? large,
+    String? $__typename,
+  }) =>
+      _res;
+}
+
+class Fragment$Review$media {
+  Fragment$Review$media({
+    this.averageScore,
+    this.bannerImage,
+    this.title,
+    this.$__typename = 'Media',
+  });
+
+  factory Fragment$Review$media.fromJson(Map<String, dynamic> json) {
+    final l$averageScore = json['averageScore'];
+    final l$bannerImage = json['bannerImage'];
+    final l$title = json['title'];
+    final l$$__typename = json['__typename'];
+    return Fragment$Review$media(
+      averageScore: (l$averageScore as int?),
+      bannerImage: (l$bannerImage as String?),
+      title: l$title == null
+          ? null
+          : Fragment$Review$media$title.fromJson(
+              (l$title as Map<String, dynamic>)),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final int? averageScore;
+
+  final String? bannerImage;
+
+  final Fragment$Review$media$title? title;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$averageScore = averageScore;
+    _resultData['averageScore'] = l$averageScore;
+    final l$bannerImage = bannerImage;
+    _resultData['bannerImage'] = l$bannerImage;
+    final l$title = title;
+    _resultData['title'] = l$title?.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$averageScore = averageScore;
+    final l$bannerImage = bannerImage;
+    final l$title = title;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$averageScore,
+      l$bannerImage,
+      l$title,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Fragment$Review$media) || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$averageScore = averageScore;
+    final lOther$averageScore = other.averageScore;
+    if (l$averageScore != lOther$averageScore) {
+      return false;
+    }
+    final l$bannerImage = bannerImage;
+    final lOther$bannerImage = other.bannerImage;
+    if (l$bannerImage != lOther$bannerImage) {
+      return false;
+    }
+    final l$title = title;
+    final lOther$title = other.title;
+    if (l$title != lOther$title) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Fragment$Review$media on Fragment$Review$media {
+  CopyWith$Fragment$Review$media<Fragment$Review$media> get copyWith =>
+      CopyWith$Fragment$Review$media(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Fragment$Review$media<TRes> {
+  factory CopyWith$Fragment$Review$media(
+    Fragment$Review$media instance,
+    TRes Function(Fragment$Review$media) then,
+  ) = _CopyWithImpl$Fragment$Review$media;
+
+  factory CopyWith$Fragment$Review$media.stub(TRes res) =
+      _CopyWithStubImpl$Fragment$Review$media;
+
+  TRes call({
+    int? averageScore,
+    String? bannerImage,
+    Fragment$Review$media$title? title,
+    String? $__typename,
+  });
+  CopyWith$Fragment$Review$media$title<TRes> get title;
+}
+
+class _CopyWithImpl$Fragment$Review$media<TRes>
+    implements CopyWith$Fragment$Review$media<TRes> {
+  _CopyWithImpl$Fragment$Review$media(
+    this._instance,
+    this._then,
+  );
+
+  final Fragment$Review$media _instance;
+
+  final TRes Function(Fragment$Review$media) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? averageScore = _undefined,
+    Object? bannerImage = _undefined,
+    Object? title = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Fragment$Review$media(
+        averageScore: averageScore == _undefined
+            ? _instance.averageScore
+            : (averageScore as int?),
+        bannerImage: bannerImage == _undefined
+            ? _instance.bannerImage
+            : (bannerImage as String?),
+        title: title == _undefined
+            ? _instance.title
+            : (title as Fragment$Review$media$title?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+
+  CopyWith$Fragment$Review$media$title<TRes> get title {
+    final local$title = _instance.title;
+    return local$title == null
+        ? CopyWith$Fragment$Review$media$title.stub(_then(_instance))
+        : CopyWith$Fragment$Review$media$title(
+            local$title, (e) => call(title: e));
+  }
+}
+
+class _CopyWithStubImpl$Fragment$Review$media<TRes>
+    implements CopyWith$Fragment$Review$media<TRes> {
+  _CopyWithStubImpl$Fragment$Review$media(this._res);
+
+  TRes _res;
+
+  call({
+    int? averageScore,
+    String? bannerImage,
+    Fragment$Review$media$title? title,
+    String? $__typename,
+  }) =>
+      _res;
+
+  CopyWith$Fragment$Review$media$title<TRes> get title =>
+      CopyWith$Fragment$Review$media$title.stub(_res);
+}
+
+class Fragment$Review$media$title {
+  Fragment$Review$media$title({
+    this.userPreferred,
+    this.$__typename = 'MediaTitle',
+  });
+
+  factory Fragment$Review$media$title.fromJson(Map<String, dynamic> json) {
+    final l$userPreferred = json['userPreferred'];
+    final l$$__typename = json['__typename'];
+    return Fragment$Review$media$title(
+      userPreferred: (l$userPreferred as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? userPreferred;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$userPreferred = userPreferred;
+    _resultData['userPreferred'] = l$userPreferred;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$userPreferred = userPreferred;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$userPreferred,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Fragment$Review$media$title) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$userPreferred = userPreferred;
+    final lOther$userPreferred = other.userPreferred;
+    if (l$userPreferred != lOther$userPreferred) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Fragment$Review$media$title
+    on Fragment$Review$media$title {
+  CopyWith$Fragment$Review$media$title<Fragment$Review$media$title>
+      get copyWith => CopyWith$Fragment$Review$media$title(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Fragment$Review$media$title<TRes> {
+  factory CopyWith$Fragment$Review$media$title(
+    Fragment$Review$media$title instance,
+    TRes Function(Fragment$Review$media$title) then,
+  ) = _CopyWithImpl$Fragment$Review$media$title;
+
+  factory CopyWith$Fragment$Review$media$title.stub(TRes res) =
+      _CopyWithStubImpl$Fragment$Review$media$title;
+
+  TRes call({
+    String? userPreferred,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Fragment$Review$media$title<TRes>
+    implements CopyWith$Fragment$Review$media$title<TRes> {
+  _CopyWithImpl$Fragment$Review$media$title(
+    this._instance,
+    this._then,
+  );
+
+  final Fragment$Review$media$title _instance;
+
+  final TRes Function(Fragment$Review$media$title) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? userPreferred = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Fragment$Review$media$title(
+        userPreferred: userPreferred == _undefined
+            ? _instance.userPreferred
+            : (userPreferred as String?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Fragment$Review$media$title<TRes>
+    implements CopyWith$Fragment$Review$media$title<TRes> {
+  _CopyWithStubImpl$Fragment$Review$media$title(this._res);
+
+  TRes _res;
+
+  call({
+    String? userPreferred,
+    String? $__typename,
+  }) =>
+      _res;
+}

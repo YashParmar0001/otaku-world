@@ -9,14 +9,15 @@ import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
 import 'package:otaku_world/core/ui/error_text.dart';
 import 'package:otaku_world/core/ui/list_progress_indicator.dart';
-import 'package:otaku_world/core/ui/shimmer_loader_list.dart';
+import 'package:otaku_world/core/ui/media_section/scroll_to_left_button.dart';
+import 'package:otaku_world/core/ui/shimmers/shimmer_loader_list.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/services/caching/image_cache_manager.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
 
-import '../../graphql/__generated/graphql/schema.graphql.dart';
+import '../../../graphql/__generated/graphql/schema.graphql.dart';
 
 class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
   const MediaSection({
@@ -34,6 +35,7 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    dev.log('Rebuilding the media section', name: 'MediaSection');
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -87,7 +89,7 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
                 ),
                 Row(
                   children: [
-                    InkWell(
+                    GestureDetector(
                       onTap: onSliderPressed,
                       child: Padding(
                         padding: const EdgeInsets.only(
@@ -98,7 +100,7 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
                         child: SvgPicture.asset(Assets.iconsViewSlider),
                       ),
                     ),
-                    InkWell(
+                    GestureDetector(
                       onTap: onMorePressed,
                       child: Padding(
                         padding: const EdgeInsets.only(
@@ -159,148 +161,157 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
       ),
     );
   }
-}
 
-Widget _buildMediaList(
-  List<Fragment$MediaShort?> mediaList,
-  bool hasNextPage,
-  ScrollController controller,
-) {
-  return SizedBox(
-    height: 205,
-    child: CustomScrollView(
-      scrollDirection: Axis.horizontal,
-      clipBehavior: Clip.none,
-      controller: controller,
-      slivers: [
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) => _buildMediaCard(context, mediaList[index]),
-            childCount: mediaList.length,
-          ),
-        ),
-        if (hasNextPage)
-          const SliverToBoxAdapter(
-            child: ListProgressIndicator(),
-          ),
-      ],
-    ),
-  );
-}
-
-Widget _buildMediaCard(BuildContext context, Fragment$MediaShort? media) {
-  if (media == null) return const SizedBox();
-
-  return Container(
-    margin: const EdgeInsets.only(
-      right: 15,
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Stack(
-          children: [
-            _buildMediaPoster(
-              media.coverImage?.large,
-              media.type!,
-            ),
-            // Mean score
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: _buildMeanScore(
-                context,
-                media.meanScore,
+  Widget _buildMediaList(
+    List<Fragment$MediaShort?> mediaList,
+    bool hasNextPage,
+    ScrollController controller,
+  ) {
+    return SizedBox(
+      height: 205,
+      child: Stack(
+        children: [
+          CustomScrollView(
+            scrollDirection: Axis.horizontal,
+            clipBehavior: Clip.none,
+            controller: controller,
+            slivers: [
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) =>
+                      _buildMediaCard(context, mediaList[index]),
+                  childCount: mediaList.length,
+                ),
               ),
+              if (hasNextPage)
+                const SliverToBoxAdapter(
+                  child: ListProgressIndicator(),
+                ),
+            ],
+          ),
+          ScrollToLeftFAB(controller: controller),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMediaCard(BuildContext context, Fragment$MediaShort? media) {
+    if (media == null) return const SizedBox();
+
+    return Container(
+      margin: const EdgeInsets.only(
+        right: 15,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              _buildMediaPoster(
+                media.coverImage?.large,
+                media.type!,
+              ),
+              // Mean score
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: _buildMeanScore(
+                  context,
+                  media.meanScore,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          // Manga title
+          SizedBox(
+            width: 115,
+            child: Text(
+              getTitle(media.title) ?? 'No Title',
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontFamily: 'Roboto-Condensed',
+                  ),
             ),
-          ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  String? getTitle(Fragment$MediaShort$title? title) {
+    return title?.english ?? title?.romaji ?? title?.native;
+  }
+
+  Widget _buildMeanScore(BuildContext context, int? meanScore) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 4,
+        vertical: 3,
+      ),
+      decoration: const ShapeDecoration(
+        color: AppColors.raisinBlack,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(5),
+          ),
         ),
-        const SizedBox(
-          height: 5,
-        ),
-        // Manga title
-        SizedBox(
-          width: 115,
-          child: Text(
-            getTitle(media.title) ?? 'No Title',
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+      ),
+      child: Row(
+        children: [
+          SvgPicture.asset(Assets.iconsStar),
+          const SizedBox(
+            width: 1,
+          ),
+          Text(
+            (meanScore == null) ? '0' : meanScore.toString(),
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontFamily: 'Roboto-Condensed',
                 ),
           ),
-        ),
-      ],
-    ),
-  );
-}
-
-String? getTitle(Fragment$MediaShort$title? title) {
-  return title?.english ?? title?.romaji ?? title?.native;
-}
-
-Widget _buildMeanScore(BuildContext context, int? meanScore) {
-  return Container(
-    padding: const EdgeInsets.symmetric(
-      horizontal: 4,
-      vertical: 3,
-    ),
-    decoration: const ShapeDecoration(
-      color: AppColors.raisinBlack,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(5),
-        ),
+        ],
       ),
-    ),
-    child: Row(
-      children: [
-        SvgPicture.asset(Assets.iconsStar),
-        const SizedBox(
-          width: 1,
-        ),
-        Text(
-          (meanScore == null) ? '0' : meanScore.toString(),
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontFamily: 'Roboto-Condensed',
-              ),
-        ),
-      ],
-    ),
-  );
-}
+    );
+  }
 
-Widget _buildMediaPoster(String? imageUrl, Enum$MediaType type) {
-  return (imageUrl != null)
-      ? CachedNetworkImage(
-          cacheManager: ImageCacheManager.instance,
-          imageUrl: imageUrl,
-          width: 115,
-          height: 169,
-          fit: BoxFit.cover,
-          imageBuilder: (context, imageProvider) {
-            return ClipRRect(
-              borderRadius: (type == Enum$MediaType.ANIME)
-                  ? BorderRadius.circular(15)
-                  : BorderRadius.circular(5),
-              child: Image(
-                image: imageProvider,
-                fit: BoxFit.cover,
-              ),
-            );
-          },
-          placeholder: (context, url) {
-            return _buildPlaceholderImage115x169(type);
-          },
-        )
-      : _buildPlaceholderImage115x169(type);
-}
+  Widget _buildMediaPoster(String? imageUrl, Enum$MediaType type) {
+    return (imageUrl != null)
+        ? CachedNetworkImage(
+            cacheManager: ImageCacheManager.instance,
+            imageUrl: imageUrl,
+            width: 115,
+            height: 169,
+            fit: BoxFit.cover,
+            imageBuilder: (context, imageProvider) {
+              return ClipRRect(
+                borderRadius: (type == Enum$MediaType.ANIME)
+                    ? BorderRadius.circular(15)
+                    : BorderRadius.circular(5),
+                child: Image(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                ),
+              );
+            },
+            placeholder: (context, url) {
+              return _buildPlaceholderImage115x169(type);
+            },
+            errorWidget: (context, url, error) {
+              return _buildPlaceholderImage115x169(type);
+            },
+          )
+        : _buildPlaceholderImage115x169(type);
+  }
 
-Widget _buildPlaceholderImage115x169(Enum$MediaType type) {
-  return ClipRRect(
-    borderRadius: (type == Enum$MediaType.ANIME)
-        ? BorderRadius.circular(15)
-        : BorderRadius.circular(5),
-    child: Image.asset(Assets.placeholders115x169),
-  );
+  Widget _buildPlaceholderImage115x169(Enum$MediaType type) {
+    return ClipRRect(
+      borderRadius: (type == Enum$MediaType.ANIME)
+          ? BorderRadius.circular(15)
+          : BorderRadius.circular(5),
+      child: Image.asset(Assets.placeholders115x169),
+    );
+  }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
-import '../../theme/colors.dart';
+import '../../../theme/colors.dart';
 
 class ShimmerLoaderList extends StatelessWidget {
   const ShimmerLoaderList({

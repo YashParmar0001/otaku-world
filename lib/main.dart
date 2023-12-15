@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
+import 'package:otaku_world/bloc/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
-import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
-
 import 'package:otaku_world/bloc/reviews/review_bloc.dart';
 import 'package:otaku_world/bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import 'package:otaku_world/bloc/recommended_anime/recommended_anime_bloc.dart';
@@ -31,6 +30,9 @@ class MyApp extends StatelessWidget {
           create: (context) => GraphqlClientCubit(),
         ),
         BlocProvider(
+          create: (context) => BottomNavBarCubit(),
+        ),
+        BlocProvider(
           create: (context) => UpcomingEpisodesBloc(),
         ),
         BlocProvider(
@@ -45,7 +47,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => RecommendedMangaBloc(),
         ),
-
         BlocProvider(
           create: (context) => ReviewBloc(),
         ),

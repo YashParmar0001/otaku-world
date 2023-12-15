@@ -16,6 +16,7 @@ class ReviewBloc
   Future<QueryResult<Query$GetReviews>> loadData(GraphQLClient client) {
     return client.query$GetReviews(
       Options$Query$GetReviews(
+        fetchPolicy: FetchPolicy.networkOnly,
         variables: Variables$Query$GetReviews(
           page: page,
         ),
@@ -32,14 +33,4 @@ class ReviewBloc
     list.addAll(data.Page!.reviews!);
     dev.log('Episodes list size: ${list.length}', name: 'ReviewBloc');
   }
-// var _page = 1;
-// var _hasNextPage = true;
-// final List<Query$GetReviews$Page$reviews?> _reviews = [];
-
-// @override
-// void onTransition(
-//     Transition<ReviewEvent, ReviewState> transition) {
-//   dev.log(transition.toString(), name: 'ReviewBloc');
-//   super.onTransition(transition);
-// }
 }

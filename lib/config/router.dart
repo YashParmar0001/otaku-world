@@ -17,14 +17,14 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
-  initialLocation: '/splash',
+  // initialLocation: '/splash',
   navigatorKey: _rootNavigatorKey,
   observers: [CustomRouteObserver()],
   routes: [
 
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: '/splash',
+      path: '/',
       builder: (context, state) => const SplashScreen(),
     ),
     GoRoute(

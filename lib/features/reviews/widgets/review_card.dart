@@ -2,7 +2,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
-import 'package:otaku_world/graphql/__generated/graphql/reviews/reviews.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/formatting_utils.dart';
 
@@ -16,12 +15,14 @@ class ReviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 10, right: 10,top: 5,bottom: 5),
+      margin: const EdgeInsets.symmetric(
+        horizontal: 10,
+        vertical: 7.5,
+      ),
       decoration: ShapeDecoration(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-
           shadows: [
             BoxShadow(
               color: Colors.black.withOpacity(0.25),
@@ -35,22 +36,24 @@ class ReviewCard extends StatelessWidget {
           SizedBox(
             height: 72,
             child: _buildBannerImage(
-                context, reviews.media!.bannerImage.toString()),
+              context,
+              reviews.media!.bannerImage.toString(),
+            ),
           ),
           Container(
-            decoration:const  ShapeDecoration(
+            decoration: const ShapeDecoration(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(15),
                   bottomRight: Radius.circular(15),
                 ),
               ),
-              gradient:  LinearGradient(
+              gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  AppColors.darkCharcoal, //dark charcol
-                  AppColors.japaneseIndigo, // japanese Indigo
+                  AppColors.darkCharcoal,
+                  AppColors.japaneseIndigo,
                 ],
               ),
             ),
@@ -70,20 +73,23 @@ class ReviewCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           text: TextSpan(
                             text: 'Review of ',
-                            style:
-                            Theme.of(context).textTheme.headlineSmall?.copyWith(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w100,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall
+                                ?.copyWith(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w100,
+                                ),
                             children: [
                               TextSpan(
-                                text: reviews.media!.title!.userPreferred.toString(),
+                                text: reviews.media!.title!.userPreferred
+                                    .toString(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall
                                     ?.copyWith(
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w600),
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w600),
                               ),
                               TextSpan(
                                 text: ' by ',
@@ -98,8 +104,8 @@ class ReviewCard extends StatelessWidget {
                                     .textTheme
                                     .headlineSmall
                                     ?.copyWith(
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w600),
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
@@ -137,7 +143,8 @@ class ReviewCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     reviews.summary.toString(),
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontFamily: 'Roboto Condensed', fontWeight: FontWeight.w400),
+                        fontFamily: 'Roboto Condensed',
+                        fontWeight: FontWeight.w400),
                   ),
                 ),
                 Padding(
@@ -179,22 +186,22 @@ class ReviewCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
                   child: Text(
-                    FormattingUtils
-                      .formatUnixTimestamp(reviews.createdAt).toString(),
+                    FormattingUtils.formatUnixTimestamp(reviews.createdAt)
+                        .toString(),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontFamily: 'Roboto',
-                      color: AppColors.white.withOpacity(0.8),
-                    ),
+                          fontFamily: 'Roboto',
+                          color: AppColors.white.withOpacity(0.8),
+                        ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 5, bottom: 5),
+                  padding: const EdgeInsets.only(left: 5, bottom: 10),
                   child: Text(
                     "(Last Updated on ${FormattingUtils.formatUnixTimestamp(reviews.createdAt).toString()})",
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontFamily: 'Roboto',
-                      color: AppColors.white.withOpacity(0.8),
-                    ),
+                          fontFamily: 'Roboto',
+                          color: AppColors.white.withOpacity(0.8),
+                        ),
                   ),
                 ),
               ],

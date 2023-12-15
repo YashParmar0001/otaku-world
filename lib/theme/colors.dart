@@ -14,6 +14,7 @@ class AppColors {
   static const Color darkCharcoal = Color(0xFF303030);
   static const Color jet = Color(0xFF353535);
   static const Color blackOlive = Color(0xFF404040);
+  static const Color htmlGray = Color(0xFF808080);
   static const Color chineseWhite = Color(0xFFE0E0E0);
   static const Color black = Color(0xFF000000);
   static const Color chineseBlack = Color(0xFF151515);

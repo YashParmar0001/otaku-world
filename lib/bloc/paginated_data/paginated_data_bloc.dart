@@ -17,11 +17,22 @@ abstract class PaginatedDataBloc<Q, E>
       _onLoadData,
       transformer: droppable(),
     );
+    on<RefreshData>(
+      _onRefreshData,
+      transformer: droppable(),
+    );
   }
 
   var page = 1;
   var hasNextPage = true;
   final List<E?> list = [];
+
+  void _onRefreshData(RefreshData event, Emitter<PaginatedDataState> emit,) {
+    page = 1;
+    hasNextPage = true;
+    list.clear();
+    add(LoadData(event.client));
+  }
 
   Future<void> _onLoadData(
     LoadData event,

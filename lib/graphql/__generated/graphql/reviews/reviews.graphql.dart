@@ -8,21 +8,21 @@ import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 
-class Variables$Query$GetTrendingAnime {
-  factory Variables$Query$GetTrendingAnime({int? page}) =>
-      Variables$Query$GetTrendingAnime._({
+class Variables$Query$GetReviews {
+  factory Variables$Query$GetReviews({int? page}) =>
+      Variables$Query$GetReviews._({
         if (page != null) r'page': page,
       });
 
-  Variables$Query$GetTrendingAnime._(this._$data);
+  Variables$Query$GetReviews._(this._$data);
 
-  factory Variables$Query$GetTrendingAnime.fromJson(Map<String, dynamic> data) {
+  factory Variables$Query$GetReviews.fromJson(Map<String, dynamic> data) {
     final result$data = <String, dynamic>{};
     if (data.containsKey('page')) {
       final l$page = data['page'];
       result$data['page'] = (l$page as int?);
     }
-    return Variables$Query$GetTrendingAnime._(result$data);
+    return Variables$Query$GetReviews._(result$data);
   }
 
   Map<String, dynamic> _$data;
@@ -38,8 +38,8 @@ class Variables$Query$GetTrendingAnime {
     return result$data;
   }
 
-  CopyWith$Variables$Query$GetTrendingAnime<Variables$Query$GetTrendingAnime>
-      get copyWith => CopyWith$Variables$Query$GetTrendingAnime(
+  CopyWith$Variables$Query$GetReviews<Variables$Query$GetReviews>
+      get copyWith => CopyWith$Variables$Query$GetReviews(
             this,
             (i) => i,
           );
@@ -49,7 +49,7 @@ class Variables$Query$GetTrendingAnime {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Variables$Query$GetTrendingAnime) ||
+    if (!(other is Variables$Query$GetReviews) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -71,66 +71,64 @@ class Variables$Query$GetTrendingAnime {
   }
 }
 
-abstract class CopyWith$Variables$Query$GetTrendingAnime<TRes> {
-  factory CopyWith$Variables$Query$GetTrendingAnime(
-    Variables$Query$GetTrendingAnime instance,
-    TRes Function(Variables$Query$GetTrendingAnime) then,
-  ) = _CopyWithImpl$Variables$Query$GetTrendingAnime;
+abstract class CopyWith$Variables$Query$GetReviews<TRes> {
+  factory CopyWith$Variables$Query$GetReviews(
+    Variables$Query$GetReviews instance,
+    TRes Function(Variables$Query$GetReviews) then,
+  ) = _CopyWithImpl$Variables$Query$GetReviews;
 
-  factory CopyWith$Variables$Query$GetTrendingAnime.stub(TRes res) =
-      _CopyWithStubImpl$Variables$Query$GetTrendingAnime;
+  factory CopyWith$Variables$Query$GetReviews.stub(TRes res) =
+      _CopyWithStubImpl$Variables$Query$GetReviews;
 
   TRes call({int? page});
 }
 
-class _CopyWithImpl$Variables$Query$GetTrendingAnime<TRes>
-    implements CopyWith$Variables$Query$GetTrendingAnime<TRes> {
-  _CopyWithImpl$Variables$Query$GetTrendingAnime(
+class _CopyWithImpl$Variables$Query$GetReviews<TRes>
+    implements CopyWith$Variables$Query$GetReviews<TRes> {
+  _CopyWithImpl$Variables$Query$GetReviews(
     this._instance,
     this._then,
   );
 
-  final Variables$Query$GetTrendingAnime _instance;
+  final Variables$Query$GetReviews _instance;
 
-  final TRes Function(Variables$Query$GetTrendingAnime) _then;
+  final TRes Function(Variables$Query$GetReviews) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
-  TRes call({Object? page = _undefined}) =>
-      _then(Variables$Query$GetTrendingAnime._({
+  TRes call({Object? page = _undefined}) => _then(Variables$Query$GetReviews._({
         ..._instance._$data,
         if (page != _undefined) 'page': (page as int?),
       }));
 }
 
-class _CopyWithStubImpl$Variables$Query$GetTrendingAnime<TRes>
-    implements CopyWith$Variables$Query$GetTrendingAnime<TRes> {
-  _CopyWithStubImpl$Variables$Query$GetTrendingAnime(this._res);
+class _CopyWithStubImpl$Variables$Query$GetReviews<TRes>
+    implements CopyWith$Variables$Query$GetReviews<TRes> {
+  _CopyWithStubImpl$Variables$Query$GetReviews(this._res);
 
   TRes _res;
 
   call({int? page}) => _res;
 }
 
-class Query$GetTrendingAnime {
-  Query$GetTrendingAnime({
+class Query$GetReviews {
+  Query$GetReviews({
     this.Page,
     this.$__typename = 'Query',
   });
 
-  factory Query$GetTrendingAnime.fromJson(Map<String, dynamic> json) {
+  factory Query$GetReviews.fromJson(Map<String, dynamic> json) {
     final l$Page = json['Page'];
     final l$$__typename = json['__typename'];
-    return Query$GetTrendingAnime(
+    return Query$GetReviews(
       Page: l$Page == null
           ? null
-          : Query$GetTrendingAnime$Page.fromJson(
-              (l$Page as Map<String, dynamic>)),
+          : Query$GetReviews$Page.fromJson((l$Page as Map<String, dynamic>)),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final Query$GetTrendingAnime$Page? Page;
+  final Query$GetReviews$Page? Page;
 
   final String $__typename;
 
@@ -158,8 +156,7 @@ class Query$GetTrendingAnime {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Query$GetTrendingAnime) ||
-        runtimeType != other.runtimeType) {
+    if (!(other is Query$GetReviews) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$Page = Page;
@@ -176,40 +173,40 @@ class Query$GetTrendingAnime {
   }
 }
 
-extension UtilityExtension$Query$GetTrendingAnime on Query$GetTrendingAnime {
-  CopyWith$Query$GetTrendingAnime<Query$GetTrendingAnime> get copyWith =>
-      CopyWith$Query$GetTrendingAnime(
+extension UtilityExtension$Query$GetReviews on Query$GetReviews {
+  CopyWith$Query$GetReviews<Query$GetReviews> get copyWith =>
+      CopyWith$Query$GetReviews(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$GetTrendingAnime<TRes> {
-  factory CopyWith$Query$GetTrendingAnime(
-    Query$GetTrendingAnime instance,
-    TRes Function(Query$GetTrendingAnime) then,
-  ) = _CopyWithImpl$Query$GetTrendingAnime;
+abstract class CopyWith$Query$GetReviews<TRes> {
+  factory CopyWith$Query$GetReviews(
+    Query$GetReviews instance,
+    TRes Function(Query$GetReviews) then,
+  ) = _CopyWithImpl$Query$GetReviews;
 
-  factory CopyWith$Query$GetTrendingAnime.stub(TRes res) =
-      _CopyWithStubImpl$Query$GetTrendingAnime;
+  factory CopyWith$Query$GetReviews.stub(TRes res) =
+      _CopyWithStubImpl$Query$GetReviews;
 
   TRes call({
-    Query$GetTrendingAnime$Page? Page,
+    Query$GetReviews$Page? Page,
     String? $__typename,
   });
-  CopyWith$Query$GetTrendingAnime$Page<TRes> get Page;
+  CopyWith$Query$GetReviews$Page<TRes> get Page;
 }
 
-class _CopyWithImpl$Query$GetTrendingAnime<TRes>
-    implements CopyWith$Query$GetTrendingAnime<TRes> {
-  _CopyWithImpl$Query$GetTrendingAnime(
+class _CopyWithImpl$Query$GetReviews<TRes>
+    implements CopyWith$Query$GetReviews<TRes> {
+  _CopyWithImpl$Query$GetReviews(
     this._instance,
     this._then,
   );
 
-  final Query$GetTrendingAnime _instance;
+  final Query$GetReviews _instance;
 
-  final TRes Function(Query$GetTrendingAnime) _then;
+  final TRes Function(Query$GetReviews) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -217,44 +214,43 @@ class _CopyWithImpl$Query$GetTrendingAnime<TRes>
     Object? Page = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Query$GetTrendingAnime(
+      _then(Query$GetReviews(
         Page: Page == _undefined
             ? _instance.Page
-            : (Page as Query$GetTrendingAnime$Page?),
+            : (Page as Query$GetReviews$Page?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
       ));
 
-  CopyWith$Query$GetTrendingAnime$Page<TRes> get Page {
+  CopyWith$Query$GetReviews$Page<TRes> get Page {
     final local$Page = _instance.Page;
     return local$Page == null
-        ? CopyWith$Query$GetTrendingAnime$Page.stub(_then(_instance))
-        : CopyWith$Query$GetTrendingAnime$Page(
-            local$Page, (e) => call(Page: e));
+        ? CopyWith$Query$GetReviews$Page.stub(_then(_instance))
+        : CopyWith$Query$GetReviews$Page(local$Page, (e) => call(Page: e));
   }
 }
 
-class _CopyWithStubImpl$Query$GetTrendingAnime<TRes>
-    implements CopyWith$Query$GetTrendingAnime<TRes> {
-  _CopyWithStubImpl$Query$GetTrendingAnime(this._res);
+class _CopyWithStubImpl$Query$GetReviews<TRes>
+    implements CopyWith$Query$GetReviews<TRes> {
+  _CopyWithStubImpl$Query$GetReviews(this._res);
 
   TRes _res;
 
   call({
-    Query$GetTrendingAnime$Page? Page,
+    Query$GetReviews$Page? Page,
     String? $__typename,
   }) =>
       _res;
 
-  CopyWith$Query$GetTrendingAnime$Page<TRes> get Page =>
-      CopyWith$Query$GetTrendingAnime$Page.stub(_res);
+  CopyWith$Query$GetReviews$Page<TRes> get Page =>
+      CopyWith$Query$GetReviews$Page.stub(_res);
 }
 
-const documentNodeQueryGetTrendingAnime = DocumentNode(definitions: [
+const documentNodeQueryGetReviews = DocumentNode(definitions: [
   OperationDefinitionNode(
     type: OperationType.query,
-    name: NameNode(value: 'GetTrendingAnime'),
+    name: NameNode(value: 'GetReviews'),
     variableDefinitions: [
       VariableDefinitionNode(
         variable: VariableNode(name: NameNode(value: 'page')),
@@ -274,7 +270,7 @@ const documentNodeQueryGetTrendingAnime = DocumentNode(definitions: [
         arguments: [
           ArgumentNode(
             name: NameNode(value: 'perPage'),
-            value: IntValueNode(value: '30'),
+            value: IntValueNode(value: '20'),
           ),
           ArgumentNode(
             name: NameNode(value: 'page'),
@@ -306,28 +302,20 @@ const documentNodeQueryGetTrendingAnime = DocumentNode(definitions: [
             ]),
           ),
           FieldNode(
-            name: NameNode(value: 'media'),
+            name: NameNode(value: 'reviews'),
             alias: null,
             arguments: [
               ArgumentNode(
                 name: NameNode(value: 'sort'),
                 value: ListValueNode(values: [
-                  EnumValueNode(name: NameNode(value: 'TRENDING_DESC'))
+                  EnumValueNode(name: NameNode(value: 'CREATED_AT_DESC'))
                 ]),
-              ),
-              ArgumentNode(
-                name: NameNode(value: 'type'),
-                value: EnumValueNode(name: NameNode(value: 'ANIME')),
-              ),
-              ArgumentNode(
-                name: NameNode(value: 'isAdult'),
-                value: BooleanValueNode(value: false),
-              ),
+              )
             ],
             directives: [],
             selectionSet: SelectionSetNode(selections: [
               FragmentSpreadNode(
-                name: NameNode(value: 'MediaShort'),
+                name: NameNode(value: 'Review'),
                 directives: [],
               ),
               FieldNode(
@@ -357,29 +345,27 @@ const documentNodeQueryGetTrendingAnime = DocumentNode(definitions: [
       ),
     ]),
   ),
-  fragmentDefinitionMediaShort,
+  fragmentDefinitionReview,
 ]);
-Query$GetTrendingAnime _parserFn$Query$GetTrendingAnime(
-        Map<String, dynamic> data) =>
-    Query$GetTrendingAnime.fromJson(data);
-typedef OnQueryComplete$Query$GetTrendingAnime = FutureOr<void> Function(
+Query$GetReviews _parserFn$Query$GetReviews(Map<String, dynamic> data) =>
+    Query$GetReviews.fromJson(data);
+typedef OnQueryComplete$Query$GetReviews = FutureOr<void> Function(
   Map<String, dynamic>?,
-  Query$GetTrendingAnime?,
+  Query$GetReviews?,
 );
 
-class Options$Query$GetTrendingAnime
-    extends graphql.QueryOptions<Query$GetTrendingAnime> {
-  Options$Query$GetTrendingAnime({
+class Options$Query$GetReviews extends graphql.QueryOptions<Query$GetReviews> {
+  Options$Query$GetReviews({
     String? operationName,
-    Variables$Query$GetTrendingAnime? variables,
+    Variables$Query$GetReviews? variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Query$GetTrendingAnime? typedOptimisticResult,
+    Query$GetReviews? typedOptimisticResult,
     Duration? pollInterval,
     graphql.Context? context,
-    OnQueryComplete$Query$GetTrendingAnime? onComplete,
+    OnQueryComplete$Query$GetReviews? onComplete,
     graphql.OnQueryError? onError,
   })  : onCompleteWithParsed = onComplete,
         super(
@@ -395,16 +381,14 @@ class Options$Query$GetTrendingAnime
               ? null
               : (data) => onComplete(
                     data,
-                    data == null
-                        ? null
-                        : _parserFn$Query$GetTrendingAnime(data),
+                    data == null ? null : _parserFn$Query$GetReviews(data),
                   ),
           onError: onError,
-          document: documentNodeQueryGetTrendingAnime,
-          parserFn: _parserFn$Query$GetTrendingAnime,
+          document: documentNodeQueryGetReviews,
+          parserFn: _parserFn$Query$GetReviews,
         );
 
-  final OnQueryComplete$Query$GetTrendingAnime? onCompleteWithParsed;
+  final OnQueryComplete$Query$GetReviews? onCompleteWithParsed;
 
   @override
   List<Object?> get properties => [
@@ -415,16 +399,16 @@ class Options$Query$GetTrendingAnime
       ];
 }
 
-class WatchOptions$Query$GetTrendingAnime
-    extends graphql.WatchQueryOptions<Query$GetTrendingAnime> {
-  WatchOptions$Query$GetTrendingAnime({
+class WatchOptions$Query$GetReviews
+    extends graphql.WatchQueryOptions<Query$GetReviews> {
+  WatchOptions$Query$GetReviews({
     String? operationName,
-    Variables$Query$GetTrendingAnime? variables,
+    Variables$Query$GetReviews? variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Query$GetTrendingAnime? typedOptimisticResult,
+    Query$GetReviews? typedOptimisticResult,
     graphql.Context? context,
     Duration? pollInterval,
     bool? eagerlyFetchResults,
@@ -438,112 +422,108 @@ class WatchOptions$Query$GetTrendingAnime
           cacheRereadPolicy: cacheRereadPolicy,
           optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
           context: context,
-          document: documentNodeQueryGetTrendingAnime,
+          document: documentNodeQueryGetReviews,
           pollInterval: pollInterval,
           eagerlyFetchResults: eagerlyFetchResults,
           carryForwardDataOnException: carryForwardDataOnException,
           fetchResults: fetchResults,
-          parserFn: _parserFn$Query$GetTrendingAnime,
+          parserFn: _parserFn$Query$GetReviews,
         );
 }
 
-class FetchMoreOptions$Query$GetTrendingAnime extends graphql.FetchMoreOptions {
-  FetchMoreOptions$Query$GetTrendingAnime({
+class FetchMoreOptions$Query$GetReviews extends graphql.FetchMoreOptions {
+  FetchMoreOptions$Query$GetReviews({
     required graphql.UpdateQuery updateQuery,
-    Variables$Query$GetTrendingAnime? variables,
+    Variables$Query$GetReviews? variables,
   }) : super(
           updateQuery: updateQuery,
           variables: variables?.toJson() ?? {},
-          document: documentNodeQueryGetTrendingAnime,
+          document: documentNodeQueryGetReviews,
         );
 }
 
-extension ClientExtension$Query$GetTrendingAnime on graphql.GraphQLClient {
-  Future<graphql.QueryResult<Query$GetTrendingAnime>> query$GetTrendingAnime(
-          [Options$Query$GetTrendingAnime? options]) async =>
-      await this.query(options ?? Options$Query$GetTrendingAnime());
-  graphql.ObservableQuery<Query$GetTrendingAnime> watchQuery$GetTrendingAnime(
-          [WatchOptions$Query$GetTrendingAnime? options]) =>
-      this.watchQuery(options ?? WatchOptions$Query$GetTrendingAnime());
-  void writeQuery$GetTrendingAnime({
-    required Query$GetTrendingAnime data,
-    Variables$Query$GetTrendingAnime? variables,
+extension ClientExtension$Query$GetReviews on graphql.GraphQLClient {
+  Future<graphql.QueryResult<Query$GetReviews>> query$GetReviews(
+          [Options$Query$GetReviews? options]) async =>
+      await this.query(options ?? Options$Query$GetReviews());
+  graphql.ObservableQuery<Query$GetReviews> watchQuery$GetReviews(
+          [WatchOptions$Query$GetReviews? options]) =>
+      this.watchQuery(options ?? WatchOptions$Query$GetReviews());
+  void writeQuery$GetReviews({
+    required Query$GetReviews data,
+    Variables$Query$GetReviews? variables,
     bool broadcast = true,
   }) =>
       this.writeQuery(
         graphql.Request(
-          operation:
-              graphql.Operation(document: documentNodeQueryGetTrendingAnime),
+          operation: graphql.Operation(document: documentNodeQueryGetReviews),
           variables: variables?.toJson() ?? const {},
         ),
         data: data.toJson(),
         broadcast: broadcast,
       );
-  Query$GetTrendingAnime? readQuery$GetTrendingAnime({
-    Variables$Query$GetTrendingAnime? variables,
+  Query$GetReviews? readQuery$GetReviews({
+    Variables$Query$GetReviews? variables,
     bool optimistic = true,
   }) {
     final result = this.readQuery(
       graphql.Request(
-        operation:
-            graphql.Operation(document: documentNodeQueryGetTrendingAnime),
+        operation: graphql.Operation(document: documentNodeQueryGetReviews),
         variables: variables?.toJson() ?? const {},
       ),
       optimistic: optimistic,
     );
-    return result == null ? null : Query$GetTrendingAnime.fromJson(result);
+    return result == null ? null : Query$GetReviews.fromJson(result);
   }
 }
 
-graphql_flutter.QueryHookResult<Query$GetTrendingAnime>
-    useQuery$GetTrendingAnime([Options$Query$GetTrendingAnime? options]) =>
-        graphql_flutter.useQuery(options ?? Options$Query$GetTrendingAnime());
-graphql.ObservableQuery<Query$GetTrendingAnime> useWatchQuery$GetTrendingAnime(
-        [WatchOptions$Query$GetTrendingAnime? options]) =>
-    graphql_flutter
-        .useWatchQuery(options ?? WatchOptions$Query$GetTrendingAnime());
+graphql_flutter.QueryHookResult<Query$GetReviews> useQuery$GetReviews(
+        [Options$Query$GetReviews? options]) =>
+    graphql_flutter.useQuery(options ?? Options$Query$GetReviews());
+graphql.ObservableQuery<Query$GetReviews> useWatchQuery$GetReviews(
+        [WatchOptions$Query$GetReviews? options]) =>
+    graphql_flutter.useWatchQuery(options ?? WatchOptions$Query$GetReviews());
 
-class Query$GetTrendingAnime$Widget
-    extends graphql_flutter.Query<Query$GetTrendingAnime> {
-  Query$GetTrendingAnime$Widget({
+class Query$GetReviews$Widget extends graphql_flutter.Query<Query$GetReviews> {
+  Query$GetReviews$Widget({
     widgets.Key? key,
-    Options$Query$GetTrendingAnime? options,
-    required graphql_flutter.QueryBuilder<Query$GetTrendingAnime> builder,
+    Options$Query$GetReviews? options,
+    required graphql_flutter.QueryBuilder<Query$GetReviews> builder,
   }) : super(
           key: key,
-          options: options ?? Options$Query$GetTrendingAnime(),
+          options: options ?? Options$Query$GetReviews(),
           builder: builder,
         );
 }
 
-class Query$GetTrendingAnime$Page {
-  Query$GetTrendingAnime$Page({
+class Query$GetReviews$Page {
+  Query$GetReviews$Page({
     this.pageInfo,
-    this.media,
+    this.reviews,
     this.$__typename = 'Page',
   });
 
-  factory Query$GetTrendingAnime$Page.fromJson(Map<String, dynamic> json) {
+  factory Query$GetReviews$Page.fromJson(Map<String, dynamic> json) {
     final l$pageInfo = json['pageInfo'];
-    final l$media = json['media'];
+    final l$reviews = json['reviews'];
     final l$$__typename = json['__typename'];
-    return Query$GetTrendingAnime$Page(
+    return Query$GetReviews$Page(
       pageInfo: l$pageInfo == null
           ? null
-          : Query$GetTrendingAnime$Page$pageInfo.fromJson(
+          : Query$GetReviews$Page$pageInfo.fromJson(
               (l$pageInfo as Map<String, dynamic>)),
-      media: (l$media as List<dynamic>?)
+      reviews: (l$reviews as List<dynamic>?)
           ?.map((e) => e == null
               ? null
-              : Fragment$MediaShort.fromJson((e as Map<String, dynamic>)))
+              : Fragment$Review.fromJson((e as Map<String, dynamic>)))
           .toList(),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final Query$GetTrendingAnime$Page$pageInfo? pageInfo;
+  final Query$GetReviews$Page$pageInfo? pageInfo;
 
-  final List<Fragment$MediaShort?>? media;
+  final List<Fragment$Review?>? reviews;
 
   final String $__typename;
 
@@ -551,8 +531,8 @@ class Query$GetTrendingAnime$Page {
     final _resultData = <String, dynamic>{};
     final l$pageInfo = pageInfo;
     _resultData['pageInfo'] = l$pageInfo?.toJson();
-    final l$media = media;
-    _resultData['media'] = l$media?.map((e) => e?.toJson()).toList();
+    final l$reviews = reviews;
+    _resultData['reviews'] = l$reviews?.map((e) => e?.toJson()).toList();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -561,11 +541,11 @@ class Query$GetTrendingAnime$Page {
   @override
   int get hashCode {
     final l$pageInfo = pageInfo;
-    final l$media = media;
+    final l$reviews = reviews;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$pageInfo,
-      l$media == null ? null : Object.hashAll(l$media.map((v) => v)),
+      l$reviews == null ? null : Object.hashAll(l$reviews.map((v) => v)),
       l$$__typename,
     ]);
   }
@@ -575,8 +555,7 @@ class Query$GetTrendingAnime$Page {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Query$GetTrendingAnime$Page) ||
-        runtimeType != other.runtimeType) {
+    if (!(other is Query$GetReviews$Page) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$pageInfo = pageInfo;
@@ -584,20 +563,20 @@ class Query$GetTrendingAnime$Page {
     if (l$pageInfo != lOther$pageInfo) {
       return false;
     }
-    final l$media = media;
-    final lOther$media = other.media;
-    if (l$media != null && lOther$media != null) {
-      if (l$media.length != lOther$media.length) {
+    final l$reviews = reviews;
+    final lOther$reviews = other.reviews;
+    if (l$reviews != null && lOther$reviews != null) {
+      if (l$reviews.length != lOther$reviews.length) {
         return false;
       }
-      for (int i = 0; i < l$media.length; i++) {
-        final l$media$entry = l$media[i];
-        final lOther$media$entry = lOther$media[i];
-        if (l$media$entry != lOther$media$entry) {
+      for (int i = 0; i < l$reviews.length; i++) {
+        final l$reviews$entry = l$reviews[i];
+        final lOther$reviews$entry = lOther$reviews[i];
+        if (l$reviews$entry != lOther$reviews$entry) {
           return false;
         }
       }
-    } else if (l$media != lOther$media) {
+    } else if (l$reviews != lOther$reviews) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -609,117 +588,115 @@ class Query$GetTrendingAnime$Page {
   }
 }
 
-extension UtilityExtension$Query$GetTrendingAnime$Page
-    on Query$GetTrendingAnime$Page {
-  CopyWith$Query$GetTrendingAnime$Page<Query$GetTrendingAnime$Page>
-      get copyWith => CopyWith$Query$GetTrendingAnime$Page(
-            this,
-            (i) => i,
-          );
+extension UtilityExtension$Query$GetReviews$Page on Query$GetReviews$Page {
+  CopyWith$Query$GetReviews$Page<Query$GetReviews$Page> get copyWith =>
+      CopyWith$Query$GetReviews$Page(
+        this,
+        (i) => i,
+      );
 }
 
-abstract class CopyWith$Query$GetTrendingAnime$Page<TRes> {
-  factory CopyWith$Query$GetTrendingAnime$Page(
-    Query$GetTrendingAnime$Page instance,
-    TRes Function(Query$GetTrendingAnime$Page) then,
-  ) = _CopyWithImpl$Query$GetTrendingAnime$Page;
+abstract class CopyWith$Query$GetReviews$Page<TRes> {
+  factory CopyWith$Query$GetReviews$Page(
+    Query$GetReviews$Page instance,
+    TRes Function(Query$GetReviews$Page) then,
+  ) = _CopyWithImpl$Query$GetReviews$Page;
 
-  factory CopyWith$Query$GetTrendingAnime$Page.stub(TRes res) =
-      _CopyWithStubImpl$Query$GetTrendingAnime$Page;
+  factory CopyWith$Query$GetReviews$Page.stub(TRes res) =
+      _CopyWithStubImpl$Query$GetReviews$Page;
 
   TRes call({
-    Query$GetTrendingAnime$Page$pageInfo? pageInfo,
-    List<Fragment$MediaShort?>? media,
+    Query$GetReviews$Page$pageInfo? pageInfo,
+    List<Fragment$Review?>? reviews,
     String? $__typename,
   });
-  CopyWith$Query$GetTrendingAnime$Page$pageInfo<TRes> get pageInfo;
-  TRes media(
-      Iterable<Fragment$MediaShort?>? Function(
-              Iterable<CopyWith$Fragment$MediaShort<Fragment$MediaShort>?>?)
+  CopyWith$Query$GetReviews$Page$pageInfo<TRes> get pageInfo;
+  TRes reviews(
+      Iterable<Fragment$Review?>? Function(
+              Iterable<CopyWith$Fragment$Review<Fragment$Review>?>?)
           _fn);
 }
 
-class _CopyWithImpl$Query$GetTrendingAnime$Page<TRes>
-    implements CopyWith$Query$GetTrendingAnime$Page<TRes> {
-  _CopyWithImpl$Query$GetTrendingAnime$Page(
+class _CopyWithImpl$Query$GetReviews$Page<TRes>
+    implements CopyWith$Query$GetReviews$Page<TRes> {
+  _CopyWithImpl$Query$GetReviews$Page(
     this._instance,
     this._then,
   );
 
-  final Query$GetTrendingAnime$Page _instance;
+  final Query$GetReviews$Page _instance;
 
-  final TRes Function(Query$GetTrendingAnime$Page) _then;
+  final TRes Function(Query$GetReviews$Page) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
   TRes call({
     Object? pageInfo = _undefined,
-    Object? media = _undefined,
+    Object? reviews = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Query$GetTrendingAnime$Page(
+      _then(Query$GetReviews$Page(
         pageInfo: pageInfo == _undefined
             ? _instance.pageInfo
-            : (pageInfo as Query$GetTrendingAnime$Page$pageInfo?),
-        media: media == _undefined
-            ? _instance.media
-            : (media as List<Fragment$MediaShort?>?),
+            : (pageInfo as Query$GetReviews$Page$pageInfo?),
+        reviews: reviews == _undefined
+            ? _instance.reviews
+            : (reviews as List<Fragment$Review?>?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
       ));
 
-  CopyWith$Query$GetTrendingAnime$Page$pageInfo<TRes> get pageInfo {
+  CopyWith$Query$GetReviews$Page$pageInfo<TRes> get pageInfo {
     final local$pageInfo = _instance.pageInfo;
     return local$pageInfo == null
-        ? CopyWith$Query$GetTrendingAnime$Page$pageInfo.stub(_then(_instance))
-        : CopyWith$Query$GetTrendingAnime$Page$pageInfo(
+        ? CopyWith$Query$GetReviews$Page$pageInfo.stub(_then(_instance))
+        : CopyWith$Query$GetReviews$Page$pageInfo(
             local$pageInfo, (e) => call(pageInfo: e));
   }
 
-  TRes media(
-          Iterable<Fragment$MediaShort?>? Function(
-                  Iterable<CopyWith$Fragment$MediaShort<Fragment$MediaShort>?>?)
+  TRes reviews(
+          Iterable<Fragment$Review?>? Function(
+                  Iterable<CopyWith$Fragment$Review<Fragment$Review>?>?)
               _fn) =>
       call(
-          media: _fn(_instance.media?.map((e) => e == null
+          reviews: _fn(_instance.reviews?.map((e) => e == null
               ? null
-              : CopyWith$Fragment$MediaShort(
+              : CopyWith$Fragment$Review(
                   e,
                   (i) => i,
                 )))?.toList());
 }
 
-class _CopyWithStubImpl$Query$GetTrendingAnime$Page<TRes>
-    implements CopyWith$Query$GetTrendingAnime$Page<TRes> {
-  _CopyWithStubImpl$Query$GetTrendingAnime$Page(this._res);
+class _CopyWithStubImpl$Query$GetReviews$Page<TRes>
+    implements CopyWith$Query$GetReviews$Page<TRes> {
+  _CopyWithStubImpl$Query$GetReviews$Page(this._res);
 
   TRes _res;
 
   call({
-    Query$GetTrendingAnime$Page$pageInfo? pageInfo,
-    List<Fragment$MediaShort?>? media,
+    Query$GetReviews$Page$pageInfo? pageInfo,
+    List<Fragment$Review?>? reviews,
     String? $__typename,
   }) =>
       _res;
 
-  CopyWith$Query$GetTrendingAnime$Page$pageInfo<TRes> get pageInfo =>
-      CopyWith$Query$GetTrendingAnime$Page$pageInfo.stub(_res);
+  CopyWith$Query$GetReviews$Page$pageInfo<TRes> get pageInfo =>
+      CopyWith$Query$GetReviews$Page$pageInfo.stub(_res);
 
-  media(_fn) => _res;
+  reviews(_fn) => _res;
 }
 
-class Query$GetTrendingAnime$Page$pageInfo {
-  Query$GetTrendingAnime$Page$pageInfo({
+class Query$GetReviews$Page$pageInfo {
+  Query$GetReviews$Page$pageInfo({
     this.hasNextPage,
     this.$__typename = 'PageInfo',
   });
 
-  factory Query$GetTrendingAnime$Page$pageInfo.fromJson(
-      Map<String, dynamic> json) {
+  factory Query$GetReviews$Page$pageInfo.fromJson(Map<String, dynamic> json) {
     final l$hasNextPage = json['hasNextPage'];
     final l$$__typename = json['__typename'];
-    return Query$GetTrendingAnime$Page$pageInfo(
+    return Query$GetReviews$Page$pageInfo(
       hasNextPage: (l$hasNextPage as bool?),
       $__typename: (l$$__typename as String),
     );
@@ -753,7 +730,7 @@ class Query$GetTrendingAnime$Page$pageInfo {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Query$GetTrendingAnime$Page$pageInfo) ||
+    if (!(other is Query$GetReviews$Page$pageInfo) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -771,24 +748,23 @@ class Query$GetTrendingAnime$Page$pageInfo {
   }
 }
 
-extension UtilityExtension$Query$GetTrendingAnime$Page$pageInfo
-    on Query$GetTrendingAnime$Page$pageInfo {
-  CopyWith$Query$GetTrendingAnime$Page$pageInfo<
-          Query$GetTrendingAnime$Page$pageInfo>
-      get copyWith => CopyWith$Query$GetTrendingAnime$Page$pageInfo(
+extension UtilityExtension$Query$GetReviews$Page$pageInfo
+    on Query$GetReviews$Page$pageInfo {
+  CopyWith$Query$GetReviews$Page$pageInfo<Query$GetReviews$Page$pageInfo>
+      get copyWith => CopyWith$Query$GetReviews$Page$pageInfo(
             this,
             (i) => i,
           );
 }
 
-abstract class CopyWith$Query$GetTrendingAnime$Page$pageInfo<TRes> {
-  factory CopyWith$Query$GetTrendingAnime$Page$pageInfo(
-    Query$GetTrendingAnime$Page$pageInfo instance,
-    TRes Function(Query$GetTrendingAnime$Page$pageInfo) then,
-  ) = _CopyWithImpl$Query$GetTrendingAnime$Page$pageInfo;
+abstract class CopyWith$Query$GetReviews$Page$pageInfo<TRes> {
+  factory CopyWith$Query$GetReviews$Page$pageInfo(
+    Query$GetReviews$Page$pageInfo instance,
+    TRes Function(Query$GetReviews$Page$pageInfo) then,
+  ) = _CopyWithImpl$Query$GetReviews$Page$pageInfo;
 
-  factory CopyWith$Query$GetTrendingAnime$Page$pageInfo.stub(TRes res) =
-      _CopyWithStubImpl$Query$GetTrendingAnime$Page$pageInfo;
+  factory CopyWith$Query$GetReviews$Page$pageInfo.stub(TRes res) =
+      _CopyWithStubImpl$Query$GetReviews$Page$pageInfo;
 
   TRes call({
     bool? hasNextPage,
@@ -796,16 +772,16 @@ abstract class CopyWith$Query$GetTrendingAnime$Page$pageInfo<TRes> {
   });
 }
 
-class _CopyWithImpl$Query$GetTrendingAnime$Page$pageInfo<TRes>
-    implements CopyWith$Query$GetTrendingAnime$Page$pageInfo<TRes> {
-  _CopyWithImpl$Query$GetTrendingAnime$Page$pageInfo(
+class _CopyWithImpl$Query$GetReviews$Page$pageInfo<TRes>
+    implements CopyWith$Query$GetReviews$Page$pageInfo<TRes> {
+  _CopyWithImpl$Query$GetReviews$Page$pageInfo(
     this._instance,
     this._then,
   );
 
-  final Query$GetTrendingAnime$Page$pageInfo _instance;
+  final Query$GetReviews$Page$pageInfo _instance;
 
-  final TRes Function(Query$GetTrendingAnime$Page$pageInfo) _then;
+  final TRes Function(Query$GetReviews$Page$pageInfo) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -813,7 +789,7 @@ class _CopyWithImpl$Query$GetTrendingAnime$Page$pageInfo<TRes>
     Object? hasNextPage = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Query$GetTrendingAnime$Page$pageInfo(
+      _then(Query$GetReviews$Page$pageInfo(
         hasNextPage: hasNextPage == _undefined
             ? _instance.hasNextPage
             : (hasNextPage as bool?),
@@ -823,9 +799,9 @@ class _CopyWithImpl$Query$GetTrendingAnime$Page$pageInfo<TRes>
       ));
 }
 
-class _CopyWithStubImpl$Query$GetTrendingAnime$Page$pageInfo<TRes>
-    implements CopyWith$Query$GetTrendingAnime$Page$pageInfo<TRes> {
-  _CopyWithStubImpl$Query$GetTrendingAnime$Page$pageInfo(this._res);
+class _CopyWithStubImpl$Query$GetReviews$Page$pageInfo<TRes>
+    implements CopyWith$Query$GetReviews$Page$pageInfo<TRes> {
+  _CopyWithStubImpl$Query$GetReviews$Page$pageInfo(this._res);
 
   TRes _res;
 

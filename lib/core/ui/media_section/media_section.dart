@@ -2,7 +2,6 @@ import 'dart:developer' as dev;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,16 +9,17 @@ import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
 import 'package:otaku_world/core/ui/error_text.dart';
 import 'package:otaku_world/core/ui/list_progress_indicator.dart';
-import 'package:otaku_world/core/ui/shimmer_loader_list.dart';
+import 'package:otaku_world/core/ui/media_section/scroll_to_left_button.dart';
+import 'package:otaku_world/core/ui/shimmers/shimmer_loader_list.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/services/caching/image_cache_manager.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
 
-import '../../graphql/__generated/graphql/schema.graphql.dart';
+import '../../../graphql/__generated/graphql/schema.graphql.dart';
 
-class MediaSection<B extends PaginatedDataBloc> extends StatefulHookWidget {
+class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
   const MediaSection({
     super.key,
     required this.label,
@@ -34,15 +34,8 @@ class MediaSection<B extends PaginatedDataBloc> extends StatefulHookWidget {
   final VoidCallback onMorePressed;
 
   @override
-  State<MediaSection<B>> createState() => _MediaSectionState<B>();
-}
-
-class _MediaSectionState<B extends PaginatedDataBloc>
-    extends State<MediaSection<B>> {
-  bool _showBackToLeftIcon = false;
-
-  @override
   Widget build(BuildContext context) {
+    dev.log('Rebuilding the media section', name: 'MediaSection');
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -51,22 +44,7 @@ class _MediaSectionState<B extends PaginatedDataBloc>
     useEffect(() {
       scrollController.addListener(() {
         final maxScroll = scrollController.position.maxScrollExtent;
-        final minScroll = scrollController.position.minScrollExtent;
         final currentScroll = scrollController.position.pixels;
-
-        if (currentScroll > minScroll + 100) {
-          if (!_showBackToLeftIcon) {
-            setState(() {
-              _showBackToLeftIcon = true;
-            });
-          }
-        }else {
-          if (_showBackToLeftIcon) {
-            setState(() {
-              _showBackToLeftIcon = false;
-            });
-          }
-        }
 
         if (currentScroll == maxScroll) {
           dev.log('Max scrolled', name: 'Media');
@@ -85,7 +63,7 @@ class _MediaSectionState<B extends PaginatedDataBloc>
 
     return Padding(
       padding: EdgeInsets.only(
-        left: widget.leftPadding,
+        left: leftPadding,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,7 +71,7 @@ class _MediaSectionState<B extends PaginatedDataBloc>
           // Section header
           Padding(
             padding: EdgeInsets.only(
-              right: widget.leftPadding,
+              right: leftPadding,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -103,7 +81,7 @@ class _MediaSectionState<B extends PaginatedDataBloc>
                     bottom: 10,
                   ),
                   child: Text(
-                    widget.label,
+                    label,
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontFamily: 'Roboto-Condensed',
                         ),
@@ -111,8 +89,8 @@ class _MediaSectionState<B extends PaginatedDataBloc>
                 ),
                 Row(
                   children: [
-                    InkWell(
-                      onTap: widget.onSliderPressed,
+                    GestureDetector(
+                      onTap: onSliderPressed,
                       child: Padding(
                         padding: const EdgeInsets.only(
                           left: 12,
@@ -122,8 +100,8 @@ class _MediaSectionState<B extends PaginatedDataBloc>
                         child: SvgPicture.asset(Assets.iconsViewSlider),
                       ),
                     ),
-                    InkWell(
-                      onTap: widget.onMorePressed,
+                    GestureDetector(
+                      onTap: onMorePressed,
                       child: Padding(
                         padding: const EdgeInsets.only(
                           left: 12,
@@ -211,29 +189,7 @@ class _MediaSectionState<B extends PaginatedDataBloc>
                 ),
             ],
           ),
-          if (_showBackToLeftIcon)
-            Animate(
-              effects: const [ScaleEffect()],
-              child: Positioned(
-                top: 0,
-                bottom: 0,
-                left: 5,
-                child: FloatingActionButton.small(
-                  onPressed: () {
-                    controller.animateTo(
-                      0,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeInOut,
-                    );
-                  },
-                  backgroundColor: AppColors.sunsetOrange.withOpacity(0.60),
-                  child: const Padding(
-                    padding: EdgeInsets.only(left: 8),
-                    child: Icon(Icons.arrow_back_ios),
-                  ),
-                ),
-              ),
-            ),
+          ScrollToLeftFAB(controller: controller),
         ],
       ),
     );
@@ -341,6 +297,9 @@ class _MediaSectionState<B extends PaginatedDataBloc>
               );
             },
             placeholder: (context, url) {
+              return _buildPlaceholderImage115x169(type);
+            },
+            errorWidget: (context, url, error) {
               return _buildPlaceholderImage115x169(type);
             },
           )

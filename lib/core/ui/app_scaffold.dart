@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -103,16 +105,17 @@ class _AppScaffoldState extends State<AppScaffold> {
   int _calculateSelectedIndex(BuildContext context) {
     final GoRouterState route = GoRouterState.of(context);
     final String location = route.location;
-    if (location.startsWith('/home')) {
+    dev.log('Current location: $location', name: 'Routes');
+    if (location.contains('/home')) {
       return 0;
     }
-    if (location.startsWith('/discover')) {
+    if (location.contains('/discover')) {
       return 1;
     }
-    if (location.startsWith('/social')) {
+    if (location.contains('/social')) {
       return 2;
     }
-    if (location.startsWith('/myList')) {
+    if (location.contains('/myList')) {
       return 3;
     }
     return 0;

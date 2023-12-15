@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/features/auth/screens/login_screen.dart';
 import 'package:otaku_world/features/home/screens/home_screen.dart';
+import 'package:otaku_world/features/reviews/screens/review_screen.dart';
 import 'package:otaku_world/features/splash/screens/splash_screen.dart';
 import 'package:otaku_world/observers/go_route_observer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,14 +17,20 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
-  initialLocation: '/splash',
+  // initialLocation: '/splash',
   navigatorKey: _rootNavigatorKey,
   observers: [CustomRouteObserver()],
   routes: [
+
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: '/splash',
+      path: '/',
       builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/reviews',
+      builder: (context , state) => const ReviewScreen(),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
@@ -46,6 +53,7 @@ final router = GoRouter(
         return null;
       },
     ),
+
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) => AppScaffold(child: child),
@@ -58,7 +66,9 @@ final router = GoRouter(
               child: HomeScreen(),
             );
           },
+
         ),
+
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,
           path: '/discover',
@@ -77,6 +87,7 @@ final router = GoRouter(
             );
           },
         ),
+
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,
           path: '/myList',
@@ -86,6 +97,7 @@ final router = GoRouter(
             );
           },
         ),
+
       ],
     ),
   ],

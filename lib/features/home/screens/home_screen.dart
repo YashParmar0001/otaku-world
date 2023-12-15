@@ -1,6 +1,4 @@
-import 'dart:developer' as dev;
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,15 +11,11 @@ import 'package:otaku_world/bloc/recommended_anime/recommended_anime_bloc.dart';
 import 'package:otaku_world/bloc/recommended_manga/recommended_manga_bloc.dart';
 import 'package:otaku_world/bloc/trending_anime/trending_anime_bloc.dart';
 import 'package:otaku_world/bloc/trending_manga/trending_manga_bloc.dart';
-import 'package:otaku_world/core/ui/error_text.dart';
-import 'package:otaku_world/core/ui/media_section.dart';
+import 'package:otaku_world/core/ui/media_section/media_section.dart';
 import 'package:otaku_world/core/ui/my_refresh_indicator.dart';
-import 'package:otaku_world/core/ui/shimmer_loader_list.dart';
+import 'package:otaku_world/features/home/widgets/upcoming_episodes_section.dart';
 import 'package:otaku_world/generated/assets.dart';
-import 'package:otaku_world/graphql/__generated/graphql/home/upcoming_episodes.graphql.dart';
-import 'package:otaku_world/services/caching/image_cache_manager.dart';
 import 'package:otaku_world/theme/colors.dart';
-import 'package:otaku_world/utils/formatting_utils.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
 
 import '../../../bloc/bottom_nav_bar/bottom_nav_bar_cubit.dart';
@@ -37,30 +31,11 @@ class HomeScreen extends HookWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    final upcomingEpisodesController = useScrollController();
     final scaffoldController = useScrollController();
 
     final bottomBarBloc = context.read<BottomNavBarCubit>();
 
     useEffect(() {
-      upcomingEpisodesController.addListener(() {
-        final maxScroll = upcomingEpisodesController.position.maxScrollExtent;
-        final currentScroll = upcomingEpisodesController.position.pixels;
-
-        if (currentScroll == maxScroll) {
-          dev.log('Max scrolled', name: 'UpcomingEpisodes');
-          final upcomingEpisodesBloc = context.read<UpcomingEpisodesBloc>();
-          final hasNextPage =
-              (upcomingEpisodesBloc.state as PaginatedDataLoaded).hasNextPage;
-          if (hasNextPage) {
-            final client = (context.read<GraphqlClientCubit>().state
-                    as GraphqlClientInitialized)
-                .client;
-            upcomingEpisodesBloc.add(LoadData(client));
-          }
-        }
-      });
-
       scaffoldController.addListener(() {
         final direction = scaffoldController.position.userScrollDirection;
         if (direction == ScrollDirection.forward) {
@@ -78,10 +53,7 @@ class HomeScreen extends HookWidget {
 
     return PlaneIndicator(
       onRefresh: () async {
-        return Future.delayed(
-          const Duration(seconds: 1),
-          () => _refreshPage(context),
-        );
+        return _refreshPage(context);
       },
       child: SingleChildScrollView(
         controller: scaffoldController,
@@ -96,12 +68,7 @@ class HomeScreen extends HookWidget {
             const SizedBox(
               height: 15,
             ),
-            _buildUpcomingEpisodesSection(
-              context,
-              screenHeight,
-              screenWidth,
-              upcomingEpisodesController,
-            ),
+            const UpcomingEpisodesSection(),
             const SizedBox(
               height: 15,
             ),
@@ -112,7 +79,7 @@ class HomeScreen extends HookWidget {
               ),
               child: FeatureCard(
                 onTap: () {
-                  UIUtils.showSnackBar(context, 'Coming soon..');
+                  context.push('/reviews');
                 },
                 heading: HomeConstants.reviewsHeading,
                 subheading: HomeConstants.reviewsSubheading,
@@ -178,245 +145,18 @@ class HomeScreen extends HookWidget {
   }
 
   Future<void> _refreshPage(BuildContext context) async {
-    final client =
-        (context.read<GraphqlClientCubit>().state as GraphqlClientInitialized)
+    return Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        final client = (context.read<GraphqlClientCubit>().state
+                as GraphqlClientInitialized)
             .client;
-    context.read<UpcomingEpisodesBloc>().add(RefreshData(client));
-    context.read<TrendingAnimeBloc>().add(RefreshData(client));
-    context.read<RecommendedAnimeBloc>().add(RefreshData(client));
-    context.read<TrendingMangaBloc>().add(RefreshData(client));
-    context.read<RecommendedMangaBloc>().add(RefreshData(client));
-  }
-
-  Widget _buildUpcomingEpisodesSection(
-    BuildContext context,
-    double screenHeight,
-    double screenWidth,
-    ScrollController controller,
-  ) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 15),
-      child: BlocBuilder<UpcomingEpisodesBloc, PaginatedDataState>(
-        builder: (context, state) {
-          if (state is PaginatedDataLoading || state is PaginatedDataInitial) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Upcoming Episodes',
-                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                        fontFamily: 'Roboto-Condensed',
-                        fontWeight: FontWeight.w500,
-                      ),
-                ),
-                const SizedBox(height: 10),
-                ShimmerLoaderList(
-                  direction: Axis.horizontal,
-                  height: UIUtils.getWidgetHeight(
-                    targetWidgetHeight: 134,
-                    screenHeight: screenHeight,
-                  ),
-                  widgetBorder: 15,
-                  widgetHeight: UIUtils.getWidgetHeight(
-                    targetWidgetHeight: 134,
-                    screenHeight: screenHeight,
-                  ),
-                  widgetWidth: UIUtils.getWidgetWidth(
-                    targetWidgetWidth: 215,
-                    screenWidth: screenWidth,
-                  ),
-                ),
-              ],
-            );
-          } else if (state is PaginatedDataLoaded) {
-            dev.log('Rebuilding the episodes list');
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Upcoming Episodes',
-                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                        fontFamily: 'Roboto-Condensed',
-                        fontWeight: FontWeight.w500,
-                      ),
-                ),
-                const SizedBox(height: 10),
-                _buildUpcomingEpisodesList(
-                  state.list as List<Query$GetUpcomingEpisodes$Page$media?>,
-                  state.hasNextPage,
-                  screenHeight,
-                  controller,
-                ),
-              ],
-            );
-          } else if (state is PaginatedDataError) {
-            return ErrorText(
-                message: state.message,
-                onTryAgain: () {
-                  final client = (context.read<GraphqlClientCubit>().state
-                          as GraphqlClientInitialized)
-                      .client;
-                  context.read<UpcomingEpisodesBloc>().add(LoadData(client));
-                });
-          } else {
-            return const Text('Unknown State');
-          }
-        },
-      ),
-    );
-  }
-
-  Widget _buildUpcomingEpisodesList(
-    List<Query$GetUpcomingEpisodes$Page$media?> episodes,
-    bool hasNextPage,
-    double screenHeight,
-    ScrollController controller,
-  ) {
-    final List<Color> cardColors = [
-      AppColors.sunsetOrange,
-      AppColors.crayola,
-      AppColors.kiwi,
-    ];
-
-    return SizedBox(
-      height: UIUtils.getWidgetHeight(
-        targetWidgetHeight: 134,
-        screenHeight: screenHeight,
-      ),
-      child: CustomScrollView(
-        scrollDirection: Axis.horizontal,
-        clipBehavior: Clip.none,
-        controller: controller,
-        slivers: [
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return _buildUpcomingEpisodeCard(
-                  context: context,
-                  media: episodes[index],
-                  color: cardColors[index % cardColors.length],
-                );
-              },
-              childCount: episodes.length,
-            ),
-          ),
-          if (hasNextPage)
-            const SliverToBoxAdapter(
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.all(5.0),
-                  child: CircularProgressIndicator(),
-                ),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildUpcomingEpisodeCard({
-    required BuildContext context,
-    required Query$GetUpcomingEpisodes$Page$media? media,
-    required Color color,
-  }) {
-    if (media == null) return const SizedBox();
-
-    try {
-      return Container(
-        width: 215,
-        margin: const EdgeInsets.only(right: 15),
-        padding: const EdgeInsets.only(
-          left: 8,
-          bottom: 8,
-        ),
-        decoration: ShapeDecoration(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [color, AppColors.japaneseIndigo],
-          ),
-          shadows: [
-            BoxShadow(
-              color: AppColors.black.withOpacity(0.25),
-              blurRadius: 4,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            SizedBox(
-              width: 106,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 14),
-                    child: Text(
-                      media.title!.english ??
-                          media.title!.romaji ??
-                          media.title!.native!,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontFamily: 'Roboto-Medium',
-                          ),
-                      maxLines: 6,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Text(
-                    'Ep. ${media.airingSchedule!.nodes![0]!.episode} in'
-                    '\n${FormattingUtils.formatDurationFromSeconds(media.airingSchedule!.nodes![0]!.timeUntilAiring)}',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.lightSilver,
-                        ),
-                  ),
-                ],
-              ),
-            ),
-            const Spacer(),
-            // Anime Poster
-            Padding(
-              padding: const EdgeInsets.only(top: 7, right: 5),
-              child: media.coverImage?.large == null
-                  ? _buildPlaceholderImage85x120()
-                  : CachedNetworkImage(
-                      cacheManager: ImageCacheManager.instance,
-                      imageUrl: media.coverImage!.large!,
-                      width: 85,
-                      height: 120,
-                      imageBuilder: (context, imageProvider) {
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Image(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
-                        );
-                      },
-                      placeholder: (context, url) =>
-                          _buildPlaceholderImage85x120(),
-                      errorWidget: (context, url, error) =>
-                          _buildPlaceholderImage85x120(),
-                    ),
-            ),
-          ],
-        ),
-      );
-    } catch (_) {
-      return const SizedBox();
-    }
-  }
-
-  Widget _buildPlaceholderImage85x120() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(15),
-      child: Image.asset(Assets.placeholders85x120),
+        context.read<UpcomingEpisodesBloc>().add(RefreshData(client));
+        context.read<TrendingAnimeBloc>().add(RefreshData(client));
+        context.read<RecommendedAnimeBloc>().add(RefreshData(client));
+        context.read<TrendingMangaBloc>().add(RefreshData(client));
+        context.read<RecommendedMangaBloc>().add(RefreshData(client));
+      },
     );
   }
 

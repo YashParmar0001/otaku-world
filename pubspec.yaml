@@ -64,6 +64,8 @@ dependencies:
   # GraphQL
   graphql_flutter:
 
+  # Firebase
+  firebase_core: ^2.24.2
 
 dev_dependencies:
   flutter_test:

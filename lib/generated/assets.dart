@@ -25,6 +25,7 @@ class Assets {
   static const String iconsSearch = 'assets/icons/search.svg';
   static const String iconsSearchSmall = 'assets/icons/search-small.svg';
   static const String iconsStar = 'assets/icons/star.svg';
+  static const String iconsThumbsUp = 'assets/icons/thumbs-up.svg';
   static const String iconsUserGroup = 'assets/icons/user-group.svg';
   static const String iconsViewSlider = 'assets/icons/view-slider.svg';
   static const String onBoardingOnBoarding1 = 'assets/images/on_boarding/on_boarding_1.png';

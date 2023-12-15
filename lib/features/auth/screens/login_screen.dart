@@ -4,16 +4,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
-import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
+
+import 'package:otaku_world/bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
-
+import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
 import '../../../bloc/recommended_anime/recommended_anime_bloc.dart';
 import '../../../bloc/recommended_manga/recommended_manga_bloc.dart';
+import '../../../bloc/reviews/review_bloc.dart';
 import '../../../bloc/trending_anime/trending_anime_bloc.dart';
 import '../../../bloc/trending_manga/trending_manga_bloc.dart';
-import '../../../bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import '../../../constants/string_constants.dart';
 import '../../../core/ui/primary_button.dart';
 import '../../../core/ui/primary_outlined_button.dart';
@@ -76,6 +77,7 @@ class LoginScreen extends StatelessWidget {
               context
                   .read<RecommendedMangaBloc>()
                   .add(LoadData(state.client));
+              context.read<ReviewBloc>(). add(LoadData(state.client));
               context.go('/home');
             }
           },

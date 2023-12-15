@@ -21,6 +21,7 @@ class Assets {
   static const String iconsFilterVertical = 'assets/icons/filter-vertical.svg';
   static const String iconsHome = 'assets/icons/home.svg';
   static const String iconsLineVertical = 'assets/icons/line_vertical.svg';
+  static const String iconsMoreHorizontal = 'assets/icons/more-horizontal.svg';
   static const String iconsNextButton = 'assets/icons/next-button.svg';
   static const String iconsSearch = 'assets/icons/search.svg';
   static const String iconsSearchSmall = 'assets/icons/search-small.svg';
@@ -38,5 +39,10 @@ class Assets {
   static const String placeholders210x310 = 'assets/images/placeholders/210x310.png';
   static const String placeholders340x72 = 'assets/images/placeholders/340x72.png';
   static const String placeholders85x120 = 'assets/images/placeholders/85x120.png';
+  static const String planIndicatorCloud1 = 'assets/plan_indicator/cloud1.png';
+  static const String planIndicatorCloud2 = 'assets/plan_indicator/cloud2.png';
+  static const String planIndicatorCloud3 = 'assets/plan_indicator/cloud3.png';
+  static const String planIndicatorCloud4 = 'assets/plan_indicator/cloud4.png';
+  static const String planIndicatorPlane = 'assets/plan_indicator/plane.png';
 
 }

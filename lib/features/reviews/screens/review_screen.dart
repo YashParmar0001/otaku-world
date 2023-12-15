@@ -69,7 +69,7 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         return ReviewCard(
-                          reviews: state.list[index]!,
+                          review: state.list[index]!,
                         );
                       },
                       childCount: state.list.length,

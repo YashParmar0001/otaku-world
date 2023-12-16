@@ -89,6 +89,7 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
             ),
             floatingActionButton: ScrollToTopFAB(
               controller: reviewsScrollController,
+              tag: 'review_fab',
             ),
           );
         } else if (state is PaginatedDataError) {

@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -38,6 +40,10 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final graphqlState = context.read<GraphqlClientCubit>().state;
+    // if (graphqlState is GraphqlClientInitialized) {
+    //   context.go('/home');
+    // }
     final authCubit = context.read<AuthCubit>();
 
     return MultiBlocListener(
@@ -62,6 +68,7 @@ class LoginScreen extends StatelessWidget {
         BlocListener<GraphqlClientCubit, GraphqlClientState>(
           listener: (context, state) {
             if (state is GraphqlClientInitialized) {
+              dev.log('Graphql Initialized!', name: 'Auth');
               context
                   .read<UpcomingEpisodesBloc>()
                   .add(LoadData(state.client));
@@ -77,7 +84,8 @@ class LoginScreen extends StatelessWidget {
               context
                   .read<RecommendedMangaBloc>()
                   .add(LoadData(state.client));
-              context.read<ReviewBloc>(). add(LoadData(state.client));
+              context.read<ReviewBloc>().add(LoadData(state.client));
+              dev.log('Going to home screen from login', name: 'Auth');
               context.go('/home');
             }
           },

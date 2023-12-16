@@ -14,10 +14,10 @@ class ScrollToLeftFAB extends StatefulHookWidget {
   final ScrollController controller;
 
   @override
-  State<ScrollToLeftFAB> createState() => _ScrollToTopFABState();
+  State<ScrollToLeftFAB> createState() => _ScrollToLeftFABState();
 }
 
-class _ScrollToTopFABState extends State<ScrollToLeftFAB> {
+class _ScrollToLeftFABState extends State<ScrollToLeftFAB> {
   bool _isVisible = false;
 
   @override
@@ -52,16 +52,21 @@ class _ScrollToTopFABState extends State<ScrollToLeftFAB> {
               top: 0,
               bottom: 0,
               left: 5,
-              child: FloatingActionButton.small(
-                onPressed: () {
-                  widget.controller.animateTo(
-                    0,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeInOut,
-                  );
-                },
-                backgroundColor: AppColors.sunsetOrange.withOpacity(0.60),
-                child: SvgPicture.asset(Assets.iconsArrowLeft, color: AppColors.white,),
+              child: Center(
+                child: FloatingActionButton.small(
+                  onPressed: () {
+                    widget.controller.animateTo(
+                      0,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInOut,
+                    );
+                  },
+                  backgroundColor: AppColors.sunsetOrange.withOpacity(0.60),
+                  child: SvgPicture.asset(
+                    Assets.iconsArrowLeft,
+                    color: AppColors.white,
+                  ),
+                ),
               ),
             ),
           )

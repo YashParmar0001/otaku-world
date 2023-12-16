@@ -24,57 +24,55 @@ class _AppScaffoldState extends State<AppScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: BlocListener<BottomNavBarCubit, BottomNavBarState>(
-        listener: (context, state) {
-          if (state is BottomNavBarVisible) {
-            setState(() {
-              _isBottomBarVisible = true;
-            });
-          } else if (state is BottomNavBarNotVisible) {
-            setState(() {
-              _isBottomBarVisible = false;
-            });
-          }
-        },
-        child: Scaffold(
-          appBar: const MainAppBar(),
-          body: widget.child,
-          bottomNavigationBar: AnimatedContainer(
-            duration: const Duration(milliseconds: 600),
-            curve: Curves.easeInOutSine,
-            height: _isBottomBarVisible ? 75 : 0,
-            child: Wrap(
-              children: [
-                SizedBox(
-                  height: 75,
-                  child: BottomNavigationBar(
-                    type: BottomNavigationBarType.fixed,
-                    showUnselectedLabels: true,
-                    currentIndex: _calculateSelectedIndex(context),
-                    onTap: (value) => onTap(value, context),
-                    items: [
-                      _buildBottomNavBarItem(
-                        label: 'Home',
-                        icon: Assets.iconsHome,
-                      ),
-                      _buildBottomNavBarItem(
-                        label: 'Discover',
-                        icon: Assets.iconsSearch,
-                      ),
-                      _buildBottomNavBarItem(
-                        label: 'Social',
-                        icon: Assets.iconsUserGroup,
-                      ),
-                      _buildBottomNavBarItem(
-                        label: 'My List',
-                        icon: Assets.iconsBulletList,
-                      ),
-                    ],
-                  ),
+    return BlocListener<BottomNavBarCubit, BottomNavBarState>(
+      listener: (context, state) {
+        if (state is BottomNavBarVisible) {
+          setState(() {
+            _isBottomBarVisible = true;
+          });
+        } else if (state is BottomNavBarNotVisible) {
+          setState(() {
+            _isBottomBarVisible = false;
+          });
+        }
+      },
+      child: Scaffold(
+        appBar: const MainAppBar(),
+        body: widget.child,
+        bottomNavigationBar: AnimatedContainer(
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeInOutSine,
+          height: _isBottomBarVisible ? 75 : 0,
+          child: Wrap(
+            children: [
+              SizedBox(
+                height: 75,
+                child: BottomNavigationBar(
+                  type: BottomNavigationBarType.fixed,
+                  showUnselectedLabels: true,
+                  currentIndex: _calculateSelectedIndex(context),
+                  onTap: (value) => onTap(value, context),
+                  items: [
+                    _buildBottomNavBarItem(
+                      label: 'Home',
+                      icon: Assets.iconsHome,
+                    ),
+                    _buildBottomNavBarItem(
+                      label: 'Discover',
+                      icon: Assets.iconsSearch,
+                    ),
+                    _buildBottomNavBarItem(
+                      label: 'Social',
+                      icon: Assets.iconsUserGroup,
+                    ),
+                    _buildBottomNavBarItem(
+                      label: 'My List',
+                      icon: Assets.iconsBulletList,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

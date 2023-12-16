@@ -2445,7 +2445,7 @@ const fragmentDefinitionReview = FragmentDefinitionNode(
           directives: [],
           selectionSet: SelectionSetNode(selections: [
             FieldNode(
-              name: NameNode(value: 'large'),
+              name: NameNode(value: 'medium'),
               alias: null,
               arguments: [],
               directives: [],
@@ -2497,6 +2497,28 @@ const fragmentDefinitionReview = FragmentDefinitionNode(
           selectionSet: SelectionSetNode(selections: [
             FieldNode(
               name: NameNode(value: 'userPreferred'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            FieldNode(
+              name: NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
+        FieldNode(
+          name: NameNode(value: 'coverImage'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: SelectionSetNode(selections: [
+            FieldNode(
+              name: NameNode(value: 'extraLarge'),
               alias: null,
               arguments: [],
               directives: [],
@@ -2728,27 +2750,27 @@ class _CopyWithStubImpl$Fragment$Review$user<TRes>
 
 class Fragment$Review$user$avatar {
   Fragment$Review$user$avatar({
-    this.large,
+    this.medium,
     this.$__typename = 'UserAvatar',
   });
 
   factory Fragment$Review$user$avatar.fromJson(Map<String, dynamic> json) {
-    final l$large = json['large'];
+    final l$medium = json['medium'];
     final l$$__typename = json['__typename'];
     return Fragment$Review$user$avatar(
-      large: (l$large as String?),
+      medium: (l$medium as String?),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final String? large;
+  final String? medium;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
-    final l$large = large;
-    _resultData['large'] = l$large;
+    final l$medium = medium;
+    _resultData['medium'] = l$medium;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2756,10 +2778,10 @@ class Fragment$Review$user$avatar {
 
   @override
   int get hashCode {
-    final l$large = large;
+    final l$medium = medium;
     final l$$__typename = $__typename;
     return Object.hashAll([
-      l$large,
+      l$medium,
       l$$__typename,
     ]);
   }
@@ -2773,9 +2795,9 @@ class Fragment$Review$user$avatar {
         runtimeType != other.runtimeType) {
       return false;
     }
-    final l$large = large;
-    final lOther$large = other.large;
-    if (l$large != lOther$large) {
+    final l$medium = medium;
+    final lOther$medium = other.medium;
+    if (l$medium != lOther$medium) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -2806,7 +2828,7 @@ abstract class CopyWith$Fragment$Review$user$avatar<TRes> {
       _CopyWithStubImpl$Fragment$Review$user$avatar;
 
   TRes call({
-    String? large,
+    String? medium,
     String? $__typename,
   });
 }
@@ -2825,11 +2847,11 @@ class _CopyWithImpl$Fragment$Review$user$avatar<TRes>
   static const _undefined = <dynamic, dynamic>{};
 
   TRes call({
-    Object? large = _undefined,
+    Object? medium = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Fragment$Review$user$avatar(
-        large: large == _undefined ? _instance.large : (large as String?),
+        medium: medium == _undefined ? _instance.medium : (medium as String?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
@@ -2843,7 +2865,7 @@ class _CopyWithStubImpl$Fragment$Review$user$avatar<TRes>
   TRes _res;
 
   call({
-    String? large,
+    String? medium,
     String? $__typename,
   }) =>
       _res;
@@ -2854,6 +2876,7 @@ class Fragment$Review$media {
     this.averageScore,
     this.bannerImage,
     this.title,
+    this.coverImage,
     this.$__typename = 'Media',
   });
 
@@ -2861,6 +2884,7 @@ class Fragment$Review$media {
     final l$averageScore = json['averageScore'];
     final l$bannerImage = json['bannerImage'];
     final l$title = json['title'];
+    final l$coverImage = json['coverImage'];
     final l$$__typename = json['__typename'];
     return Fragment$Review$media(
       averageScore: (l$averageScore as int?),
@@ -2869,6 +2893,10 @@ class Fragment$Review$media {
           ? null
           : Fragment$Review$media$title.fromJson(
               (l$title as Map<String, dynamic>)),
+      coverImage: l$coverImage == null
+          ? null
+          : Fragment$Review$media$coverImage.fromJson(
+              (l$coverImage as Map<String, dynamic>)),
       $__typename: (l$$__typename as String),
     );
   }
@@ -2878,6 +2906,8 @@ class Fragment$Review$media {
   final String? bannerImage;
 
   final Fragment$Review$media$title? title;
+
+  final Fragment$Review$media$coverImage? coverImage;
 
   final String $__typename;
 
@@ -2889,6 +2919,8 @@ class Fragment$Review$media {
     _resultData['bannerImage'] = l$bannerImage;
     final l$title = title;
     _resultData['title'] = l$title?.toJson();
+    final l$coverImage = coverImage;
+    _resultData['coverImage'] = l$coverImage?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2899,11 +2931,13 @@ class Fragment$Review$media {
     final l$averageScore = averageScore;
     final l$bannerImage = bannerImage;
     final l$title = title;
+    final l$coverImage = coverImage;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$averageScore,
       l$bannerImage,
       l$title,
+      l$coverImage,
       l$$__typename,
     ]);
   }
@@ -2929,6 +2963,11 @@ class Fragment$Review$media {
     final l$title = title;
     final lOther$title = other.title;
     if (l$title != lOther$title) {
+      return false;
+    }
+    final l$coverImage = coverImage;
+    final lOther$coverImage = other.coverImage;
+    if (l$coverImage != lOther$coverImage) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -2961,9 +3000,11 @@ abstract class CopyWith$Fragment$Review$media<TRes> {
     int? averageScore,
     String? bannerImage,
     Fragment$Review$media$title? title,
+    Fragment$Review$media$coverImage? coverImage,
     String? $__typename,
   });
   CopyWith$Fragment$Review$media$title<TRes> get title;
+  CopyWith$Fragment$Review$media$coverImage<TRes> get coverImage;
 }
 
 class _CopyWithImpl$Fragment$Review$media<TRes>
@@ -2983,6 +3024,7 @@ class _CopyWithImpl$Fragment$Review$media<TRes>
     Object? averageScore = _undefined,
     Object? bannerImage = _undefined,
     Object? title = _undefined,
+    Object? coverImage = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Fragment$Review$media(
@@ -2995,6 +3037,9 @@ class _CopyWithImpl$Fragment$Review$media<TRes>
         title: title == _undefined
             ? _instance.title
             : (title as Fragment$Review$media$title?),
+        coverImage: coverImage == _undefined
+            ? _instance.coverImage
+            : (coverImage as Fragment$Review$media$coverImage?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
@@ -3006,6 +3051,14 @@ class _CopyWithImpl$Fragment$Review$media<TRes>
         ? CopyWith$Fragment$Review$media$title.stub(_then(_instance))
         : CopyWith$Fragment$Review$media$title(
             local$title, (e) => call(title: e));
+  }
+
+  CopyWith$Fragment$Review$media$coverImage<TRes> get coverImage {
+    final local$coverImage = _instance.coverImage;
+    return local$coverImage == null
+        ? CopyWith$Fragment$Review$media$coverImage.stub(_then(_instance))
+        : CopyWith$Fragment$Review$media$coverImage(
+            local$coverImage, (e) => call(coverImage: e));
   }
 }
 
@@ -3019,12 +3072,16 @@ class _CopyWithStubImpl$Fragment$Review$media<TRes>
     int? averageScore,
     String? bannerImage,
     Fragment$Review$media$title? title,
+    Fragment$Review$media$coverImage? coverImage,
     String? $__typename,
   }) =>
       _res;
 
   CopyWith$Fragment$Review$media$title<TRes> get title =>
       CopyWith$Fragment$Review$media$title.stub(_res);
+
+  CopyWith$Fragment$Review$media$coverImage<TRes> get coverImage =>
+      CopyWith$Fragment$Review$media$coverImage.stub(_res);
 }
 
 class Fragment$Review$media$title {
@@ -3147,6 +3204,131 @@ class _CopyWithStubImpl$Fragment$Review$media$title<TRes>
 
   call({
     String? userPreferred,
+    String? $__typename,
+  }) =>
+      _res;
+}
+
+class Fragment$Review$media$coverImage {
+  Fragment$Review$media$coverImage({
+    this.extraLarge,
+    this.$__typename = 'MediaCoverImage',
+  });
+
+  factory Fragment$Review$media$coverImage.fromJson(Map<String, dynamic> json) {
+    final l$extraLarge = json['extraLarge'];
+    final l$$__typename = json['__typename'];
+    return Fragment$Review$media$coverImage(
+      extraLarge: (l$extraLarge as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? extraLarge;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$extraLarge = extraLarge;
+    _resultData['extraLarge'] = l$extraLarge;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$extraLarge = extraLarge;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$extraLarge,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Fragment$Review$media$coverImage) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$extraLarge = extraLarge;
+    final lOther$extraLarge = other.extraLarge;
+    if (l$extraLarge != lOther$extraLarge) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Fragment$Review$media$coverImage
+    on Fragment$Review$media$coverImage {
+  CopyWith$Fragment$Review$media$coverImage<Fragment$Review$media$coverImage>
+      get copyWith => CopyWith$Fragment$Review$media$coverImage(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Fragment$Review$media$coverImage<TRes> {
+  factory CopyWith$Fragment$Review$media$coverImage(
+    Fragment$Review$media$coverImage instance,
+    TRes Function(Fragment$Review$media$coverImage) then,
+  ) = _CopyWithImpl$Fragment$Review$media$coverImage;
+
+  factory CopyWith$Fragment$Review$media$coverImage.stub(TRes res) =
+      _CopyWithStubImpl$Fragment$Review$media$coverImage;
+
+  TRes call({
+    String? extraLarge,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Fragment$Review$media$coverImage<TRes>
+    implements CopyWith$Fragment$Review$media$coverImage<TRes> {
+  _CopyWithImpl$Fragment$Review$media$coverImage(
+    this._instance,
+    this._then,
+  );
+
+  final Fragment$Review$media$coverImage _instance;
+
+  final TRes Function(Fragment$Review$media$coverImage) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? extraLarge = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Fragment$Review$media$coverImage(
+        extraLarge: extraLarge == _undefined
+            ? _instance.extraLarge
+            : (extraLarge as String?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Fragment$Review$media$coverImage<TRes>
+    implements CopyWith$Fragment$Review$media$coverImage<TRes> {
+  _CopyWithStubImpl$Fragment$Review$media$coverImage(this._res);
+
+  TRes _res;
+
+  call({
+    String? extraLarge,
     String? $__typename,
   }) =>
       _res;

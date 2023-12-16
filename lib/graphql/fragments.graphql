@@ -54,7 +54,7 @@ fragment Review on Review{
     user {
         name
         avatar {
-            large
+          medium
         }
     }
 
@@ -63,6 +63,9 @@ fragment Review on Review{
         bannerImage
         title {
             userPreferred
+        }
+        coverImage {
+           extraLarge
         }
     }
 

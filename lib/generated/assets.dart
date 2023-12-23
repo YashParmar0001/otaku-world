@@ -29,6 +29,15 @@ class Assets {
   static const String iconsThumbsUp = 'assets/icons/thumbs-up.svg';
   static const String iconsUserGroup = 'assets/icons/user-group.svg';
   static const String iconsViewSlider = 'assets/icons/view-slider.svg';
+  static const String myRefreshIndicatorForest = 'assets/my_refresh_indicator/forest.png';
+  static const String myRefreshIndicatorFullMoon = 'assets/my_refresh_indicator/full_moon.svg';
+  static const String myRefreshIndicatorMeteorite1 = 'assets/my_refresh_indicator/meteorite1.svg';
+  static const String myRefreshIndicatorMeteorite2 = 'assets/my_refresh_indicator/meteorite2.svg';
+  static const String myRefreshIndicatorMeteorite3 = 'assets/my_refresh_indicator/meteorite3.svg';
+  static const String myRefreshIndicatorMoonLogoAfter = 'assets/my_refresh_indicator/moon_logo_after.svg';
+  static const String myRefreshIndicatorMoonLogoBefore = 'assets/my_refresh_indicator/moon_logo_before.svg';
+  static const String myRefreshIndicatorSky = 'assets/my_refresh_indicator/sky.png';
+  static const String myRefreshIndicatorStarGroup = 'assets/my_refresh_indicator/star_group.png';
   static const String onBoardingOnBoarding1 = 'assets/images/on_boarding/on_boarding_1.png';
   static const String onBoardingOnBoarding2 = 'assets/images/on_boarding/on_boarding_2.png';
   static const String onBoardingOnBoarding3 = 'assets/images/on_boarding/on_boarding_3.png';
@@ -39,10 +48,5 @@ class Assets {
   static const String placeholders210x310 = 'assets/images/placeholders/210x310.png';
   static const String placeholders340x72 = 'assets/images/placeholders/340x72.png';
   static const String placeholders85x120 = 'assets/images/placeholders/85x120.png';
-  static const String planIndicatorCloud1 = 'assets/plan_indicator/cloud1.png';
-  static const String planIndicatorCloud2 = 'assets/plan_indicator/cloud2.png';
-  static const String planIndicatorCloud3 = 'assets/plan_indicator/cloud3.png';
-  static const String planIndicatorCloud4 = 'assets/plan_indicator/cloud4.png';
-  static const String planIndicatorPlane = 'assets/plan_indicator/plane.png';
 
 }

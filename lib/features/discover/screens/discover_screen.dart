@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:otaku_world/bloc/auth/auth_cubit.dart';
 import 'package:otaku_world/theme/colors.dart';
 
 class DiscoverScreen extends StatelessWidget {
@@ -6,11 +8,17 @@ class DiscoverScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text(
-          'Discover Screen',
-          style: TextStyle(color: AppColors.white),
+        // child: Text(
+        //   'Discover Screen',
+        //   style: TextStyle(color: AppColors.white),
+        // ),
+        child: ElevatedButton(
+          onPressed: () {
+            context.read<AuthCubit>().logOut();
+          },
+          child: const Text('Log Out'),
         ),
       ),
     );

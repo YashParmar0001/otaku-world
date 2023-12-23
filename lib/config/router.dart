@@ -1,13 +1,17 @@
+import 'dart:developer' as dev;
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:otaku_world/bloc/auth/auth_cubit.dart';
+import 'package:otaku_world/bloc/routes/redirect_route_cubit.dart';
+import 'package:otaku_world/core/routes/slide_transition_route.dart';
 import 'package:otaku_world/features/auth/screens/login_screen.dart';
 import 'package:otaku_world/features/home/screens/home_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_detail_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_screen.dart';
 import 'package:otaku_world/features/splash/screens/splash_screen.dart';
-import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/observers/go_route_observer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/ui/app_scaffold.dart';
 import '../features/discover/screens/discover_screen.dart';
@@ -19,7 +23,7 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
-  // initialLocation: '/splash',
+  initialLocation: '/',
   navigatorKey: _rootNavigatorKey,
   observers: [CustomRouteObserver()],
   routes: [
@@ -27,39 +31,6 @@ final router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/',
       builder: (context, state) => const SplashScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: _rootNavigatorKey,
-      path: '/review-detail',
-      builder: (context, state) => ReviewDetailScreen(
-        review: state.extra! as Fragment$Review,
-      ),
-    ),
-    GoRoute(
-        parentNavigatorKey: _rootNavigatorKey,
-        path: '/reviews',
-        builder: (context, state) => const ReviewScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: _rootNavigatorKey,
-      path: '/on_boarding',
-      builder: (context, state) => const OnBoardingScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: _rootNavigatorKey,
-      path: '/login',
-      builder: (context, state) => const LoginScreen(),
-      redirect: (context, state) async {
-        final sharedPref = await SharedPreferences.getInstance();
-        final isFirstTime = sharedPref.getBool('is_first_time');
-
-        if (isFirstTime == null) {
-          return '/on_boarding';
-        } else {
-          null;
-        }
-        return null;
-      },
     ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
@@ -73,6 +44,26 @@ final router = GoRouter(
               child: HomeScreen(),
             );
           },
+          routes: [
+            SlideTransitionRoute(
+              path: 'reviews',
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (state) => const ReviewScreen(),
+              directionTween: SlideTransitionRoute.leftToRightTween,
+              routes: [
+                SlideTransitionRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'review-detail',
+                  builder: (state) {
+                    return ReviewDetailScreen(
+                      reviewId: int.parse(state.queryParameters['id']!),
+                    );
+                  },
+                  directionTween: SlideTransitionRoute.leftToRightTween,
+                ),
+              ],
+            ),
+          ],
         ),
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,
@@ -94,7 +85,7 @@ final router = GoRouter(
         ),
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,
-          path: '/myList',
+          path: '/my-list',
           pageBuilder: (context, state) {
             return const NoTransitionPage(
               child: MyListScreen(),
@@ -103,5 +94,42 @@ final router = GoRouter(
         ),
       ],
     ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/on-boarding',
+      builder: (context, state) => const OnBoardingScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/login',
+      builder: (context, state) => const LoginScreen(),
+    ),
   ],
+  redirect: (context, state) {
+    dev.log('Matched location: ${state.matchedLocation}',
+        name: 'RouterRedirect');
+    if (state.matchedLocation == '/') return null;
+
+    final authState = context.read<AuthCubit>().state;
+    final routeCubit = context.read<RedirectRouteCubit>();
+
+    if (authState is UnAuthenticated) {
+      if ((!routeCubit.isDesiredRouteSet() &&
+              state.matchedLocation != '/login') ||
+          (state.matchedLocation != '/home' &&
+              state.matchedLocation != '/login')) {
+        routeCubit.setDesiredRoute(state.matchedLocation);
+      }
+      return '/login';
+    } else {
+      if (state.matchedLocation == '/home' && routeCubit.isDesiredRouteSet()) {
+        final route = routeCubit.desiredRoute;
+        routeCubit.resetDesiredRoute();
+        dev.log('Going to desired route: $route', name: 'RouterRedirect');
+        return route;
+      } else {
+        return null;
+      }
+    }
+  },
 );

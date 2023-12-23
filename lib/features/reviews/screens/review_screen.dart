@@ -4,7 +4,7 @@ import 'dart:developer' as dev;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
-import 'package:otaku_world/bloc/reviews/review_bloc.dart';
+import 'package:otaku_world/bloc/reviews/reviews/review_bloc.dart';
 import 'package:otaku_world/core/ui/error_text.dart';
 import 'package:otaku_world/core/ui/shimmers/reviews_shimmer_list.dart';
 import 'package:otaku_world/core/ui/simple_app_bar.dart';

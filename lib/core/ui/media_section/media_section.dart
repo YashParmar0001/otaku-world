@@ -26,12 +26,14 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
     this.leftPadding = 15,
     required this.onSliderPressed,
     required this.onMorePressed,
+    required this.heroTag,
   });
 
   final String label;
   final double leftPadding;
   final VoidCallback onSliderPressed;
   final VoidCallback onMorePressed;
+  final String heroTag;
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +191,7 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
                 ),
             ],
           ),
-          ScrollToLeftFAB(controller: controller),
+          ScrollToLeftFAB(controller: controller, tag: heroTag),
         ],
       ),
     );

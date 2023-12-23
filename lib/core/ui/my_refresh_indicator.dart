@@ -1,270 +1,321 @@
-import 'dart:async';
-
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:otaku_world/generated/assets.dart';
+import 'package:otaku_world/theme/colors.dart';
 
-class _Cloud {
-  static const _light = Color(0xFF96CDDE);
-  static const _dark = Color(0xFF6AABBF);
-  static const _normal = Color(0xFFACCFDA);
-
-  static const _assets = [
-    "assets/plan_indicator/cloud1.png",
-    "assets/plan_indicator/cloud2.png",
-    "assets/plan_indicator/cloud3.png",
-    "assets/plan_indicator/cloud4.png",
-  ];
-
+class _Meteorite {
   AnimationController? controller;
-  final Color color;
-  final AssetImage image;
-  final double width;
+  final SvgPicture image;
+  final double dx;
   final double dy;
-  final double initialValue;
+  final double width;
+  final double height;
   final Duration duration;
+  final Duration delay;
 
-  _Cloud({
-    required this.color,
+  _Meteorite({
     required this.image,
-    required this.width,
+    required this.dx,
     required this.dy,
-    required this.initialValue,
+    required this.width,
+    required this.height,
     required this.duration,
+    required this.delay,
   });
 }
 
-class PlaneIndicator extends StatefulWidget {
+class MyRefreshIndicator extends StatefulWidget {
   final Widget child;
   final Future<void> Function() onRefresh;
-
-  const PlaneIndicator({
+  final Color background;
+  const MyRefreshIndicator({
     super.key,
     required this.child,
     required this.onRefresh,
+    this.background = AppColors.raisinBlack,
   });
 
   @override
-  State<PlaneIndicator> createState() => _PlaneIndicatorState();
+  State<MyRefreshIndicator> createState() => _MyRefreshIndicator();
 }
 
-class _PlaneIndicatorState extends State<PlaneIndicator>
+class _MyRefreshIndicator extends State<MyRefreshIndicator>
     with TickerProviderStateMixin {
-  static final _planeTween = CurveTween(curve: Curves.easeInOut);
-  late AnimationController _planeController;
-
+  static final _meteoriteTween = CurveTween(curve: Curves.easeInOutCubic);
+  late AnimationController _moonEyeController;
   @override
   void initState() {
-    _planeController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500),
-    );
-
-    _setupCloudsAnimationControllers();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _precacheImages());
+    _moonEyeController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 800));
+    _setupMeteoriteAnimationControllers();
     super.initState();
-  }
-
-  void _precacheImages() {
-    for (final config in _clouds) {
-      unawaited(precacheImage(config.image, context));
-    }
-  }
-
-  static final _clouds = [
-    _Cloud(
-      color: _Cloud._dark,
-      initialValue: 0.6,
-      dy: 10.0,
-      image: AssetImage(_Cloud._assets[1]),
-      width: 100,
-      duration: const Duration(milliseconds: 1600),
-    ),
-    _Cloud(
-      color: _Cloud._light,
-      initialValue: 0.15,
-      dy: 25.0,
-      image: AssetImage(_Cloud._assets[3]),
-      width: 40,
-      duration: const Duration(milliseconds: 1600),
-    ),
-    _Cloud(
-      color: _Cloud._light,
-      initialValue: 0.3,
-      dy: 65.0,
-      image: AssetImage(_Cloud._assets[2]),
-      width: 60,
-      duration: const Duration(milliseconds: 1600),
-    ),
-    _Cloud(
-      color: _Cloud._dark,
-      initialValue: 0.8,
-      dy: 70.0,
-      image: AssetImage(_Cloud._assets[3]),
-      width: 100,
-      duration: const Duration(milliseconds: 1600),
-    ),
-    _Cloud(
-      color: _Cloud._normal,
-      initialValue: 0.0,
-      dy: 10,
-      image: AssetImage(_Cloud._assets[0]),
-      width: 80,
-      duration: const Duration(milliseconds: 1600),
-    ),
-  ];
-
-  void _setupCloudsAnimationControllers() {
-    for (final cloud in _clouds) {
-      cloud.controller = AnimationController(
-        vsync: this,
-        duration: cloud.duration,
-        value: cloud.initialValue,
-      );
-    }
-  }
-
-  void _startPlaneAnimation() {
-    _planeController.repeat(reverse: true);
-  }
-
-  void _stopPlaneAnimation() {
-    _planeController
-      ..stop()
-      ..animateTo(0.0, duration: const Duration(milliseconds: 100));
-  }
-
-  void _stopCloudAnimation() {
-    for (final cloud in _clouds) {
-      cloud.controller!.stop();
-    }
-  }
-
-  void _startCloudAnimation() {
-    for (final cloud in _clouds) {
-      cloud.controller!.repeat();
-    }
-  }
-
-  void _disposeCloudsControllers() {
-    for (final cloud in _clouds) {
-      cloud.controller!.dispose();
-    }
   }
 
   @override
   void dispose() {
-    _planeController.dispose();
-    _disposeCloudsControllers();
+    _moonEyeController.dispose();
+    _disposeMeteoriteAnimationControllers();
     super.dispose();
+  }
+
+  void _setupMeteoriteAnimationControllers() {
+    for (final meteorite in meteorites) {
+      meteorite.controller = AnimationController(
+        vsync: this,
+        duration: meteorite.duration,
+      );
+    }
+  }
+
+  void _disposeMeteoriteAnimationControllers() {
+    for (final meteorite in meteorites) {
+      meteorite.controller!.dispose();
+    }
+  }
+
+  void _startMoonEyeAnimation() {
+    _moonEyeController.forward();
+  }
+
+  void _stopMoonEyeAnimation() {
+    _moonEyeController.stop();
+    _moonEyeController.reset();
+  }
+
+  void _startMeteoriteAnimation() {
+    for (final meteorite in meteorites) {
+      Future.delayed(meteorite.delay, () {
+        meteorite.controller!.forward();
+      });
+    }
+  }
+
+  void _stopMeteoriteAnimation() {
+    for (final meteorite in meteorites) {
+      meteorite.controller!.stop();
+      meteorite.controller!.reset();
+    }
   }
 
   static const _offsetToArmed = 150.0;
 
+  static final meteorites = [
+    _Meteorite(
+      image: SvgPicture.asset(
+        Assets.myRefreshIndicatorMeteorite1,
+      ),
+      dx: 50.0,
+      dy: -80.0,
+      width: 67,
+      height: 29,
+      duration: const Duration(milliseconds: 1000),
+      delay: const Duration(milliseconds: 0),
+    ),
+    _Meteorite(
+      image: SvgPicture.asset(
+        Assets.myRefreshIndicatorMeteorite2,
+      ),
+      dx: 80.0,
+      dy: -60.0,
+      width: 39,
+      height: 16,
+      duration: const Duration(milliseconds: 750),
+      delay: const Duration(milliseconds: 300),
+    ),
+    _Meteorite(
+      image: SvgPicture.asset(
+        Assets.myRefreshIndicatorMeteorite3,
+      ),
+      dx: 25.0,
+      dy: -80.0,
+      width: 25,
+      height: 10,
+      duration: const Duration(milliseconds: 700),
+      delay: const Duration(milliseconds: 500),
+    ),
+    _Meteorite(
+      image: SvgPicture.asset(
+        Assets.myRefreshIndicatorMeteorite3,
+      ),
+      dx: -25.0,
+      dy: -60.0,
+      width: 25,
+      height: 10,
+      duration: const Duration(milliseconds: 700),
+      delay: const Duration(milliseconds: 800),
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final screenWidth = constraints.maxWidth;
-        final plane = AnimatedBuilder(
-          animation: _planeController,
-          child: Image.asset(
-            "assets/plan_indicator/plane.png",
-            width: 172,
-            height: 50,
-            fit: BoxFit.contain,
-          ),
-          builder: (BuildContext context, Widget? child) {
-            return Transform.translate(
-              offset: Offset(0.0,
-                  10 * (0.5 - _planeTween.transform(_planeController.value))),
-              child: child,
+        const double screenHeight = 150.0;
+
+        return CustomRefreshIndicator(
+          onRefresh: () async {
+            await Future.delayed(
+              const Duration(milliseconds: 1500),
+              widget.onRefresh,
             );
           },
-        );
-        return CustomRefreshIndicator(
-          offsetToArmed: _offsetToArmed,
-          autoRebuild: false,
           onStateChanged: (change) {
             if (change.didChange(
-              from: IndicatorState.armed,
-              to: IndicatorState.settling,
+              to: IndicatorState.loading,
             )) {
-              _startCloudAnimation();
-              _startPlaneAnimation();
+              _startMeteoriteAnimation();
+              _startMoonEyeAnimation();
             }
             if (change.didChange(
-              from: IndicatorState.loading,
+              to: IndicatorState.finalizing,
             )) {
-              _stopPlaneAnimation();
-            }
-            if (change.didChange(
-              to: IndicatorState.idle,
-            )) {
-              _stopCloudAnimation();
+              _stopMeteoriteAnimation();
+              _stopMoonEyeAnimation();
             }
           },
-          onRefresh: widget.onRefresh,
-          builder: (BuildContext context, Widget child,
-              IndicatorController controller) {
+          builder: (
+            BuildContext context,
+            Widget child,
+            IndicatorController controller,
+          ) {
             return AnimatedBuilder(
               animation: controller,
               child: child,
               builder: (context, child) {
                 return Stack(
                   clipBehavior: Clip.hardEdge,
-                  children: <Widget>[
+                  children: [
                     if (!controller.side.isNone)
                       Container(
+                        // clipBehavior: Clip.hardEdge,
                         height: _offsetToArmed * controller.value,
-                        color: const Color(0xFFFDFEFF),
+                        color: AppColors.black,
                         width: double.infinity,
-                        child: AnimatedBuilder(
-                          animation: _clouds.first.controller!,
-                          builder: (BuildContext context, Widget? child) {
-                            return Stack(
-                              clipBehavior: Clip.hardEdge,
-                              children: <Widget>[
-                                for (final cloud in _clouds)
-                                  Transform.translate(
-                                    offset: Offset(
-                                      ((screenWidth + cloud.width) *
-                                              cloud.controller!.value) -
-                                          cloud.width,
-                                      cloud.dy * controller.value,
+                        child: Stack(
+                          clipBehavior: Clip.hardEdge,
+                          children: [
+                            // sky
+                            OverflowBox(
+                              maxHeight: double.infinity,
+                              maxWidth: double.infinity,
+                              minHeight: 150,
+                              minWidth: 360,
+                              alignment: Alignment.topLeft,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  for (int i = 0;
+                                      i * 150 < screenHeight + 50;
+                                      i++)
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        for (int i = 0;
+                                            i * 360 < screenWidth;
+                                            i++)
+                                          const Image(
+                                            image: AssetImage(
+                                              Assets.myRefreshIndicatorSky,
+                                            ),
+                                          ),
+                                      ],
                                     ),
-                                    child: OverflowBox(
-                                      minWidth: cloud.width,
-                                      minHeight: cloud.width,
-                                      maxHeight: cloud.width,
-                                      maxWidth: cloud.width,
-                                      alignment: Alignment.topLeft,
-                                      child: Image(
-                                        color: cloud.color,
-                                        image: cloud.image,
-                                        fit: BoxFit.contain,
-                                      ),
+                                ],
+                              ),
+                            ),
+
+                            // meteorites
+                            for (final meteorite in meteorites)
+                              _buildMeteorite(
+                                meteorite: meteorite,
+                                screenWidth: screenWidth,
+                                screenHeight: screenHeight,
+                              ),
+
+                            // moon
+                            Stack(
+                              children: [
+                                OverflowBox(
+                                  alignment: Alignment(25 * 2 / screenWidth - 1,
+                                      10 * 2 / screenHeight - 1),
+                                  child: Opacity(
+                                    opacity:
+                                        1 - controller.value.clamp(0.0, 1.0),
+                                    child: SvgPicture.asset(
+                                      Assets.myRefreshIndicatorFullMoon,
                                     ),
                                   ),
-
-                                /// plane
-                                Center(
-                                  child: OverflowBox(
-                                    maxWidth: 172,
-                                    minWidth: 172,
-                                    maxHeight: 50,
-                                    minHeight: 50,
-                                    alignment: Alignment.center,
-                                    child: plane,
+                                ),
+                                OverflowBox(
+                                  alignment: Alignment(25 * 2 / screenWidth - 1,
+                                      10 * 2 / screenHeight - 1),
+                                  child: Opacity(
+                                    opacity: 2 *
+                                        (controller.value.clamp(0.5, 1.0) -
+                                            0.5),
+                                    child: SvgPicture.asset(
+                                      Assets.myRefreshIndicatorMoonLogoBefore,
+                                    ),
+                                  ),
+                                ),
+                                OverflowBox(
+                                  alignment: Alignment(25 * 2 / screenWidth - 1,
+                                      10 * 2 / screenHeight - 1),
+                                  child: AnimatedBuilder(
+                                    animation: _moonEyeController,
+                                    builder:
+                                        (BuildContext context, Widget? child) {
+                                      return Opacity(
+                                        opacity: _moonEyeController.value,
+                                        child: child,
+                                      );
+                                    },
+                                    child: SvgPicture.asset(
+                                      Assets.myRefreshIndicatorMoonLogoAfter,
+                                    ),
                                   ),
                                 ),
                               ],
-                            );
-                          },
+                            ),
+
+                            // forest
+                            OverflowBox(
+                              maxHeight: 60,
+                              maxWidth: double.infinity,
+                              minHeight: 60,
+                              minWidth: 360,
+                              alignment: Alignment.bottomLeft,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  for (int i = 0; i * 360 < screenWidth; i++)
+                                    const Image(
+                                      image: AssetImage(
+                                        Assets.myRefreshIndicatorForest,
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     Transform.translate(
-                      offset: Offset(0.0, _offsetToArmed * controller.value),
-                      child: child,
+                      offset: Offset(
+                        0.0,
+                        _offsetToArmed * controller.value,
+                      ),
+                      child: Container(
+                        color: widget.background,
+                        child: child,
+                      ),
                     ),
                   ],
                 );
@@ -274,6 +325,40 @@ class _PlaneIndicatorState extends State<PlaneIndicator>
           child: widget.child,
         );
       },
+    );
+  }
+
+  Widget _buildMeteorite({
+    required _Meteorite meteorite,
+    required double screenWidth,
+    required double screenHeight,
+  }) {
+    return AnimatedBuilder(
+      animation: meteorite.controller as AnimationController,
+      builder: (BuildContext context, Widget? child) {
+        double value = _meteoriteTween.transform(meteorite.controller!.value);
+        return Transform.translate(
+          offset: Offset(
+            (meteorite.dx * screenWidth) / 200 - 2.5 * meteorite.width * value,
+            (meteorite.dy * screenHeight) / 200 +
+                2.5 * meteorite.height * value,
+          ),
+          child: Opacity(
+            opacity: ((0.3 <= value) && (value < 0.7)
+                ? 1
+                : 3.33 *
+                    (((0.0 <= value) && (value < 0.3)) ? value : 1.0 - value)),
+            child: child,
+          ),
+        );
+      },
+      child: OverflowBox(
+        maxWidth: meteorite.width,
+        maxHeight: meteorite.height,
+        minWidth: meteorite.width,
+        minHeight: meteorite.height,
+        child: meteorite.image,
+      ),
     );
   }
 }

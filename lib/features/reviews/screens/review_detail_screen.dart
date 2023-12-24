@@ -9,7 +9,6 @@ import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/reviews/review_detail/review_detail_bloc.dart';
 import 'package:otaku_world/core/ui/error_text.dart';
 import 'package:otaku_world/core/ui/shimmers/review_detail_shimmer.dart';
-import 'package:otaku_world/core/ui/simple_app_bar.dart';
 import 'package:otaku_world/features/reviews/widgets/review_by_user.dart';
 import 'package:otaku_world/features/reviews/widgets/review_card.dart';
 import 'package:otaku_world/features/reviews/widgets/review_profile_photo.dart';
@@ -18,7 +17,7 @@ import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
-import '../../../core/ui/back_button.dart';
+import '../../../core/ui/appbars/simple_app_bar.dart';
 import '../../../theme/colors.dart';
 import '../../../utils/formatting_utils.dart';
 

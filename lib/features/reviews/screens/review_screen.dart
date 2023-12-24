@@ -8,8 +8,8 @@ import 'package:otaku_world/bloc/reviews/reviews/review_bloc.dart';
 import 'package:otaku_world/core/ui/error_text.dart';
 import 'package:otaku_world/core/ui/my_refresh_indicator.dart';
 import 'package:otaku_world/core/ui/shimmers/reviews_shimmer_list.dart';
-import 'package:otaku_world/core/ui/simple_app_bar.dart';
-import 'package:otaku_world/core/ui/simple_sliver_app_bar.dart';
+import 'package:otaku_world/core/ui/appbars/simple_app_bar.dart';
+import 'package:otaku_world/core/ui/appbars/simple_sliver_app_bar.dart';
 import 'package:otaku_world/features/reviews/widgets/review_card.dart';
 import 'package:otaku_world/features/reviews/widgets/scroll_to_top_fab.dart';
 
@@ -66,7 +66,7 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
                     title: 'Reviews',
                     floating: true,
                   ),
-                  SliverList(
+                SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         return ReviewCard(

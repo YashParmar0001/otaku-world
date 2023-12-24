@@ -108,7 +108,9 @@ class HomeScreen extends HookWidget {
             ),
             MediaSection<TrendingAnimeBloc>(
               label: 'Trending Anime',
-              onMorePressed: () {},
+              onMorePressed: () {
+                context.go('/home/trending_anime');
+              },
               onSliderPressed: () {},
               heroTag: 'trending_anime',
             ),
@@ -117,7 +119,9 @@ class HomeScreen extends HookWidget {
             ),
             MediaSection<RecommendedAnimeBloc>(
               label: 'Recommended Anime',
-              onMorePressed: () {},
+              onMorePressed: () {
+                context.go('/home/recommended_anime');
+              },
               onSliderPressed: () {},
               heroTag: 'recommended_anime',
             ),
@@ -126,7 +130,9 @@ class HomeScreen extends HookWidget {
             ),
             MediaSection<TrendingMangaBloc>(
               label: 'Trending Manga',
-              onMorePressed: () {},
+              onMorePressed: () {
+                context.go('/home/trending_manga');
+              },
               onSliderPressed: () {},
               heroTag: 'trending_manga',
             ),
@@ -135,7 +141,9 @@ class HomeScreen extends HookWidget {
             ),
             MediaSection<RecommendedMangaBloc>(
               label: 'Recommended Manga',
-              onMorePressed: () {},
+              onMorePressed: () {
+                context.go('/home/recommended_manga');
+              },
               onSliderPressed: () {},
               heroTag: 'recommended_manga',
             ),

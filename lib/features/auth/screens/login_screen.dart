@@ -8,9 +8,9 @@ import 'package:otaku_world/bloc/auth/auth_cubit.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/theme/colors.dart';
 import '../../../constants/string_constants.dart';
-import '../../../core/ui/primary_button.dart';
-import '../../../core/ui/primary_outlined_button.dart';
-import '../../../core/ui/simple_app_bar.dart';
+import '../../../core/ui/buttons/primary_button.dart';
+import '../../../core/ui/buttons/primary_outlined_button.dart';
+import '../../../core/ui/appbars/simple_app_bar.dart';
 
 final Uri authUri = Uri(
   scheme: 'https',

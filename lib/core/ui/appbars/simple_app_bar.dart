@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/theme/colors.dart';
-
-import 'back_button.dart';
+import '../buttons/back_button.dart';
 
 class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
   const SimpleAppBar({super.key, required this.title, this.actions});

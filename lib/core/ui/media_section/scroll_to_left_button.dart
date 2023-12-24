@@ -1,10 +1,8 @@
 import 'dart:developer' as dev;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../generated/assets.dart';
 import '../../../theme/colors.dart';
 
@@ -64,6 +62,7 @@ class _ScrollToLeftFABState extends State<ScrollToLeftFAB> {
                   backgroundColor: AppColors.sunsetOrange.withOpacity(0.60),
                   child: SvgPicture.asset(
                     Assets.iconsArrowLeft,
+
                     color: AppColors.white,
                   ),
                 ),

@@ -6,6 +6,7 @@ import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
 import 'package:otaku_world/bloc/reviews/reviews/review_bloc.dart';
 import 'package:otaku_world/core/ui/error_text.dart';
+import 'package:otaku_world/core/ui/my_refresh_indicator.dart';
 import 'package:otaku_world/core/ui/shimmers/reviews_shimmer_list.dart';
 import 'package:otaku_world/core/ui/simple_app_bar.dart';
 import 'package:otaku_world/core/ui/simple_sliver_app_bar.dart';
@@ -54,7 +55,7 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
           return _buildLoadingScaffold();
         } else if (state is PaginatedDataLoaded) {
           return Scaffold(
-            body: RefreshIndicator(
+            body: MyRefreshIndicator(
               onRefresh: () => _refreshPage(context),
               child: CustomScrollView(
                 scrollDirection: Axis.vertical,
@@ -106,16 +107,11 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
     );
   }
 
-  Future<void> _refreshPage(BuildContext context) {
-    return Future.delayed(
-      const Duration(seconds: 1),
-      () {
-        final client = (context.read<GraphqlClientCubit>().state
-                as GraphqlClientInitialized)
-            .client;
-        context.read<ReviewBloc>().add(RefreshData(client));
-      },
-    );
+  Future<void> _refreshPage(BuildContext context) async {
+    final client = (context.read<GraphqlClientCubit>().state
+    as GraphqlClientInitialized)
+        .client;
+    context.read<ReviewBloc>().add(RefreshData(client));
   }
 
   Widget _buildErrorScaffold(String message, VoidCallback onTryAgain) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/theme/colors.dart';
 
@@ -20,7 +19,15 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: (context.canPop()) ? CustomBackButton(context: context) : null,
+      leading: CustomBackButton(
+        onPressed: () {
+          if (context.canPop()) {
+            context.pop();
+          }else {
+            context.go('/home');
+          }
+        },
+      ),
       title: Text(title, style: Theme.of(context).textTheme.displayMedium),
       backgroundColor: bgColor,
       elevation: 0,

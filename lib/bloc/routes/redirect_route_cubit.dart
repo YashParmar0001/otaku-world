@@ -8,19 +8,35 @@ part 'redirect_route_state.dart';
 class RedirectRouteCubit extends Cubit<RedirectRouteState> {
   RedirectRouteCubit() : super(RedirectRouteInitial());
 
-  String? desiredRoute;
+  String? _desiredRoute;
+  Map<String, String>? queryParameters;
 
-  void setDesiredRoute(String route) {
-    desiredRoute = route;
-    dev.log('Desired route: $route', name: 'RouteCubit');
+  void setDesiredRoute(String route, Map<String, String>? queryParameters) {
+    _desiredRoute = route;
+    this.queryParameters = queryParameters;
+    dev.log(
+      'Desired route: $route | Query: $queryParameters',
+      name: 'RouteCubit',
+    );
+  }
+
+  String getDesiredRoute() {
+    if (queryParameters != null) {
+      final path = Uri(path: _desiredRoute, queryParameters: queryParameters).toString();
+      dev.log('Path: $path', name: 'RouteCubit');
+      return path;
+    } else {
+      return _desiredRoute!;
+    }
   }
 
   void resetDesiredRoute() {
-    desiredRoute = null;
+    _desiredRoute = null;
+    queryParameters = null;
     dev.log('Desired route reset', name: 'RouteCubit');
   }
 
   bool isDesiredRouteSet() {
-    return desiredRoute != null;
+    return _desiredRoute != null;
   }
 }

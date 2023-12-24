@@ -50,18 +50,6 @@ final router = GoRouter(
               parentNavigatorKey: _rootNavigatorKey,
               builder: (state) => const ReviewScreen(),
               directionTween: SlideTransitionRoute.leftToRightTween,
-              routes: [
-                SlideTransitionRoute(
-                  parentNavigatorKey: _rootNavigatorKey,
-                  path: 'review-detail',
-                  builder: (state) {
-                    return ReviewDetailScreen(
-                      reviewId: int.parse(state.queryParameters['id']!),
-                    );
-                  },
-                  directionTween: SlideTransitionRoute.leftToRightTween,
-                ),
-              ],
             ),
           ],
         ),
@@ -94,6 +82,18 @@ final router = GoRouter(
         ),
       ],
     ),
+    SlideTransitionRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/review-detail',
+      builder: (state) {
+        return ReviewDetailScreen(
+          reviewId: int.parse(
+            state.queryParameters['id']!,
+          ),
+        );
+      },
+      directionTween: SlideTransitionRoute.leftToRightTween,
+    ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/on-boarding',
@@ -118,12 +118,15 @@ final router = GoRouter(
               state.matchedLocation != '/login') ||
           (state.matchedLocation != '/home' &&
               state.matchedLocation != '/login')) {
-        routeCubit.setDesiredRoute(state.matchedLocation);
+        routeCubit.setDesiredRoute(
+          state.matchedLocation,
+          state.queryParameters,
+        );
       }
       return '/login';
     } else {
       if (state.matchedLocation == '/home' && routeCubit.isDesiredRouteSet()) {
-        final route = routeCubit.desiredRoute;
+        final route = routeCubit.getDesiredRoute();
         routeCubit.resetDesiredRoute();
         dev.log('Going to desired route: $route', name: 'RouterRedirect');
         return route;

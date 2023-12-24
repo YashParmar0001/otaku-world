@@ -18,7 +18,7 @@ class ReviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
 
-      onTap: () => context.go('/home/reviews/review-detail?id=${review.id}'),
+      onTap: () => context.push('/review-detail?id=${review.id}'),
       child: Container(
         margin: const EdgeInsets.symmetric(
           horizontal: 10,

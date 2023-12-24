@@ -7,9 +7,10 @@ import '../../../generated/assets.dart';
 import '../../../theme/colors.dart';
 
 class ScrollToLeftFAB extends StatefulHookWidget {
-  const ScrollToLeftFAB({super.key, required this.controller});
+  const ScrollToLeftFAB({super.key, required this.controller, required this.tag,});
 
   final ScrollController controller;
+  final String tag;
 
   @override
   State<ScrollToLeftFAB> createState() => _ScrollToLeftFABState();
@@ -26,17 +27,19 @@ class _ScrollToLeftFABState extends State<ScrollToLeftFAB> {
         final minScroll = widget.controller.position.minScrollExtent;
         final currentScroll = widget.controller.position.pixels;
 
-        if (currentScroll > minScroll + 100) {
-          if (!_isVisible) {
-            setState(() {
-              _isVisible = true;
-            });
-          }
-        } else {
-          if (_isVisible) {
-            setState(() {
-              _isVisible = false;
-            });
+        if (mounted) {
+          if (currentScroll > minScroll + 100) {
+            if (!_isVisible) {
+              setState(() {
+                _isVisible = true;
+              });
+            }
+          } else {
+            if (_isVisible) {
+              setState(() {
+                _isVisible = false;
+              });
+            }
           }
         }
       });
@@ -49,9 +52,10 @@ class _ScrollToLeftFABState extends State<ScrollToLeftFAB> {
             child: Positioned(
               top: 0,
               bottom: 0,
-              left: 5,
+              left: 0,
               child: Center(
                 child: FloatingActionButton.small(
+                  heroTag: widget.tag,
                   onPressed: () {
                     widget.controller.animateTo(
                       0,

@@ -1,5 +1,6 @@
 import 'dart:developer' as dev;
 
+import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -36,43 +37,46 @@ class _AppScaffoldState extends State<AppScaffold> {
           });
         }
       },
-      child: Scaffold(
-        appBar: const MainAppBar(),
-        body: widget.child,
-        bottomNavigationBar: AnimatedContainer(
-          duration: const Duration(milliseconds: 600),
-          curve: Curves.easeInOutSine,
-          height: _isBottomBarVisible ? 75 : 0,
-          child: Wrap(
-            children: [
-              SizedBox(
-                height: 75,
-                child: BottomNavigationBar(
-                  type: BottomNavigationBarType.fixed,
-                  showUnselectedLabels: true,
-                  currentIndex: _calculateSelectedIndex(context),
-                  onTap: (value) => onTap(value, context),
-                  items: [
-                    _buildBottomNavBarItem(
-                      label: 'Home',
-                      icon: Assets.iconsHome,
-                    ),
-                    _buildBottomNavBarItem(
-                      label: 'Discover',
-                      icon: Assets.iconsSearch,
-                    ),
-                    _buildBottomNavBarItem(
-                      label: 'Social',
-                      icon: Assets.iconsUserGroup,
-                    ),
-                    _buildBottomNavBarItem(
-                      label: 'My List',
-                      icon: Assets.iconsBulletList,
-                    ),
-                  ],
+      child: DoubleBack(
+        message: 'Press back again to exit!',
+        child: Scaffold(
+          appBar: const MainAppBar(),
+          body: widget.child,
+          bottomNavigationBar: AnimatedContainer(
+            duration: const Duration(milliseconds: 600),
+            curve: Curves.easeInOutSine,
+            height: _isBottomBarVisible ? 75 : 0,
+            child: Wrap(
+              children: [
+                SizedBox(
+                  height: 75,
+                  child: BottomNavigationBar(
+                    type: BottomNavigationBarType.fixed,
+                    showUnselectedLabels: true,
+                    currentIndex: _calculateSelectedIndex(context),
+                    onTap: (value) => onTap(value, context),
+                    items: [
+                      _buildBottomNavBarItem(
+                        label: 'Home',
+                        icon: Assets.iconsHome,
+                      ),
+                      _buildBottomNavBarItem(
+                        label: 'Discover',
+                        icon: Assets.iconsSearch,
+                      ),
+                      _buildBottomNavBarItem(
+                        label: 'Social',
+                        icon: Assets.iconsUserGroup,
+                      ),
+                      _buildBottomNavBarItem(
+                        label: 'My List',
+                        icon: Assets.iconsBulletList,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -113,7 +117,7 @@ class _AppScaffoldState extends State<AppScaffold> {
     if (location.contains('/social')) {
       return 2;
     }
-    if (location.contains('/myList')) {
+    if (location.contains('/my-list')) {
       return 3;
     }
     return 0;
@@ -128,7 +132,7 @@ class _AppScaffoldState extends State<AppScaffold> {
       case 2:
         return context.go('/social');
       case 3:
-        return context.go('/myList');
+        return context.go('/my-list');
       default:
         return context.go('/home');
     }

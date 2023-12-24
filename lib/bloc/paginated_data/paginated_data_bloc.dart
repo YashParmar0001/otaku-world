@@ -21,13 +21,21 @@ abstract class PaginatedDataBloc<Q, E>
       _onRefreshData,
       transformer: droppable(),
     );
+    on<ResetData>(_onResetData);
   }
 
   var page = 1;
   var hasNextPage = true;
   final List<E?> list = [];
 
-  void _onRefreshData(RefreshData event, Emitter<PaginatedDataState> emit,) {
+  void _onResetData(ResetData event, Emitter<PaginatedDataState> emit) {
+    page = 1;
+    hasNextPage = true;
+    list.clear();
+    emit(PaginatedDataInitial());
+  }
+
+  void _onRefreshData(RefreshData event, Emitter<PaginatedDataState> emit) {
     page = 1;
     hasNextPage = true;
     list.clear();
@@ -67,8 +75,6 @@ abstract class PaginatedDataBloc<Q, E>
   Future<QueryResult<Q>> loadData(GraphQLClient client);
 
   void processData(QueryResult<Q> response);
-
-
 
   @override
   void onTransition(

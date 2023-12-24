@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -23,5 +25,11 @@ class GraphqlClientCubit extends Cubit<GraphqlClientState> {
         cache: GraphQLCache(),
       ),
     ));
+  }
+
+  @override
+  void onChange(Change<GraphqlClientState> change) {
+    dev.log(change.toString(), name: 'GraphqlCubit');
+    super.onChange(change);
   }
 }

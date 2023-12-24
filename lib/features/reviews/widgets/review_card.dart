@@ -18,7 +18,7 @@ class ReviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
 
-      onTap: () => context.push('/review-detail',extra: review),
+      onTap: () => context.push('/review-detail?id=${review.id}'),
       child: Container(
         margin: const EdgeInsets.symmetric(
           horizontal: 10,
@@ -104,7 +104,7 @@ class ReviewCard extends StatelessWidget {
                       bottom: 15.0,
                     ),
                     child: ReviewRating(
-                      averageScore: review.media!.averageScore.toString(),
+                      averageScore: review.score.toString(),
                       rating: review.rating.toString(),
                     ),
                   ),

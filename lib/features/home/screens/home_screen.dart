@@ -79,7 +79,7 @@ class HomeScreen extends HookWidget {
               ),
               child: FeatureCard(
                 onTap: () {
-                  context.push('/reviews');
+                  context.go('/home/reviews');
                 },
                 heading: HomeConstants.reviewsHeading,
                 subheading: HomeConstants.reviewsSubheading,
@@ -112,6 +112,7 @@ class HomeScreen extends HookWidget {
                 context.go('/home/trending_anime');
               },
               onSliderPressed: () {},
+              heroTag: 'trending_anime',
             ),
             const SizedBox(
               height: 15,
@@ -122,6 +123,7 @@ class HomeScreen extends HookWidget {
                 context.go('/home/recommended_anime');
               },
               onSliderPressed: () {},
+              heroTag: 'recommended_anime',
             ),
             const SizedBox(
               height: 15,
@@ -132,6 +134,7 @@ class HomeScreen extends HookWidget {
                 context.go('/home/trending_manga');
               },
               onSliderPressed: () {},
+              heroTag: 'trending_manga',
             ),
             const SizedBox(
               height: 15,
@@ -142,6 +145,7 @@ class HomeScreen extends HookWidget {
                 context.go('/home/recommended_manga');
               },
               onSliderPressed: () {},
+              heroTag: 'recommended_manga',
             ),
             const SizedBox(
               height: 15,

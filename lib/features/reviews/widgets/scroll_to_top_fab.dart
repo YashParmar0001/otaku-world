@@ -33,19 +33,21 @@ class _ScrollToTopFABState extends State<ScrollToTopFAB> {
         final minScroll = widget.controller.position.minScrollExtent;
         final currentScroll = widget.controller.position.pixels;
 
-        if (currentScroll > minScroll + 250) {
-          if (!_isVisible) {
-            dev.log('Setting back to top true', name: 'ReviewScreen');
-            setState(() {
-              _isVisible = true;
-            });
-          }
-        } else {
-          if (_isVisible) {
-            dev.log('Setting back to top false', name: 'ReviewScreen');
-            setState(() {
-              _isVisible = false;
-            });
+        if (mounted) {
+          if (currentScroll > minScroll + 250) {
+            if (!_isVisible) {
+              dev.log('Setting back to top true', name: 'ReviewScreen');
+              setState(() {
+                _isVisible = true;
+              });
+            }
+          } else {
+            if (_isVisible) {
+              dev.log('Setting back to top false', name: 'ReviewScreen');
+              setState(() {
+                _isVisible = false;
+              });
+            }
           }
         }
       });

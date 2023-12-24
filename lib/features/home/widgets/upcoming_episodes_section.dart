@@ -23,8 +23,18 @@ class UpcomingEpisodesSection extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    late final double screenWidth;
+    late final double screenHeight;
+
+    if (MediaQuery.of(context).orientation == Orientation.portrait) {
+      screenWidth = MediaQuery.of(context).size.width;
+      screenHeight = MediaQuery.of(context).size.height;
+    }else {
+      screenWidth = MediaQuery.of(context).size.height;
+      screenHeight = MediaQuery.of(context).size.width;
+    }
+
+    dev.log('Screen width: $screenWidth | Screen height: $screenHeight', name: 'UpcomingEpisodes');
     final controller = useScrollController();
 
     useEffect(() {
@@ -167,7 +177,7 @@ class UpcomingEpisodesSection extends HookWidget {
                 ),
             ],
           ),
-          ScrollToLeftFAB(controller: controller),
+          ScrollToLeftFAB(controller: controller, tag: 'up_episodes',),
         ],
       ),
     );
@@ -214,7 +224,7 @@ class UpcomingEpisodesSection extends HookWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 14),
+                    padding: const EdgeInsets.only(top: 7),
                     child: Text(
                       media.title!.english ??
                           media.title!.romaji ??
@@ -241,7 +251,7 @@ class UpcomingEpisodesSection extends HookWidget {
             const Spacer(),
             // Anime Poster
             Padding(
-              padding: const EdgeInsets.only(top: 7, right: 5),
+              padding: const EdgeInsets.only(top: 7, right: 7),
               child: media.coverImage?.large == null
                   ? _buildPlaceholderImage85x120()
                   : CachedNetworkImage(

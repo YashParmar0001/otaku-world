@@ -21,7 +21,15 @@ class SimpleSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      leading: (context.canPop()) ? CustomBackButton(context: context) : null,
+      leading: CustomBackButton(
+        onPressed: () {
+          if (context.canPop()) {
+            context.pop();
+          }else {
+            context.go('/home');
+          }
+        },
+      ),
       expandedHeight: 55,
       toolbarHeight: 55,
       title: Text(

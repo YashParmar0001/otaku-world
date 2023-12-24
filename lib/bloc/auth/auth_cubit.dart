@@ -37,6 +37,12 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  Future<bool> isLoggedIn() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    final token = sharedPreferences.getString('access_token');
+    return token != null;
+  }
+
   void login() async {
     emit(Authenticating());
     try {

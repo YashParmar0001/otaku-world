@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../theme/colors.dart';
-import 'back_button.dart';
+import '../../../theme/colors.dart';
+import '../buttons/back_button.dart';
 
 class SimpleSliverAppBar extends StatelessWidget {
   const SimpleSliverAppBar({

@@ -8,7 +8,7 @@ import 'package:otaku_world/bloc/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/theme/colors.dart';
 
-import 'main_app_bar.dart';
+import 'appbars/main_app_bar.dart';
 
 class AppScaffold extends StatefulWidget {
   const AppScaffold({super.key, required this.child});

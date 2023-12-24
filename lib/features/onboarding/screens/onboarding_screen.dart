@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:otaku_world/core/ui/primary_button.dart';
+import 'package:otaku_world/core/ui/buttons/primary_button.dart';
 import 'package:otaku_world/features/onboarding/widgets/next_button.dart';
 
 import 'package:otaku_world/theme/colors.dart';

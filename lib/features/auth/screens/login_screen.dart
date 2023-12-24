@@ -18,9 +18,9 @@ import '../../../bloc/reviews/review_bloc.dart';
 import '../../../bloc/trending_anime/trending_anime_bloc.dart';
 import '../../../bloc/trending_manga/trending_manga_bloc.dart';
 import '../../../constants/string_constants.dart';
-import '../../../core/ui/primary_button.dart';
-import '../../../core/ui/primary_outlined_button.dart';
-import '../../../core/ui/simple_app_bar.dart';
+import '../../../core/ui/buttons/primary_button.dart';
+import '../../../core/ui/buttons/primary_outlined_button.dart';
+import '../../../core/ui/appbars/simple_app_bar.dart';
 
 final Uri authUri = Uri(
   scheme: 'https',

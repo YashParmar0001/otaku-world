@@ -8,7 +8,7 @@ import 'package:otaku_world/features/reviews/widgets/review_rating.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
-import '../../../core/ui/back_button.dart';
+import '../../../core/ui/buttons/back_button.dart';
 import '../../../theme/colors.dart';
 import '../../../utils/formatting_utils.dart';
 

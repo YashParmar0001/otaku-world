@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +11,7 @@ import 'package:otaku_world/bloc/recommended_manga/recommended_manga_bloc.dart';
 import 'package:otaku_world/bloc/trending_anime/trending_anime_bloc.dart';
 import 'package:otaku_world/bloc/trending_manga/trending_manga_bloc.dart';
 import 'package:otaku_world/core/ui/media_section/media_section.dart';
+import 'package:otaku_world/core/ui/my_refresh_indicator.dart';
 import 'package:otaku_world/core/ui/my_refresh_indicator.dart';
 import 'package:otaku_world/features/home/widgets/upcoming_episodes_section.dart';
 import 'package:otaku_world/generated/assets.dart';
@@ -51,7 +51,7 @@ class HomeScreen extends HookWidget {
       return null;
     }, const []);
 
-    return PlaneIndicator(
+    return MyRefreshIndicator(
       onRefresh: () async {
         return _refreshPage(context);
       },
@@ -153,19 +153,14 @@ class HomeScreen extends HookWidget {
   }
 
   Future<void> _refreshPage(BuildContext context) async {
-    return Future.delayed(
-      const Duration(seconds: 1),
-      () {
-        final client = (context.read<GraphqlClientCubit>().state
-                as GraphqlClientInitialized)
+    final client =
+        (context.read<GraphqlClientCubit>().state as GraphqlClientInitialized)
             .client;
-        context.read<UpcomingEpisodesBloc>().add(RefreshData(client));
-        context.read<TrendingAnimeBloc>().add(RefreshData(client));
-        context.read<RecommendedAnimeBloc>().add(RefreshData(client));
-        context.read<TrendingMangaBloc>().add(RefreshData(client));
-        context.read<RecommendedMangaBloc>().add(RefreshData(client));
-      },
-    );
+    context.read<UpcomingEpisodesBloc>().add(RefreshData(client));
+    context.read<TrendingAnimeBloc>().add(RefreshData(client));
+    context.read<RecommendedAnimeBloc>().add(RefreshData(client));
+    context.read<TrendingMangaBloc>().add(RefreshData(client));
+    context.read<RecommendedMangaBloc>().add(RefreshData(client));
   }
 
   Widget _buildSearchOption(BuildContext context) {

@@ -1,8 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
 
 import 'package:otaku_world/generated/assets.dart';
@@ -10,7 +8,6 @@ import 'package:otaku_world/theme/colors.dart';
 import '../../../constants/string_constants.dart';
 import '../../../core/ui/buttons/primary_button.dart';
 import '../../../core/ui/buttons/primary_outlined_button.dart';
-import '../../../core/ui/appbars/simple_app_bar.dart';
 
 final Uri authUri = Uri(
   scheme: 'https',
@@ -41,9 +38,6 @@ class LoginScreen extends StatelessWidget {
         }
       },
       child: Scaffold(
-        appBar: const SimpleAppBar(
-          title: '',
-        ),
         body: Center(
           child: SingleChildScrollView(
             child: Column(

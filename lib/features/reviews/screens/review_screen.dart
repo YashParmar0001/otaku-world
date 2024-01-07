@@ -13,6 +13,7 @@ import 'package:otaku_world/core/ui/appbars/simple_sliver_app_bar.dart';
 import 'package:otaku_world/features/reviews/widgets/review_card.dart';
 import 'package:otaku_world/features/reviews/widgets/scroll_to_top_fab.dart';
 
+import '../../../theme/colors.dart';
 
 class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
   const ReviewScreen({super.key});
@@ -55,7 +56,8 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
           return _buildLoadingScaffold();
         } else if (state is PaginatedDataLoaded) {
           return Scaffold(
-            body: MyRefreshIndicator(
+            body: RefreshIndicator(
+              backgroundColor: AppColors.raisinBlack,
               onRefresh: () => _refreshPage(context),
               child: CustomScrollView(
                 scrollDirection: Axis.vertical,
@@ -66,7 +68,7 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
                     title: 'Reviews',
                     floating: true,
                   ),
-                SliverList(
+                  SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         return ReviewCard(
@@ -108,10 +110,15 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
   }
 
   Future<void> _refreshPage(BuildContext context) async {
-    final client = (context.read<GraphqlClientCubit>().state
-    as GraphqlClientInitialized)
-        .client;
-    context.read<ReviewBloc>().add(RefreshData(client));
+    await Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        final client = (context.read<GraphqlClientCubit>().state
+                as GraphqlClientInitialized)
+            .client;
+        context.read<ReviewBloc>().add(RefreshData(client));
+      },
+    );
   }
 
   Widget _buildErrorScaffold(String message, VoidCallback onTryAgain) {

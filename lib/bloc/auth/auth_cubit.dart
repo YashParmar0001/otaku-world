@@ -72,6 +72,10 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  void loginForWeb(String token){
+      emit(Authenticated(token));
+  }
+
   Future<void> logOut() async {
     emit(LoggingOut());
     final sharedPrefs = await SharedPreferences.getInstance();

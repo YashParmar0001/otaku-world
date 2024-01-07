@@ -42,6 +42,7 @@ final router = GoRouter(
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,
           path: '/home',
+
           pageBuilder: (context, state) {
             return const NoTransitionPage(
               child: HomeScreen(),

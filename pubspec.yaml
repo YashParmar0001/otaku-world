@@ -51,6 +51,12 @@ dependencies:
   flutter_animate: ^4.3.0
   carousel_slider:
   intl: ^0.19.0
+  markdown: ^7.1.1
+  markdown_widget: ^2.3.2+3
+  html: ^0.15.4
+  media_kit:
+  media_kit_libs_video:
+  media_kit_video:
 
   # Navigation
   go_router: ^9.0.3

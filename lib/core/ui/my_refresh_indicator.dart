@@ -48,7 +48,9 @@ class _MyRefreshIndicator extends State<MyRefreshIndicator>
   @override
   void initState() {
     _moonEyeController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 800));
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
     _setupMeteoriteAnimationControllers();
     super.initState();
   }

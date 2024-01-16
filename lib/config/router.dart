@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/features/auth/screens/login_screen.dart';
+import 'package:otaku_world/features/calendar/screens/calendar_screen.dart';
 import 'package:otaku_world/features/home/screens/home_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_detail_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_screen.dart';
@@ -39,6 +40,11 @@ final router = GoRouter(
         parentNavigatorKey: _rootNavigatorKey,
         path: '/reviews',
         builder: (context, state) => const ReviewScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/calendar',
+      builder: (context, state) => CalendarScreen(),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,

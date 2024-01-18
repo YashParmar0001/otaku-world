@@ -73,8 +73,8 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
           // Section header
           Padding(
             padding: EdgeInsets.only(
-              right: leftPadding,
-            ),
+                // bottom: 10,
+                ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -91,24 +91,23 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
                 ),
                 Row(
                   children: [
-                    GestureDetector(
-                      onTap: onSliderPressed,
-                      child: Padding(
+                    IconButton(
+                      onPressed: onSliderPressed,
+                      icon: Padding(
                         padding: const EdgeInsets.only(
                           left: 12,
                           right: 12,
-                          bottom: 10,
+                          // bottom: 10,
                         ),
                         child: SvgPicture.asset(Assets.iconsViewSlider),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: onMorePressed,
-                      child: Padding(
+                    IconButton(
+                      onPressed: onMorePressed,
+                      icon: Padding(
                         padding: const EdgeInsets.only(
                           left: 12,
                           right: 12,
-                          bottom: 10,
                         ),
                         child: SvgPicture.asset(Assets.iconsArrowRight),
                       ),

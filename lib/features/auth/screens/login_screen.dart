@@ -31,7 +31,6 @@ class LoginScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textController = useTextEditingController();
     final authCubit = context.read<AuthCubit>();
 
     return BlocListener<AuthCubit, AuthState>(
@@ -99,13 +98,9 @@ class LoginScreen extends HookWidget {
                 const SizedBox(
                   height: 55,
                 ),
-                TextField(
-                  controller: textController,
-                ),
-                
                 PrimaryButton(
                   onTap: () {
-                    authCubit.loginForWeb(textController.text.toString());
+                    authCubit.login();
                   },
                   label: 'Log In',
                   horizontalPadding: 15,

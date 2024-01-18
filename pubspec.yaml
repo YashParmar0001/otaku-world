@@ -60,9 +60,13 @@ dependencies:
 
   # Navigation
   go_router: ^9.0.3
+
+  double_back_to_close: ^2.0.0
+
+  #Url
   url_launcher:
   uni_links:
-  double_back_to_close: ^2.0.0
+  share_plus: ^7.2.1
 
   # Persistence
   shared_preferences: ^2.2.0

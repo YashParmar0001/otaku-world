@@ -9,7 +9,6 @@ import 'package:otaku_world/core/ui/media_section/scroll_to_top_button.dart';
 import 'package:otaku_world/core/ui/shimmers/grid_shimmer.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
-import 'package:otaku_world/utils/ui_utils.dart';
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
 import '../../../bloc/paginated_data/paginated_data_bloc.dart';
 import '../../../generated/assets.dart';
@@ -19,7 +18,7 @@ import 'dart:developer' as dev;
 import '../error_text.dart';
 
 class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
-  const MediaGridScreen( {
+  const MediaGridScreen({
     required this.mediaType,
     this.actions,
     required this.appbarTitle,
@@ -31,6 +30,7 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
   final String appbarTitle;
   final List<Widget>? actions;
   final Enum$MediaType mediaType;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -63,10 +63,11 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
           if (state is PaginatedDataInitial || state is PaginatedDataLoading) {
             return Scaffold(
               appBar: SimpleAppBar(title: appbarTitle),
-              body:  GridShimmer(mediaType:mediaType ,) ,
+              body: GridShimmer(
+                mediaType: mediaType,
+              ),
             );
           } else if (state is PaginatedDataLoaded) {
-
             return CustomScrollView(
               controller: scrollController,
               // shrinkWrap: true,
@@ -76,16 +77,22 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
                   actions: actions,
                   floating: true,
                 ),
-                SliverGrid(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount,
-                    childAspectRatio: 0.6,
-                  ),
-                  delegate: SliverChildBuilderDelegate(
-                    childCount: state.list.length,
-                    (context, index) {
-                      return Center(
-                        child: Column(
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+
+                  sliver: SliverGrid(
+                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 150,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 0.001,
+                      childAspectRatio: 0.5556,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+
+                      childCount: state.list.length,
+                      (context, index) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Stack(
@@ -99,6 +106,7 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
                                 Positioned(
                                   bottom: 0,
                                   right: 0,
+
                                   child: _buildMeanScore(
                                     context,
                                     state.list[index]?.meanScore,
@@ -111,9 +119,6 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
                             ),
                             // Manga title
                             SizedBox(
-                              width: UIUtils.getWidgetWidth(
-                                  targetWidgetWidth: 100,
-                                  screenWidth: size.width),
                               child: Text(
                                 getTitle(state.list[index]?.title) ?? '',
                                 maxLines: 2,
@@ -127,9 +132,9 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
                               ),
                             ),
                           ],
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
                 if (state.hasNextPage)
@@ -144,24 +149,29 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
               ],
             );
           } else if (state is PaginatedDataError) {
-            return ErrorText(
+            return Center(
+              child: ErrorText(
                 message: state.message,
                 onTryAgain: () {
                   final client = (context.read<GraphqlClientCubit>().state
                           as GraphqlClientInitialized)
                       .client;
-                  context.read<B>().add(LoadData(client));
-                });
+                  context.read<B>().add(
+                        LoadData(client),
+                      );
+                },
+              ),
+            );
           }
           return const Text('Unknown State');
         },
       ),
-      floatingActionButton:ScrollToTopFAB(controller: scrollController),
+      floatingActionButton: ScrollToTopFAB(controller: scrollController),
     );
   }
 
   String? getTitle(Fragment$MediaShort$title? title) {
-    return title?.english ?? title?.romaji ?? title?.native ;
+    return title?.english ?? title?.romaji ?? title?.native;
   }
 
   Widget _buildMeanScore(BuildContext context, int? meanScore) {
@@ -170,9 +180,9 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
         horizontal: 4,
         vertical: 3,
       ),
-      decoration: const ShapeDecoration(
-        color: AppColors.raisinBlack,
-        shape: RoundedRectangleBorder(
+      decoration:  ShapeDecoration(
+        color: AppColors.raisinBlack.withOpacity(0.6),
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(5),
           ),
@@ -196,32 +206,40 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
   }
 
   Widget _buildMediaPoster(String? imageUrl, Enum$MediaType type, Size size) {
+    // int count = (size.width/100).toInt();
+    // double width = (size.width - 10*(count-1))/count;
     return (imageUrl != null)
-        ? CachedNetworkImage(
-            cacheManager: ImageCacheManager.instance,
-            imageUrl: imageUrl,
-            width: UIUtils.getWidgetWidth(
-                targetWidgetWidth: 100, screenWidth: size.width),
-            height: UIUtils.getWidgetHeight(
-                targetWidgetHeight: 148, screenHeight: size.height),
-            fit: BoxFit.cover,
-            imageBuilder: (context, imageProvider) {
-              return ClipRRect(
-                borderRadius: (type == Enum$MediaType.ANIME)
-                    ? BorderRadius.circular(15)
-                    : BorderRadius.circular(5),
-                child: Image(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                ),
-              );
-            },
-            errorWidget: (context, url, error) {
-              return _buildPlaceholderImage110x162(type);
-            },
-            placeholder: (context, url) {
-              return _buildPlaceholderImage110x162(type);
-            },
+        ? AspectRatio(
+            aspectRatio: 0.70005,
+            child: CachedNetworkImage(
+              cacheManager: ImageCacheManager.instance,
+              imageUrl: imageUrl,
+              height: 150,
+
+              // width: UIUtils.getWidgetWidth(
+              //     targetWidgetWidth: width, screenWidth: size.width),
+              // height: width/(size.width <500 ? 0.75567567567: 0.55),
+              // // height: UIUtils.getWidgetHeight(
+              //     targetWidgetH  eight: width/0.75567567567, screenHeight: size.height),
+              fit: BoxFit.cover,
+              imageBuilder: (context, imageProvider) {
+                return ClipRRect(
+                  borderRadius: (type == Enum$MediaType.ANIME)
+                      ? BorderRadius.circular(15)
+                      : BorderRadius.circular(5),
+                  child: Image(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
+                );
+              },
+              errorWidget: (context, url, error) {
+                return _buildPlaceholderImage110x162(type);
+              },
+              placeholder: (context, url) {
+                return _buildPlaceholderImage110x162(type);
+              },
+            ),
           )
         : _buildPlaceholderImage110x162(type);
   }

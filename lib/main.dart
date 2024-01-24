@@ -54,6 +54,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => CalendarBloc(),
         ),
+        // BlocProvider(
+        //   create: (context) => CalendarBloc(),
+        // ),
       ],
       child: MaterialApp.router(
         theme: AppTheme.getTheme(),

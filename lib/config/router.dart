@@ -115,7 +115,8 @@ final router = GoRouter(
                 path: 'recommended_manga',
                 builder: (context, state) => const RecommendedMangaScreen(),
               ),
-            ]),
+            ],
+        ),
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,
           path: '/discover',

@@ -8,7 +8,9 @@ import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/reviews/review_detail/review_detail_bloc.dart';
 import 'package:otaku_world/core/ui/error_text.dart';
+import 'package:otaku_world/core/ui/markdown/markdown.dart';
 import 'package:otaku_world/core/ui/shimmers/review_detail_shimmer.dart';
+import 'package:otaku_world/features/reviews/widgets/bottom_sheet_component.dart';
 import 'package:otaku_world/features/reviews/widgets/review_by_user.dart';
 import 'package:otaku_world/features/reviews/widgets/review_card.dart';
 import 'package:otaku_world/features/reviews/widgets/review_profile_photo.dart';
@@ -17,6 +19,8 @@ import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../core/ui/appbars/simple_app_bar.dart';
 import '../../../theme/colors.dart';
 import '../../../utils/formatting_utils.dart';
@@ -88,12 +92,13 @@ class ReviewDetailScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 15, bottom: 10),
                       child: Text(
                         '${_getMediaType(review.mediaType!)} Review',
-                        style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                              fontFamily: 'Roboto',
-                            ),
+                        style:
+                            Theme.of(context).textTheme.titleMedium!.copyWith(
+                                  fontFamily: 'Roboto',
+                                ),
                       ),
                     ),
-                    _buildTitleSection(width, review),
+                    _buildTitleSection(width, review, context),
                     Padding(
                       padding: const EdgeInsets.only(left: 15.0),
                       child: buildSummaryText(
@@ -116,29 +121,28 @@ class ReviewDetailScreen extends StatelessWidget {
                       child: Text(
                         FormattingUtils.formatUnixTimestamp(review.createdAt)
                             .toString(),
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontFamily: 'Roboto',
-                              color: AppColors.white.withOpacity(0.8),
-                            ),
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontFamily: 'Roboto',
+                                  color: AppColors.white.withOpacity(0.8),
+                                ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 15, bottom: 10),
                       child: Text(
                         "(Last Updated on ${FormattingUtils.formatUnixTimestamp(review.createdAt).toString()})",
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontFamily: 'Roboto',
-                              color: AppColors.white.withOpacity(0.8),
-                            ),
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontFamily: 'Roboto',
+                                  color: AppColors.white.withOpacity(0.8),
+                                ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 15.0, right: 15, bottom: 10),
-                      child: Text(
-                        review.body.toString(),
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
+                      child: Markdown(data: review.body.toString()),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
@@ -176,7 +180,7 @@ class ReviewDetailScreen extends StatelessWidget {
     dev.log('Pop called!', name: 'ReviewDetail');
     if (context.canPop()) {
       context.pop();
-    }else {
+    } else {
       context.go('/home');
     }
   }
@@ -185,7 +189,8 @@ class ReviewDetailScreen extends StatelessWidget {
     return type == Enum$MediaType.ANIME ? 'Anime' : 'Manga';
   }
 
-  Widget _buildTitleSection(double screenWidth, Fragment$ReviewDetail review) {
+  Widget _buildTitleSection(
+      double screenWidth, Fragment$ReviewDetail review, BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,7 +207,9 @@ class ReviewDetailScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 10),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showModalBottomsheet(context);
+            },
             icon: SvgPicture.asset(Assets.iconsMoreHorizontal),
           ),
         )
@@ -249,6 +256,83 @@ class ReviewDetailScreen extends StatelessWidget {
               .copyWith(fontWeight: FontWeight.bold),
         )
       ],
+    );
+  }
+
+  void showModalBottomsheet(BuildContext context) {
+    showModalBottomSheet(
+      backgroundColor: AppColors.darkCharcoal,
+      context: context,
+      builder: (context) {
+        return Container(
+          decoration: const BoxDecoration(
+            color: AppColors.darkCharcoal,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15),
+              topRight: Radius.circular(15),
+            ),
+          ),
+          padding: const EdgeInsets.only(
+            top: 10,
+            left: 15,
+          ),
+          height: 180,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                height: 5,
+                width: 50,
+                decoration: ShapeDecoration(
+                  color: AppColors.lightSilver,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              BottomSheetComponent(
+                onTap: () {},
+                iconName: Assets.iconsOpenLink2,
+                text: 'Open Media Page',
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              BottomSheetComponent(
+                onTap: () async {
+                  final Uri reviewUri = Uri(
+                    scheme: 'https',
+                    host: 'anilist.co',
+                    path: 'review/$reviewId',
+                  );
+                  context.pop();
+                  await launchUrl(
+                    reviewUri,
+                    mode: LaunchMode.externalApplication,
+                  );
+                },
+                iconName: Assets.iconsLinkSquare,
+                text: 'View on AniList',
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              BottomSheetComponent(
+                onTap: () {
+                  Share.share(
+                      "hi this is shit do not open : https://otaku-world-8a7f4.firebaseapp.com/review-detail?id=$reviewId");
+                  context.pop();
+                },
+                iconName: Assets.iconsShare,
+                text: 'Share',
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

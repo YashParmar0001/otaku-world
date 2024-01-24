@@ -50,14 +50,25 @@ dependencies:
   custom_refresh_indicator: ^3.0.0
   flutter_animate: ^4.3.0
   carousel_slider:
+
   intl: ^0.18.0
   table_calendar: ^3.0.9
+  markdown: ^7.1.1
+  markdown_widget: ^2.3.2+3
+  html: ^0.15.4
+  media_kit:
+  media_kit_libs_video:
+  media_kit_video:
 
   # Navigation
   go_router: ^9.0.3
+
+  double_back_to_close: ^2.0.0
+
+  #Url
   url_launcher:
   uni_links:
-  double_back_to_close: ^2.0.0
+  share_plus: ^7.2.1
 
   # Persistence
   shared_preferences: ^2.2.0

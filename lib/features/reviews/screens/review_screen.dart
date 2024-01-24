@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:developer' as dev;
@@ -13,16 +15,12 @@ import 'package:otaku_world/core/ui/appbars/simple_sliver_app_bar.dart';
 import 'package:otaku_world/features/reviews/widgets/review_card.dart';
 import 'package:otaku_world/features/reviews/widgets/scroll_to_top_fab.dart';
 
-
 class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
   const ReviewScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     dev.log('Rebuilding review screen', name: 'ReviewScreen');
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
     final reviewsScrollController = useScrollController();
 
     useEffect(() {
@@ -55,9 +53,8 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
           return _buildLoadingScaffold();
         } else if (state is PaginatedDataLoaded) {
           return Scaffold(
-            body: MyRefreshIndicator(
-              onRefresh: () => _refreshPage(context),
-              child: CustomScrollView(
+            body:
+               CustomScrollView(
                 scrollDirection: Axis.vertical,
                 clipBehavior: Clip.none,
                 controller: reviewsScrollController,
@@ -65,8 +62,9 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
                   const SimpleSliverAppBar(
                     title: 'Reviews',
                     floating: true,
+                    isPinned: false,
                   ),
-                SliverList(
+                  SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         return ReviewCard(
@@ -87,7 +85,7 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
                     ),
                 ],
               ),
-            ),
+
             floatingActionButton: ScrollToTopFAB(
               controller: reviewsScrollController,
               tag: 'review_fab',
@@ -108,9 +106,9 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
   }
 
   Future<void> _refreshPage(BuildContext context) async {
-    final client = (context.read<GraphqlClientCubit>().state
-    as GraphqlClientInitialized)
-        .client;
+    final client =
+        (context.read<GraphqlClientCubit>().state as GraphqlClientInitialized)
+            .client;
     context.read<ReviewBloc>().add(RefreshData(client));
   }
 

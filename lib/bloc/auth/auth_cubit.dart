@@ -72,6 +72,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+
   Future<void> logOut() async {
     emit(LoggingOut());
     final sharedPrefs = await SharedPreferences.getInstance();

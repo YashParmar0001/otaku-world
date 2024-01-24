@@ -79,7 +79,7 @@ class HomeScreen extends HookWidget {
               ),
               child: FeatureCard(
                 onTap: () {
-                  context.push('/reviews');
+                  context.go('/home/reviews');
                 },
                 heading: HomeConstants.reviewsHeading,
                 subheading: HomeConstants.reviewsSubheading,
@@ -108,32 +108,44 @@ class HomeScreen extends HookWidget {
             ),
             MediaSection<TrendingAnimeBloc>(
               label: 'Trending Anime',
-              onMorePressed: () {},
+              onMorePressed: () {
+                context.go('/home/trending_anime');
+              },
               onSliderPressed: () {},
+              heroTag: 'trending_anime',
             ),
             const SizedBox(
               height: 15,
             ),
             MediaSection<RecommendedAnimeBloc>(
               label: 'Recommended Anime',
-              onMorePressed: () {},
+              onMorePressed: () {
+                context.go('/home/recommended_anime');
+              },
               onSliderPressed: () {},
+              heroTag: 'recommended_anime',
             ),
             const SizedBox(
               height: 15,
             ),
             MediaSection<TrendingMangaBloc>(
               label: 'Trending Manga',
-              onMorePressed: () {},
+              onMorePressed: () {
+                context.go('/home/trending_manga');
+              },
               onSliderPressed: () {},
+              heroTag: 'trending_manga',
             ),
             const SizedBox(
               height: 15,
             ),
             MediaSection<RecommendedMangaBloc>(
               label: 'Recommended Manga',
-              onMorePressed: () {},
+              onMorePressed: () {
+                context.go('/home/recommended_manga');
+              },
               onSliderPressed: () {},
+              heroTag: 'recommended_manga',
             ),
             const SizedBox(
               height: 15,

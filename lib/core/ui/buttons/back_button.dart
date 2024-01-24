@@ -4,16 +4,14 @@ import 'package:go_router/go_router.dart';
 import 'package:otaku_world/generated/assets.dart';
 
 class CustomBackButton extends StatelessWidget {
-  const CustomBackButton({super.key, required this.context});
+  const CustomBackButton({super.key, required this.onPressed});
 
-  final BuildContext context;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {
-        context.pop();
-      },
+      onPressed: onPressed,
       icon: SvgPicture.asset(Assets.iconsArrowLeft),
     );
   }

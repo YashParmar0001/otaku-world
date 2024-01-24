@@ -1,26 +1,16 @@
-import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
-import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 
-import 'package:otaku_world/bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/theme/colors.dart';
-import 'package:otaku_world/utils/ui_utils.dart';
-import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
-import '../../../bloc/recommended_anime/recommended_anime_bloc.dart';
-import '../../../bloc/recommended_manga/recommended_manga_bloc.dart';
-import '../../../bloc/reviews/review_bloc.dart';
-import '../../../bloc/trending_anime/trending_anime_bloc.dart';
-import '../../../bloc/trending_manga/trending_manga_bloc.dart';
 import '../../../constants/string_constants.dart';
-import '../../../core/ui/primary_button.dart';
-import '../../../core/ui/primary_outlined_button.dart';
-import '../../../core/ui/simple_app_bar.dart';
+import '../../../core/ui/buttons/primary_button.dart';
+import '../../../core/ui/buttons/primary_outlined_button.dart';
+import '../../../core/ui/appbars/simple_app_bar.dart';
 
 final Uri authUri = Uri(
   scheme: 'https',
@@ -40,57 +30,16 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final graphqlState = context.read<GraphqlClientCubit>().state;
-    // if (graphqlState is GraphqlClientInitialized) {
-    //   context.go('/home');
-    // }
     final authCubit = context.read<AuthCubit>();
 
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<AuthCubit, AuthState>(
-          listener: (context, state) {
-            if (state is Authenticated) {
-              context.read<GraphqlClientCubit>().initializeGraphqlClient(
-                    state.token,
-                  );
-            } else if (state is AuthError) {
-              context.pop();
-              UIUtils.showSnackBar(
-                context,
-                'Got error while login: ${state.message}',
-              );
-            } else if (state is Authenticating) {
-              UIUtils.showProgressDialog(context);
-            }
-          },
-        ),
-        BlocListener<GraphqlClientCubit, GraphqlClientState>(
-          listener: (context, state) {
-            if (state is GraphqlClientInitialized) {
-              dev.log('Graphql Initialized!', name: 'Auth');
-              context
-                  .read<UpcomingEpisodesBloc>()
-                  .add(LoadData(state.client));
-              context
-                  .read<TrendingAnimeBloc>()
-                  .add(LoadData(state.client));
-              context
-                  .read<RecommendedAnimeBloc>()
-                  .add(LoadData(state.client));
-              context
-                  .read<TrendingMangaBloc>()
-                  .add(LoadData(state.client));
-              context
-                  .read<RecommendedMangaBloc>()
-                  .add(LoadData(state.client));
-              context.read<ReviewBloc>().add(LoadData(state.client));
-              dev.log('Going to home screen from login', name: 'Auth');
-              context.go('/home');
-            }
-          },
-        ),
-      ],
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is Authenticated) {
+          // context.go('/home');
+        } else if (state is UnAuthenticated) {
+          // context.go('/login');
+        }
+      },
       child: Scaffold(
         appBar: const SimpleAppBar(
           title: '',

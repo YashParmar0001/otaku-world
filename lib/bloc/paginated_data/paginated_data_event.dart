@@ -7,6 +7,8 @@ abstract class PaginatedDataEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+class ResetData extends PaginatedDataEvent {}
+
 class RefreshData extends PaginatedDataEvent {
   const RefreshData(this.client);
 

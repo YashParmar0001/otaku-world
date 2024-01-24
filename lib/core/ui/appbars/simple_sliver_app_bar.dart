@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../theme/colors.dart';
-import 'back_button.dart';
+import '../../../theme/colors.dart';
+import '../buttons/back_button.dart';
 
 class SimpleSliverAppBar extends StatelessWidget {
   const SimpleSliverAppBar({
@@ -21,7 +21,15 @@ class SimpleSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      leading: (context.canPop()) ? CustomBackButton(context: context) : null,
+      leading: CustomBackButton(
+        onPressed: () {
+          if (context.canPop()) {
+            context.pop();
+          }else {
+            context.go('/home');
+          }
+        },
+      ),
       expandedHeight: 55,
       toolbarHeight: 55,
       title: Text(

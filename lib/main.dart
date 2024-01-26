@@ -27,7 +27,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthCubit()..authenticate(),
+          create: (context) =>
+          AuthCubit()
+            ..authenticate(),
         ),
         BlocProvider(
           create: (context) => GraphqlClientCubit(),
@@ -69,10 +71,11 @@ class MyApp extends StatelessWidget {
                 context
                     .read<GraphqlClientCubit>()
                     .initializeGraphqlClient(state.token);
-              }else if (state is UnAuthenticated) {
+              } else if (state is UnAuthenticated) {
                 context
                     .read<UpcomingEpisodesBloc>()
                     .add(ResetData());
+
                 context.read<ReviewBloc>().add(ResetData());
                 context.read<TrendingAnimeBloc>().add(ResetData());
                 context

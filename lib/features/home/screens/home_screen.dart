@@ -12,7 +12,6 @@ import 'package:otaku_world/bloc/trending_anime/trending_anime_bloc.dart';
 import 'package:otaku_world/bloc/trending_manga/trending_manga_bloc.dart';
 import 'package:otaku_world/core/ui/media_section/media_section.dart';
 import 'package:otaku_world/core/ui/my_refresh_indicator.dart';
-import 'package:otaku_world/core/ui/my_refresh_indicator.dart';
 import 'package:otaku_world/features/home/widgets/upcoming_episodes_section.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/theme/colors.dart';
@@ -28,8 +27,8 @@ class HomeScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    // final screenWidth = MediaQuery.of(context).size.width;
+    // final screenHeight = MediaQuery.of(context).size.height;
 
     final scaffoldController = useScrollController();
 
@@ -111,7 +110,9 @@ class HomeScreen extends HookWidget {
               onMorePressed: () {
                 context.go('/home/trending_anime');
               },
-              onSliderPressed: () {},
+              onSliderPressed: () {
+                context.go('/home/trending_anime_slider');
+              },
               heroTag: 'trending_anime',
             ),
             const SizedBox(
@@ -122,7 +123,9 @@ class HomeScreen extends HookWidget {
               onMorePressed: () {
                 context.go('/home/recommended_anime');
               },
-              onSliderPressed: () {},
+              onSliderPressed: () {
+                context.go('/home/recommended_anime_slider');
+              },
               heroTag: 'recommended_anime',
             ),
             const SizedBox(
@@ -133,7 +136,9 @@ class HomeScreen extends HookWidget {
               onMorePressed: () {
                 context.go('/home/trending_manga');
               },
-              onSliderPressed: () {},
+              onSliderPressed: () {
+                context.go('/home/trending_manga_slider');
+              },
               heroTag: 'trending_manga',
             ),
             const SizedBox(
@@ -144,7 +149,9 @@ class HomeScreen extends HookWidget {
               onMorePressed: () {
                 context.go('/home/recommended_manga');
               },
-              onSliderPressed: () {},
+              onSliderPressed: () {
+                context.go('/home/recommended_manga_slider');
+              },
               heroTag: 'recommended_manga',
             ),
             const SizedBox(

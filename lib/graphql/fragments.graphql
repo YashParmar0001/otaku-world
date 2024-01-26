@@ -41,6 +41,22 @@ fragment MediaShort on Media {
     }
 }
 
+fragment SearchResultMedia on Media {
+    id
+    coverImage {
+        large
+    }
+    title {
+        userPreferred
+    }
+    type
+    startDate {
+        year
+    }
+    format
+    meanScore
+}
+
 fragment Review on Review{
     id
     summary
@@ -75,6 +91,7 @@ fragment ReviewDetail on Review {
     mediaType
     createdAt
     updatedAt
+
     user {
         name
         avatar {
@@ -88,5 +105,48 @@ fragment ReviewDetail on Review {
         coverImage {
             extraLarge
         }
+    }
+}
+
+fragment SearchResultCharacter on Character {
+    id
+    name {
+        userPreferred
+    }
+    image {
+        large
+    }
+    favourites
+}
+
+fragment SearchResultStaff on Staff {
+    id
+    name {
+        userPreferred
+    }
+    image {
+        large
+    }
+    favourites
+}
+
+fragment SearchResultStudio on Studio {
+    id
+    name
+    favourites
+    media(perPage: 1, sort: [TRENDING_DESC, POPULARITY_DESC]) {
+        nodes {
+            coverImage {
+                large
+            }
+        }
+    }
+}
+
+fragment SearchResultUser on User {
+    id
+    name
+    avatar {
+        large
     }
 }

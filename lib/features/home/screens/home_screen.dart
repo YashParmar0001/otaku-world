@@ -173,7 +173,7 @@ class HomeScreen extends HookWidget {
       ),
       child: InkWell(
         onTap: () {
-          UIUtils.showSnackBar(context, 'Coming soon...');
+          context.push('/search');
         },
         borderRadius: BorderRadius.circular(15),
         child: Container(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
 
 import 'package:otaku_world/generated/assets.dart';
@@ -22,17 +24,18 @@ final Uri registerUri = Uri(
   path: '/signup',
 );
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends HookWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final textController = useTextEditingController();
     final authCubit = context.read<AuthCubit>();
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is Authenticated) {
-          // context.go('/home');
+          context.go('/home');
         } else if (state is UnAuthenticated) {
           // context.go('/login');
         }
@@ -91,9 +94,13 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(
                   height: 55,
                 ),
+                TextField(
+                  controller: textController,
+                ),
+                
                 PrimaryButton(
                   onTap: () {
-                    authCubit.login();
+                    authCubit.loginForWeb(textController.text.toString());
                   },
                   label: 'Log In',
                   horizontalPadding: 15,

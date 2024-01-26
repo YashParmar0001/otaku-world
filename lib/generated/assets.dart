@@ -16,13 +16,17 @@ class Assets {
   static const String iconsBulletList = 'assets/icons/bullet-list.svg';
   static const String iconsCalendar = 'assets/icons/calendar.svg';
   static const String iconsChatBubble = 'assets/icons/chat-bubble.svg';
+  static const String iconsCopyLink = 'assets/icons/copy-link.svg';
   static const String iconsDoubleArrowRight = 'assets/icons/double-arrow-right.svg';
   static const String iconsFavourite = 'assets/icons/favourite.svg';
   static const String iconsFilterVertical = 'assets/icons/filter-vertical.svg';
   static const String iconsHome = 'assets/icons/home.svg';
   static const String iconsLineVertical = 'assets/icons/line_vertical.svg';
+  static const String iconsLinkSquare = 'assets/icons/link-square.svg';
   static const String iconsMoreHorizontal = 'assets/icons/more-horizontal.svg';
   static const String iconsNextButton = 'assets/icons/next-button.svg';
+  static const String iconsOpenLink2 = 'assets/icons/open-link2.svg';
+  static const String iconsRemove = 'assets/icons/remove.svg';
   static const String iconsSearch = 'assets/icons/search.svg';
   static const String iconsSearchSmall = 'assets/icons/search-small.svg';
   static const String iconsStar = 'assets/icons/star.svg';

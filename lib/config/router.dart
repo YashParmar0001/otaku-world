@@ -11,6 +11,7 @@ import 'package:otaku_world/features/auth/screens/login_screen.dart';
 import 'package:otaku_world/features/home/screens/home_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_detail_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_screen.dart';
+import 'package:otaku_world/features/search/screens/search_screen.dart';
 import 'package:otaku_world/features/splash/screens/splash_screen.dart';
 import 'package:otaku_world/observers/go_route_observer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -143,6 +144,11 @@ final router = GoRouter(
         );
       },
       directionTween: SlideTransitionRoute.leftToRightTween,
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/search',
+      builder: (context, state) => const SearchScreen(),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,

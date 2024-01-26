@@ -11,6 +11,7 @@ import 'package:otaku_world/features/anime_lists/slider_lists/trending_anime_sli
 import 'package:otaku_world/features/anime_lists/view_more_lists/recommended_anime_screen.dart';
 import 'package:otaku_world/features/auth/screens/login_screen.dart';
 import 'package:otaku_world/features/home/screens/home_screen.dart';
+import 'package:otaku_world/features/media_detail/screens/media_detail_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_detail_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_screen.dart';
 import 'package:otaku_world/features/splash/screens/splash_screen.dart';
@@ -139,6 +140,17 @@ final router = GoRouter(
         );
       },
       directionTween: SlideTransitionRoute.leftToRightTween,
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/media-detail',
+      builder: (context, state) {
+        return MediaDetailScreen(
+          mediaId: int.parse(
+            state.queryParameters['id']!,
+          ),
+        );
+      },
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,

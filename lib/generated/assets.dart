@@ -24,6 +24,7 @@ class Assets {
   static const String iconsLineVertical = 'assets/icons/line_vertical.svg';
   static const String iconsLinkSquare = 'assets/icons/link-square.svg';
   static const String iconsMoreHorizontal = 'assets/icons/more-horizontal.svg';
+  static const String iconsMoreVertical = 'assets/icons/more-vertical.svg';
   static const String iconsNextButton = 'assets/icons/next-button.svg';
   static const String iconsOpenLink2 = 'assets/icons/open-link2.svg';
   static const String iconsSearch = 'assets/icons/search.svg';
@@ -31,6 +32,7 @@ class Assets {
   static const String iconsShare = 'assets/icons/share.svg';
   static const String iconsStar = 'assets/icons/star.svg';
   static const String iconsThumbsUp = 'assets/icons/thumbs-up.svg';
+  static const String iconsTrendUp = 'assets/icons/trend-up.svg';
   static const String iconsUserGroup = 'assets/icons/user-group.svg';
   static const String iconsViewSlider = 'assets/icons/view-slider.svg';
   static const String myRefreshIndicatorForest = 'assets/my_refresh_indicator/forest.png';

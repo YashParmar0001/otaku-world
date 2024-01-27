@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:markdown/markdown.dart' as md;
-import 'package:markdown_widget/markdown_widget.dart' as md2;
+import 'package:markdown_widget/markdown_widget.dart' as mw;
+import 'package:otaku_world/core/ui/markdown/generators/center.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../image.dart';
 import 'custom_node.dart';
@@ -30,33 +31,41 @@ class Markdown extends StatelessWidget {
       // logger.i(match.groups([1, 2]));
       return match.group(1) ?? '';
     });
+    // var markdown = data;
 
     return MediaQuery.removePadding(
       context: context,
       removeTop: true,
-      child: md2.MarkdownWidget(
+      child: mw.MarkdownWidget(
         data: markdown,
         shrinkWrap: true,
         selectable: selectable,
-        markdownGenerator: md2.MarkdownGenerator(
-          generators: [iWithTag, spoilerWithTag, imgWithTag, videoWithTag],
+        markdownGenerator: mw.MarkdownGenerator(
+          generators: [
+            iWithTag,
+            spoilerWithTag,
+            imgWithTag,
+            videoWithTag,
+            centerWithTag,
+          ],
           inlineSyntaxList: [
             ISyntax(),
             ImgSyntax(),
             SpoilerSyntax(),
             BrSyntax(),
-            VideoSyntax(),
+            // VideoSyntax(),
+            CenterSyntax(),
             md.AutolinkExtensionSyntax(),
           ],
           textGenerator: (node, config, visitor) =>
               CustomTextNode(node.textContent, config, visitor),
         ),
-        config: md2.MarkdownConfig(
+        config: mw.MarkdownConfig(
           configs: [
-            const md2.PConfig(
+            const mw.PConfig(
               textStyle: TextStyle(color: Colors.white),
             ),
-            md2.LinkConfig(
+            mw.LinkConfig(
               style: const TextStyle(color: Colors.blue),
               onTap: (value) {
                 var uri = Uri.tryParse(value);
@@ -84,7 +93,7 @@ class Markdown extends StatelessWidget {
                 }
               },
             ),
-            md2.ImgConfig(
+            mw.ImgConfig(
               builder: (url, attributes) {
                 double? width;
                 double? height;
@@ -106,14 +115,13 @@ class Markdown extends StatelessWidget {
               },
               errorBuilder: (_, __, ___) => const SizedBox(),
             ),
-            const md2.CodeConfig(style: TextStyle(color: Colors.white)),
-            md2.PreConfig(
+            // const mw.CodeConfig(style: TextStyle(color: Colors.white)),
+            mw.PreConfig(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: Colors.white,
               ),
-            )
-
+            ),
           ],
         ),
       ),

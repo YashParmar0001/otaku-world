@@ -50,7 +50,6 @@ dependencies:
   custom_refresh_indicator: ^3.0.0
   flutter_animate: ^4.3.0
   carousel_slider:
-
   intl: ^0.18.0
   table_calendar: ^3.0.9
   markdown: ^7.1.1

@@ -26,6 +26,7 @@ class Assets {
   static const String iconsMoreHorizontal = 'assets/icons/more-horizontal.svg';
   static const String iconsNextButton = 'assets/icons/next-button.svg';
   static const String iconsOpenLink2 = 'assets/icons/open-link2.svg';
+  static const String iconsRemove = 'assets/icons/remove.svg';
   static const String iconsSearch = 'assets/icons/search.svg';
   static const String iconsSearchSmall = 'assets/icons/search-small.svg';
   static const String iconsShare = 'assets/icons/share.svg';

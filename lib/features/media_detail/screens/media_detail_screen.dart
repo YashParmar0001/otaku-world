@@ -38,7 +38,10 @@ class MediaDetailScreen extends StatelessWidget {
               }
             },
           ),
-          backgroundColor: AppColors.raisinBlack.withOpacity(0.8),
+
+          backgroundColor: AppColors.transparent,
+          surfaceTintColor:AppColors.black,
+          // backgroundColor: AppColors.raisinBlack.withOpacity(0.8),
           actions: [
             IconButton(
               onPressed: () {},
@@ -105,35 +108,39 @@ class MediaDetailScreen extends StatelessWidget {
                           Positioned(
                             bottom: 0,
                             left: 15,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                SizedBox(
-                                  height: 292,
-                                  width: 200,
-                                  child: CoverImage(
-                                    imageUrl:
-                                        media.coverImage!.extraLarge.toString(),
-                                    type: media.type!,
-                                    placeHolderName: Assets.placeholders210x310,
-                                  ),
-                                ),
-                                Spacer(),
-                                Column(
-                                  children: [
-                                    Text(
-                                      'episode is building',
-                                      style: TextStyle(color: Colors.white,),
+                            child: SizedBox(
+                              width: width - 20,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  SizedBox(
+                                    height: 292,
+                                    width: 200,
+                                    child: CoverImage(
+                                      imageUrl:
+                                          media.coverImage!.extraLarge.toString(),
+                                      type: media.type!,
+                                      placeHolderName: Assets.placeholders210x310,
                                     ),
-                                  ],
-                                )
-                              ],
+                                  ),
+
+                                  Column(
+                                    children: [
+                                      Text(
+                                        ' building ep is bui',
+                                        style: TextStyle(color: Colors.white,),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           )
                         ],
                       ),
                     ),
+
                   ],
                 ),
               );

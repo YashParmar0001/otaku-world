@@ -65,6 +65,7 @@ fragment Review on Review{
     score
     createdAt
     updatedAt
+    body
     user {
         name
         avatar {

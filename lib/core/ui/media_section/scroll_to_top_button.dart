@@ -49,12 +49,15 @@ class _ScrollToTopFABState extends State<ScrollToTopFAB> {
         ? Animate(
             effects: const [ScaleEffect()],
             child: IconButton(
-              style:   ButtonStyle(
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),),
-                backgroundColor:MaterialStateColor.resolveWith((states) => AppColors.sunsetOrange.withOpacity(0.4),),
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                backgroundColor: MaterialStateColor.resolveWith(
+                  (states) => AppColors.sunsetOrange.withOpacity(0.6),
+                ),
               ),
               onPressed: () {
                 widget.controller.animateTo(
@@ -63,13 +66,9 @@ class _ScrollToTopFABState extends State<ScrollToTopFAB> {
                   curve: Curves.easeInOut,
                 );
               },
-              
-
               icon: SvgPicture.asset(
                 Assets.iconsArrowUp,
-                
               ),
-
             ),
           )
         : const SizedBox();

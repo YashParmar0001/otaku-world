@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
 import 'package:otaku_world/bloc/bottom_nav_bar/bottom_nav_bar_cubit.dart';
+import 'package:otaku_world/bloc/calendar/calendar_bloc.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/reviews/review_detail/review_detail_bloc.dart';
 import 'package:otaku_world/bloc/reviews/reviews/review_bloc.dart';
@@ -34,7 +35,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthCubit()..authenticate(),
+          create: (context) =>
+          AuthCubit()
+            ..authenticate(),
         ),
         BlocProvider(
           create: (context) => GraphqlClientCubit(),
@@ -67,6 +70,9 @@ class MyApp extends StatelessWidget {
           create: (context) => ReviewBloc(),
         ),
         BlocProvider(
+          create: (context) => CalendarBloc(),
+        ),
+        BlocProvider(
           create: (context) => ReviewDetailBloc(),
         ),
         BlocProvider(
@@ -97,19 +103,15 @@ class MyApp extends StatelessWidget {
                 context
                     .read<GraphqlClientCubit>()
                     .initializeGraphqlClient(state.token);
-              }else if (state is UnAuthenticated) {
+              } else if (state is UnAuthenticated) {
                 context
                     .read<UpcomingEpisodesBloc>()
                     .add(ResetData());
                 context.read<ReviewBloc>().add(ResetData());
                 context.read<TrendingAnimeBloc>().add(ResetData());
-                context
-                    .read<RecommendedAnimeBloc>()
-                    .add(ResetData());
+                context.read<RecommendedAnimeBloc>().add(ResetData());
                 context.read<TrendingMangaBloc>().add(ResetData());
-                context
-                    .read<RecommendedMangaBloc>()
-                    .add(ResetData());
+                context.read<RecommendedMangaBloc>().add(ResetData());
               }
             },
           ),

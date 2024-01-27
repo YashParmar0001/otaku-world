@@ -3,7 +3,6 @@ import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:otaku_world/bloc/search/search_anime/search_anime_bloc.dart';
 import 'package:otaku_world/bloc/search/search_manga/search_manga_bloc.dart';
 import 'package:otaku_world/core/ui/error_text.dart';
 import 'package:otaku_world/features/search/widgets/media_card.dart';
@@ -11,6 +10,7 @@ import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
 import '../../../bloc/search/search_base/search_bloc.dart';
+import '../../../theme/colors.dart';
 
 class ResultMangaList extends HookWidget {
   const ResultMangaList({super.key});
@@ -31,7 +31,7 @@ class ResultMangaList extends HookWidget {
               (searchMangaBloc.state as SearchResultLoaded).hasNextPage;
           if (hasNextPage) {
             final client = (context.read<GraphqlClientCubit>().state
-            as GraphqlClientInitialized)
+                    as GraphqlClientInitialized)
                 .client;
             searchMangaBloc.add(LoadMore(client));
           }
@@ -49,13 +49,16 @@ class ResultMangaList extends HookWidget {
         builder: (context, state) {
           if (state is SearchInitial) {
             return const Center(
-              child: Text('Search Something!'),
+              child: Text(
+                'Search Something!',
+                style: TextStyle(color: AppColors.white),
+              ),
             );
-          }else if (state is SearchResultLoading) {
+          } else if (state is SearchResultLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          }else if (state is SearchError) {
+          } else if (state is SearchError) {
             return ErrorText(message: state.message, onTryAgain: () {});
           } else if (state is SearchResultLoaded<Fragment$SearchResultMedia?>) {
             final list = state.list;
@@ -68,7 +71,7 @@ class ResultMangaList extends HookWidget {
               slivers: [
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
-                        (context, index) {
+                    (context, index) {
                       return ResultMediaCard(media: list[index]);
                     },
                     childCount: list.length,
@@ -85,7 +88,7 @@ class ResultMangaList extends HookWidget {
                   ),
               ],
             );
-          }else {
+          } else {
             return const Text('Unknown State');
           }
         },

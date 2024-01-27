@@ -10,6 +10,7 @@ import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
 import '../../../bloc/search/search_base/search_bloc.dart';
+import '../../../theme/colors.dart';
 
 class ResultCharactersList extends HookWidget {
   const ResultCharactersList({super.key});
@@ -30,7 +31,7 @@ class ResultCharactersList extends HookWidget {
               (searchCharactersBloc.state as SearchResultLoaded).hasNextPage;
           if (hasNextPage) {
             final client = (context.read<GraphqlClientCubit>().state
-            as GraphqlClientInitialized)
+                    as GraphqlClientInitialized)
                 .client;
             searchCharactersBloc.add(LoadMore(client));
           }
@@ -48,15 +49,19 @@ class ResultCharactersList extends HookWidget {
         builder: (context, state) {
           if (state is SearchInitial) {
             return const Center(
-              child: Text('Search Something!'),
+              child: Text(
+                'Search Something!',
+                style: TextStyle(color: AppColors.white),
+              ),
             );
-          }else if (state is SearchResultLoading) {
+          } else if (state is SearchResultLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          }else if (state is SearchError) {
+          } else if (state is SearchError) {
             return ErrorText(message: state.message, onTryAgain: () {});
-          } else if (state is SearchResultLoaded<Fragment$SearchResultCharacter?>) {
+          } else if (state
+              is SearchResultLoaded<Fragment$SearchResultCharacter?>) {
             final list = state.list;
             final hasNextPage = state.hasNextPage;
 
@@ -67,7 +72,7 @@ class ResultCharactersList extends HookWidget {
               slivers: [
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
-                        (context, index) {
+                    (context, index) {
                       return ResultCharacterCard(character: list[index]);
                     },
                     childCount: list.length,
@@ -84,7 +89,7 @@ class ResultCharactersList extends HookWidget {
                   ),
               ],
             );
-          }else {
+          } else {
             return const Text('Unknown State');
           }
         },

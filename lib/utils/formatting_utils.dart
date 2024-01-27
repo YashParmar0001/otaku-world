@@ -24,12 +24,22 @@ class FormattingUtils {
     return '${days.toString()}d ${hours.toString()}h ${minutes.toString()}m';
   }
 
+  static String formatDurationFromSecondsBefore(int seconds) {
+    // Calculate the number of days, hours, and minutes
+    int days = seconds ~/ (24 * 60 * 60);
+    int hours = 23 - (seconds % (24 * 60 * 60)) ~/ (60 * 60);
+    int minutes = 59 - (seconds % (60 * 60)) ~/ 60;
+
+    // Format the duration in 'dd:hh:mm' format
+    return '${days.toString()}d ${hours.toString()}h ${minutes.toString()}m';
+  }
+
   static int getUnixTimeStampFromDate(DateTime date) {
     return date.millisecondsSinceEpoch ~/ 1000;
   }
 
   static String formatTimeFromMilliseconds(int milliseconds) {
-    DateTime time = DateTime.fromMillisecondsSinceEpoch(milliseconds);
+    DateTime time = DateTime.fromMillisecondsSinceEpoch(milliseconds * 1000);
 
     return DateFormat('hh:mm a').format(time);
   }

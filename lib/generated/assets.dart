@@ -29,6 +29,7 @@ class Assets {
   static const String iconsRemove = 'assets/icons/remove.svg';
   static const String iconsSearch = 'assets/icons/search.svg';
   static const String iconsSearchSmall = 'assets/icons/search-small.svg';
+  static const String iconsShare = 'assets/icons/share.svg';
   static const String iconsStar = 'assets/icons/star.svg';
   static const String iconsThumbsUp = 'assets/icons/thumbs-up.svg';
   static const String iconsUserGroup = 'assets/icons/user-group.svg';

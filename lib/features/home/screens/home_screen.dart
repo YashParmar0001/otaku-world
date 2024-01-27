@@ -15,7 +15,6 @@ import 'package:otaku_world/core/ui/my_refresh_indicator.dart';
 import 'package:otaku_world/features/home/widgets/upcoming_episodes_section.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/theme/colors.dart';
-import 'package:otaku_world/utils/ui_utils.dart';
 
 import '../../../bloc/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import '../../../bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
@@ -27,8 +26,8 @@ class HomeScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    // final screenWidth = MediaQuery.of(context).size.width;
+    // final screenHeight = MediaQuery.of(context).size.height;
 
     final scaffoldController = useScrollController();
 
@@ -110,7 +109,9 @@ class HomeScreen extends HookWidget {
               onMorePressed: () {
                 context.push('/trending_anime');
               },
-              onSliderPressed: () {},
+              onSliderPressed: () {
+                context.push('/trending_anime_slider');
+              },
               heroTag: 'trending_anime',
             ),
             const SizedBox(
@@ -121,7 +122,9 @@ class HomeScreen extends HookWidget {
               onMorePressed: () {
                 context.push('/recommended_anime');
               },
-              onSliderPressed: () {},
+              onSliderPressed: () {
+                context.push('/recommended_anime_slider');
+              },
               heroTag: 'recommended_anime',
             ),
             const SizedBox(
@@ -132,7 +135,9 @@ class HomeScreen extends HookWidget {
               onMorePressed: () {
                 context.push('/trending_manga');
               },
-              onSliderPressed: () {},
+              onSliderPressed: () {
+                context.push('/trending_manga_slider');
+              },
               heroTag: 'trending_manga',
             ),
             const SizedBox(
@@ -143,7 +148,9 @@ class HomeScreen extends HookWidget {
               onMorePressed: () {
                 context.push('/recommended_manga');
               },
-              onSliderPressed: () {},
+              onSliderPressed: () {
+                context.push('/recommended_manga_slider');
+              },
               heroTag: 'recommended_manga',
             ),
             const SizedBox(
@@ -167,47 +174,53 @@ class HomeScreen extends HookWidget {
   }
 
   Widget _buildSearchOption(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 15,
-      ),
-      child: InkWell(
-        onTap: () {
-          context.push('/search');
-        },
-        borderRadius: BorderRadius.circular(15),
-        child: Container(
-          height: 50,
-          decoration: ShapeDecoration(
-            color: AppColors.jet,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            shadows: [
-              BoxShadow(
-                color: AppColors.black.withOpacity(0.25),
-                blurRadius: 4,
-                offset: const Offset(0, 4),
-              ),
-            ],
+    return Hero(
+      tag: 'search_app_bar',
+      child: Material(
+        color: AppColors.transparent,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 15,
           ),
-          child: Row(
-            children: [
-              const SizedBox(
-                width: 15,
+          child: InkWell(
+            onTap: () {
+              context.push('/search');
+            },
+            borderRadius: BorderRadius.circular(15),
+            child: Container(
+              height: 50,
+              decoration: ShapeDecoration(
+                color: AppColors.jet,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                shadows: [
+                  BoxShadow(
+                    color: AppColors.black.withOpacity(0.25),
+                    blurRadius: 4,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
-              SvgPicture.asset(Assets.iconsSearchSmall),
-              const SizedBox(
-                width: 10,
+              child: Row(
+                children: [
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  SvgPicture.asset(Assets.iconsSearchSmall),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    HomeConstants.discover,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          color: AppColors.white.withOpacity(0.5),
+                          fontFamily: 'Poppins',
+                        ),
+                  ),
+                ],
               ),
-              Text(
-                HomeConstants.discover,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: AppColors.white.withOpacity(0.5),
-                      fontFamily: 'Poppins',
-                    ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

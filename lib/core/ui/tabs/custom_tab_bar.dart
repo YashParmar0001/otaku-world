@@ -10,35 +10,34 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(15),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10,
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 10,
+        right: 10,
+        bottom: 5,
+      ),
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          gradient: const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [AppColors.japaneseIndigo, AppColors.darkCharcoal],
+          ),
         ),
-        child: Container(
-          height: 50,
-          decoration: BoxDecoration(
+        child: TabBar(
+          controller: controller,
+          isScrollable: true,
+          dividerHeight: 0,
+          tabAlignment: TabAlignment.start,
+          indicatorSize: TabBarIndicatorSize.tab,
+          indicatorPadding: const EdgeInsets.all(5),
+          indicator: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            gradient: const LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [AppColors.japaneseIndigo, AppColors.darkCharcoal],
-            ),
+            color: AppColors.sunsetOrange,
           ),
-          child: TabBar(
-            controller: controller,
-            isScrollable: true,
-            dividerHeight: 0,
-            tabAlignment: TabAlignment.start,
-            indicatorSize: TabBarIndicatorSize.tab,
-            indicatorPadding: const EdgeInsets.all(5),
-            indicator: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: AppColors.sunsetOrange,
-            ),
-            tabs: _buildTabs(context),
-          ),
+          tabs: _buildTabs(context),
         ),
       ),
     );

@@ -19,6 +19,8 @@ import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../core/ui/appbars/simple_app_bar.dart';
 import '../../../theme/colors.dart';
 import '../../../utils/formatting_utils.dart';
@@ -273,6 +275,7 @@ class ReviewDetailScreen extends StatelessWidget {
 
   void showModalBottomsheet(BuildContext context) {
     showModalBottomSheet(
+      backgroundColor: AppColors.darkCharcoal,
       context: context,
       builder: (context) {
         return Container(
@@ -284,29 +287,61 @@ class ReviewDetailScreen extends StatelessWidget {
             ),
           ),
           padding: const EdgeInsets.only(
-            top: 33,
+            top: 10,
             left: 15,
           ),
           height: 180,
-          child: const Column(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Container(
+                height: 5,
+                width: 50,
+                decoration: ShapeDecoration(
+                  color: AppColors.lightSilver,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               BottomSheetComponent(
+                onTap: () {},
                 iconName: Assets.iconsOpenLink2,
                 text: 'Open Media Page',
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               BottomSheetComponent(
+                onTap: () async {
+                  final Uri reviewUri = Uri(
+                    scheme: 'https',
+                    host: 'anilist.co',
+                    path: 'review/$reviewId',
+                  );
+                  context.pop();
+                  await launchUrl(
+                    reviewUri,
+                    mode: LaunchMode.externalApplication,
+                  );
+                },
                 iconName: Assets.iconsLinkSquare,
                 text: 'View on AniList',
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               BottomSheetComponent(
-                iconName: Assets.iconsCopyLink,
-                text: 'Copy Link',
+                onTap: () {
+                  Share.share(
+                      "hi this is shit do not open : https://otaku-world-8a7f4.firebaseapp.com/review-detail?id=$reviewId");
+                  context.pop();
+                },
+                iconName: Assets.iconsShare,
+                text: 'Share',
               ),
             ],
           ),

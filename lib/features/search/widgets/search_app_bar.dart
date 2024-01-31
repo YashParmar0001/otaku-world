@@ -39,6 +39,7 @@ class SearchAppBar extends HookWidget implements PreferredSizeWidget {
       child: AppBar(
         leading: CustomBackButton(
           onPressed: () {
+            _clearSearch(context);
             if (context.canPop()) {
               context.pop();
             } else {

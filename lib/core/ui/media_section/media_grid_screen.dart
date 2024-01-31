@@ -79,16 +79,15 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
                 ),
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-
                   sliver: SliverGrid(
-                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 150,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 0.001,
                       childAspectRatio: 0.5556,
                     ),
                     delegate: SliverChildBuilderDelegate(
-
                       childCount: state.list.length,
                       (context, index) {
                         return Column(
@@ -106,7 +105,6 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
                                 Positioned(
                                   bottom: 0,
                                   right: 0,
-
                                   child: _buildMeanScore(
                                     context,
                                     state.list[index]?.meanScore,
@@ -180,7 +178,7 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
         horizontal: 4,
         vertical: 3,
       ),
-      decoration:  ShapeDecoration(
+      decoration: ShapeDecoration(
         color: AppColors.raisinBlack.withOpacity(0.6),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(

@@ -1,23 +1,10 @@
-query GetCalendarDay ($airingAt_greater: Int,$airingAt_lesser: Int) {
-    Page {
+query GetCalendarDay($page: Int, $airingAt_greater: Int, $airingAt_lesser: Int) {
+    Page(page: $page, perPage: 50) {
+        pageInfo {
+            hasNextPage
+        }
         airingSchedules(sort: TIME, airingAt_greater: $airingAt_greater, airingAt_lesser: $airingAt_lesser) {
-            id
-            media {
-                title {
-                    userPreferred
-                    english
-                }
-                coverImage {
-                    large
-                    extraLarge
-                }
-                mediaListEntry {
-                    status
-                }
-            }
-            airingAt
-            timeUntilAiring
-            episode
+            ...CalendarAiringSchedule
         }
     }
 }

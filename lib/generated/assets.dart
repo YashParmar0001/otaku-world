@@ -4,6 +4,8 @@ class Assets {
 
   static const String assetsAppLogo = 'assets/app_logo.svg';
   static const String assetsAppLogoHorizontal = 'assets/app_logo_horizontal.svg';
+  static const String charactersErenYeager = 'assets/images/characters/eren_yeager.png';
+  static const String charactersSchoolGirl = 'assets/images/characters/school_girl.png';
   static const String fontsPoppinsRegular = 'assets/fonts/Poppins-Regular.ttf';
   static const String fontsPoppinsSemiBold = 'assets/fonts/Poppins-SemiBold.ttf';
   static const String fontsPoppinsThin = 'assets/fonts/Poppins-Thin.ttf';

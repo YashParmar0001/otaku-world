@@ -12,6 +12,7 @@ import 'package:otaku_world/core/ui/shimmers/shimmer_list.dart';
 import 'package:otaku_world/features/calendar/widgets/calendar_card.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/graphql/__generated/graphql/calendar/calendar.graphql.dart';
+import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -250,7 +251,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 
   Widget _buildCalendarCardsList(
-      List<Query$GetCalendarDay$Page$airingSchedules?> schedules) {
+      List<Fragment$CalendarAiringSchedule?> schedules) {
     return ListView.builder(
       scrollDirection: Axis.vertical,
       itemCount: schedules.length,

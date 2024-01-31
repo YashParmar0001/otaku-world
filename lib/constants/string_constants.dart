@@ -42,3 +42,15 @@ class HomeConstants {
   static const String calendarHeading = 'Calendar';
   static const String calendarSubheading = 'Stay updated with upcoming episodes and plan your anime viewing schedule';
 }
+
+class CalendarConstants {
+  static const dayNames = [
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat',
+    'Sun'
+  ];
+}

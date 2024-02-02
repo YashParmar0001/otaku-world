@@ -361,7 +361,7 @@ const documentNodeQueryGetCalendarDay = DocumentNode(definitions: [
           ),
           ArgumentNode(
             name: NameNode(value: 'perPage'),
-            value: IntValueNode(value: '50'),
+            value: IntValueNode(value: '10'),
           ),
         ],
         directives: [],

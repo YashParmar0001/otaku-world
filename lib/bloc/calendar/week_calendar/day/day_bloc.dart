@@ -40,6 +40,7 @@ class DayBloc extends Bloc<DayEvent, DayState> {
   }
 
   Future<void> _onLoadDay(LoadDay event, Emitter<DayState> emit) async {
+    if (page == 1) emit(EpisodesLoading());
     final start = FormattingUtils.getUnixTimeStampFromDate(
       DateTime(day.year, day.month, day.day),
     );
@@ -49,6 +50,8 @@ class DayBloc extends Bloc<DayEvent, DayState> {
 
     final response = await event.client.query$GetCalendarDay(
       Options$Query$GetCalendarDay(
+        fetchPolicy: FetchPolicy.networkOnly,
+        cacheRereadPolicy: CacheRereadPolicy.ignoreAll,
         variables: Variables$Query$GetCalendarDay(
           page: page,
           airingAt_greater: start,
@@ -70,15 +73,27 @@ class DayBloc extends Bloc<DayEvent, DayState> {
     } else {
       final data = response.parsedData!;
       hasNextPage = data.Page!.pageInfo!.hasNextPage!;
-      dev.log('Page: $page', name: 'DayBloc${day.day}');
+      dev.log(
+        'Page: $page',
+        name: 'DayBloc${day.weekday - DateTime.now().weekday}',
+      );
       page++;
       list.addAll(data.Page!.airingSchedules!);
-      dev.log('Episodes list size: ${list.length}', name: 'DayBloc${day.day}');
+      dev.log(
+        'Episodes list size: ${list.length}',
+        name: 'DayBloc${day.weekday - DateTime.now().weekday}',
+      );
 
       emit(EpisodesLoaded(
         episodes: List.from(list),
         hasNextPage: hasNextPage,
       ));
     }
+  }
+
+  @override
+  void onTransition(Transition<DayEvent, DayState> transition) {
+    dev.log(transition.toString(), name: 'DayBloc');
+    super.onTransition(transition);
   }
 }

@@ -1,5 +1,5 @@
 query GetCalendarDay($page: Int, $airingAt_greater: Int, $airingAt_lesser: Int) {
-    Page(page: $page, perPage: 50) {
+    Page(page: $page, perPage: 10) {
         pageInfo {
             hasNextPage
         }

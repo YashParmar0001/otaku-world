@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'dart:developer' as dev;
 
 import 'day/day_bloc.dart';
 
@@ -51,5 +52,11 @@ class WeekCalendarBloc extends Bloc<WeekCalendarEvent, WeekCalendarState> {
     ];
 
     return dates;
+  }
+
+  @override
+  void onTransition(Transition<WeekCalendarEvent, WeekCalendarState> transition) {
+    dev.log(transition.toString(), name: 'WeekCalendarBloc');
+    super.onTransition(transition);
   }
 }

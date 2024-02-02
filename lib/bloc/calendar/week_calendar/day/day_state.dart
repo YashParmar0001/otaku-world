@@ -16,6 +16,9 @@ class EpisodesLoaded extends DayState {
 
   final List<Fragment$CalendarAiringSchedule?> episodes;
   final bool hasNextPage;
+
+  @override
+  List<Object> get props => [episodes, hasNextPage];
 }
 
 class DayError extends DayState {

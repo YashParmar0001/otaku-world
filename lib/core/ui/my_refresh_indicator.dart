@@ -157,6 +157,7 @@ class _MyRefreshIndicator extends State<MyRefreshIndicator>
         const double screenHeight = 150.0;
 
         return CustomRefreshIndicator(
+
           onRefresh: () async {
             await Future.delayed(
               const Duration(milliseconds: 1500),

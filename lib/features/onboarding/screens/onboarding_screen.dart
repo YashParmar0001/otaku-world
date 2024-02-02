@@ -1,4 +1,7 @@
+import 'dart:developer' as dev;
+
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/core/ui/buttons/primary_button.dart';
 import 'package:otaku_world/features/onboarding/widgets/next_button.dart';
@@ -9,29 +12,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../constants/string_constants.dart';
 import '../../../generated/assets.dart';
 
-class OnBoardingScreen extends StatefulWidget {
-  const OnBoardingScreen({super.key});
-
-  @override
-  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
-}
-
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  late PageController _pageController;
-
-  int _pageIndex = 0;
-
-  @override
-  void initState() {
-    _pageController = PageController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
+class OnBoardingScreen extends HookWidget {
+  OnBoardingScreen({super.key});
 
   final pageImages = [
     Assets.onBoardingOnBoarding1,
@@ -56,17 +38,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final pageController = usePageController();
+
     return Scaffold(
       body: Stack(
         children: [
           PageView.builder(
-            controller: _pageController,
+            controller: pageController,
             itemCount: 4,
-            onPageChanged: (index) {
-              setState(() {
-                _pageIndex = index;
-              });
-            },
             itemBuilder: (context, index) {
               return _buildWelcomePage(
                 context: context,
@@ -76,87 +55,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               );
             },
           ),
-          (_pageIndex == 3)
-              // If user is at final page then 'Get Started' button will show up which will take him/her to the login page
-              ? Positioned(
-                  bottom: 45,
-                  child: PrimaryButton(
-                    onTap: () async {
-                      final sharedPrefs = await SharedPreferences.getInstance();
-                      sharedPrefs.setBool('is_first_time', false);
-                      context.push('/login');
-                    },
-                    label: 'Get Started',
-                  ),
-                )
-              : Positioned(
-                  bottom: 45,
-                  left: 12,
-                  right: 25,
-                  child: Row(
-                    children: [
-                      ...List.generate(
-                        4,
-                        (index) {
-                          if (index == _pageIndex) {
-                            // Build bigger dot
-                            return Padding(
-                              padding: const EdgeInsets.only(
-                                right: 5,
-                              ),
-                              child: AnimatedContainer(
-                                duration: const Duration(
-                                  milliseconds: 300,
-                                ),
-                                width: 30,
-                                height: 8,
-                                decoration: BoxDecoration(
-                                  gradient: const LinearGradient(
-                                    begin: Alignment(0.00, -1.00),
-                                    end: Alignment(0, 1),
-                                    colors: [
-                                      AppColors.sunsetOrange,
-                                      AppColors.japaneseIndigo,
-                                    ],
-                                  ),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                              ),
-                            );
-                          } else {
-                            // Build smaller dots
-                            return Padding(
-                              padding: const EdgeInsets.only(
-                                right: 5,
-                              ),
-                              child: Container(
-                                width: 8,
-                                height: 8,
-                                decoration: BoxDecoration(
-                                  color: AppColors.chineseWhite,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                      // const SizedBox(
-                      //   width: 190,
-                      // ),
-                      const Spacer(),
-                      NextButton(
-                        onTap: () {
-                          // It'll take user to the next page
-                          _pageController.nextPage(
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.easeOut,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
+          _BottomArea(pageController: pageController),
         ],
       ),
     );
@@ -235,5 +134,115 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         ],
       ),
     );
+  }
+}
+
+class _BottomArea extends StatefulWidget {
+  const _BottomArea({required this.pageController});
+
+  final PageController pageController;
+
+  @override
+  State<_BottomArea> createState() => _BottomAreaState();
+}
+
+class _BottomAreaState extends State<_BottomArea> {
+  int _pageIndex = 0;
+  int previousPage = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    widget.pageController.addListener(() {
+      final currentIndex = widget.pageController.page?.round() ?? 0;
+      if (currentIndex != previousPage) {
+        dev.log('Current index: $currentIndex', name: 'OnBoarding');
+        setState(() {
+          previousPage = _pageIndex;
+          _pageIndex = currentIndex;
+        });
+      }
+    });
+
+    return (_pageIndex == 3)
+        // If user is at final page then 'Get Started' button will show up which will take him/her to the login page
+        ? Positioned(
+            bottom: 45,
+            child: PrimaryButton(
+              onTap: () async {
+                final sharedPrefs = await SharedPreferences.getInstance();
+                sharedPrefs.setBool('is_first_time', false);
+                context.go('/login');
+              },
+              label: 'Get Started',
+            ),
+          )
+        : Positioned(
+            bottom: 45,
+            left: 12,
+            right: 25,
+            child: Row(
+              children: [
+                ...List.generate(
+                  4,
+                  (index) {
+                    if (index == _pageIndex) {
+                      // Build bigger dot
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                          right: 5,
+                        ),
+                        child: AnimatedContainer(
+                          duration: const Duration(
+                            milliseconds: 300,
+                          ),
+                          width: 30,
+                          height: 8,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              begin: Alignment(0.00, -1.00),
+                              end: Alignment(0, 1),
+                              colors: [
+                                AppColors.sunsetOrange,
+                                AppColors.japaneseIndigo,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      );
+                    } else {
+                      // Build smaller dots
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                          right: 5,
+                        ),
+                        child: Container(
+                          width: 8,
+                          height: 8,
+                          decoration: BoxDecoration(
+                            color: AppColors.chineseWhite,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
+                // const SizedBox(
+                //   width: 190,
+                // ),
+                const Spacer(),
+                NextButton(
+                  onTap: () {
+                    // It'll take user to the next page
+                    widget.pageController.nextPage(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeOut,
+                    );
+                  },
+                ),
+              ],
+            ),
+          );
   }
 }

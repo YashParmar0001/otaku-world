@@ -7,6 +7,13 @@ import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/reviews/review_detail/review_detail_bloc.dart';
 import 'package:otaku_world/bloc/reviews/reviews/review_bloc.dart';
 import 'package:otaku_world/bloc/routes/redirect_route_cubit.dart';
+import 'package:otaku_world/bloc/search/search_anime/search_anime_bloc.dart';
+import 'package:otaku_world/bloc/search/search_characters/search_characters_bloc.dart';
+import 'package:otaku_world/bloc/search/search_manga/search_manga_bloc.dart';
+import 'package:otaku_world/bloc/search/search_staff/search_staff_bloc.dart';
+import 'package:otaku_world/bloc/search/search_studios/search_studios_bloc.dart';
+import 'package:otaku_world/bloc/search/search_users/search_users_bloc.dart';
+import 'package:otaku_world/bloc/text_field/clear_text_cubit.dart';
 import 'package:otaku_world/bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import 'package:otaku_world/bloc/recommended_anime/recommended_anime_bloc.dart';
 import 'package:otaku_world/bloc/recommended_manga/recommended_manga_bloc.dart';
@@ -28,7 +35,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthCubit()..authenticate(),
+          create: (context) =>
+          AuthCubit()
+            ..authenticate(),
         ),
         BlocProvider(
           create: (context) => GraphqlClientCubit(),
@@ -38,6 +47,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => BottomNavBarCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ClearTextCubit(),
         ),
         BlocProvider(
           create: (context) => UpcomingEpisodesBloc(),
@@ -63,6 +75,24 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ReviewDetailBloc(),
         ),
+        BlocProvider(
+          create: (context) => SearchAnimeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SearchMangaBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SearchCharactersBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SearchStaffBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SearchStudiosBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SearchUsersBloc(),
+        ),
       ],
       child: MultiBlocListener(
         listeners: [
@@ -74,7 +104,9 @@ class MyApp extends StatelessWidget {
                     .read<GraphqlClientCubit>()
                     .initializeGraphqlClient(state.token);
               } else if (state is UnAuthenticated) {
-                context.read<UpcomingEpisodesBloc>().add(ResetData());
+                context
+                    .read<UpcomingEpisodesBloc>()
+                    .add(ResetData());
                 context.read<ReviewBloc>().add(ResetData());
                 context.read<TrendingAnimeBloc>().add(ResetData());
                 context.read<RecommendedAnimeBloc>().add(ResetData());

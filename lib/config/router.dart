@@ -207,15 +207,6 @@ final router = GoRouter(
       path: '/login',
       builder: (_) => const LoginScreen(),
       directionTween: SlideTransitionRoute.leftToRightTween,
-      redirect: (context, state) async {
-        final sharedPrefs = await SharedPreferences.getInstance();
-        final firstTime = sharedPrefs.getBool('is_first_time');
-        if (firstTime == null) {
-          return '/on-boarding';
-        } else {
-          return null;
-        }
-      },
     ),
   ],
   onException: (context, state, router) {

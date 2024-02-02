@@ -106,7 +106,7 @@ class DiscoverScreen extends HookWidget {
             },
             title: "Staff",
             beginColors: AppColors.raisinBlack,
-            endColors: AppColors.b,
+            endColors: AppColors.trueBlue,
             child: _buildDiscoverCardImage(
               radius: 15.0,
               angle: 0.11,
@@ -121,7 +121,7 @@ class DiscoverScreen extends HookWidget {
             },
             title: "Studios",
             beginColors: AppColors.raisinBlack,
-            endColors: AppColors.a,
+            endColors: AppColors.darkMagenta,
             child: _buildDiscoverStudiosPosters(),
           ),
           const SizedBox(

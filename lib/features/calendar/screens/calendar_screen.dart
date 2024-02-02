@@ -25,6 +25,7 @@ class CalendarScreen extends StatefulHookWidget {
 class _CalendarScreenState extends State<CalendarScreen> {
   DateTime selectedCalendarDay = DateTime.now();
   DateTime focusedCalendarDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     List<DateTime> dates = getWeekDaysList();

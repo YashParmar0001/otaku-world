@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
@@ -10,7 +10,6 @@ import 'package:otaku_world/theme/colors.dart';
 import '../../../constants/string_constants.dart';
 import '../../../core/ui/buttons/primary_button.dart';
 import '../../../core/ui/buttons/primary_outlined_button.dart';
-import '../../../core/ui/appbars/simple_app_bar.dart';
 
 final Uri authUri = Uri(
   scheme: 'https',
@@ -25,7 +24,7 @@ final Uri registerUri = Uri(
   path: '/signup',
 );
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends HookWidget {
   const LoginScreen({super.key});
 
   @override
@@ -35,15 +34,12 @@ class LoginScreen extends StatelessWidget {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is Authenticated) {
-          // context.go('/home');
+          context.go('/home');
         } else if (state is UnAuthenticated) {
           // context.go('/login');
         }
       },
       child: Scaffold(
-        appBar: const SimpleAppBar(
-          title: '',
-        ),
         body: Center(
           child: SingleChildScrollView(
             child: Column(

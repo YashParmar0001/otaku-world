@@ -26,7 +26,7 @@ class FormattingUtils {
 
   static String formatDurationFromSecondsBefore(int seconds) {
     // Calculate the number of days, hours, and minutes
-    int days = seconds ~/ (24 * 60 * 60);
+    int days = (seconds ~/ (24 * 60 * 60)).abs();
     int hours = 23 - (seconds % (24 * 60 * 60)) ~/ (60 * 60);
     int minutes = 59 - (seconds % (60 * 60)) ~/ 60;
 

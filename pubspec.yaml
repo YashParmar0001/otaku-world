@@ -98,8 +98,12 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/images/
     - assets/images/on_boarding/
     - assets/images/placeholders/
+    - assets/images/discover/
+    - assets/images/discover/studios/
+    - assets/images/discover/characters/
     - assets/my_refresh_indicator/
 
   # An image asset can refer to one or more resolution-specific "variants", see

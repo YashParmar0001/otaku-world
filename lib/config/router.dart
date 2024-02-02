@@ -54,7 +54,6 @@ final router = GoRouter(
           navigatorKey: _shellNavigatorHomeKey,
           routes: [
             GoRoute(
-// parentNavigatorKey: _shellNavigatorKey,
               path: '/home',
               pageBuilder: (context, state) {
                 return const NoTransitionPage(
@@ -68,7 +67,6 @@ final router = GoRouter(
           navigatorKey: _shellNavigatorDiscoverKey,
           routes: [
             GoRoute(
-// parentNavigatorKey: _shellNavigatorKey,
               path: '/discover',
               pageBuilder: (context, state) {
                 return const NoTransitionPage(
@@ -82,7 +80,6 @@ final router = GoRouter(
           navigatorKey: _shellNavigatorSocialKey,
           routes: [
             GoRoute(
-// parentNavigatorKey: _shellNavigatorKey,
               path: '/social',
               pageBuilder: (context, state) {
                 return const NoTransitionPage(
@@ -96,7 +93,6 @@ final router = GoRouter(
           navigatorKey: _shellNavigatorMyListKey,
           routes: [
             GoRoute(
-// parentNavigatorKey: _shellNavigatorKey,
               path: '/my-list',
               pageBuilder: (context, state) {
                 return const NoTransitionPage(
@@ -136,12 +132,7 @@ final router = GoRouter(
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/calendar',
-      builder: (context, state) => CalendarScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: _rootNavigatorKey,
-      path: '/on_boarding',
-      builder: (context, state) => OnBoardingScreen(),
+      builder: (context, state) => const CalendarScreen(),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
@@ -211,10 +202,11 @@ final router = GoRouter(
       path: '/on-boarding',
       builder: (context, state) => OnBoardingScreen(),
     ),
-    GoRoute(
+    SlideTransitionRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/login',
-      builder: (context, state) => const LoginScreen(),
+      builder: (_) => const LoginScreen(),
+      directionTween: SlideTransitionRoute.leftToRightTween,
       redirect: (context, state) async {
         final sharedPrefs = await SharedPreferences.getInstance();
         final firstTime = sharedPrefs.getBool('is_first_time');

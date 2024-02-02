@@ -110,6 +110,7 @@ flutter:
     - assets/icons/
     - assets/images/on_boarding/
     - assets/images/placeholders/
+    - assets/images/characters/
     - assets/my_refresh_indicator/
 
   # An image asset can refer to one or more resolution-specific "variants", see

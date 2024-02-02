@@ -10,6 +10,8 @@ import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
 import '../../../bloc/search/search_base/search_bloc.dart';
+import '../../../core/ui/placeholders/anime_character_placeholder.dart';
+import '../../../generated/assets.dart';
 import '../../../theme/colors.dart';
 
 class ResultCharactersList extends HookWidget {
@@ -48,11 +50,12 @@ class ResultCharactersList extends HookWidget {
       child: BlocBuilder<SearchCharactersBloc, SearchState>(
         builder: (context, state) {
           if (state is SearchInitial) {
-            return const Center(
-              child: Text(
-                'Search Something!',
-                style: TextStyle(color: AppColors.white),
-              ),
+            return const AnimeCharacterPlaceholder(
+              asset: Assets.charactersSchoolGirl,
+              height: 300,
+              heading: 'Find what interests you!',
+              subheading:
+                  'Browse through our extensive library and find your next favorite.',
             );
           } else if (state is SearchResultLoading) {
             return const Center(
@@ -65,30 +68,36 @@ class ResultCharactersList extends HookWidget {
             final list = state.list;
             final hasNextPage = state.hasNextPage;
 
-            return CustomScrollView(
-              scrollDirection: Axis.vertical,
-              clipBehavior: Clip.none,
-              controller: controller,
-              slivers: [
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return ResultCharacterCard(character: list[index]);
-                    },
-                    childCount: list.length,
-                  ),
-                ),
-                if (hasNextPage)
-                  const SliverToBoxAdapter(
-                    child: Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: CircularProgressIndicator(),
+            return list.isEmpty
+                ? const AnimeCharacterPlaceholder(
+                    asset: Assets.charactersErenYeager,
+                    heading: 'Oops! No matches found!',
+                    subheading: 'Try searching something else.',
+                  )
+                : CustomScrollView(
+                    scrollDirection: Axis.vertical,
+                    clipBehavior: Clip.none,
+                    controller: controller,
+                    slivers: [
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            return ResultCharacterCard(character: list[index]);
+                          },
+                          childCount: list.length,
+                        ),
                       ),
-                    ),
-                  ),
-              ],
-            );
+                      if (hasNextPage)
+                        const SliverToBoxAdapter(
+                          child: Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(5.0),
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                        ),
+                    ],
+                  );
           } else {
             return const Text('Unknown State');
           }

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as dev;
 
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:otaku_world/graphql/__generated/graphql/calendar/calendar.graphql.dart';
@@ -15,12 +16,25 @@ part 'day_state.dart';
 
 class DayBloc extends Bloc<DayEvent, DayState> {
   DayBloc(this.day) : super(DayInitial()) {
-    on<ResetDay>(_onResetDay);
-    on<RefreshDay>(_onRefreshDay);
-    on<LoadDay>(_onLoadDay);
+    on<ResetDay>(
+      _onResetDay,
+      transformer: droppable(),
+    );
+    on<SetDay>(
+      _onSetDay,
+      transformer: droppable(),
+    );
+    on<RefreshDay>(
+      _onRefreshDay,
+      transformer: droppable(),
+    );
+    on<LoadDay>(
+      _onLoadDay,
+      transformer: droppable(),
+    );
   }
 
-  final DateTime day;
+  DateTime day;
   var page = 1;
   var hasNextPage = true;
   final List<Fragment$CalendarAiringSchedule?> list = [];
@@ -30,6 +44,12 @@ class DayBloc extends Bloc<DayEvent, DayState> {
     hasNextPage = true;
     list.clear();
     emit(DayInitial());
+  }
+
+  void _onSetDay(SetDay event, Emitter<DayState> emit) {
+    day = event.day;
+    add(ResetDay());
+    add(LoadDay(event.client));
   }
 
   void _onRefreshDay(RefreshDay event, Emitter<DayState> emit) {

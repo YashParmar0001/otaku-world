@@ -20,8 +20,15 @@ class FormattingUtils {
     int hours = (seconds % (24 * 60 * 60)) ~/ (60 * 60);
     int minutes = (seconds % (60 * 60)) ~/ 60;
 
-    // Format the duration in 'dd:hh:mm' format
-    return '${days.toString()}d ${hours.toString()}h ${minutes.toString()}m';
+    String duration = '';
+    if (days > 0) {
+      duration += '${days.toString()}d ';
+    }
+    if (hours > 0) {
+      duration += '${hours.toString()}h ';
+    }
+    duration += '${minutes.toString()}m';
+    return duration;
   }
 
   static String formatDurationFromSecondsBefore(int seconds) {
@@ -30,8 +37,15 @@ class FormattingUtils {
     int hours = 23 - (seconds % (24 * 60 * 60)) ~/ (60 * 60);
     int minutes = 59 - (seconds % (60 * 60)) ~/ 60;
 
-    // Format the duration in 'dd:hh:mm' format
-    return '${days.toString()}d ${hours.toString()}h ${minutes.toString()}m';
+    String duration = '';
+    if (days > 0) {
+      duration += '${days.toString()}d ';
+    }
+    if (hours > 0) {
+      duration += '${hours.toString()}h ';
+    }
+    duration += '${minutes.toString()}m';
+    return duration;
   }
 
   static int getUnixTimeStampFromDate(DateTime date) {

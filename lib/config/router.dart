@@ -124,15 +124,17 @@ final router = GoRouter(
       path: '/trending_manga_slider',
       builder: (context, state) => const TrendingMangaSlider(),
     ),
-    GoRoute(
+    SlideTransitionRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/reviews',
-      builder: (context, state) => const ReviewScreen(),
+      builder: (state) => const ReviewScreen(),
+      directionTween: SlideTransitionRoute.leftToRightTween,
     ),
-    GoRoute(
+    SlideTransitionRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/calendar',
-      builder: (context, state) => const CalendarScreen(),
+      builder: (state) => const CalendarScreen(),
+      directionTween: SlideTransitionRoute.leftToRightTween,
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,

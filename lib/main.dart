@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
 import 'package:otaku_world/bloc/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import 'package:otaku_world/bloc/calendar/calendar_bloc.dart';
+import 'package:otaku_world/bloc/calendar/week_calendar/day/day_bloc.dart';
 import 'package:otaku_world/bloc/calendar/week_calendar/week_calendar_bloc.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/reviews/review_detail/review_detail_bloc.dart';
@@ -93,6 +94,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SearchUsersBloc(),
+        ),
+        BlocProvider(
+          create: (context) => DayBloc(DateTime.now()),
         ),
       ],
       child: MultiBlocListener(

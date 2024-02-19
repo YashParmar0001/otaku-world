@@ -6,6 +6,13 @@ abstract class DayEvent {
 
 class ResetDay extends DayEvent {}
 
+class SetDay extends DayEvent {
+  const SetDay({required this.client, required this.day});
+
+  final DateTime day;
+  final GraphQLClient client;
+}
+
 class RefreshDay extends DayEvent {
   const RefreshDay(this.client);
 

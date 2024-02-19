@@ -17,10 +17,12 @@ class EpisodesList extends HookWidget {
     super.key,
     required this.dayBloc,
     required this.client,
+    this.clipBehaviour = Clip.none,
   });
 
   final DayBloc dayBloc;
   final GraphQLClient client;
+  final Clip clipBehaviour;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class EpisodesList extends HookWidget {
         final maxScroll = scrollController.position.maxScrollExtent;
         final currentScroll = scrollController.position.pixels;
 
-        if (currentScroll == maxScroll) {
+        if (currentScroll >= maxScroll - 120 * 5) {
           dev.log('Max scrolled', name: 'Media');
           final hasNextPage = (dayBloc.state as EpisodesLoaded).hasNextPage;
           if (hasNextPage) {
@@ -53,7 +55,9 @@ class EpisodesList extends HookWidget {
             child: CalendarShimmerCard(),
           );
         } else if (state is DayError) {
-          return ErrorText(message: state.message, onTryAgain: () {});
+          return ErrorText(message: state.message, onTryAgain: () {
+            dayBloc.add(LoadDay(client));
+          });
         } else if (state is EpisodesLoaded) {
           dev.log('Rebuilding episodes list', name: 'Calendar');
           return _buildCalendarCardsList(
@@ -81,7 +85,7 @@ class EpisodesList extends HookWidget {
         dayBloc.add(RefreshDay(client));
       },
       child: CustomScrollView(
-        clipBehavior: Clip.none,
+        clipBehavior: clipBehaviour,
         controller: controller,
         slivers: [
           SliverList(

@@ -9,6 +9,7 @@ import 'package:otaku_world/core/ui/media_section/scroll_to_top_button.dart';
 import 'package:otaku_world/core/ui/shimmers/grid_shimmer.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
+import 'package:otaku_world/utils/formatting_utils.dart';
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
 import '../../../bloc/paginated_data/paginated_data_bloc.dart';
 import '../../../generated/assets.dart';
@@ -24,12 +25,14 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
     required this.appbarTitle,
     super.key,
     this.crossAxisCount = 3,
+    this.isTop100 = false,
   });
 
   final int crossAxisCount;
   final String appbarTitle;
   final List<Widget>? actions;
   final Enum$MediaType mediaType;
+  final bool isTop100;
 
   @override
   Widget build(BuildContext context) {
@@ -94,23 +97,72 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Stack(
-                              children: [
-                                _buildMediaPoster(
-                                  state.list[index]?.coverImage?.large,
-                                  state.list[index]!.type!,
-                                  size,
-                                ),
-                                // Mean score
-                                Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  child: _buildMeanScore(
-                                    context,
-                                    state.list[index]?.meanScore,
+                            AspectRatio(
+                              aspectRatio: 0.70005,
+                              child: Stack(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      top: isTop100 ? 4 : 0,
+                                      right: isTop100 ? 4 : 0,
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius:
+                                          (mediaType == Enum$MediaType.ANIME)
+                                              ? BorderRadius.circular(15)
+                                              : BorderRadius.circular(5),
+                                      child: Stack(
+                                        children: [
+                                          _buildMediaPoster(
+                                            state
+                                                .list[index]?.coverImage?.large,
+                                            state.list[index]!.type!,
+                                            size,
+                                          ),
+                                          // Mean score
+                                          Positioned(
+                                            bottom: 0,
+                                            right: 0,
+                                            child: _buildMeanScore(
+                                              context,
+                                              state.list[index]?.meanScore,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  if (isTop100)
+                                    Positioned(
+                                      top: 0,
+                                      right: 0,
+                                      child: Container(
+                                        height: 19,
+                                        decoration: BoxDecoration(
+                                            color: FormattingUtils
+                                                .getSelectMediaCardColors(
+                                                    index: index),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 5.0),
+                                          child: Center(
+                                            child: Text(
+                                              "#${index + 1}",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge!
+                                                  .copyWith(
+                                                    color: AppColors.black,
+                                                  ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
                             ),
                             const SizedBox(
                               height: 5,
@@ -204,8 +256,6 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
   }
 
   Widget _buildMediaPoster(String? imageUrl, Enum$MediaType type, Size size) {
-    // int count = (size.width/100).toInt();
-    // double width = (size.width - 10*(count-1))/count;
     return (imageUrl != null)
         ? AspectRatio(
             aspectRatio: 0.70005,
@@ -213,22 +263,11 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
               cacheManager: ImageCacheManager.instance,
               imageUrl: imageUrl,
               height: 150,
-
-              // width: UIUtils.getWidgetWidth(
-              //     targetWidgetWidth: width, screenWidth: size.width),
-              // height: width/(size.width <500 ? 0.75567567567: 0.55),
-              // // height: UIUtils.getWidgetHeight(
-              //     targetWidgetH  eight: width/0.75567567567, screenHeight: size.height),
               fit: BoxFit.cover,
               imageBuilder: (context, imageProvider) {
-                return ClipRRect(
-                  borderRadius: (type == Enum$MediaType.ANIME)
-                      ? BorderRadius.circular(15)
-                      : BorderRadius.circular(5),
-                  child: Image(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                  ),
+                return Image(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
                 );
               },
               errorWidget: (context, url, error) {

@@ -118,7 +118,7 @@ class CalendarCard extends StatelessWidget {
                       Text(
                         (airingSchedule.airingAt <
                                 (DateTime.now().millisecondsSinceEpoch / 1000))
-                            ? 'Ep. ${airingSchedule.episode} aired before ${FormattingUtils.formatDurationFromSecondsBefore(airingSchedule.timeUntilAiring)}'
+                            ? 'Ep. ${airingSchedule.episode}, ${FormattingUtils.formatDurationFromSecondsBefore(airingSchedule.timeUntilAiring)} since aired'
                             : 'Ep. ${airingSchedule.episode} in ${FormattingUtils.formatDurationFromSeconds(airingSchedule.timeUntilAiring)}',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.w400,

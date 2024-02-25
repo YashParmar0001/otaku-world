@@ -34,7 +34,7 @@ class SearchScreen extends HookWidget {
         context.pop();
       },
       child: Scaffold(
-        appBar: SearchAppBar(controller: tabController, tabs: tabs),
+        appBar: SearchAppBar(controller: tabController, tabs: tabs,),
         body: TabBarView(
           controller: tabController,
           children: const [

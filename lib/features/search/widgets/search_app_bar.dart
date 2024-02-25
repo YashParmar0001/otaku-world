@@ -105,7 +105,7 @@ class SearchAppBar extends HookWidget implements PreferredSizeWidget {
                         },
                         borderRadius: BorderRadius.circular(15),
                         child: SvgPicture.asset(
-                          Assets.iconsRemove,
+                          Assets.iconsClose,
                           fit: BoxFit.cover,
                         ),
                       );

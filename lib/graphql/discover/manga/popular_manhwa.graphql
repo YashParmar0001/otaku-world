@@ -1,0 +1,7 @@
+query GetPopularManhwa($page: Int) {
+    Page(page: $page, perPage: 30) {
+        pageInfo {
+            hasNextPage
+        }
+    }
+}

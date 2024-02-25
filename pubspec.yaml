@@ -111,9 +111,12 @@ flutter:
     - assets/images/
     - assets/images/on_boarding/
     - assets/images/placeholders/
+<<<<<<< HEAD
     - assets/images/discover/
     - assets/images/discover/studios/
     - assets/images/discover/characters/
+=======
+>>>>>>> fc7beff9b8dbdd10dd2917edca52386bbb65a27e
     - assets/images/characters/
     - assets/my_refresh_indicator/
 

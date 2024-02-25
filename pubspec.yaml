@@ -55,6 +55,7 @@ dependencies:
   markdown: ^7.1.1
   markdown_widget: ^2.3.2+3
   html: ^0.15.4
+  swipe_to: ^1.0.6
   media_kit:
   media_kit_libs_video:
   media_kit_video:

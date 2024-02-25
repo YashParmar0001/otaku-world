@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:otaku_world/core/ui/discover_header.dart';
 import 'package:otaku_world/features/discover/widgets/discover_card.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/theme/colors.dart';
-import 'package:otaku_world/utils/ui_utils.dart';
 
 import '../../../bloc/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 
@@ -60,12 +59,12 @@ class DiscoverScreen extends HookWidget {
           ),
           DiscoverCard(
             onTap: () {
-              UIUtils.showSnackBar(context, "Coming Soon...");
+              context.push('/discover-anime');
             },
             title: "Anime",
             beginColors: AppColors.raisinBlack,
             endColors: AppColors.sunsetOrange,
-            child: _buildDiscoverCardImage(
+            child: const DiscoverCardImage(
               radius: 15.0,
               angle: 0.11,
             ),
@@ -75,12 +74,12 @@ class DiscoverScreen extends HookWidget {
           ),
           DiscoverCard(
             onTap: () {
-              UIUtils.showSnackBar(context, "Coming Soon...");
+              context.push('/discover-manga');
             },
             title: "Manga",
             beginColors: AppColors.raisinBlack,
             endColors: AppColors.kiwi,
-            child: _buildDiscoverCardImage(
+            child: const DiscoverCardImage(
               radius: 15.0,
               angle: 0.11,
             ),
@@ -90,24 +89,24 @@ class DiscoverScreen extends HookWidget {
           ),
           DiscoverCard(
             onTap: () {
-              UIUtils.showSnackBar(context, "Coming Soon...");
+              context.push('/discover-characters');
             },
             title: "Characters",
             beginColors: AppColors.raisinBlack,
             endColors: AppColors.crayola,
-            child: _buildDiscoverCharacterPosters(),
+            child: const DiscoverCharacterPosters(),
           ),
           const SizedBox(
             height: 20,
           ),
           DiscoverCard(
             onTap: () {
-              UIUtils.showSnackBar(context, "Coming Soon...");
+              context.push('/discover-staff');
             },
             title: "Staff",
             beginColors: AppColors.raisinBlack,
             endColors: AppColors.trueBlue,
-            child: _buildDiscoverCardImage(
+            child: const DiscoverCardImage(
               radius: 15.0,
               angle: 0.11,
             ),
@@ -117,12 +116,12 @@ class DiscoverScreen extends HookWidget {
           ),
           DiscoverCard(
             onTap: () {
-              UIUtils.showSnackBar(context, "Coming Soon...");
+              context.push('/discover-studios');
             },
             title: "Studios",
             beginColors: AppColors.raisinBlack,
             endColors: AppColors.darkMagenta,
-            child: _buildDiscoverStudiosPosters(),
+            child: const DiscoverStudiosPosters(),
           ),
           const SizedBox(
             height: 10,
@@ -131,8 +130,13 @@ class DiscoverScreen extends HookWidget {
       ),
     );
   }
+}
 
-  Widget _buildDiscoverCharacterPosters() {
+class DiscoverCharacterPosters extends StatelessWidget {
+  const DiscoverCharacterPosters({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -144,10 +148,17 @@ class DiscoverScreen extends HookWidget {
       ],
     );
   }
+}
 
-  Widget _buildDiscoverStudiosPosters({
-    double radius = 15,
-  }) {
+class DiscoverStudiosPosters extends StatelessWidget {
+  const DiscoverStudiosPosters({
+    super.key,
+    this.radius = 15,
+  });
+
+  final double radius;
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Stack(
@@ -207,11 +218,19 @@ class DiscoverScreen extends HookWidget {
       ],
     );
   }
+}
 
-  Widget _buildDiscoverCardImage({
-    double radius = 0.0,
-    double angle = 0.0,
-  }) {
+class DiscoverCardImage extends StatelessWidget {
+  const DiscoverCardImage({
+    super.key,
+    this.angle = 0.0,
+    this.radius = 0.0,
+  });
+
+  final double radius;
+  final double angle;
+  @override
+  Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [

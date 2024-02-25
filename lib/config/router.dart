@@ -1,16 +1,35 @@
 import 'dart:developer' as dev;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:media_kit_video/media_kit_video_controls/src/controls/methods/video_state.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
 import 'package:otaku_world/bloc/routes/redirect_route_cubit.dart';
 import 'package:otaku_world/core/routes/slide_transition_route.dart';
+import 'package:otaku_world/features/anime_lists/slider_lists/all_time_popular_anime_slider.dart';
+import 'package:otaku_world/features/anime_lists/slider_lists/all_time_popular_manga_slider.dart';
+import 'package:otaku_world/features/anime_lists/slider_lists/popular_manhwa_manga_slider.dart';
 import 'package:otaku_world/features/anime_lists/slider_lists/recommended_anime_slider.dart';
+import 'package:otaku_world/features/anime_lists/slider_lists/top_airing_anime_slider.dart';
+import 'package:otaku_world/features/anime_lists/slider_lists/top_upcoming_anime_slider.dart';
 import 'package:otaku_world/features/anime_lists/slider_lists/trending_anime_slider.dart';
+import 'package:otaku_world/features/anime_lists/view_more_lists/all_time_popular_anime_screen.dart';
+import 'package:otaku_world/features/anime_lists/view_more_lists/all_time_popular_manga_screen.dart';
+import 'package:otaku_world/features/anime_lists/view_more_lists/popular_manhwa_manga_screen.dart';
 import 'package:otaku_world/features/anime_lists/view_more_lists/recommended_anime_screen.dart';
+import 'package:otaku_world/features/anime_lists/view_more_lists/top_airing_anime_screen.dart';
+import 'package:otaku_world/features/anime_lists/view_more_lists/top_upcoming_anime_screen.dart';
+import 'package:otaku_world/features/anime_lists/view_more_lists/view_all_top_anime.dart';
+import 'package:otaku_world/features/anime_lists/view_more_lists/view_all_top_manga.dart';
 import 'package:otaku_world/features/auth/screens/login_screen.dart';
 import 'package:otaku_world/features/calendar/screens/calendar_screen.dart';
+import 'package:otaku_world/features/discover/screens/anime_discover_screen.dart';
+import 'package:otaku_world/features/discover/screens/anime_filters_discover.dart';
+import 'package:otaku_world/features/discover/screens/characters_discover_screen.dart';
+import 'package:otaku_world/features/discover/screens/manga_discover_screen.dart';
+import 'package:otaku_world/features/discover/screens/manga_filters_discover.dart';
+import 'package:otaku_world/features/discover/screens/staff_discover_screen.dart';
+import 'package:otaku_world/features/discover/screens/studios_discover_screen.dart';
 import 'package:otaku_world/features/home/screens/home_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_detail_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_screen.dart';
@@ -111,6 +130,66 @@ final router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
+      path: '/all-time-popular-anime-slider',
+      builder: (context, state) => const AllTimePopularAnimeSlider(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/all-time-popular-manga-slider',
+      builder: (context, state) => const AllTimePopularMangaSlider(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/popular-manhwa-manga-slider',
+      builder: (context, state) => const PopularManhwaMangaSlider(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/top-airing-anime-slider',
+      builder: (context, state) => const TopAiringAnimeSlider(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/top-upcoming-anime-slider',
+      builder: (context, state) => const TopUpcomingAnimeSlider(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/all-time-popular-anime-screen',
+      builder: (context, state) => const AllTimePopularAnimeScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/all-time-popular-manga-screen',
+      builder: (context, state) => const AllTimePopularMangaScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/popular-manhwa-manga-screen',
+      builder: (context, state) => const PopularManhwaMangaScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/top-airing-anime-screen',
+      builder: (context, state) => const TopAiringAnimeScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/top-upcoming-anime-screen',
+      builder: (context, state) => const TopUpcomingAnimeScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/view-all-top-anime',
+      builder: (context, state) => const ViewAllTopAnime(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/view-all-top-manga',
+      builder: (context, state) => const ViewAllTopManga(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
       path: '/trending_anime_slider',
       builder: (context, state) => const TrendingAnimeSlider(),
     ),
@@ -133,6 +212,41 @@ final router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/calendar',
       builder: (context, state) => const CalendarScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/discover-anime',
+      builder: (context, state) => const AnimeDiscoverScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/discover-manga',
+      builder: (context, state) => const MangaDiscoverScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/discover-characters',
+      builder: (context, state) => const CharactersDiscoverScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/discover-staff',
+      builder: (context, state) => const StaffDiscoverScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/discover-studios',
+      builder: (context, state) => const StudiosDiscoverScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/anime-filters-discover',
+      builder: (context, state) => const AnimeFiltersDiscover(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/manga-filters-discover',
+      builder: (context, state) => const MangaFiltersDiscover(),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
@@ -207,6 +321,15 @@ final router = GoRouter(
       path: '/login',
       builder: (_) => const LoginScreen(),
       directionTween: SlideTransitionRoute.leftToRightTween,
+      redirect: (context, state) async {
+        final sharedPrefs = await SharedPreferences.getInstance();
+        final firstTime = sharedPrefs.getBool('is_first_time');
+        if (firstTime == null) {
+          return '/on-boarding';
+        } else {
+          return null;
+        }
+      },
     ),
   ],
   onException: (context, state, router) {

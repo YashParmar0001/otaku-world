@@ -71,51 +71,47 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Section header
-          Padding(
-            padding: EdgeInsets.only(
-                // bottom: 10,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 10,
                 ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    bottom: 10,
-                  ),
-                  child: Text(
-                    label,
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          fontFamily: 'Roboto-Condensed',
-                        ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: onSliderPressed,
-                      icon: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 12,
-                          right: 12,
-                          // bottom: 10,
-                        ),
-                        child: SvgPicture.asset(Assets.iconsViewSlider),
+                child: Text(
+                  label,
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontFamily: 'Roboto-Condensed',
                       ),
-                    ),
-                    IconButton(
-                      onPressed: onMorePressed,
-                      icon: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 12,
-                          right: 12,
-                        ),
-                        child: SvgPicture.asset(Assets.iconsArrowRight),
-                      ),
-                    ),
-                  ],
                 ),
-              ],
-            ),
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: onSliderPressed,
+                    icon: Padding(
+                      padding: const EdgeInsets.only(
+                        left: 12,
+                        right: 12,
+                        // bottom: 10,
+                      ),
+                      child: SvgPicture.asset(Assets.iconsViewSlider),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: onMorePressed,
+                    icon: Padding(
+                      padding: const EdgeInsets.only(
+                        left: 12,
+                        right: 12,
+                      ),
+                      child: SvgPicture.asset(Assets.iconsArrowRight),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
           // Media list
           BlocBuilder<B, PaginatedDataState>(
@@ -253,9 +249,9 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
         horizontal: 4,
         vertical: 3,
       ),
-      decoration: const ShapeDecoration(
-        color: AppColors.raisinBlack,
-        shape: RoundedRectangleBorder(
+      decoration: ShapeDecoration(
+        color: AppColors.raisinBlack.withOpacity(0.6),
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(5),
           ),

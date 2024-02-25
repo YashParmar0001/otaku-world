@@ -39,6 +39,7 @@ class SearchAppBar extends HookWidget implements PreferredSizeWidget {
       child: AppBar(
         leading: CustomBackButton(
           onPressed: () {
+            _clearSearch(context);
             if (context.canPop()) {
               context.pop();
             } else {
@@ -104,7 +105,7 @@ class SearchAppBar extends HookWidget implements PreferredSizeWidget {
                         },
                         borderRadius: BorderRadius.circular(15),
                         child: SvgPicture.asset(
-                          Assets.iconsRemove,
+                          Assets.iconsClose,
                           fit: BoxFit.cover,
                         ),
                       );

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:otaku_world/bloc/all_time_popular_anime/all_time_popular_anime_bloc.dart';
+import 'package:otaku_world/bloc/all_time_popular_manga/all_time_popular_manga.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
 import 'package:otaku_world/bloc/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import 'package:otaku_world/bloc/calendar/calendar_bloc.dart';
+import 'package:otaku_world/bloc/calendar/week_calendar/week_calendar_bloc.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/reviews/review_detail/review_detail_bloc.dart';
 import 'package:otaku_world/bloc/reviews/reviews/review_bloc.dart';
@@ -14,6 +17,10 @@ import 'package:otaku_world/bloc/search/search_staff/search_staff_bloc.dart';
 import 'package:otaku_world/bloc/search/search_studios/search_studios_bloc.dart';
 import 'package:otaku_world/bloc/search/search_users/search_users_bloc.dart';
 import 'package:otaku_world/bloc/text_field/clear_text_cubit.dart';
+import 'package:otaku_world/bloc/top_100_anime/top_100_anime_bloc.dart';
+import 'package:otaku_world/bloc/top_100_manga/top_100_manga.dart';
+import 'package:otaku_world/bloc/top_airing_anime/top_airing_anime_bloc.dart';
+import 'package:otaku_world/bloc/top_upcoming_anime/top_upcoming_anime_bloc.dart';
 import 'package:otaku_world/bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import 'package:otaku_world/bloc/recommended_anime/recommended_anime_bloc.dart';
 import 'package:otaku_world/bloc/recommended_manga/recommended_manga_bloc.dart';
@@ -35,9 +42,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) =>
-          AuthCubit()
-            ..authenticate(),
+          create: (context) => AuthCubit()..authenticate(),
         ),
         BlocProvider(
           create: (context) => GraphqlClientCubit(),
@@ -70,7 +75,7 @@ class MyApp extends StatelessWidget {
           create: (context) => ReviewBloc(),
         ),
         BlocProvider(
-          create: (context) => CalendarBloc(),
+          create: (context) => WeekCalendarBloc()..add(InitializeCalendar()),
         ),
         BlocProvider(
           create: (context) => ReviewDetailBloc(),
@@ -93,6 +98,24 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => SearchUsersBloc(),
         ),
+        BlocProvider(
+          create: (context) => TopAiringAnimeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => TopUpcomingAnimeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => AllTimePopularAnimeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => AllTimePopularMangaBloc(),
+        ),
+        BlocProvider(
+          create: (context) => Top100AnimeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => Top100MangaBloc(),
+        ),
       ],
       child: MultiBlocListener(
         listeners: [
@@ -104,14 +127,18 @@ class MyApp extends StatelessWidget {
                     .read<GraphqlClientCubit>()
                     .initializeGraphqlClient(state.token);
               } else if (state is UnAuthenticated) {
-                context
-                    .read<UpcomingEpisodesBloc>()
-                    .add(ResetData());
+                context.read<UpcomingEpisodesBloc>().add(ResetData());
                 context.read<ReviewBloc>().add(ResetData());
                 context.read<TrendingAnimeBloc>().add(ResetData());
                 context.read<RecommendedAnimeBloc>().add(ResetData());
                 context.read<TrendingMangaBloc>().add(ResetData());
                 context.read<RecommendedMangaBloc>().add(ResetData());
+                context.read<TopAiringAnimeBloc>().add(ResetData());
+                context.read<TopUpcomingAnimeBloc>().add(ResetData());
+                context.read<AllTimePopularAnimeBloc>().add(ResetData());
+                context.read<AllTimePopularMangaBloc>().add(ResetData());
+                context.read<Top100AnimeBloc>().add(ResetData());
+                context.read<Top100MangaBloc>().add(ResetData());
               }
             },
           ),
@@ -130,6 +157,18 @@ class MyApp extends StatelessWidget {
                 context
                     .read<RecommendedMangaBloc>()
                     .add(LoadData(state.client));
+                context.read<TopAiringAnimeBloc>().add(LoadData(state.client));
+                context
+                    .read<TopUpcomingAnimeBloc>()
+                    .add(LoadData(state.client));
+                context
+                    .read<AllTimePopularAnimeBloc>()
+                    .add(LoadData(state.client));
+                context
+                    .read<AllTimePopularMangaBloc>()
+                    .add(LoadData(state.client));
+                context.read<Top100AnimeBloc>().add(LoadData(state.client));
+                context.read<Top100MangaBloc>().add(LoadData(state.client));
               }
             },
           ),

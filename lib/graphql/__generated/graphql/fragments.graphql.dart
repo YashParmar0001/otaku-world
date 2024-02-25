@@ -2806,6 +2806,7 @@ class Fragment$Review {
     this.score,
     required this.createdAt,
     required this.updatedAt,
+    this.body,
     this.user,
     this.media,
     this.$__typename = 'Review',
@@ -2819,6 +2820,7 @@ class Fragment$Review {
     final l$score = json['score'];
     final l$createdAt = json['createdAt'];
     final l$updatedAt = json['updatedAt'];
+    final l$body = json['body'];
     final l$user = json['user'];
     final l$media = json['media'];
     final l$$__typename = json['__typename'];
@@ -2832,6 +2834,7 @@ class Fragment$Review {
       score: (l$score as int?),
       createdAt: (l$createdAt as int),
       updatedAt: (l$updatedAt as int),
+      body: (l$body as String?),
       user: l$user == null
           ? null
           : Fragment$Review$user.fromJson((l$user as Map<String, dynamic>)),
@@ -2856,6 +2859,8 @@ class Fragment$Review {
 
   final int updatedAt;
 
+  final String? body;
+
   final Fragment$Review$user? user;
 
   final Fragment$Review$media? media;
@@ -2879,6 +2884,8 @@ class Fragment$Review {
     _resultData['createdAt'] = l$createdAt;
     final l$updatedAt = updatedAt;
     _resultData['updatedAt'] = l$updatedAt;
+    final l$body = body;
+    _resultData['body'] = l$body;
     final l$user = user;
     _resultData['user'] = l$user?.toJson();
     final l$media = media;
@@ -2897,6 +2904,7 @@ class Fragment$Review {
     final l$score = score;
     final l$createdAt = createdAt;
     final l$updatedAt = updatedAt;
+    final l$body = body;
     final l$user = user;
     final l$media = media;
     final l$$__typename = $__typename;
@@ -2908,6 +2916,7 @@ class Fragment$Review {
       l$score,
       l$createdAt,
       l$updatedAt,
+      l$body,
       l$user,
       l$media,
       l$$__typename,
@@ -2957,6 +2966,11 @@ class Fragment$Review {
     if (l$updatedAt != lOther$updatedAt) {
       return false;
     }
+    final l$body = body;
+    final lOther$body = other.body;
+    if (l$body != lOther$body) {
+      return false;
+    }
     final l$user = user;
     final lOther$user = other.user;
     if (l$user != lOther$user) {
@@ -3001,6 +3015,7 @@ abstract class CopyWith$Fragment$Review<TRes> {
     int? score,
     int? createdAt,
     int? updatedAt,
+    String? body,
     Fragment$Review$user? user,
     Fragment$Review$media? media,
     String? $__typename,
@@ -3030,6 +3045,7 @@ class _CopyWithImpl$Fragment$Review<TRes>
     Object? score = _undefined,
     Object? createdAt = _undefined,
     Object? updatedAt = _undefined,
+    Object? body = _undefined,
     Object? user = _undefined,
     Object? media = _undefined,
     Object? $__typename = _undefined,
@@ -3049,6 +3065,7 @@ class _CopyWithImpl$Fragment$Review<TRes>
         updatedAt: updatedAt == _undefined || updatedAt == null
             ? _instance.updatedAt
             : (updatedAt as int),
+        body: body == _undefined ? _instance.body : (body as String?),
         user: user == _undefined
             ? _instance.user
             : (user as Fragment$Review$user?),
@@ -3089,6 +3106,7 @@ class _CopyWithStubImpl$Fragment$Review<TRes>
     int? score,
     int? createdAt,
     int? updatedAt,
+    String? body,
     Fragment$Review$user? user,
     Fragment$Review$media? media,
     String? $__typename,
@@ -3155,6 +3173,13 @@ const fragmentDefinitionReview = FragmentDefinitionNode(
     ),
     FieldNode(
       name: NameNode(value: 'updatedAt'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'body'),
       alias: null,
       arguments: [],
       directives: [],
@@ -7529,6 +7554,874 @@ class _CopyWithStubImpl$Fragment$SearchResultUser$avatar<TRes>
 
   call({
     String? large,
+    String? $__typename,
+  }) =>
+      _res;
+}
+
+class Fragment$CalendarAiringSchedule {
+  Fragment$CalendarAiringSchedule({
+    required this.id,
+    this.media,
+    required this.airingAt,
+    required this.timeUntilAiring,
+    required this.episode,
+    this.$__typename = 'AiringSchedule',
+  });
+
+  factory Fragment$CalendarAiringSchedule.fromJson(Map<String, dynamic> json) {
+    final l$id = json['id'];
+    final l$media = json['media'];
+    final l$airingAt = json['airingAt'];
+    final l$timeUntilAiring = json['timeUntilAiring'];
+    final l$episode = json['episode'];
+    final l$$__typename = json['__typename'];
+    return Fragment$CalendarAiringSchedule(
+      id: (l$id as int),
+      media: l$media == null
+          ? null
+          : Fragment$CalendarAiringSchedule$media.fromJson(
+              (l$media as Map<String, dynamic>)),
+      airingAt: (l$airingAt as int),
+      timeUntilAiring: (l$timeUntilAiring as int),
+      episode: (l$episode as int),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final int id;
+
+  final Fragment$CalendarAiringSchedule$media? media;
+
+  final int airingAt;
+
+  final int timeUntilAiring;
+
+  final int episode;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$id = id;
+    _resultData['id'] = l$id;
+    final l$media = media;
+    _resultData['media'] = l$media?.toJson();
+    final l$airingAt = airingAt;
+    _resultData['airingAt'] = l$airingAt;
+    final l$timeUntilAiring = timeUntilAiring;
+    _resultData['timeUntilAiring'] = l$timeUntilAiring;
+    final l$episode = episode;
+    _resultData['episode'] = l$episode;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$id = id;
+    final l$media = media;
+    final l$airingAt = airingAt;
+    final l$timeUntilAiring = timeUntilAiring;
+    final l$episode = episode;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$id,
+      l$media,
+      l$airingAt,
+      l$timeUntilAiring,
+      l$episode,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Fragment$CalendarAiringSchedule) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) {
+      return false;
+    }
+    final l$media = media;
+    final lOther$media = other.media;
+    if (l$media != lOther$media) {
+      return false;
+    }
+    final l$airingAt = airingAt;
+    final lOther$airingAt = other.airingAt;
+    if (l$airingAt != lOther$airingAt) {
+      return false;
+    }
+    final l$timeUntilAiring = timeUntilAiring;
+    final lOther$timeUntilAiring = other.timeUntilAiring;
+    if (l$timeUntilAiring != lOther$timeUntilAiring) {
+      return false;
+    }
+    final l$episode = episode;
+    final lOther$episode = other.episode;
+    if (l$episode != lOther$episode) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Fragment$CalendarAiringSchedule
+    on Fragment$CalendarAiringSchedule {
+  CopyWith$Fragment$CalendarAiringSchedule<Fragment$CalendarAiringSchedule>
+      get copyWith => CopyWith$Fragment$CalendarAiringSchedule(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Fragment$CalendarAiringSchedule<TRes> {
+  factory CopyWith$Fragment$CalendarAiringSchedule(
+    Fragment$CalendarAiringSchedule instance,
+    TRes Function(Fragment$CalendarAiringSchedule) then,
+  ) = _CopyWithImpl$Fragment$CalendarAiringSchedule;
+
+  factory CopyWith$Fragment$CalendarAiringSchedule.stub(TRes res) =
+      _CopyWithStubImpl$Fragment$CalendarAiringSchedule;
+
+  TRes call({
+    int? id,
+    Fragment$CalendarAiringSchedule$media? media,
+    int? airingAt,
+    int? timeUntilAiring,
+    int? episode,
+    String? $__typename,
+  });
+  CopyWith$Fragment$CalendarAiringSchedule$media<TRes> get media;
+}
+
+class _CopyWithImpl$Fragment$CalendarAiringSchedule<TRes>
+    implements CopyWith$Fragment$CalendarAiringSchedule<TRes> {
+  _CopyWithImpl$Fragment$CalendarAiringSchedule(
+    this._instance,
+    this._then,
+  );
+
+  final Fragment$CalendarAiringSchedule _instance;
+
+  final TRes Function(Fragment$CalendarAiringSchedule) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? id = _undefined,
+    Object? media = _undefined,
+    Object? airingAt = _undefined,
+    Object? timeUntilAiring = _undefined,
+    Object? episode = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Fragment$CalendarAiringSchedule(
+        id: id == _undefined || id == null ? _instance.id : (id as int),
+        media: media == _undefined
+            ? _instance.media
+            : (media as Fragment$CalendarAiringSchedule$media?),
+        airingAt: airingAt == _undefined || airingAt == null
+            ? _instance.airingAt
+            : (airingAt as int),
+        timeUntilAiring:
+            timeUntilAiring == _undefined || timeUntilAiring == null
+                ? _instance.timeUntilAiring
+                : (timeUntilAiring as int),
+        episode: episode == _undefined || episode == null
+            ? _instance.episode
+            : (episode as int),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+
+  CopyWith$Fragment$CalendarAiringSchedule$media<TRes> get media {
+    final local$media = _instance.media;
+    return local$media == null
+        ? CopyWith$Fragment$CalendarAiringSchedule$media.stub(_then(_instance))
+        : CopyWith$Fragment$CalendarAiringSchedule$media(
+            local$media, (e) => call(media: e));
+  }
+}
+
+class _CopyWithStubImpl$Fragment$CalendarAiringSchedule<TRes>
+    implements CopyWith$Fragment$CalendarAiringSchedule<TRes> {
+  _CopyWithStubImpl$Fragment$CalendarAiringSchedule(this._res);
+
+  TRes _res;
+
+  call({
+    int? id,
+    Fragment$CalendarAiringSchedule$media? media,
+    int? airingAt,
+    int? timeUntilAiring,
+    int? episode,
+    String? $__typename,
+  }) =>
+      _res;
+
+  CopyWith$Fragment$CalendarAiringSchedule$media<TRes> get media =>
+      CopyWith$Fragment$CalendarAiringSchedule$media.stub(_res);
+}
+
+const fragmentDefinitionCalendarAiringSchedule = FragmentDefinitionNode(
+  name: NameNode(value: 'CalendarAiringSchedule'),
+  typeCondition: TypeConditionNode(
+      on: NamedTypeNode(
+    name: NameNode(value: 'AiringSchedule'),
+    isNonNull: false,
+  )),
+  directives: [],
+  selectionSet: SelectionSetNode(selections: [
+    FieldNode(
+      name: NameNode(value: 'id'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'media'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: SelectionSetNode(selections: [
+        FieldNode(
+          name: NameNode(value: 'title'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: SelectionSetNode(selections: [
+            FieldNode(
+              name: NameNode(value: 'userPreferred'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            FieldNode(
+              name: NameNode(value: 'english'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            FieldNode(
+              name: NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
+        FieldNode(
+          name: NameNode(value: 'bannerImage'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        FieldNode(
+          name: NameNode(value: 'mediaListEntry'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: SelectionSetNode(selections: [
+            FieldNode(
+              name: NameNode(value: 'status'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            FieldNode(
+              name: NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
+        FieldNode(
+          name: NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    FieldNode(
+      name: NameNode(value: 'airingAt'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'timeUntilAiring'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'episode'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
+const documentNodeFragmentCalendarAiringSchedule = DocumentNode(definitions: [
+  fragmentDefinitionCalendarAiringSchedule,
+]);
+
+extension ClientExtension$Fragment$CalendarAiringSchedule
+    on graphql.GraphQLClient {
+  void writeFragment$CalendarAiringSchedule({
+    required Fragment$CalendarAiringSchedule data,
+    required Map<String, dynamic> idFields,
+    bool broadcast = true,
+  }) =>
+      this.writeFragment(
+        graphql.FragmentRequest(
+          idFields: idFields,
+          fragment: const graphql.Fragment(
+            fragmentName: 'CalendarAiringSchedule',
+            document: documentNodeFragmentCalendarAiringSchedule,
+          ),
+        ),
+        data: data.toJson(),
+        broadcast: broadcast,
+      );
+  Fragment$CalendarAiringSchedule? readFragment$CalendarAiringSchedule({
+    required Map<String, dynamic> idFields,
+    bool optimistic = true,
+  }) {
+    final result = this.readFragment(
+      graphql.FragmentRequest(
+        idFields: idFields,
+        fragment: const graphql.Fragment(
+          fragmentName: 'CalendarAiringSchedule',
+          document: documentNodeFragmentCalendarAiringSchedule,
+        ),
+      ),
+      optimistic: optimistic,
+    );
+    return result == null
+        ? null
+        : Fragment$CalendarAiringSchedule.fromJson(result);
+  }
+}
+
+class Fragment$CalendarAiringSchedule$media {
+  Fragment$CalendarAiringSchedule$media({
+    this.title,
+    this.bannerImage,
+    this.mediaListEntry,
+    this.$__typename = 'Media',
+  });
+
+  factory Fragment$CalendarAiringSchedule$media.fromJson(
+      Map<String, dynamic> json) {
+    final l$title = json['title'];
+    final l$bannerImage = json['bannerImage'];
+    final l$mediaListEntry = json['mediaListEntry'];
+    final l$$__typename = json['__typename'];
+    return Fragment$CalendarAiringSchedule$media(
+      title: l$title == null
+          ? null
+          : Fragment$CalendarAiringSchedule$media$title.fromJson(
+              (l$title as Map<String, dynamic>)),
+      bannerImage: (l$bannerImage as String?),
+      mediaListEntry: l$mediaListEntry == null
+          ? null
+          : Fragment$CalendarAiringSchedule$media$mediaListEntry.fromJson(
+              (l$mediaListEntry as Map<String, dynamic>)),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final Fragment$CalendarAiringSchedule$media$title? title;
+
+  final String? bannerImage;
+
+  final Fragment$CalendarAiringSchedule$media$mediaListEntry? mediaListEntry;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$title = title;
+    _resultData['title'] = l$title?.toJson();
+    final l$bannerImage = bannerImage;
+    _resultData['bannerImage'] = l$bannerImage;
+    final l$mediaListEntry = mediaListEntry;
+    _resultData['mediaListEntry'] = l$mediaListEntry?.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$title = title;
+    final l$bannerImage = bannerImage;
+    final l$mediaListEntry = mediaListEntry;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$title,
+      l$bannerImage,
+      l$mediaListEntry,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Fragment$CalendarAiringSchedule$media) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$title = title;
+    final lOther$title = other.title;
+    if (l$title != lOther$title) {
+      return false;
+    }
+    final l$bannerImage = bannerImage;
+    final lOther$bannerImage = other.bannerImage;
+    if (l$bannerImage != lOther$bannerImage) {
+      return false;
+    }
+    final l$mediaListEntry = mediaListEntry;
+    final lOther$mediaListEntry = other.mediaListEntry;
+    if (l$mediaListEntry != lOther$mediaListEntry) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Fragment$CalendarAiringSchedule$media
+    on Fragment$CalendarAiringSchedule$media {
+  CopyWith$Fragment$CalendarAiringSchedule$media<
+          Fragment$CalendarAiringSchedule$media>
+      get copyWith => CopyWith$Fragment$CalendarAiringSchedule$media(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Fragment$CalendarAiringSchedule$media<TRes> {
+  factory CopyWith$Fragment$CalendarAiringSchedule$media(
+    Fragment$CalendarAiringSchedule$media instance,
+    TRes Function(Fragment$CalendarAiringSchedule$media) then,
+  ) = _CopyWithImpl$Fragment$CalendarAiringSchedule$media;
+
+  factory CopyWith$Fragment$CalendarAiringSchedule$media.stub(TRes res) =
+      _CopyWithStubImpl$Fragment$CalendarAiringSchedule$media;
+
+  TRes call({
+    Fragment$CalendarAiringSchedule$media$title? title,
+    String? bannerImage,
+    Fragment$CalendarAiringSchedule$media$mediaListEntry? mediaListEntry,
+    String? $__typename,
+  });
+  CopyWith$Fragment$CalendarAiringSchedule$media$title<TRes> get title;
+  CopyWith$Fragment$CalendarAiringSchedule$media$mediaListEntry<TRes>
+      get mediaListEntry;
+}
+
+class _CopyWithImpl$Fragment$CalendarAiringSchedule$media<TRes>
+    implements CopyWith$Fragment$CalendarAiringSchedule$media<TRes> {
+  _CopyWithImpl$Fragment$CalendarAiringSchedule$media(
+    this._instance,
+    this._then,
+  );
+
+  final Fragment$CalendarAiringSchedule$media _instance;
+
+  final TRes Function(Fragment$CalendarAiringSchedule$media) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? title = _undefined,
+    Object? bannerImage = _undefined,
+    Object? mediaListEntry = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Fragment$CalendarAiringSchedule$media(
+        title: title == _undefined
+            ? _instance.title
+            : (title as Fragment$CalendarAiringSchedule$media$title?),
+        bannerImage: bannerImage == _undefined
+            ? _instance.bannerImage
+            : (bannerImage as String?),
+        mediaListEntry: mediaListEntry == _undefined
+            ? _instance.mediaListEntry
+            : (mediaListEntry
+                as Fragment$CalendarAiringSchedule$media$mediaListEntry?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+
+  CopyWith$Fragment$CalendarAiringSchedule$media$title<TRes> get title {
+    final local$title = _instance.title;
+    return local$title == null
+        ? CopyWith$Fragment$CalendarAiringSchedule$media$title.stub(
+            _then(_instance))
+        : CopyWith$Fragment$CalendarAiringSchedule$media$title(
+            local$title, (e) => call(title: e));
+  }
+
+  CopyWith$Fragment$CalendarAiringSchedule$media$mediaListEntry<TRes>
+      get mediaListEntry {
+    final local$mediaListEntry = _instance.mediaListEntry;
+    return local$mediaListEntry == null
+        ? CopyWith$Fragment$CalendarAiringSchedule$media$mediaListEntry.stub(
+            _then(_instance))
+        : CopyWith$Fragment$CalendarAiringSchedule$media$mediaListEntry(
+            local$mediaListEntry, (e) => call(mediaListEntry: e));
+  }
+}
+
+class _CopyWithStubImpl$Fragment$CalendarAiringSchedule$media<TRes>
+    implements CopyWith$Fragment$CalendarAiringSchedule$media<TRes> {
+  _CopyWithStubImpl$Fragment$CalendarAiringSchedule$media(this._res);
+
+  TRes _res;
+
+  call({
+    Fragment$CalendarAiringSchedule$media$title? title,
+    String? bannerImage,
+    Fragment$CalendarAiringSchedule$media$mediaListEntry? mediaListEntry,
+    String? $__typename,
+  }) =>
+      _res;
+
+  CopyWith$Fragment$CalendarAiringSchedule$media$title<TRes> get title =>
+      CopyWith$Fragment$CalendarAiringSchedule$media$title.stub(_res);
+
+  CopyWith$Fragment$CalendarAiringSchedule$media$mediaListEntry<TRes>
+      get mediaListEntry =>
+          CopyWith$Fragment$CalendarAiringSchedule$media$mediaListEntry.stub(
+              _res);
+}
+
+class Fragment$CalendarAiringSchedule$media$title {
+  Fragment$CalendarAiringSchedule$media$title({
+    this.userPreferred,
+    this.english,
+    this.$__typename = 'MediaTitle',
+  });
+
+  factory Fragment$CalendarAiringSchedule$media$title.fromJson(
+      Map<String, dynamic> json) {
+    final l$userPreferred = json['userPreferred'];
+    final l$english = json['english'];
+    final l$$__typename = json['__typename'];
+    return Fragment$CalendarAiringSchedule$media$title(
+      userPreferred: (l$userPreferred as String?),
+      english: (l$english as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? userPreferred;
+
+  final String? english;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$userPreferred = userPreferred;
+    _resultData['userPreferred'] = l$userPreferred;
+    final l$english = english;
+    _resultData['english'] = l$english;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$userPreferred = userPreferred;
+    final l$english = english;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$userPreferred,
+      l$english,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Fragment$CalendarAiringSchedule$media$title) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$userPreferred = userPreferred;
+    final lOther$userPreferred = other.userPreferred;
+    if (l$userPreferred != lOther$userPreferred) {
+      return false;
+    }
+    final l$english = english;
+    final lOther$english = other.english;
+    if (l$english != lOther$english) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Fragment$CalendarAiringSchedule$media$title
+    on Fragment$CalendarAiringSchedule$media$title {
+  CopyWith$Fragment$CalendarAiringSchedule$media$title<
+          Fragment$CalendarAiringSchedule$media$title>
+      get copyWith => CopyWith$Fragment$CalendarAiringSchedule$media$title(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Fragment$CalendarAiringSchedule$media$title<TRes> {
+  factory CopyWith$Fragment$CalendarAiringSchedule$media$title(
+    Fragment$CalendarAiringSchedule$media$title instance,
+    TRes Function(Fragment$CalendarAiringSchedule$media$title) then,
+  ) = _CopyWithImpl$Fragment$CalendarAiringSchedule$media$title;
+
+  factory CopyWith$Fragment$CalendarAiringSchedule$media$title.stub(TRes res) =
+      _CopyWithStubImpl$Fragment$CalendarAiringSchedule$media$title;
+
+  TRes call({
+    String? userPreferred,
+    String? english,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Fragment$CalendarAiringSchedule$media$title<TRes>
+    implements CopyWith$Fragment$CalendarAiringSchedule$media$title<TRes> {
+  _CopyWithImpl$Fragment$CalendarAiringSchedule$media$title(
+    this._instance,
+    this._then,
+  );
+
+  final Fragment$CalendarAiringSchedule$media$title _instance;
+
+  final TRes Function(Fragment$CalendarAiringSchedule$media$title) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? userPreferred = _undefined,
+    Object? english = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Fragment$CalendarAiringSchedule$media$title(
+        userPreferred: userPreferred == _undefined
+            ? _instance.userPreferred
+            : (userPreferred as String?),
+        english:
+            english == _undefined ? _instance.english : (english as String?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Fragment$CalendarAiringSchedule$media$title<TRes>
+    implements CopyWith$Fragment$CalendarAiringSchedule$media$title<TRes> {
+  _CopyWithStubImpl$Fragment$CalendarAiringSchedule$media$title(this._res);
+
+  TRes _res;
+
+  call({
+    String? userPreferred,
+    String? english,
+    String? $__typename,
+  }) =>
+      _res;
+}
+
+class Fragment$CalendarAiringSchedule$media$mediaListEntry {
+  Fragment$CalendarAiringSchedule$media$mediaListEntry({
+    this.status,
+    this.$__typename = 'MediaList',
+  });
+
+  factory Fragment$CalendarAiringSchedule$media$mediaListEntry.fromJson(
+      Map<String, dynamic> json) {
+    final l$status = json['status'];
+    final l$$__typename = json['__typename'];
+    return Fragment$CalendarAiringSchedule$media$mediaListEntry(
+      status: l$status == null
+          ? null
+          : fromJson$Enum$MediaListStatus((l$status as String)),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final Enum$MediaListStatus? status;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$status = status;
+    _resultData['status'] =
+        l$status == null ? null : toJson$Enum$MediaListStatus(l$status);
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$status = status;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$status,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Fragment$CalendarAiringSchedule$media$mediaListEntry) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$status = status;
+    final lOther$status = other.status;
+    if (l$status != lOther$status) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Fragment$CalendarAiringSchedule$media$mediaListEntry
+    on Fragment$CalendarAiringSchedule$media$mediaListEntry {
+  CopyWith$Fragment$CalendarAiringSchedule$media$mediaListEntry<
+          Fragment$CalendarAiringSchedule$media$mediaListEntry>
+      get copyWith =>
+          CopyWith$Fragment$CalendarAiringSchedule$media$mediaListEntry(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Fragment$CalendarAiringSchedule$media$mediaListEntry<
+    TRes> {
+  factory CopyWith$Fragment$CalendarAiringSchedule$media$mediaListEntry(
+    Fragment$CalendarAiringSchedule$media$mediaListEntry instance,
+    TRes Function(Fragment$CalendarAiringSchedule$media$mediaListEntry) then,
+  ) = _CopyWithImpl$Fragment$CalendarAiringSchedule$media$mediaListEntry;
+
+  factory CopyWith$Fragment$CalendarAiringSchedule$media$mediaListEntry.stub(
+          TRes res) =
+      _CopyWithStubImpl$Fragment$CalendarAiringSchedule$media$mediaListEntry;
+
+  TRes call({
+    Enum$MediaListStatus? status,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Fragment$CalendarAiringSchedule$media$mediaListEntry<TRes>
+    implements
+        CopyWith$Fragment$CalendarAiringSchedule$media$mediaListEntry<TRes> {
+  _CopyWithImpl$Fragment$CalendarAiringSchedule$media$mediaListEntry(
+    this._instance,
+    this._then,
+  );
+
+  final Fragment$CalendarAiringSchedule$media$mediaListEntry _instance;
+
+  final TRes Function(Fragment$CalendarAiringSchedule$media$mediaListEntry)
+      _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? status = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Fragment$CalendarAiringSchedule$media$mediaListEntry(
+        status: status == _undefined
+            ? _instance.status
+            : (status as Enum$MediaListStatus?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Fragment$CalendarAiringSchedule$media$mediaListEntry<
+        TRes>
+    implements
+        CopyWith$Fragment$CalendarAiringSchedule$media$mediaListEntry<TRes> {
+  _CopyWithStubImpl$Fragment$CalendarAiringSchedule$media$mediaListEntry(
+      this._res);
+
+  TRes _res;
+
+  call({
+    Enum$MediaListStatus? status,
     String? $__typename,
   }) =>
       _res;

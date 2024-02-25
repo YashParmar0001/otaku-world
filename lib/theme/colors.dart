@@ -30,4 +30,6 @@ class AppColors {
   static const Color deepLemon = Color(0xFFF6C619);
   static const Color quickSilver = Color(0xFFAAA3A3);
   static const Color mangoTango = Color(0xFFF87F3C);
+  
+  static const Color brilliantAzure = Color(0x3332A6F9);
 }

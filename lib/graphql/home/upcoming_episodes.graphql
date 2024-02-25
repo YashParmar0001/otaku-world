@@ -1,4 +1,4 @@
-query GetUpcomingEpisodes($page: Int) {
+    query GetUpcomingEpisodes($page: Int) {
     Page(perPage: 10, page: $page) {
         pageInfo {
             hasNextPage

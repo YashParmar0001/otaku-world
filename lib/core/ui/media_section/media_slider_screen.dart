@@ -270,7 +270,7 @@ class MediaSliderScreen<B extends PaginatedDataBloc> extends StatelessWidget {
           SvgPicture.asset(Assets.iconsLineVertical),
           _buildMediaDetail(
             context,
-            '${getSeason(media.season)} ${media.seasonYear}',
+            '${FormattingUtils.getSeason(media.season)} ${media.seasonYear}',
             'season',
           ),
         ],
@@ -397,22 +397,7 @@ class MediaSliderScreen<B extends PaginatedDataBloc> extends StatelessWidget {
     }
   }
 
-  String getSeason(Enum$MediaSeason? season) {
-    if (season == null) return 'Unknown';
 
-    switch (season) {
-      case Enum$MediaSeason.FALL:
-        return 'Fall';
-      case Enum$MediaSeason.SPRING:
-        return 'Spring';
-      case Enum$MediaSeason.SUMMER:
-        return 'Summer';
-      case Enum$MediaSeason.WINTER:
-        return 'Winter';
-      default:
-        return 'Unknown';
-    }
-  }
 
   Text getStatus(BuildContext context, Enum$MediaStatus? status) {
     TextStyle? style = Theme.of(context).textTheme.titleLarge?.copyWith(

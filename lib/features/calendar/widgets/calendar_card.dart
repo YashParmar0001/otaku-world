@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/graphql/__generated/graphql/calendar/calendar.graphql.dart';
+import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/formatting_utils.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
@@ -11,7 +12,7 @@ import '../../../graphql/__generated/graphql/schema.graphql.dart';
 class CalendarCard extends StatelessWidget {
   const CalendarCard({super.key, required this.airingSchedule});
 
-  final Query$GetCalendarDay$Page$airingSchedules airingSchedule;
+  final Fragment$CalendarAiringSchedule airingSchedule;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class CalendarCard extends StatelessWidget {
             height: 72,
             child: _buildBannerImage(
               context,
-              airingSchedule.media!.coverImage,
+              airingSchedule.media!.bannerImage,
             ),
           ),
           Container(
@@ -197,12 +198,12 @@ class CalendarCard extends StatelessWidget {
     }
   }
 
-  Widget _buildBannerImage(BuildContext context, Query$GetCalendarDay$Page$airingSchedules$media$coverImage? imageUrl) {
-    if (imageUrl!.extraLarge == null ){
+  Widget _buildBannerImage(BuildContext context, String? imageUrl) {
+    if (imageUrl == null) {
       return _buildPlaceHolder();
     } else {
       return CachedNetworkImage(
-        imageUrl: imageUrl.extraLarge!,
+        imageUrl: imageUrl!,
         imageBuilder: (context, imageProvider) =>
             Container(
               decoration: BoxDecoration(

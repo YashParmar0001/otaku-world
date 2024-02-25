@@ -1,17 +1,15 @@
-import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:otaku_world/bloc/calendar/calendar_bloc.dart';
+import 'package:otaku_world/bloc/calendar/week_calendar/week_calendar_bloc.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/core/ui/appbars/simple_app_bar.dart';
-import 'package:otaku_world/core/ui/shimmers/calendar_shimmer_card.dart';
-import 'package:otaku_world/core/ui/shimmers/shimmer_list.dart';
-import 'package:otaku_world/features/calendar/widgets/calendar_card.dart';
+import 'package:otaku_world/core/ui/error_text.dart';
+import 'package:otaku_world/features/calendar/widgets/calendar_tab_bar.dart';
+import 'package:otaku_world/features/calendar/widgets/episodes_list.dart';
 import 'package:otaku_world/generated/assets.dart';
-import 'package:otaku_world/graphql/__generated/graphql/calendar/calendar.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -28,14 +26,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<DateTime> dates = getWeekDaysList();
-    // final calendarBloc0 = CalendarBloc();
-    // final calendarBloc1 = CalendarBloc();
-    // final calendarBloc2 = CalendarBloc();
-    // final calendarBloc3 = CalendarBloc();
-    // final calendarBloc4 = CalendarBloc();
-    // final calendarBloc5 = CalendarBloc();
-    // final calendarBloc6 = CalendarBloc();
+    final size = MediaQuery.of(context).size;
     final tabController = useTabController(
       initialLength: 7,
       initialIndex: 0,
@@ -44,23 +35,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
         (context.read<GraphqlClientCubit>().state as GraphqlClientInitialized)
             .client;
 
-    useEffect(
-      () {
-        context.read<CalendarBloc>().add(
-              LoadCalendarDay(date: dates[tabController.index], client: client),
-            );
-        tabController.addListener(
-          () {
-            // dev.log('Tab changed: ${tabController.index}', name: 'CalendarTab');
-            // context.read<CalendarBloc>().add(
-            //     LoadCalendarDay(date: dates[tabController.index], client: client));
-          },
-        );
-        return null;
-      },
-    );
-
-    dev.log(tabController.index.toString());
     return DefaultTabController(
       length: 7,
       initialIndex: 0,
@@ -72,312 +46,57 @@ class _CalendarScreenState extends State<CalendarScreen> {
               padding: const EdgeInsets.only(
                 right: 16,
               ),
-              child: InkWell(
-                onTap: () {
+              child: IconButton(
+                onPressed: () {
                   _buildCalendar();
                 },
-                borderRadius: BorderRadius.circular(50),
-                child: SvgPicture.asset(Assets.iconsFilterVertical),
+                icon: SvgPicture.asset(Assets.iconsFilterVertical),
               ),
             ),
           ],
         ),
-        body: AnimatedBuilder(
-          animation: tabController,
-          builder: (BuildContext context, Widget? child) {
-            return Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: TabBar(
-                    isScrollable: false,
-                    dividerHeight: 0,
-                    controller: tabController,
-                    onTap: (index) {
-                      context.read<CalendarBloc>().add(
-                          LoadCalendarDay(date: dates[index], client: client));
-                    },
-                    labelPadding: EdgeInsets.symmetric(
-                      horizontal:
-                          ((MediaQuery.of(context).size.width - 10) / 7 -
-                                  ((MediaQuery.of(context).size.width < 500)
-                                      ? 40
-                                      : 100)) /
-                              2,
-                    ),
-                    indicator: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(
-                          width: 1,
-                          color: AppColors.white.withOpacity(0.0),
-                        ),
-                      ),
-                      gradient: const LinearGradient(
-                        colors: [
-                          AppColors.sunsetOrange,
-                          AppColors.japaneseIndigo,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                    ),
-                    tabs: _buildListTabs(
-                      context: context,
-                      dates: dates,
-                      tabController: tabController,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                // Text("${selectedCalendarDate.day} ${selectedCalendarDate.month}, ${selectedCalendarDate.year}", style: TextStyle(
-                //   color: AppColors.sunsetOrange,
-                // ),),
-                Expanded(
-                  child: TabBarView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    controller: tabController,
-                    // children: [
-                    //   _buildTabBarView(
-                    //     index: 0,
-                    //     bloc: calendarBloc0,
-                    //     dates: dates,
-                    //     client: client,
-                    //   ),
-                    //   _buildTabBarView(
-                    //     index: 1,
-                    //     bloc: calendarBloc1,
-                    //     dates: dates,
-                    //     client: client,
-                    //   ),
-                    //   _buildTabBarView(
-                    //     index: 2,
-                    //     bloc: calendarBloc2,
-                    //     dates: dates,
-                    //     client: client,
-                    //   ),
-                    //   _buildTabBarView(
-                    //     index: 3,
-                    //     bloc: calendarBloc3,
-                    //     dates: dates,
-                    //     client: client,
-                    //   ),
-                    //   _buildTabBarView(
-                    //     index: 4,
-                    //     bloc: calendarBloc4,
-                    //     dates: dates,
-                    //     client: client,
-                    //   ),
-                    //   _buildTabBarView(
-                    //     index: 5,
-                    //     bloc: calendarBloc5,
-                    //     dates: dates,
-                    //     client: client,
-                    //   ),
-                    //   _buildTabBarView(
-                    //     index: 6,
-                    //     bloc: calendarBloc6,
-                    //     dates: dates,
-                    //     client: client,
-                    //   ),
-                    // ],
-                    children: List.generate(
-                      7,
-                      (index) {
-                        // context.read<CalendarBloc>().add(LoadCalendarDay(
-                        //     date: dates[index], client: client));
-                        return SizedBox(
-                          child: BlocBuilder<CalendarBloc, CalendarState>(
-                            builder: (context, state) {
-                              if (state is CalendarLoading) {
-                                return ShimmerList(
-                                  child: const CalendarShimmerCard(),
-                                );
-                              } else if (state is CalendarError) {
-                                return Text(state.message);
-                              } else if (state is CalendarLoaded) {
-                                return _buildCalendarCardsList(state.list);
-                              } else {
-                                return const Center(
-                                  child: Text('Unknown state'),
-                                );
-                              }
-                            },
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                )
-              ],
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTabBarView(
-      {required int index,
-      required CalendarBloc bloc,
-      required List<DateTime> dates,
-      required client}) {
-    bloc.add(LoadCalendarDay(date: dates[index], client: client));
-    return SizedBox(
-      child: BlocBuilder<CalendarBloc, CalendarState>(
-        bloc: bloc,
-        builder: (context, state) {
-          if (state is CalendarLoading) {
-            return ShimmerList(
-              child: const CalendarShimmerCard(),
-            );
-          } else if (state is CalendarError) {
-            dev.log(state.message);
-            return Text(state.message);
-          } else if (state is CalendarLoaded) {
-            return _buildCalendarCardsList(state.list);
-          } else {
-            return const Center(
-              child: Text('Unknown state'),
-            );
-          }
-        },
-      ),
-    );
-  }
-
-  Widget _buildCalendarCardsList(
-      List<Query$GetCalendarDay$Page$airingSchedules?> schedules) {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: schedules.length,
-      itemBuilder: (context, index) {
-        return CalendarCard(airingSchedule: schedules[index]!);
-      },
-    );
-  }
-
-  List<Tab> _buildListTabs({
-    required BuildContext context,
-    required List<DateTime> dates,
-    required TabController tabController,
-  }) {
-    return List.generate(
-      dates.length,
-      (index) {
-        return _buildDate(
-          context: context,
-          index: index,
-          weekDay: dayNames[dates[index].weekday - 1],
-          date: dates[index].day,
-          // dates: dates,
-          tabController: tabController,
-        );
-      },
-    );
-  }
-
-  Tab _buildDate({
-    required BuildContext context,
-    required int index,
-    required String weekDay,
-    required int date,
-    // required DateTime dates,
-    required TabController tabController,
-  }) {
-    final double tabWidth =
-        (MediaQuery.of(context).size.width < 500) ? 40 : 100;
-    final double tabHeight =
-        (MediaQuery.of(context).size.width < 500) ? 75 : 50;
-    final isSelected = index == tabController.index;
-    return Tab(
-      height: tabHeight,
-      child: Container(
-        width: tabWidth,
-        height: tabHeight,
-        decoration: ShapeDecoration(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-            side: BorderSide(
-              width: 1,
-              color: (isSelected)
-                  ? AppColors.white.withOpacity(0.0)
-                  : AppColors.white.withOpacity(0.8),
-            ),
-          ),
-        ),
-        child: (MediaQuery.of(context).size.width < 500)
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+        body: BlocBuilder<WeekCalendarBloc, WeekCalendarState>(
+          builder: (context, state) {
+            if (state is WeekCalendarError) {
+              return ErrorText(
+                message: state.message,
+                onTryAgain: () {},
+              );
+            } else if (state is WeekCalendarInitialized) {
+              return Column(
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  Text(
-                    weekDay,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontFamily: 'Poppins',
-                          color: (isSelected)
-                              ? AppColors.white
-                              : AppColors.white.withOpacity(0.8),
-                          fontWeight:
-                              (isSelected) ? FontWeight.w600 : FontWeight.w400,
-                        ),
+                  CalendarTabBar(
+                    tabController: tabController,
+                    dayBlocs: state.days,
                   ),
                   const SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
-                  Text(
-                    date.toString(),
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          fontFamily: 'Poppins',
-                          fontSize: (isSelected) ? 16 : 14,
-                          color: (isSelected)
-                              ? AppColors.white
-                              : AppColors.white.withOpacity(0.8),
-                          fontWeight:
-                              (isSelected) ? FontWeight.w600 : FontWeight.w400,
-                        ),
+                  Expanded(
+                    child: TabBarView(
+                      // physics: const NeverScrollableScrollPhysics(),
+                      controller: tabController,
+                      children: List.generate(
+                        7,
+                        (index) {
+                          return EpisodesList(
+                            dayBloc: state.days[index],
+                            client: client,
+                          );
+                        },
+                      ),
+                    ),
                   ),
                 ],
-              )
-            : Padding(
-                padding: EdgeInsets.all((isSelected) ? 10 : 11),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      date.toString(),
-                      style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                            fontFamily: 'Poppins',
-                            fontSize: (isSelected) ? 28 : 26,
-                            color: (isSelected)
-                                ? AppColors.white
-                                : AppColors.white.withOpacity(0.8),
-                            fontWeight: (isSelected)
-                                ? FontWeight.w600
-                                : FontWeight.w400,
-                          ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      weekDay,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontFamily: 'Poppins',
-                            color: (isSelected)
-                                ? AppColors.white
-                                : AppColors.white.withOpacity(0.8),
-                            fontWeight: (isSelected)
-                                ? FontWeight.w600
-                                : FontWeight.w400,
-                          ),
-                    ),
-                  ],
-                ),
-              ),
+              );
+            } else {
+              return const Center(
+                child: Text('Unknown state'),
+              );
+            }
+          },
+        ),
       ),
     );
   }
@@ -424,6 +143,16 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 headerMargin: const EdgeInsets.symmetric(horizontal: 10),
                 leftChevronMargin: const EdgeInsets.symmetric(horizontal: 0),
                 rightChevronMargin: const EdgeInsets.symmetric(vertical: 0),
+                leftChevronIcon: SvgPicture.asset(
+                  Assets.iconsArrowLeft,
+                  height: 22,
+                  width: 26,
+                ),
+                rightChevronIcon: SvgPicture.asset(
+                  Assets.iconsArrowRight,
+                  height: 20,
+                  width: 20,
+                ),
                 decoration: const BoxDecoration(
                   border: BorderDirectional(
                     start: BorderSide.none,
@@ -489,25 +218,4 @@ class _CalendarScreenState extends State<CalendarScreen> {
       },
     );
   }
-
-  List<DateTime> getWeekDaysList() {
-    // DateTime nowDate = DateTime.now();
-    DateTime selectedDay = DateTime(selectedCalendarDay.year,
-        selectedCalendarDay.month, selectedCalendarDay.day, 0, 0, 0);
-
-    List<DateTime> dates = [
-      for (var i = 0; i < 7; i++) selectedDay.add(Duration(days: i))
-    ];
-    return dates;
-  }
-
-  final List<String> dayNames = [
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-    'Sun'
-  ];
 }

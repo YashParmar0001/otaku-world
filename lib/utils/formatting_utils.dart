@@ -1,4 +1,9 @@
+import 'dart:ui';
+
 import 'package:intl/intl.dart';
+
+import '../graphql/__generated/graphql/schema.graphql.dart';
+import '../theme/colors.dart';
 
 class FormattingUtils {
   static String formatDurationFromMilliseconds(int milliseconds) {
@@ -20,18 +25,32 @@ class FormattingUtils {
     int hours = (seconds % (24 * 60 * 60)) ~/ (60 * 60);
     int minutes = (seconds % (60 * 60)) ~/ 60;
 
-    // Format the duration in 'dd:hh:mm' format
-    return '${days.toString()}d ${hours.toString()}h ${minutes.toString()}m';
+    String duration = '';
+    if (days > 0) {
+      duration += '${days.toString()}d ';
+    }
+    if (hours > 0) {
+      duration += '${hours.toString()}h ';
+    }
+    duration += '${minutes.toString()}m';
+    return duration;
   }
 
   static String formatDurationFromSecondsBefore(int seconds) {
     // Calculate the number of days, hours, and minutes
-    int days = seconds ~/ (24 * 60 * 60);
+    int days = (seconds ~/ (24 * 60 * 60)).abs();
     int hours = 23 - (seconds % (24 * 60 * 60)) ~/ (60 * 60);
     int minutes = 59 - (seconds % (60 * 60)) ~/ 60;
 
-    // Format the duration in 'dd:hh:mm' format
-    return '${days.toString()}d ${hours.toString()}h ${minutes.toString()}m';
+    String duration = '';
+    if (days > 0) {
+      duration += '${days.toString()}d ';
+    }
+    if (hours > 0) {
+      duration += '${hours.toString()}h ';
+    }
+    duration += '${minutes.toString()}m';
+    return duration;
   }
 
   static int getUnixTimeStampFromDate(DateTime date) {
@@ -56,5 +75,42 @@ class FormattingUtils {
     DateTime dateTime =
         DateTime.fromMillisecondsSinceEpoch(unixTimestamp * 1000);
     return dateTime.year;
+  }
+
+  static String getSeason(Enum$MediaSeason? season) {
+    if (season == null) return 'Unknown';
+
+    switch (season) {
+      case Enum$MediaSeason.FALL:
+        return 'Fall';
+      case Enum$MediaSeason.SPRING:
+        return 'Spring';
+      case Enum$MediaSeason.SUMMER:
+        return 'Summer';
+      case Enum$MediaSeason.WINTER:
+        return 'Winter';
+      default:
+        return 'Unknown';
+    }
+  }
+  static Color getSelectMediaCardColors({
+    required int index,
+  }) {
+    switch (index) {
+      case 0:
+        return AppColors.gold;
+      case 1:
+        return AppColors.silver;
+      case 2:
+        return AppColors.bronze;
+      default:
+        if (index % 3 == 0) {
+          return AppColors.sunsetOrange;
+        } else if (index % 3 == 1) {
+          return AppColors.trueBlue;
+        } else {
+          return AppColors.kiwi;
+        }
+    }
   }
 }

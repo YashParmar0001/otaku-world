@@ -72,6 +72,8 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
           // Section header
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+
             children: [
               Padding(
                 padding: const EdgeInsets.only(
@@ -255,9 +257,9 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
         horizontal: 4,
         vertical: 3,
       ),
-      decoration: const ShapeDecoration(
-        color: AppColors.raisinBlack,
-        shape: RoundedRectangleBorder(
+      decoration: ShapeDecoration(
+        color: AppColors.raisinBlack.withOpacity(0.6),
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(5),
           ),

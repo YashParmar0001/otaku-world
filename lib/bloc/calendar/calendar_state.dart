@@ -14,7 +14,7 @@ class CalendarLoaded extends CalendarState{
   const CalendarLoaded({
     required this.list,
 });
-  final List<Query$GetCalendarDay$Page$airingSchedules?> list;
+  final List<Fragment$CalendarAiringSchedule?> list;
 
   @override
   List<Object> get props => [list];

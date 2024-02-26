@@ -2,8 +2,10 @@ class StringConstants {}
 
 class LoginConstants {
   static const String loginToAniListHeading = 'Login to Your AniList Account';
-  static const String loginToAniListSubHeading = "You’ll be redirected to AniList website for login/register. Make sure that url is anilist.co before entering your email and password.";
-  static const String registerText = 'New here? Register on the AniList website and then log in to our app using your new account!';
+  static const String loginToAniListSubHeading =
+      "You’ll be redirected to AniList website for login/register. Make sure that url is anilist.co before entering your email and password.";
+  static const String registerText =
+      'New here? Register on the AniList website and then log in to our app using your new account!';
 }
 
 class OnBoardingConstants {
@@ -28,7 +30,8 @@ class OnBoardingConstants {
 }
 
 class CategorySelectionConstants {
-  static const String chooseInterest = "Choose your interest and get the best anime recommendations. Don't worry, you can always change it later.";
+  static const String chooseInterest =
+      "Choose your interest and get the best anime recommendations. Don't worry, you can always change it later.";
 
   static const String leastSelection = '(Choose at least 3)';
 }
@@ -37,8 +40,29 @@ class HomeConstants {
   static const String discover = 'Discover what interests you...';
 
   static const String reviewsHeading = 'Reviews';
-  static const String reviewsSubheading = 'Discover what fans are saying, Get insights from fellow anime lovers and Share your thoughts and reviews';
+  static const String reviewsSubheading =
+      'Discover what fans are saying, Get insights from fellow anime lovers and Share your thoughts and reviews';
 
   static const String calendarHeading = 'Calendar';
-  static const String calendarSubheading = 'Stay updated with upcoming episodes and plan your anime viewing schedule';
+  static const String calendarSubheading =
+      'Stay updated with upcoming episodes and plan your anime viewing schedule';
+}
+
+class CalendarConstants {
+  static const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+  static const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
 }

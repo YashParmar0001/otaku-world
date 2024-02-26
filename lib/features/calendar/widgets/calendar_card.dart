@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:otaku_world/generated/assets.dart';
-import 'package:otaku_world/graphql/__generated/graphql/calendar/calendar.graphql.dart';
+import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/formatting_utils.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
@@ -11,7 +11,7 @@ import '../../../graphql/__generated/graphql/schema.graphql.dart';
 class CalendarCard extends StatelessWidget {
   const CalendarCard({super.key, required this.airingSchedule});
 
-  final Query$GetCalendarDay$Page$airingSchedules airingSchedule;
+  final Fragment$CalendarAiringSchedule airingSchedule;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class CalendarCard extends StatelessWidget {
             height: 72,
             child: _buildBannerImage(
               context,
-              airingSchedule.media!.coverImage,
+              airingSchedule.media!.bannerImage,
             ),
           ),
           Container(
@@ -72,7 +72,8 @@ class CalendarCard extends StatelessWidget {
                 children: [
                   Text(
                     FormattingUtils.formatTimeFromMilliseconds(
-                        airingSchedule.airingAt),
+                      airingSchedule.airingAt,
+                    ),
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w600,
@@ -115,8 +116,9 @@ class CalendarCard extends StatelessWidget {
                         height: 2,
                       ),
                       Text(
-                        (airingSchedule.airingAt < (DateTime.now().millisecondsSinceEpoch/1000))
-                            ? 'Ep. ${airingSchedule.episode} in -${FormattingUtils.formatDurationFromSecondsBefore(airingSchedule.timeUntilAiring)}'
+                        (airingSchedule.airingAt <
+                                (DateTime.now().millisecondsSinceEpoch / 1000))
+                            ? 'Ep. ${airingSchedule.episode}, ${FormattingUtils.formatDurationFromSecondsBefore(airingSchedule.timeUntilAiring)} since aired'
                             : 'Ep. ${airingSchedule.episode} in ${FormattingUtils.formatDurationFromSeconds(airingSchedule.timeUntilAiring)}',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.w400,
@@ -197,25 +199,24 @@ class CalendarCard extends StatelessWidget {
     }
   }
 
-  Widget _buildBannerImage(BuildContext context, Query$GetCalendarDay$Page$airingSchedules$media$coverImage? imageUrl) {
-    if (imageUrl!.extraLarge == null ){
+  Widget _buildBannerImage(BuildContext context, String? imageUrl) {
+    if (imageUrl == null) {
       return _buildPlaceHolder();
     } else {
       return CachedNetworkImage(
-        imageUrl: imageUrl.extraLarge!,
-        imageBuilder: (context, imageProvider) =>
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                ),
-                image: DecorationImage(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                ),
-              ),
+        imageUrl: imageUrl,
+        imageBuilder: (context, imageProvider) => Container(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(15),
+              topRight: Radius.circular(15),
             ),
+            image: DecorationImage(
+              image: imageProvider,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
         errorWidget: (context, url, error) {
           return _buildPlaceHolder();
         },

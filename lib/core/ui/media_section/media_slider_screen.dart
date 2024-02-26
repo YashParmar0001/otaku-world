@@ -1,16 +1,14 @@
-import 'dart:developer' as dev;
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
-import 'package:otaku_world/features/media_detail/widgets/status_row.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/services/caching/image_cache_manager.dart';
 import 'package:otaku_world/theme/colors.dart';
-
+import 'package:otaku_world/utils/formatting_utils.dart';
+import 'dart:developer' as dev;
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
 import '../../../generated/assets.dart';
 import '../../../graphql/__generated/graphql/schema.graphql.dart';
@@ -62,7 +60,7 @@ class MediaSliderScreen<B extends PaginatedDataBloc> extends StatelessWidget {
                           (bloc.state as PaginatedDataLoaded).hasNextPage;
                       if (hasNextPage) {
                         final client = (context.read<GraphqlClientCubit>().state
-                                as GraphqlClientInitialized)
+                        as GraphqlClientInitialized)
                             .client;
                         bloc.add(LoadData(client));
                       }
@@ -97,11 +95,11 @@ class MediaSliderScreen<B extends PaginatedDataBloc> extends StatelessWidget {
                 message: state.message,
                 onTryAgain: () {
                   final client = (context.read<GraphqlClientCubit>().state
-                          as GraphqlClientInitialized)
+                  as GraphqlClientInitialized)
                       .client;
                   context.read<B>().add(
-                        LoadData(client),
-                      );
+                    LoadData(client),
+                  );
                 },
               ),
             );
@@ -157,10 +155,10 @@ class MediaSliderScreen<B extends PaginatedDataBloc> extends StatelessWidget {
                     Text(
                       media.title!.userPreferred!,
                       style:
-                          Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w500,
-                              ),
+                      Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                      ),
                       textAlign: TextAlign.left,
                       maxLines: 3,
                     ),
@@ -182,21 +180,16 @@ class MediaSliderScreen<B extends PaginatedDataBloc> extends StatelessWidget {
                               .textTheme
                               .headlineMedium
                               ?.copyWith(
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w500,
-                              ),
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(
                       height: 15,
                     ),
-                    StatusRow(
-                      status: media.status,
-                      airingSchedule: media.airingSchedule,
-                      fontSize: 12,
-                      alignment: MainAxisAlignment.center,
-                    ),
+                    _buildStatusRow(context, media),
                     const SizedBox(
                       height: 15,
                     ),
@@ -277,7 +270,7 @@ class MediaSliderScreen<B extends PaginatedDataBloc> extends StatelessWidget {
           SvgPicture.asset(Assets.iconsLineVertical),
           _buildMediaDetail(
             context,
-            '${getSeason(media.season)} ${media.seasonYear}',
+            '${FormattingUtils.getSeason(media.season)} ${media.seasonYear}',
             'season',
           ),
         ],
@@ -316,17 +309,17 @@ class MediaSliderScreen<B extends PaginatedDataBloc> extends StatelessWidget {
         Text(
           text,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w500,
-              ),
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w500,
+          ),
         ),
         Text(
           subtext,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w500,
-                color: AppColors.white.withOpacity(0.5),
-              ),
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w500,
+            color: AppColors.white.withOpacity(0.5),
+          ),
         ),
       ],
     );
@@ -347,10 +340,10 @@ class MediaSliderScreen<B extends PaginatedDataBloc> extends StatelessWidget {
       textSpans.add(TextSpan(
         text: genre,
         style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: AppColors.white.withOpacity(0.7),
-              fontWeight: FontWeight.w500,
-              fontFamily: 'Poppins',
-            ),
+          color: AppColors.white.withOpacity(0.7),
+          fontWeight: FontWeight.w500,
+          fontFamily: 'Poppins',
+        ),
       ));
 
       if (i < 2) {
@@ -358,10 +351,10 @@ class MediaSliderScreen<B extends PaginatedDataBloc> extends StatelessWidget {
           TextSpan(
             text: ' · ',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: AppColors.sunsetOrange,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Poppins',
-                ),
+              color: AppColors.sunsetOrange,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Poppins',
+            ),
           ),
         );
       }
@@ -377,47 +370,119 @@ class MediaSliderScreen<B extends PaginatedDataBloc> extends StatelessWidget {
     );
   }
 
-  String getSeason(Enum$MediaSeason? season) {
-    if (season == null) return 'Unknown';
+  Widget _buildStatusRow(BuildContext context, Fragment$MediaShort media) {
+    if (media.airingSchedule?.nodes == null) {
+      return getStatus(context, media.status);
+    }
 
-    switch (season) {
-      case Enum$MediaSeason.FALL:
-        return 'Fall';
-      case Enum$MediaSeason.SPRING:
-        return 'Spring';
-      case Enum$MediaSeason.SUMMER:
-        return 'Summer';
-      case Enum$MediaSeason.WINTER:
-        return 'Winter';
+    if (media.airingSchedule!.nodes!.isNotEmpty) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          getStatus(context, media.status),
+          const SizedBox(
+            width: 20,
+          ),
+          Text(
+            "Ep. ${media.airingSchedule!.nodes![0]!.episode}: ${FormattingUtils.formatDurationFromSeconds(media.airingSchedule!.nodes![0]!.timeUntilAiring)}",
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      );
+    } else {
+      return getStatus(context, media.status);
+    }
+  }
+
+
+
+  Text getStatus(BuildContext context, Enum$MediaStatus? status) {
+    TextStyle? style = Theme.of(context).textTheme.titleLarge?.copyWith(
+      fontFamily: 'Poppins',
+    );
+
+    if (status == null) {
+      return Text(
+        'Unknown',
+        style: style?.copyWith(
+          color: AppColors.bronze,
+        ),
+      );
+    }
+
+    switch (status) {
+      case Enum$MediaStatus.RELEASING:
+        return Text(
+          'Airing',
+          style: style?.copyWith(
+            color: AppColors.kiwi,
+          ),
+        );
+      case Enum$MediaStatus.FINISHED:
+        return Text(
+          'Finished',
+          style: style?.copyWith(
+            color: AppColors.crayola,
+          ),
+        );
+      case Enum$MediaStatus.NOT_YET_RELEASED:
+        return Text(
+          'Not yet Released',
+          style: style?.copyWith(
+            color: AppColors.chineseWhite,
+          ),
+        );
+      case Enum$MediaStatus.CANCELLED:
+        return Text(
+          'Cancelled',
+          style: style?.copyWith(
+            color: AppColors.maxRed,
+          ),
+        );
+      case Enum$MediaStatus.HIATUS:
+        return Text(
+          'Hiatus',
+          style: style?.copyWith(
+            color: AppColors.silver,
+          ),
+        );
       default:
-        return 'Unknown';
+        return Text(
+          'Unknown',
+          style: style?.copyWith(
+            color: AppColors.lightSilver,
+          ),
+        );
     }
   }
 
   Widget _buildMediaPoster(String? imageUrl, Enum$MediaType type) {
     return (imageUrl != null)
         ? AspectRatio(
-            aspectRatio: 21 / 30,
-            child: CachedNetworkImage(
-              cacheManager: ImageCacheManager.instance,
-              imageUrl: imageUrl,
+      aspectRatio: 21 / 30,
+      child: CachedNetworkImage(
+        cacheManager: ImageCacheManager.instance,
+        imageUrl: imageUrl,
+        fit: BoxFit.fill,
+        imageBuilder: (context, imageProvider) {
+          return ClipRRect(
+            borderRadius: (type == Enum$MediaType.ANIME)
+                ? BorderRadius.circular(15)
+                : BorderRadius.circular(0),
+            child: Image(
+              image: imageProvider,
               fit: BoxFit.fill,
-              imageBuilder: (context, imageProvider) {
-                return ClipRRect(
-                  borderRadius: (type == Enum$MediaType.ANIME)
-                      ? BorderRadius.circular(15)
-                      : BorderRadius.circular(0),
-                  child: Image(
-                    image: imageProvider,
-                    fit: BoxFit.fill,
-                  ),
-                );
-              },
-              placeholder: (context, url) {
-                return _buildPlaceholderImage210x310(type);
-              },
             ),
-          )
+          );
+        },
+        placeholder: (context, url) {
+          return _buildPlaceholderImage210x310(type);
+        },
+      ),
+    )
         : _buildPlaceholderImage210x310(type);
   }
 

@@ -12,11 +12,13 @@ class SlideTransitionRoute extends GoRoute {
     required GlobalKey<NavigatorState> parentNavigatorKey,
     required Widget Function(GoRouterState state) builder,
     required Tween<Offset> directionTween,
+    GoRouterRedirect? redirect,
     List<RouteBase> routes = const [],
   }) : super(
     path: path,
     parentNavigatorKey: parentNavigatorKey,
     routes: routes,
+    redirect: redirect,
     pageBuilder: (context, state) {
       return CustomTransitionPage(
         child: builder(state),

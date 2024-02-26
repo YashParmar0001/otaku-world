@@ -3,6 +3,7 @@ import 'dart:developer' as dev;
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/utils/formatting_utils.dart';
 import '../../graphql/__generated/graphql/calendar/calendar.graphql.dart';
 
@@ -14,12 +15,12 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
     on<LoadCalendarDay>(_onLoadCalendarDay);
   }
 
-  final List<Query$GetCalendarDay$Page$airingSchedules?> list = [];
+  final List<Fragment$CalendarAiringSchedule?> list = [];
 
   Future<void> _onLoadCalendarDay(
-    LoadCalendarDay event,
-    Emitter<CalendarState> emit,
-  ) async {
+      LoadCalendarDay event,
+      Emitter<CalendarState> emit,
+      ) async {
     list.clear();
     emit(CalendarLoading());
     final response = await loadData(
@@ -68,13 +69,13 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
   }
 
   Future<QueryResult<Query$GetCalendarDay?>> loadData(
-      GraphQLClient client, int airingatGreater, int airingatLesser) {
+      GraphQLClient client, int airingAtGreater, int airingAt_lesser) {
     return client.query$GetCalendarDay(Options$Query$GetCalendarDay(
         fetchPolicy: FetchPolicy.networkOnly,
         cacheRereadPolicy: CacheRereadPolicy.ignoreAll,
         variables: Variables$Query$GetCalendarDay(
-          airingAt_greater: airingatGreater,
-          airingAt_lesser: airingatLesser,
+          airingAt_greater: airingAtGreater,
+          airingAt_lesser: airingAt_lesser,
         )));
   }
 

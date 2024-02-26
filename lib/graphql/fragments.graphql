@@ -240,3 +240,20 @@ fragment SearchResultUser on User {
         large
     }
 }
+
+fragment CalendarAiringSchedule on AiringSchedule {
+    id
+    media {
+        title {
+            userPreferred
+            english
+        }
+        bannerImage
+        mediaListEntry {
+            status
+        }
+    }
+    airingAt
+    timeUntilAiring
+    episode
+}

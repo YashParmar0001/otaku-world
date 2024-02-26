@@ -55,6 +55,7 @@ dependencies:
   markdown: ^7.1.1
   markdown_widget: ^2.3.2+3
   html: ^0.15.4
+  swipe_to: ^1.0.6
   media_kit:
   media_kit_libs_video:
   media_kit_video:
@@ -110,8 +111,13 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/images/
     - assets/images/on_boarding/
     - assets/images/placeholders/
+    - assets/images/discover/
+    - assets/images/discover/studios/
+    - assets/images/discover/characters/
+    - assets/images/characters/
     - assets/my_refresh_indicator/
 
   # An image asset can refer to one or more resolution-specific "variants", see

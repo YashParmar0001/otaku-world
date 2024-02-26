@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:markdown/markdown.dart' as md;
 import 'package:markdown_widget/markdown_widget.dart';
 
@@ -13,6 +15,7 @@ class ISyntax extends md.InlineSyntax {
 
   @override
   bool onMatch(md.InlineParser parser, Match match) {
+    dev.log('Italic matched: $match', name: 'Italic');
     final input = match.input;
     final matchValue = input.substring(match.start, match.end);
     String content = '';

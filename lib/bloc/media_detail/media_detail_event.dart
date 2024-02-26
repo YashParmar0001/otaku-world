@@ -13,3 +13,7 @@ class LoadMediaDetail extends MediaDetailEvent {
 
   const LoadMediaDetail({required this.id, required this.client});
 }
+
+class ResetMediaData extends MediaDetailEvent{
+
+}

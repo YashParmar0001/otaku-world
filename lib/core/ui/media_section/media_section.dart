@@ -1,6 +1,5 @@
 import 'dart:developer' as dev;
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -15,11 +14,9 @@ import 'package:otaku_world/core/ui/media_section/scroll_to_left_button.dart';
 import 'package:otaku_world/core/ui/shimmers/shimmer_loader_list.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
-import 'package:otaku_world/services/caching/image_cache_manager.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
 
-import '../../../graphql/__generated/graphql/schema.graphql.dart';
 
 class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
   const MediaSection({

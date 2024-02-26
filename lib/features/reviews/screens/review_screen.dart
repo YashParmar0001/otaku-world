@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:developer' as dev;
@@ -8,12 +6,13 @@ import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
 import 'package:otaku_world/bloc/reviews/reviews/review_bloc.dart';
 import 'package:otaku_world/core/ui/error_text.dart';
-import 'package:otaku_world/core/ui/my_refresh_indicator.dart';
 import 'package:otaku_world/core/ui/shimmers/reviews_shimmer_list.dart';
 import 'package:otaku_world/core/ui/appbars/simple_app_bar.dart';
 import 'package:otaku_world/core/ui/appbars/simple_sliver_app_bar.dart';
 import 'package:otaku_world/features/reviews/widgets/review_card.dart';
 import 'package:otaku_world/features/reviews/widgets/scroll_to_top_fab.dart';
+
+import '../../../theme/colors.dart';
 
 class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
   const ReviewScreen({super.key});
@@ -53,44 +52,45 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
           return _buildLoadingScaffold();
         } else if (state is PaginatedDataLoaded) {
           return Scaffold(
-            body:
-               CustomScrollView(
-                scrollDirection: Axis.vertical,
-                clipBehavior: Clip.none,
+              floatingActionButton: ScrollToTopFAB(
                 controller: reviewsScrollController,
-                slivers: [
-                  const SimpleSliverAppBar(
-                    title: 'Reviews',
-                    floating: true,
-                    isPinned: false,
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return ReviewCard(
-                          review: state.list[index]!,
-                        );
-                      },
-                      childCount: state.list.length,
+                tag: 'review_fab',
+              ),
+              body: RefreshIndicator(
+                backgroundColor: AppColors.raisinBlack,
+                onRefresh: () => _refreshPage(context),
+                child: CustomScrollView(
+                  scrollDirection: Axis.vertical,
+                  clipBehavior: Clip.none,
+                  controller: reviewsScrollController,
+                  slivers: [
+                    const SimpleSliverAppBar(
+                      title: 'Reviews',
+                      floating: true,
+                      isPinned: false,
                     ),
-                  ),
-                  if (state.hasNextPage)
-                    const SliverToBoxAdapter(
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(5.0),
-                          child: CircularProgressIndicator(),
-                        ),
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          return ReviewCard(
+                            review: state.list[index]!,
+                          );
+                        },
+                        childCount: state.list.length,
                       ),
                     ),
-                ],
-              ),
-
-            floatingActionButton: ScrollToTopFAB(
-              controller: reviewsScrollController,
-              tag: 'review_fab',
-            ),
-          );
+                    if (state.hasNextPage)
+                      const SliverToBoxAdapter(
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ));
         } else if (state is PaginatedDataError) {
           return _buildErrorScaffold(state.message, () {
             final client = (context.read<GraphqlClientCubit>().state

@@ -22,10 +22,11 @@ class VideoNode extends SpanNode {
   InlineSpan build() {
     final link = attribute['src'] ?? '';
     return WidgetSpan(
-        child: AspectRatio(
-      aspectRatio: 16 / 9,
-      child: VideoWidget(url: link),
-    ));
+      child: AspectRatio(
+        aspectRatio: 16 / 9,
+        child: VideoWidget(url: link),
+      ),
+    );
   }
 }
 

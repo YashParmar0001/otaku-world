@@ -1,4 +1,3 @@
-import 'dart:developer' as dev;
 
 import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +11,9 @@ import 'package:otaku_world/theme/colors.dart';
 import 'appbars/main_app_bar.dart';
 
 class AppScaffold extends StatefulWidget {
-  const AppScaffold({super.key, required this.child});
+  const AppScaffold({super.key, required this.navigationShell});
 
-  final Widget child;
+  final StatefulNavigationShell navigationShell;
 
   @override
   State<AppScaffold> createState() => _AppScaffoldState();
@@ -41,10 +40,10 @@ class _AppScaffoldState extends State<AppScaffold> {
         message: 'Press back again to exit!',
         child: Scaffold(
           appBar: const MainAppBar(),
-          body: widget.child,
+          body: widget.navigationShell,
           bottomNavigationBar: AnimatedContainer(
-            duration: const Duration(milliseconds: 600),
-            curve: Curves.easeInOutSine,
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeIn,
             height: _isBottomBarVisible ? 75 : 0,
             child: Wrap(
               children: [
@@ -53,8 +52,8 @@ class _AppScaffoldState extends State<AppScaffold> {
                   child: BottomNavigationBar(
                     type: BottomNavigationBarType.fixed,
                     showUnselectedLabels: true,
-                    currentIndex: _calculateSelectedIndex(context),
-                    onTap: (value) => onTap(value, context),
+                    currentIndex: widget.navigationShell.currentIndex,
+                    onTap: _goBranch,
                     items: [
                       _buildBottomNavBarItem(
                         label: 'Home',
@@ -83,8 +82,10 @@ class _AppScaffoldState extends State<AppScaffold> {
     );
   }
 
-  BottomNavigationBarItem _buildBottomNavBarItem(
-      {required String label, required String icon}) {
+  BottomNavigationBarItem _buildBottomNavBarItem({
+    required String label,
+    required String icon,
+  }) {
     return BottomNavigationBarItem(
       icon: Padding(
         padding: const EdgeInsets.only(bottom: 4),
@@ -104,37 +105,10 @@ class _AppScaffoldState extends State<AppScaffold> {
     );
   }
 
-  int _calculateSelectedIndex(BuildContext context) {
-    final GoRouterState route = GoRouterState.of(context);
-    final String location = route.location;
-    dev.log('Current location: $location', name: 'Routes');
-    if (location.contains('/home')) {
-      return 0;
-    }
-    if (location.contains('/discover')) {
-      return 1;
-    }
-    if (location.contains('/social')) {
-      return 2;
-    }
-    if (location.contains('/my-list')) {
-      return 3;
-    }
-    return 0;
-  }
-
-  void onTap(int value, BuildContext context) {
-    switch (value) {
-      case 0:
-        return context.go('/home');
-      case 1:
-        return context.go('/discover');
-      case 2:
-        return context.go('/social');
-      case 3:
-        return context.go('/my-list');
-      default:
-        return context.go('/home');
-    }
+  void _goBranch(int index) {
+    widget.navigationShell.goBranch(
+      index,
+      initialLocation: index == widget.navigationShell.currentIndex,
+    );
   }
 }

@@ -1,30 +1,14 @@
 fragment MediaDetailed on Media{
-    id
-    type
-    title {
-        romaji
-        english
-        userPreferred
-    }
     averageScore
-    meanScore
-    favourites
+    bannerImage
+
     popularity
     startDate {
         year
     }
     nextAiringEpisode {
         episode
-
     }
-    bannerImage
-    coverImage {
-        medium
-        extraLarge
-    }
-    status
-    format
-    genres
     description
     trailer {
         id
@@ -35,29 +19,70 @@ fragment MediaDetailed on Media{
     episodes
     duration
     source
-    startDate {
-        year
-        day
-        month
-    }
-    endDate {
-        year
-        day
-        month
+
+    externalLinks {
+        id
+        color
+        icon
+        isDisabled
+        url
+        site
+
     }
     studios{
         edges {
+            node {
+                id
+                name
+                isAnimationStudio
+            }
+            id
+            isMain
+        }
+
+    }
+    #Relations
+    relations {
+        edges {
+            node {
+                id
+                title {
+                    userPreferred
+                }
+                type
+                format
+                coverImage {
+                    extraLarge
+                    large
+                }
+                status
+
+            }
+            relationType(version: 2)
+        }
+    }
+    recommendations{
+        nodes {
             id
         }
-        nodes {
-            name
-        }
+    }
+
+    #tags
+    tags {
+        id
+        name
+        category
+        isMediaSpoiler
+        description
+        rank
     }
     modNotes
     isFavourite
-
+    ...MediaShort
 
 }
+
+
 fragment MediaShort on Media {
     id
     title {
@@ -67,6 +92,7 @@ fragment MediaShort on Media {
         native
     }
     coverImage {
+        medium
         large
         extraLarge
     }
@@ -102,8 +128,25 @@ fragment MediaShort on Media {
 }
 
 
-fragment Review on Review{
 
+fragment SearchResultMedia on Media {
+    id
+    coverImage {
+        large
+    }
+    title {
+        userPreferred
+    }
+    type
+    startDate {
+        year
+    }
+    format
+    meanScore
+}
+
+
+fragment Review on Review{
     id
     summary
     userRating
@@ -115,7 +158,7 @@ fragment Review on Review{
     user {
         name
         avatar {
-          medium
+            medium
         }
     }
     media {
@@ -152,5 +195,48 @@ fragment ReviewDetail on Review {
         coverImage {
             extraLarge
         }
+    }
+}
+
+fragment SearchResultCharacter on Character {
+    id
+    name {
+        userPreferred
+    }
+    image {
+        large
+    }
+    favourites
+}
+
+fragment SearchResultStaff on Staff {
+    id
+    name {
+        userPreferred
+    }
+    image {
+        large
+    }
+    favourites
+}
+
+fragment SearchResultStudio on Studio {
+    id
+    name
+    favourites
+    media(perPage: 1, sort: [TRENDING_DESC, POPULARITY_DESC]) {
+        nodes {
+            coverImage {
+                large
+            }
+        }
+    }
+}
+
+fragment SearchResultUser on User {
+    id
+    name
+    avatar {
+        large
     }
 }

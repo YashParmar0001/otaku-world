@@ -21,6 +21,7 @@ class CoverImage extends StatelessWidget {
     return CachedNetworkImage(
       cacheManager: ImageCacheManager.instance,
       imageUrl: imageUrl,
+      useOldImageOnUrlChange: true,
       // width: 115,
       // height: 169,
       fit: BoxFit.fill,

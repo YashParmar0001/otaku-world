@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:markdown/markdown.dart' as md;
 import 'package:markdown_widget/markdown_widget.dart';
 
@@ -18,6 +20,7 @@ class ImgSyntax extends md.InlineSyntax {
 
   @override
   bool onMatch(md.InlineParser parser, Match match) {
+    dev.log('Image matched: ${match.input}', name: 'Image');
     md.Element el = md.Element.withTag(_tag)
       ..attributes['src'] = match.group(2)!;
     if (match.group(1) != null &&

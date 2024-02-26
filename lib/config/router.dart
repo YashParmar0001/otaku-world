@@ -14,6 +14,7 @@ import 'package:otaku_world/features/home/screens/home_screen.dart';
 import 'package:otaku_world/features/media_detail/screens/media_detail_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_detail_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_screen.dart';
+import 'package:otaku_world/features/search/screens/search_screen.dart';
 import 'package:otaku_world/features/splash/screens/splash_screen.dart';
 import 'package:otaku_world/observers/go_route_observer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,10 +28,12 @@ import '../features/discover/screens/discover_screen.dart';
 import '../features/my_list/screens/my_list_screen.dart';
 import '../features/onboarding/screens/onboarding_screen.dart';
 import '../features/social/screens/social_screen.dart';
-import '../graphql/__generated/graphql/fragments.graphql.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNavigatorKey = GlobalKey<NavigatorState>();
+final _shellNavigatorHomeKey = GlobalKey<NavigatorState>();
+final _shellNavigatorDiscoverKey = GlobalKey<NavigatorState>();
+final _shellNavigatorSocialKey = GlobalKey<NavigatorState>();
+final _shellNavigatorMyListKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   initialLocation: '/',
@@ -42,12 +45,88 @@ final router = GoRouter(
       path: '/',
       builder: (context, state) => const SplashScreen(),
     ),
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        return AppScaffold(navigationShell: navigationShell);
+      },
+      branches: [
+        StatefulShellBranch(
+          navigatorKey: _shellNavigatorHomeKey,
+          routes: [
+            GoRoute(
+// parentNavigatorKey: _shellNavigatorKey,
+              path: '/home',
+              pageBuilder: (context, state) {
+                return const NoTransitionPage(
+                  child: HomeScreen(),
+                );
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: _shellNavigatorDiscoverKey,
+          routes: [
+            GoRoute(
+// parentNavigatorKey: _shellNavigatorKey,
+              path: '/discover',
+              pageBuilder: (context, state) {
+                return const NoTransitionPage(
+                  child: DiscoverScreen(),
+                );
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: _shellNavigatorSocialKey,
+          routes: [
+            GoRoute(
+// parentNavigatorKey: _shellNavigatorKey,
+              path: '/social',
+              pageBuilder: (context, state) {
+                return const NoTransitionPage(
+                  child: SocialScreen(),
+                );
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: _shellNavigatorMyListKey,
+          routes: [
+            GoRoute(
+// parentNavigatorKey: _shellNavigatorKey,
+              path: '/my-list',
+              pageBuilder: (context, state) {
+                return const NoTransitionPage(
+                  child: MyListScreen(),
+                );
+              },
+            ),
+          ],
+        ),
+      ],
+    ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: '/review-detail',
-      builder: (context, state) => ReviewDetailScreen(
-        reviewId: int.parse(state.queryParameters['id']!),
-      ),
+      path: '/recommended_anime_slider',
+      builder: (context, state) => const RecommendedAnimeSlider(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/trending_anime_slider',
+      builder: (context, state) => const TrendingAnimeSlider(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/recommended_manga_slider',
+      builder: (context, state) => const RecommendedMangaSlider(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/trending_manga_slider',
+      builder: (context, state) => const TrendingMangaSlider(),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
@@ -57,12 +136,12 @@ final router = GoRouter(
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/calendar',
-      builder: (context, state) => CalendarScreen(),
+      builder: (context, state) => const CalendarScreen(),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/on_boarding',
-      builder: (context, state) => const OnBoardingScreen(),
+      builder: (context, state) => OnBoardingScreen(),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
@@ -73,101 +152,42 @@ final router = GoRouter(
         final isFirstTime = sharedPref.getBool('is_first_time');
 
         if (isFirstTime == null) {
-          return '/on_boarding';
+          return '/on-boarding';
         } else {
           null;
         }
         return null;
       },
     ),
-    ShellRoute(
-      navigatorKey: _shellNavigatorKey,
-      builder: (context, state, child) => AppScaffold(child: child),
-      routes: [
-        GoRoute(
-            parentNavigatorKey: _shellNavigatorKey,
-            path: '/home',
-            pageBuilder: (context, state) {
-              return const NoTransitionPage(
-                child: HomeScreen(),
-              );
-            },
-            routes: [
-              SlideTransitionRoute(
-                path: 'reviews',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (state) => const ReviewScreen(),
-                directionTween: SlideTransitionRoute.leftToRightTween,
-              ),
-              GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: 'trending_anime',
-                builder: (context, state) => const TrendingAnimeScreen(),
-              ),
-              GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: 'recommended_anime',
-                builder: (context, state) => const RecommendedAnimeScreen(),
-              ),
-              GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: 'trending_manga',
-                builder: (context, state) => const TrendingMangaScreen(),
-              ),
-              GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: 'recommended_manga',
-                builder: (context, state) => const RecommendedMangaScreen(),
-              ),
-              GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: 'recommended_anime_slider',
-                builder: (context, state) => const RecommendedAnimeSlider(),
-              ),
-              GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: 'trending_anime_slider',
-                builder: (context, state) => const TrendingAnimeSlider(),
-              ),
-              GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: 'recommended_manga_slider',
-                builder: (context, state) => const RecommendedMangaSlider(),
-              ),
-              GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: 'trending_manga_slider',
-                builder: (context, state) => const TrendingMangaSlider(),
-              )
-            ]),
-        GoRoute(
-          parentNavigatorKey: _shellNavigatorKey,
-          path: '/discover',
-          pageBuilder: (context, state) {
-            return const NoTransitionPage(
-              child: DiscoverScreen(),
-            );
-          },
-        ),
-        GoRoute(
-          parentNavigatorKey: _shellNavigatorKey,
-          path: '/social',
-          pageBuilder: (context, state) {
-            return const NoTransitionPage(
-              child: SocialScreen(),
-            );
-          },
-        ),
-        GoRoute(
-          parentNavigatorKey: _shellNavigatorKey,
-          path: '/my-list',
-          pageBuilder: (context, state) {
-            return const NoTransitionPage(
-              child: MyListScreen(),
-            );
-          },
-        ),
-      ],
+    SlideTransitionRoute(
+      path: '/reviews',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (state) => const ReviewScreen(),
+      directionTween: SlideTransitionRoute.leftToRightTween,
+    ),
+    SlideTransitionRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/trending_anime',
+      builder: (state) => const TrendingAnimeScreen(),
+      directionTween: SlideTransitionRoute.leftToRightTween,
+    ),
+    SlideTransitionRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/recommended_anime',
+      builder: (state) => const RecommendedAnimeScreen(),
+      directionTween: SlideTransitionRoute.leftToRightTween,
+    ),
+    SlideTransitionRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/trending_manga',
+      builder: (state) => const TrendingMangaScreen(),
+      directionTween: SlideTransitionRoute.leftToRightTween,
+    ),
+    SlideTransitionRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/recommended_manga',
+      builder: (state) => const RecommendedMangaScreen(),
+      directionTween: SlideTransitionRoute.leftToRightTween,
     ),
     SlideTransitionRoute(
       parentNavigatorKey: _rootNavigatorKey,
@@ -194,19 +214,37 @@ final router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
+      path: '/search',
+      builder: (context, state) => const SearchScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
       path: '/on-boarding',
-      builder: (context, state) => const OnBoardingScreen(),
+      builder: (context, state) => OnBoardingScreen(),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/login',
       builder: (context, state) => const LoginScreen(),
+      redirect: (context, state) async {
+        final sharedPrefs = await SharedPreferences.getInstance();
+        final firstTime = sharedPrefs.getBool('is_first_time');
+        if (firstTime == null) {
+          return '/on-boarding';
+        } else {
+          return null;
+        }
+      },
     ),
   ],
+  onException: (context, state, router) {
+    router.go('/home');
+  },
   redirect: (context, state) {
     dev.log('Matched location: ${state.matchedLocation}',
         name: 'RouterRedirect');
     if (state.matchedLocation == '/') return null;
+    if (state.matchedLocation == '/on-boarding') return null;
 
     final authState = context.read<AuthCubit>().state;
     final routeCubit = context.read<RedirectRouteCubit>();
@@ -215,7 +253,8 @@ final router = GoRouter(
       if ((!routeCubit.isDesiredRouteSet() &&
               state.matchedLocation != '/login') ||
           (state.matchedLocation != '/home' &&
-              state.matchedLocation != '/login')) {
+              state.matchedLocation != '/login' &&
+              state.matchedLocation != '/on-boarding')) {
         routeCubit.setDesiredRoute(
           state.matchedLocation,
           state.queryParameters,

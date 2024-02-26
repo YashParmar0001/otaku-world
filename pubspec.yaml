@@ -50,7 +50,6 @@ dependencies:
   custom_refresh_indicator: ^3.0.0
   flutter_animate: ^4.3.0
   carousel_slider:
-
   intl: ^0.18.0
   table_calendar: ^3.0.9
   markdown: ^7.1.1
@@ -59,6 +58,8 @@ dependencies:
   media_kit:
   media_kit_libs_video:
   media_kit_video:
+  expandable_text: ^2.3.0
+  youtube_player_flutter: ^8.1.2
 
   # Navigation
   go_router: ^9.0.3
@@ -128,6 +129,11 @@ flutter:
     - family: Poppins
       fonts:
         - asset: assets/fonts/Poppins-Regular.ttf
+
+    - family: Poppins-Medium
+      fonts:
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
 
     - family: Poppins-Semi-Bold
       fonts:

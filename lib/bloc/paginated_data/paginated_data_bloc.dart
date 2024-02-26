@@ -56,6 +56,7 @@ abstract class PaginatedDataBloc<Q, E>
       final exception = response.exception!;
 
       if (exception.linkException != null) {
+        dev.log(exception.toString());
         emit(
           const PaginatedDataError('Please check your internet connection!'),
         );

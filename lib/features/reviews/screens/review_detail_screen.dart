@@ -142,9 +142,23 @@ class ReviewDetailScreen extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          left: 15.0, right: 15, bottom: 10),
+                        left: 15.0,
+                        right: 15,
+                        bottom: 10,
+                      ),
                       child: Markdown(data: review.body.toString()),
                     ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(
+                    //     left: 15.0,
+                    //     right: 15,
+                    //     bottom: 10,
+                    //   ),
+                    //   child: Text(
+                    //     review.body.toString(),
+                    //     style: Theme.of(context).textTheme.titleLarge,
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.only(
                         left: 15,

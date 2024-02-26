@@ -4,6 +4,7 @@ class Assets {
 
   static const String assetsAppLogo = 'assets/app_logo.svg';
   static const String assetsAppLogoHorizontal = 'assets/app_logo_horizontal.svg';
+  static const String fontsPoppinsMedium = 'assets/fonts/Poppins-Medium.ttf';
   static const String fontsPoppinsRegular = 'assets/fonts/Poppins-Regular.ttf';
   static const String fontsPoppinsSemiBold = 'assets/fonts/Poppins-SemiBold.ttf';
   static const String fontsPoppinsThin = 'assets/fonts/Poppins-Thin.ttf';
@@ -27,6 +28,7 @@ class Assets {
   static const String iconsMoreVertical = 'assets/icons/more-vertical.svg';
   static const String iconsNextButton = 'assets/icons/next-button.svg';
   static const String iconsOpenLink2 = 'assets/icons/open-link2.svg';
+  static const String iconsRemove = 'assets/icons/remove.svg';
   static const String iconsSearch = 'assets/icons/search.svg';
   static const String iconsSearchSmall = 'assets/icons/search-small.svg';
   static const String iconsShare = 'assets/icons/share.svg';

@@ -299,6 +299,7 @@ const documentNodeQueryGetMediaDetail = DocumentNode(definitions: [
     ]),
   ),
   fragmentDefinitionMediaDetailed,
+  fragmentDefinitionMediaShort,
 ]);
 Query$GetMediaDetail _parserFn$Query$GetMediaDetail(
         Map<String, dynamic> data) =>

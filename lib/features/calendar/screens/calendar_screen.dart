@@ -25,6 +25,7 @@ class CalendarScreen extends StatefulHookWidget {
 class _CalendarScreenState extends State<CalendarScreen> {
   DateTime selectedCalendarDay = DateTime.now();
   DateTime focusedCalendarDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     List<DateTime> dates = getWeekDaysList();
@@ -192,8 +193,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           child: BlocBuilder<CalendarBloc, CalendarState>(
                             builder: (context, state) {
                               if (state is CalendarLoading) {
-                                return ShimmerList(
-                                  child: const CalendarShimmerCard(),
+                                return const ShimmerList(
+                                  child: CalendarShimmerCard(),
                                 );
                               } else if (state is CalendarError) {
                                 return Text(state.message);
@@ -230,8 +231,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
         bloc: bloc,
         builder: (context, state) {
           if (state is CalendarLoading) {
-            return ShimmerList(
-              child: const CalendarShimmerCard(),
+            return const ShimmerList(
+              child: CalendarShimmerCard(),
             );
           } else if (state is CalendarError) {
             dev.log(state.message);

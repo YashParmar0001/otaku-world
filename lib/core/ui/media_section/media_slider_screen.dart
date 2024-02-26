@@ -1,14 +1,16 @@
+import 'dart:developer' as dev;
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
+import 'package:otaku_world/features/media_detail/widgets/status_row.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/services/caching/image_cache_manager.dart';
 import 'package:otaku_world/theme/colors.dart';
-import 'package:otaku_world/utils/formatting_utils.dart';
-import 'dart:developer' as dev;
+
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
 import '../../../generated/assets.dart';
 import '../../../graphql/__generated/graphql/schema.graphql.dart';
@@ -189,7 +191,12 @@ class MediaSliderScreen<B extends PaginatedDataBloc> extends StatelessWidget {
                     const SizedBox(
                       height: 15,
                     ),
-                    _buildStatusRow(context, media),
+                    StatusRow(
+                      status: media.status,
+                      airingSchedule: media.airingSchedule,
+                      fontSize: 12,
+                      alignment: MainAxisAlignment.center,
+                    ),
                     const SizedBox(
                       height: 15,
                     ),
@@ -370,33 +377,6 @@ class MediaSliderScreen<B extends PaginatedDataBloc> extends StatelessWidget {
     );
   }
 
-  Widget _buildStatusRow(BuildContext context, Fragment$MediaShort media) {
-    if (media.airingSchedule?.nodes == null) {
-      return getStatus(context, media.status);
-    }
-
-    if (media.airingSchedule!.nodes!.isNotEmpty) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          getStatus(context, media.status),
-          const SizedBox(
-            width: 20,
-          ),
-          Text(
-            "Ep. ${media.airingSchedule!.nodes![0]!.episode}: ${FormattingUtils.formatDurationFromSeconds(media.airingSchedule!.nodes![0]!.timeUntilAiring)}",
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
-                ),
-          ),
-        ],
-      );
-    } else {
-      return getStatus(context, media.status);
-    }
-  }
-
   String getSeason(Enum$MediaSeason? season) {
     if (season == null) return 'Unknown';
 
@@ -411,66 +391,6 @@ class MediaSliderScreen<B extends PaginatedDataBloc> extends StatelessWidget {
         return 'Winter';
       default:
         return 'Unknown';
-    }
-  }
-
-  Text getStatus(BuildContext context, Enum$MediaStatus? status) {
-    TextStyle? style = Theme.of(context).textTheme.titleLarge?.copyWith(
-          fontFamily: 'Poppins',
-        );
-
-    if (status == null) {
-      return Text(
-        'Unknown',
-        style: style?.copyWith(
-          color: AppColors.bronze,
-        ),
-      );
-    }
-
-    switch (status) {
-      case Enum$MediaStatus.RELEASING:
-        return Text(
-          'Airing',
-          style: style?.copyWith(
-            color: AppColors.kiwi,
-          ),
-        );
-      case Enum$MediaStatus.FINISHED:
-        return Text(
-          'Finished',
-          style: style?.copyWith(
-            color: AppColors.crayola,
-          ),
-        );
-      case Enum$MediaStatus.NOT_YET_RELEASED:
-        return Text(
-          'Not yet Released',
-          style: style?.copyWith(
-            color: AppColors.chineseWhite,
-          ),
-        );
-      case Enum$MediaStatus.CANCELLED:
-        return Text(
-          'Cancelled',
-          style: style?.copyWith(
-            color: AppColors.maxRed,
-          ),
-        );
-      case Enum$MediaStatus.HIATUS:
-        return Text(
-          'Hiatus',
-          style: style?.copyWith(
-            color: AppColors.silver,
-          ),
-        );
-      default:
-        return Text(
-          'Unknown',
-          style: style?.copyWith(
-            color: AppColors.lightSilver,
-          ),
-        );
     }
   }
 

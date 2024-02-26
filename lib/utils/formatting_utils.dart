@@ -44,10 +44,17 @@ class FormattingUtils {
     return DateFormat('hh:mm a').format(time);
   }
 
- static String formatUnixTimestamp(int unixTimestamp) {
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(unixTimestamp * 1000);
+  static String formatUnixTimestamp(int unixTimestamp) {
+    DateTime dateTime =
+        DateTime.fromMillisecondsSinceEpoch(unixTimestamp * 1000);
     String formattedDate = DateFormat('E, d MMM yyyy').format(dateTime);
     String formattedTime = DateFormat('h:mm a').format(dateTime);
     return '$formattedDate at $formattedTime';
+  }
+
+  static int getYearFromTimestamp(int unixTimestamp) {
+    DateTime dateTime =
+        DateTime.fromMillisecondsSinceEpoch(unixTimestamp * 1000);
+    return dateTime.year;
   }
 }

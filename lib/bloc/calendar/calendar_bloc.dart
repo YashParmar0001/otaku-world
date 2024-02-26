@@ -18,9 +18,9 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
   final List<Fragment$CalendarAiringSchedule?> list = [];
 
   Future<void> _onLoadCalendarDay(
-    LoadCalendarDay event,
-    Emitter<CalendarState> emit,
-  ) async {
+      LoadCalendarDay event,
+      Emitter<CalendarState> emit,
+      ) async {
     list.clear();
     emit(CalendarLoading());
     final response = await loadData(

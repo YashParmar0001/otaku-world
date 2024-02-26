@@ -31,6 +31,7 @@ import 'package:otaku_world/features/discover/screens/manga_filters_discover.dar
 import 'package:otaku_world/features/discover/screens/staff_discover_screen.dart';
 import 'package:otaku_world/features/discover/screens/studios_discover_screen.dart';
 import 'package:otaku_world/features/home/screens/home_screen.dart';
+import 'package:otaku_world/features/media_detail/screens/media_detail_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_detail_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_screen.dart';
 import 'package:otaku_world/features/search/screens/search_screen.dart';
@@ -307,6 +308,17 @@ final router = GoRouter(
         );
       },
       directionTween: SlideTransitionRoute.leftToRightTween,
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/media-detail',
+      builder: (context, state) {
+        return MediaDetailScreen(
+          mediaId: int.parse(
+            state.queryParameters['id']!,
+          ),
+        );
+      },
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,

@@ -4,6 +4,8 @@ class Assets {
 
   static const String assetsAppLogo = 'assets/app_logo.svg';
   static const String assetsAppLogoHorizontal = 'assets/app_logo_horizontal.svg';
+
+  static const String fontsPoppinsMedium = 'assets/fonts/Poppins-Medium.ttf';
   static const String charactersCharacters = 'assets/images/discover/characters/characters.png';
   static const String charactersErenYeager = 'assets/images/characters/eren_yeager.png';
   static const String charactersGirl1 = 'assets/images/discover/characters/girl_1.svg';
@@ -34,6 +36,7 @@ class Assets {
   static const String iconsLineVertical = 'assets/icons/line_vertical.svg';
   static const String iconsLinkSquare = 'assets/icons/link-square.svg';
   static const String iconsMoreHorizontal = 'assets/icons/more-horizontal.svg';
+  static const String iconsMoreVertical = 'assets/icons/more-vertical.svg';
   static const String iconsNextButton = 'assets/icons/next-button.svg';
   static const String iconsOpenLink2 = 'assets/icons/open-link2.svg';
   static const String iconsRemove = 'assets/icons/remove.svg';
@@ -42,6 +45,7 @@ class Assets {
   static const String iconsShare = 'assets/icons/share.svg';
   static const String iconsStar = 'assets/icons/star.svg';
   static const String iconsThumbsUp = 'assets/icons/thumbs-up.svg';
+  static const String iconsTrendUp = 'assets/icons/trend-up.svg';
   static const String iconsUserGroup = 'assets/icons/user-group.svg';
   static const String iconsViewSlider = 'assets/icons/view-slider.svg';
   static const String imagesAnimeImage = 'assets/images/anime_image.png';

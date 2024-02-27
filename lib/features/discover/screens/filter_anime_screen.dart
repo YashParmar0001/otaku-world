@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:otaku_world/constants/filter_constants.dart';
 import 'package:otaku_world/core/ui/appbars/simple_app_bar.dart';
 import 'package:otaku_world/core/ui/buttons/primary_button.dart';
 import 'package:otaku_world/core/ui/filters/custom_dropdown.dart';
@@ -23,128 +24,79 @@ class AnimeFiltersDiscover extends StatelessWidget {
       appBar: const SimpleAppBar(title: "Filters"),
       body: Stack(
         children: [
-          const SingleChildScrollView(
+          SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 horizontal: 15,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomDropdown(
+                  const CustomDropdown(
                     title: "Sort",
-                    dropdownItems: [
-                      DropdownMenuItem(
-                        value: "all",
-                        child: Text(
-                          "All",
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "title",
-                        child: Text(
-                          "Title",
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "popularity",
-                        child: Text(
-                          "Popularity",
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "averageScore",
-                        child: Text(
-                          "Average Score",
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "trending",
-                        child: Text(
-                          "Trending",
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "favorites",
-                        child: Text(
-                          "Favorites",
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "dateAdded",
-                        child: Text(
-                          "Date Added",
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "releaseDate",
-                        child: Text(
-                          "Release Date",
-                        ),
-                      ),
-                    ],
+                    dropdownItems: FilterConstants.mediaSortOptions,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
-                  GenresChips(),
-                  SizedBox(
+                  const GenresChips(),
+                  const SizedBox(
                     height: 15,
                   ),
-                  SeasonChips(),
-                  SizedBox(
+                  const SeasonChips(),
+                  const SizedBox(
                     height: 15,
                   ),
-                  AnimeFormatChips(),
-                  SizedBox(
+                  const AnimeFormatChips(),
+                  const SizedBox(
                     height: 15,
                   ),
-                  AnimeAiringStatusChips(),
-                  SizedBox(
+                  const AnimeAiringStatusChips(),
+                  const SizedBox(
                     height: 15,
                   ),
                   CustomRangeSlider(
                     title: "Year",
-                    minRange: 2000,
-                    maxRange: 2024,
+                    minRange: FilterConstants.animeYearMinimum,
+                    maxRange: FilterConstants.animeYearMaximum,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  CustomRangeSlider(
+                  const CustomRangeSlider(
                     title: "Episodes",
-                    minRange: 1,
-                    maxRange: 150,
+                    minRange: FilterConstants.minEpisode,
+                    maxRange: FilterConstants.maxEpisode,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  CustomRangeSlider(
+                  const CustomRangeSlider(
                     title: "Duration",
-                    minRange: 1,
-                    maxRange: 150,
+                    minRange: FilterConstants.minDuration,
+                    maxRange: FilterConstants.maxDuration,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  AnimeCheckBoxOptions(),
-                  SizedBox(
+                  const AnimeCheckBoxOptions(),
+                  const SizedBox(
                     height: 15,
                   ),
-                  SourceMaterialChips(),
-                  SizedBox(
+                  const SourceMaterialChips(),
+                  const SizedBox(
                     height: 15,
                   ),
-                  CountryOfOriginChips(),
-                  SizedBox(
+                  const CountryOfOriginChips(),
+                  const SizedBox(
                     height: 15,
                   ),
-                  StreamingOnChips(),
-                  SizedBox(
+                  const StreamingOnChips(),
+                  const SizedBox(
                     height: 15,
                   ),
-                  AnimeTagsChips(),
-                  SizedBox(
+                  const AnimeTagsChips(),
+                  const SizedBox(
                     height: 140,
                   ),
                 ],

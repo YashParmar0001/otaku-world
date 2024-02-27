@@ -24,7 +24,7 @@ import 'package:otaku_world/features/anime_lists/view_more_lists/view_all_top_ma
 import 'package:otaku_world/features/auth/screens/login_screen.dart';
 import 'package:otaku_world/features/calendar/screens/calendar_screen.dart';
 import 'package:otaku_world/features/discover/screens/anime_discover_screen.dart';
-import 'package:otaku_world/features/discover/screens/anime_filters_discover.dart';
+import 'package:otaku_world/features/discover/screens/filter_anime_screen.dart';
 import 'package:otaku_world/features/discover/screens/characters_discover_screen.dart';
 import 'package:otaku_world/features/discover/screens/manga_discover_screen.dart';
 import 'package:otaku_world/features/discover/screens/manga_filters_discover.dart';

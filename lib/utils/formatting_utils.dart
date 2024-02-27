@@ -93,6 +93,43 @@ class FormattingUtils {
         return 'Unknown';
     }
   }
+
+  static String getAnimeFormat(Enum$MediaFormat format) {
+    switch (format) {
+      case Enum$MediaFormat.TV:
+        return 'TV Show';
+      case Enum$MediaFormat.TV_SHORT:
+        return 'TV Short';
+      case Enum$MediaFormat.MOVIE:
+        return 'Movie';
+      case Enum$MediaFormat.SPECIAL:
+        return 'Special';
+      case Enum$MediaFormat.OVA:
+        return 'OVA';
+      case Enum$MediaFormat.ONA:
+        return 'ONA';
+      case Enum$MediaFormat.MUSIC:
+        return 'Music';
+      default:
+        return 'Unknown';
+    }
+  }
+
+  static String getAnimeStatus(Enum$MediaStatus status) {
+    switch (status) {
+      case Enum$MediaStatus.RELEASING:
+        return 'Airing';
+      case Enum$MediaStatus.NOT_YET_RELEASED:
+        return 'Not Yet Aired';
+      case Enum$MediaStatus.FINISHED:
+        return 'Finished';
+      case Enum$MediaStatus.CANCELLED:
+        return 'Cancelled';
+      default:
+        return 'Unknown';
+    }
+  }
+
   static Color getSelectMediaCardColors({
     required int index,
   }) {

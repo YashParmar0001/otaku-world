@@ -1,0 +1,8 @@
+query GetMediaTags {
+    MediaTagCollection {
+        id
+        name
+        category
+        description
+    }
+}

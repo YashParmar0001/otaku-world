@@ -13,13 +13,14 @@ class CustomDropdown extends StatefulWidget {
 
   final String title;
   final TextStyle? titleStyle;
-  final List<DropdownMenuItem<String>> dropdownItems;
+  final List<String> dropdownItems;
+
   @override
   State<CustomDropdown> createState() => _CustomDropdownState();
 }
 
 class _CustomDropdownState extends State<CustomDropdown> {
-  String? selectedValue = "all";
+  String? selectedValue = "All";
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,9 @@ class _CustomDropdownState extends State<CustomDropdown> {
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 color: AppColors.white,
               ),
-          items: widget.dropdownItems,
+          items: widget.dropdownItems
+              .map((field) => DropdownMenuItem(value: field, child: Text(field)))
+              .toList(),
         ),
       ],
     );

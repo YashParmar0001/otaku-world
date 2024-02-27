@@ -34,55 +34,15 @@ class MangaFiltersDiscover extends StatelessWidget {
                   CustomDropdown(
                     title: "Sort",
                     dropdownItems: [
-                      DropdownMenuItem(
-                        value: "all",
-                        child: Text(
-                          "All",
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "title",
-                        child: Text(
-                          "Title",
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "popularity",
-                        child: Text(
-                          "Popularity",
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "averageScore",
-                        child: Text(
-                          "Average Score",
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "trending",
-                        child: Text(
-                          "Trending",
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "favorites",
-                        child: Text(
-                          "Favorites",
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "dateAdded",
-                        child: Text(
-                          "Date Added",
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "releaseDate",
-                        child: Text(
-                          "Release Date",
-                        ),
-                      ),
-                    ],
+                      'All',
+                      'Title',
+                      'Popularity',
+                      'Average Score',
+                      'Trending',
+                      'Favourites',
+                      'Date Added',
+                      'Release Date',
+                    ]
                   ),
                   SizedBox(
                     height: 15,

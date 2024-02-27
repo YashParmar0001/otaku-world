@@ -9,7 +9,7 @@ class CustomCheckBox extends StatefulWidget {
   });
 
   final String label;
-  final value;
+  final String value;
 
   @override
   State<CustomCheckBox> createState() => _CustomCheckBoxState();

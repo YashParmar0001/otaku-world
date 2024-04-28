@@ -323,6 +323,17 @@ final router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
+      path: '/media-detail',
+      builder: (context, state) {
+        return MediaDetailScreen(
+          mediaId: int.parse(
+            state.queryParameters['id']!,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
       path: '/search',
       builder: (context, state) => const SearchScreen(),
     ),

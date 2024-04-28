@@ -59,6 +59,10 @@ dependencies:
   media_kit:
   media_kit_libs_video:
   media_kit_video:
+<<<<<<< HEAD
+=======
+  expandable_text: ^2.3.0
+>>>>>>> 15f83ade7ff57d52002e566797bca9e5fded6d76
   youtube_player_flutter: ^8.1.2
 
   # Navigation
@@ -134,6 +138,11 @@ flutter:
     - family: Poppins
       fonts:
         - asset: assets/fonts/Poppins-Regular.ttf
+
+    - family: Poppins-Medium
+      fonts:
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
 
     - family: Poppins-Semi-Bold
       fonts:

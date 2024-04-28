@@ -30,6 +30,10 @@ class _OverviewState extends State<Overview> {
     super.dispose();
     youtubePlayerController.dispose();
     youtubeId = "";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 15f83ade7ff57d52002e566797bca9e5fded6d76
   }
 
   @override

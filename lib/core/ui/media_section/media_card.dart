@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:otaku_world/core/ui/MeanScore.dart';
+import 'package:otaku_world/core/ui/mean_score.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/formatting_utils.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
@@ -18,10 +18,12 @@ class MediaCard extends StatelessWidget {
     required this.startColors,
     this.endColors = AppColors.japaneseIndigo,
   });
+
   final int index;
   final Fragment$MediaShort? media;
   final Color startColors;
   final Color endColors;
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -264,7 +266,7 @@ class SummaryText extends StatelessWidget {
     );
     textSpans.add(
       TextSpan(
-        text: "${FormattingUtils.getSeason(media.season)} ${media.seasonYear},"
+        text: "${FormattingUtils.getSeasonString(media.season)} ${media.seasonYear},"
             " ${getStatus(media.status)}",
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
               color: AppColors.white,

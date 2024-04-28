@@ -1,3 +1,88 @@
+fragment MediaDetailed on Media{
+    averageScore
+    bannerImage
+
+    popularity
+    startDate {
+        year
+    }
+    nextAiringEpisode {
+        episode
+    }
+    description
+    trailer {
+        id
+        site
+        thumbnail
+    }
+    synonyms
+    episodes
+    duration
+    source
+
+    externalLinks {
+        id
+        color
+        icon
+        isDisabled
+        url
+        site
+
+    }
+    studios{
+        edges {
+            node {
+                id
+                name
+                isAnimationStudio
+            }
+            id
+            isMain
+        }
+
+    }
+    #Relations
+    relations {
+        edges {
+            node {
+                id
+                title {
+                    userPreferred
+                }
+                type
+                format
+                coverImage {
+                    extraLarge
+                    large
+                }
+                status
+
+            }
+            relationType(version: 2)
+        }
+    }
+    recommendations{
+        nodes {
+            id
+        }
+    }
+
+    #tags
+    tags {
+        id
+        name
+        category
+        isMediaSpoiler
+        description
+        rank
+    }
+    modNotes
+    isFavourite
+    ...MediaShort
+
+}
+
+
 fragment MediaShort on Media {
     id
     title {
@@ -7,6 +92,7 @@ fragment MediaShort on Media {
         native
     }
     coverImage {
+        medium
         large
         extraLarge
     }
@@ -69,7 +155,7 @@ fragment Review on Review{
     user {
         name
         avatar {
-          medium
+            medium
         }
     }
     media {

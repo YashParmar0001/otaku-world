@@ -2,14 +2,29 @@ import 'dart:core';
 
 class FilterConstants {
   static const List<String> mediaSortOptions = [
-    'All',
-    'Title',
     'Popularity',
+    'Title',
     'Average Score',
     'Trending',
     'Favourites',
     'Date Added',
     'Release Date',
+  ];
+
+  static const List<String> seasons = [
+    'All',
+    'Winter',
+    'Spring',
+    'Summer',
+    'Fall',
+  ];
+
+  static const List<String> countries = [
+    'All',
+    'Japan',
+    'South Korea',
+    'China',
+    'Taiwan',
   ];
 
   static const double animeYearMinimum = 1970;

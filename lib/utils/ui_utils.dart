@@ -36,4 +36,16 @@ class UIUtils {
 
     return screenHeight * heightScaleFactor;
   }
+
+  static Color hexToColor(String hexColor) {
+    return Color(int.parse(hexColor.substring(1, 7), radix: 16) + 0xFF000000);
+  }
+
+
+}
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  }
 }

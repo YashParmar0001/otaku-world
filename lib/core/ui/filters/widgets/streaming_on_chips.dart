@@ -1,33 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:otaku_world/bloc/filter/collections/external_links/anime/anime_platforms_cubit.dart';
+import 'package:otaku_world/bloc/filter/filter_anime/filter_anime_bloc.dart';
+import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
+import 'package:otaku_world/core/ui/error_text.dart';
+import 'package:otaku_world/core/ui/filters/custom_chips.dart';
+import 'package:otaku_world/core/ui/filters/custom_choice_chip.dart';
 
-import '../custom_chips.dart';
-import '../custom_choice_chip.dart';
+class AnimePlatformsChips extends StatelessWidget {
+  const AnimePlatformsChips({super.key, required this.selectedPlatforms});
 
-class StreamingOnChips extends StatelessWidget {
-  const StreamingOnChips({super.key});
+  final List<String> selectedPlatforms;
 
   @override
   Widget build(BuildContext context) {
-    return const CustomChips(
-      title: "Streaming On",
-      chipList: [
-        CustomChoiceChip(
-          label: "Crunchyroll",
-          value: "Crunchyroll",
-        ),
-        CustomChoiceChip(
-          label: "Netflix",
-          value: "Netflix",
-        ),
-        CustomChoiceChip(
-          label: "Hulu",
-          value: "Hulu",
-        ),
-        CustomChoiceChip(
-          label: "YouTube",
-          value: "YouTube",
-        ),
-      ],
+    final bloc = context.read<FilterAnimeBloc>();
+    return BlocBuilder<AnimePlatformsCubit, AnimePlatformsState>(
+      builder: (context, state) {
+        if (state is AnimePlatformsInitial) {
+          final client = (context.read<GraphqlClientCubit>().state
+          as GraphqlClientInitialized)
+              .client;
+          context.read<AnimePlatformsCubit>().loadAnimePlatforms(client);
+          return const CircularProgressIndicator();
+        } else if (state is AnimePlatformsLoading) {
+          return const CircularProgressIndicator();
+        } else if (state is AnimePlatformsLoaded) {
+          return CustomChips(
+            title: 'Streaming On',
+            chipList: state.platforms.map((p) {
+              return p == null
+                  ? const SizedBox()
+                  : CustomChoiceChip(
+                label: p,
+                value: p,
+                selected: selectedPlatforms.contains(p),
+                onSelected: (platform) {
+                  bloc.add(SelectPlatform(platform));
+                },
+                onUnselected: (platform) {
+                  bloc.add(UnselectPlatform(platform));
+                },
+              );
+            }).toList(),
+          );
+        } else if (state is AnimePlatformsError) {
+          return ErrorText(message: state.message, onTryAgain: () {});
+        } else {
+          return const Text('Unknown State');
+        }
+      },
     );
   }
 }

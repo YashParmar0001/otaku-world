@@ -6,17 +6,28 @@ class CustomCheckBox extends StatefulWidget {
     super.key,
     required this.label,
     required this.value,
+    required this.onChanged,
+    required this.initialValue,
   });
 
   final String label;
   final String value;
+  final VoidCallback onChanged;
+  final bool initialValue;
 
   @override
   State<CustomCheckBox> createState() => _CustomCheckBoxState();
 }
 
 class _CustomCheckBoxState extends State<CustomCheckBox> {
-  bool selected = false;
+  late bool selected;
+
+  @override
+  void initState() {
+    selected = widget.initialValue;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -35,6 +46,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
           value: selected,
           onChanged: (value) {
             setState(() {
+              widget.onChanged();
               selected = !selected;
             });
           },

@@ -4,9 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:otaku_world/bloc/search/search_base/search_bloc.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
-import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/search/search_characters.graphql.dart';
-import 'package:otaku_world/graphql/__generated/graphql/search/search_media.graphql.dart';
 
 class SearchCharactersBloc extends SearchBloc<Query$SearchCharacters, Fragment$SearchResultCharacter> {
   @override

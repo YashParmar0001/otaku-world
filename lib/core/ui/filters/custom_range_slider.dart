@@ -1,5 +1,9 @@
+import 'dart:developer' as dev;
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:otaku_world/bloc/filter/filter_anime/filter_anime_bloc.dart';
 
 import '../../../generated/assets.dart';
 import '../../../theme/colors.dart';
@@ -9,23 +13,39 @@ class CustomRangeSlider extends StatefulWidget {
     super.key,
     required this.title,
     this.titleStyle,
+    this.initialStartValue,
+    this.initialEndValue,
     required this.minRange,
     required this.maxRange,
+    required this.onChangeEnd,
   });
 
   final String title;
   final TextStyle? titleStyle;
+  final int? initialStartValue;
+  final int? initialEndValue;
   final double minRange;
   final double maxRange;
+  final Function(RangeValues) onChangeEnd;
 
   @override
   State<CustomRangeSlider> createState() => _CustomRangeSliderState();
 }
 
 class _CustomRangeSliderState extends State<CustomRangeSlider> {
-  late double startValue = widget.minRange;
+  late double startValue;
+  late double endValue;
 
-  late double endValue = widget.maxRange;
+  @override
+  void initState() {
+    startValue = widget.initialStartValue?.toDouble() ?? widget.minRange;
+    endValue = widget.initialEndValue?.toDouble() ?? widget.maxRange;
+    dev.log(
+      'Initial start: $startValue | End: $endValue',
+      name: 'FilterAnimeBloc',
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +95,7 @@ class _CustomRangeSliderState extends State<CustomRangeSlider> {
                   overlayColor: AppColors.sunsetOrange.withOpacity(0.1),
                   valueIndicatorColor: AppColors.sunsetOrange,
                   valueIndicatorTextStyle:
-                      Theme.of(context).textTheme.titleLarge!.copyWith(
-                            color: AppColors.white,
-                          ),
+                      Theme.of(context).textTheme.titleLarge,
                 ),
                 child: RangeSlider(
                   min: widget.minRange,
@@ -91,12 +109,13 @@ class _CustomRangeSliderState extends State<CustomRangeSlider> {
                     startValue,
                     endValue,
                   ),
-                  onChanged: (values) {
+                  onChanged: (value) {
                     setState(() {
-                      startValue = values.start;
-                      endValue = values.end;
+                      startValue = value.start;
+                      endValue = value.end;
                     });
                   },
+                  onChangeEnd: widget.onChangeEnd,
                 ),
               ),
             ),

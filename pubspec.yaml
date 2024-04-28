@@ -59,6 +59,7 @@ dependencies:
   media_kit:
   media_kit_libs_video:
   media_kit_video:
+  youtube_player_flutter: ^8.1.2
 
   # Navigation
   go_router: ^9.0.3

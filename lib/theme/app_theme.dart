@@ -32,6 +32,7 @@ class AppTheme {
         headlineSmall: AppTexts.headlineSmall,
         titleLarge: AppTexts.titleLarge,
         titleMedium: AppTexts.titleMedium,
+        bodySmall: AppTexts.bodySmall,
       ),
     );
   }

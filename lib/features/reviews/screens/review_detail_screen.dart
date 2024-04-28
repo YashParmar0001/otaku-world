@@ -1,6 +1,4 @@
 import 'dart:developer' as dev;
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,6 +8,7 @@ import 'package:otaku_world/bloc/reviews/review_detail/review_detail_bloc.dart';
 import 'package:otaku_world/core/ui/error_text.dart';
 import 'package:otaku_world/core/ui/markdown/markdown.dart';
 import 'package:otaku_world/core/ui/shimmers/review_detail_shimmer.dart';
+import 'package:otaku_world/features/media_detail/widgets/banner_image.dart';
 import 'package:otaku_world/features/reviews/widgets/bottom_sheet_component.dart';
 import 'package:otaku_world/features/reviews/widgets/review_by_user.dart';
 import 'package:otaku_world/features/reviews/widgets/review_card.dart';
@@ -84,8 +83,10 @@ class ReviewDetailScreen extends StatelessWidget {
                         screenHeight: height,
                       ),
                       width: width,
-                      child: _buildCoverImage(
-                        review.media!.coverImage!.extraLarge.toString(),
+                      child: BannerImage(
+                        url :review.media!.coverImage!.extraLarge.toString(),
+                        placeHolderName: Assets.placeholders340x72,
+
                       ),
                     ),
                     Padding(
@@ -231,25 +232,6 @@ class ReviewDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCoverImage(String url) {
-    return CachedNetworkImage(
-      imageUrl: url,
-      imageBuilder: (context, imageProvider) {
-        return Container(
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.cover,
-            ),
-          ),
-        );
-      },
-      errorWidget: (context, url, error) {
-        return Image.asset('name');
-      },
-    );
-  }
 
   Widget _buildProfileSection(
       BuildContext context, Fragment$ReviewDetail review) {

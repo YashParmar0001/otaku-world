@@ -21,6 +21,8 @@ query FilterMedia(
     $minimumTagRank: Int,
     $tagCategory_in: [String],
     $tag_in: [String],
+    $isAdult: Boolean,
+    $onList: Boolean,
 ) {
     Page(page: $page, perPage: 50) {
         pageInfo {
@@ -45,10 +47,11 @@ query FilterMedia(
             episodes_lesser: $episodes_lesser,
             duration_greater: $duration_greater,
             duration_lesser: $duration_lesser,
-            isAdult: false
+            isAdult: $isAdult,
             minimumTagRank: $minimumTagRank,
             tagCategory_in: $tagCategory_in,
             tag_in: $tag_in,
+            onList: $onList,
         ) {
             ...MediaShort
         }

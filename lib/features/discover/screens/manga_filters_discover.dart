@@ -8,7 +8,6 @@ import 'package:otaku_world/core/ui/filters/widgets/readable_on_chips.dart';
 import '../../../core/ui/buttons/primary_button.dart';
 import '../../../core/ui/filters/custom_dropdown.dart';
 import '../../../core/ui/filters/custom_range_slider.dart';
-import '../../../core/ui/filters/widgets/country_of_origin_chips.dart';
 import '../../../core/ui/filters/widgets/genres_chips.dart';
 import '../../../core/ui/filters/widgets/manga_check_box_options.dart';
 import '../../../core/ui/filters/widgets/source_material_chips.dart';
@@ -31,23 +30,23 @@ class MangaFiltersDiscover extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomDropdown(
-                    title: "Sort",
-                    dropdownItems: [
-                      'All',
-                      'Title',
-                      'Popularity',
-                      'Average Score',
-                      'Trending',
-                      'Favourites',
-                      'Date Added',
-                      'Release Date',
-                    ]
-                  ),
+                  // CustomDropdown(
+                  //   title: "Sort",
+                  //   dropdownItems: [
+                  //     'All',
+                  //     'Title',
+                  //     'Popularity',
+                  //     'Average Score',
+                  //     'Trending',
+                  //     'Favourites',
+                  //     'Date Added',
+                  //     'Release Date',
+                  //   ]
+                  // ),
                   SizedBox(
                     height: 15,
                   ),
-                  GenresChips(),
+                  // GenresChips(),
                   SizedBox(
                     height: 15,
                   ),
@@ -59,27 +58,27 @@ class MangaFiltersDiscover extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
-                  CustomRangeSlider(
-                    title: "Year",
-                    minRange: 2000,
-                    maxRange: 2024,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  CustomRangeSlider(
-                    title: "Chapters",
-                    minRange: 1,
-                    maxRange: 150,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  CustomRangeSlider(
-                    title: "Volumes",
-                    minRange: 1,
-                    maxRange: 150,
-                  ),
+                  // CustomRangeSlider(
+                  //   title: "Year",
+                  //   minRange: 2000,
+                  //   maxRange: 2024,
+                  // ),
+                  // SizedBox(
+                  //   height: 10,
+                  // ),
+                  // CustomRangeSlider(
+                  //   title: "Chapters",
+                  //   minRange: 1,
+                  //   maxRange: 150,
+                  // ),
+                  // SizedBox(
+                  //   height: 10,
+                  // ),
+                  // CustomRangeSlider(
+                  //   title: "Volumes",
+                  //   minRange: 1,
+                  //   maxRange: 150,
+                  // ),
                   SizedBox(
                     height: 10,
                   ),
@@ -87,11 +86,11 @@ class MangaFiltersDiscover extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
-                  SourceMaterialChips(),
+                  // SourceMaterialChips(),
                   SizedBox(
                     height: 15,
                   ),
-                  CountryOfOriginChips(),
+                  // CountryOfOriginChips(),
                   SizedBox(
                     height: 15,
                   ),

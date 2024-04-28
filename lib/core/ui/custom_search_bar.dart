@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -12,13 +14,29 @@ class CustomSearchBar extends HookWidget {
     super.key,
     required this.clearSearch,
     required this.onSubmitted,
+    required this.onChanged,
   });
 
   final VoidCallback clearSearch;
   final ValueChanged<String> onSubmitted;
+  final Function(String) onChanged;
+
   @override
   Widget build(BuildContext context) {
     final searchController = useTextEditingController();
+    final clearTextCubit = context.read<ClearTextCubit>();
+
+    searchController.addListener(() {
+      if (searchController.text.isEmpty) {
+        if (clearTextCubit.state is ClearTextVisible) {
+          clearTextCubit.hideClearText();
+        }
+      }else {
+        if (clearTextCubit.state is ClearTextNotVisible) {
+          clearTextCubit.showClearText();
+        }
+      }
+    });
 
     return Expanded(
       child: TextField(
@@ -31,7 +49,7 @@ class CustomSearchBar extends HookWidget {
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: AppColors.transparent,
             ),
           ),
@@ -73,8 +91,8 @@ class CustomSearchBar extends HookWidget {
                   return InkWell(
                     onTap: () {
                       searchController.clear();
-                      context.read<ClearTextCubit>().hideClearText();
-                      clearSearch;
+                      // context.read<ClearTextCubit>().hideClearText();
+                      clearSearch();
                     },
                     borderRadius: BorderRadius.circular(15),
                     child: SvgPicture.asset(
@@ -97,11 +115,12 @@ class CustomSearchBar extends HookWidget {
         ),
         cursorColor: AppColors.sunsetOrange,
         onChanged: (value) {
-          if (value.isEmpty || value == '') {
-            context.read<ClearTextCubit>().hideClearText();
-          } else {
-            context.read<ClearTextCubit>().showClearText();
-          }
+          // if (value.isEmpty || value == '') {
+          //   context.read<ClearTextCubit>().hideClearText();
+          // } else {
+          //   context.read<ClearTextCubit>().showClearText();
+          // }
+          onChanged(value);
         },
         onSubmitted: onSubmitted,
       ),

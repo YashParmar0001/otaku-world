@@ -33,6 +33,8 @@ class Variables$Query$FilterMedia {
     int? minimumTagRank,
     List<String?>? tagCategory_in,
     List<String?>? tag_in,
+    bool? isAdult,
+    bool? onList,
   }) =>
       Variables$Query$FilterMedia._({
         if (page != null) r'page': page,
@@ -57,6 +59,8 @@ class Variables$Query$FilterMedia {
         if (minimumTagRank != null) r'minimumTagRank': minimumTagRank,
         if (tagCategory_in != null) r'tagCategory_in': tagCategory_in,
         if (tag_in != null) r'tag_in': tag_in,
+        if (isAdult != null) r'isAdult': isAdult,
+        if (onList != null) r'onList': onList,
       });
 
   Variables$Query$FilterMedia._(this._$data);
@@ -172,6 +176,14 @@ class Variables$Query$FilterMedia {
       result$data['tag_in'] =
           (l$tag_in as List<dynamic>?)?.map((e) => (e as String?)).toList();
     }
+    if (data.containsKey('isAdult')) {
+      final l$isAdult = data['isAdult'];
+      result$data['isAdult'] = (l$isAdult as bool?);
+    }
+    if (data.containsKey('onList')) {
+      final l$onList = data['onList'];
+      result$data['onList'] = (l$onList as bool?);
+    }
     return Variables$Query$FilterMedia._(result$data);
   }
 
@@ -225,6 +237,10 @@ class Variables$Query$FilterMedia {
       (_$data['tagCategory_in'] as List<String?>?);
 
   List<String?>? get tag_in => (_$data['tag_in'] as List<String?>?);
+
+  bool? get isAdult => (_$data['isAdult'] as bool?);
+
+  bool? get onList => (_$data['onList'] as bool?);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
@@ -325,6 +341,14 @@ class Variables$Query$FilterMedia {
     if (_$data.containsKey('tag_in')) {
       final l$tag_in = tag_in;
       result$data['tag_in'] = l$tag_in?.map((e) => e).toList();
+    }
+    if (_$data.containsKey('isAdult')) {
+      final l$isAdult = isAdult;
+      result$data['isAdult'] = l$isAdult;
+    }
+    if (_$data.containsKey('onList')) {
+      final l$onList = onList;
+      result$data['onList'] = l$onList;
     }
     return result$data;
   }
@@ -623,6 +647,22 @@ class Variables$Query$FilterMedia {
     } else if (l$tag_in != lOther$tag_in) {
       return false;
     }
+    final l$isAdult = isAdult;
+    final lOther$isAdult = other.isAdult;
+    if (_$data.containsKey('isAdult') != other._$data.containsKey('isAdult')) {
+      return false;
+    }
+    if (l$isAdult != lOther$isAdult) {
+      return false;
+    }
+    final l$onList = onList;
+    final lOther$onList = other.onList;
+    if (_$data.containsKey('onList') != other._$data.containsKey('onList')) {
+      return false;
+    }
+    if (l$onList != lOther$onList) {
+      return false;
+    }
     return true;
   }
 
@@ -650,6 +690,8 @@ class Variables$Query$FilterMedia {
     final l$minimumTagRank = minimumTagRank;
     final l$tagCategory_in = tagCategory_in;
     final l$tag_in = tag_in;
+    final l$isAdult = isAdult;
+    final l$onList = onList;
     return Object.hashAll([
       _$data.containsKey('page') ? l$page : const {},
       _$data.containsKey('search') ? l$search : const {},
@@ -705,6 +747,8 @@ class Variables$Query$FilterMedia {
               ? null
               : Object.hashAll(l$tag_in.map((v) => v))
           : const {},
+      _$data.containsKey('isAdult') ? l$isAdult : const {},
+      _$data.containsKey('onList') ? l$onList : const {},
     ]);
   }
 }
@@ -741,6 +785,8 @@ abstract class CopyWith$Variables$Query$FilterMedia<TRes> {
     int? minimumTagRank,
     List<String?>? tagCategory_in,
     List<String?>? tag_in,
+    bool? isAdult,
+    bool? onList,
   });
 }
 
@@ -780,6 +826,8 @@ class _CopyWithImpl$Variables$Query$FilterMedia<TRes>
     Object? minimumTagRank = _undefined,
     Object? tagCategory_in = _undefined,
     Object? tag_in = _undefined,
+    Object? isAdult = _undefined,
+    Object? onList = _undefined,
   }) =>
       _then(Variables$Query$FilterMedia._({
         ..._instance._$data,
@@ -818,6 +866,8 @@ class _CopyWithImpl$Variables$Query$FilterMedia<TRes>
         if (tagCategory_in != _undefined)
           'tagCategory_in': (tagCategory_in as List<String?>?),
         if (tag_in != _undefined) 'tag_in': (tag_in as List<String?>?),
+        if (isAdult != _undefined) 'isAdult': (isAdult as bool?),
+        if (onList != _undefined) 'onList': (onList as bool?),
       }));
 }
 
@@ -850,6 +900,8 @@ class _CopyWithStubImpl$Variables$Query$FilterMedia<TRes>
     int? minimumTagRank,
     List<String?>? tagCategory_in,
     List<String?>? tag_in,
+    bool? isAdult,
+    bool? onList,
   }) =>
       _res;
 }
@@ -1217,6 +1269,24 @@ const documentNodeQueryFilterMedia = DocumentNode(definitions: [
         defaultValue: DefaultValueNode(value: null),
         directives: [],
       ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'isAdult')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'Boolean'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'onList')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'Boolean'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
     ],
     directives: [],
     selectionSet: SelectionSetNode(selections: [
@@ -1335,7 +1405,7 @@ const documentNodeQueryFilterMedia = DocumentNode(definitions: [
               ),
               ArgumentNode(
                 name: NameNode(value: 'isAdult'),
-                value: BooleanValueNode(value: false),
+                value: VariableNode(name: NameNode(value: 'isAdult')),
               ),
               ArgumentNode(
                 name: NameNode(value: 'minimumTagRank'),
@@ -1348,6 +1418,10 @@ const documentNodeQueryFilterMedia = DocumentNode(definitions: [
               ArgumentNode(
                 name: NameNode(value: 'tag_in'),
                 value: VariableNode(name: NameNode(value: 'tag_in')),
+              ),
+              ArgumentNode(
+                name: NameNode(value: 'onList'),
+                value: VariableNode(name: NameNode(value: 'onList')),
               ),
             ],
             directives: [],

@@ -19,6 +19,7 @@ class Markdown extends StatelessWidget {
     super.key,
     required this.data,
     this.selectable = true,
+
   });
 
   final String data;
@@ -61,9 +62,10 @@ class Markdown extends StatelessWidget {
               CustomTextNode(node.textContent, config, visitor),
         ),
         config: mw.MarkdownConfig(
+
           configs: [
             const mw.PConfig(
-              textStyle: TextStyle(color: Colors.white),
+              textStyle: TextStyle(color: Colors.white,fontSize: 12,fontFamily: 'Roboto'),
             ),
             mw.LinkConfig(
               style: const TextStyle(color: Colors.blue),

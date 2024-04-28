@@ -10,34 +10,38 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 10,
-        right: 10,
-        bottom: 5,
-      ),
-      child: Container(
-        height: 50,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          gradient: const LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [AppColors.japaneseIndigo, AppColors.darkCharcoal],
-          ),
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(0),
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 10,
+          right: 10,
+          bottom: 5,
         ),
-        child: TabBar(
-          controller: controller,
-          isScrollable: true,
-          dividerHeight: 0,
-          tabAlignment: TabAlignment.start,
-          indicatorSize: TabBarIndicatorSize.tab,
-          indicatorPadding: const EdgeInsets.all(5),
-          indicator: BoxDecoration(
+        child: Container(
+          height: 50,
+          decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: AppColors.sunsetOrange,
+            gradient: const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [AppColors.japaneseIndigo, AppColors.darkCharcoal],
+            ),
           ),
-          tabs: _buildTabs(context),
+          child: TabBar(
+            controller: controller,
+            isScrollable: true,
+            dividerHeight: 0,
+            tabAlignment: TabAlignment.start,
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicatorPadding: const EdgeInsets.all(5),
+      
+            indicator: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: AppColors.sunsetOrange,
+            ),
+            tabs: _buildTabs(context),
+          ),
         ),
       ),
     );
@@ -51,7 +55,7 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
     return Tab(
       child: SizedBox(
         height: 40,
-        width: 100,
+        // width: 100,
         child: Center(
           child: Text(
             label,

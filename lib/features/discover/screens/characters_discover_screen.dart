@@ -29,6 +29,9 @@ class CharactersDiscoverScreen extends StatelessWidget {
             CustomSearchBar(
               clearSearch: () {},
               onSubmitted: (value) {},
+              onChanged: (p0) {
+
+              },
             ),
             const SizedBox(
               height: 15,

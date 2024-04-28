@@ -4,11 +4,16 @@ import 'package:otaku_world/bloc/all_time_popular_anime/all_time_popular_anime_b
 import 'package:otaku_world/bloc/all_time_popular_manga/all_time_popular_manga.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
 import 'package:otaku_world/bloc/bottom_nav_bar/bottom_nav_bar_cubit.dart';
-import 'package:otaku_world/bloc/calendar/calendar_bloc.dart';
 import 'package:otaku_world/bloc/calendar/week_calendar/day/day_bloc.dart';
 import 'package:otaku_world/bloc/calendar/week_calendar/week_calendar_bloc.dart';
+import 'package:otaku_world/bloc/filter/collections/external_links/anime/anime_platforms_cubit.dart';
 import 'package:otaku_world/bloc/filter/collections/genres/genre_cubit.dart';
+import 'package:otaku_world/bloc/filter/filter_anime/filter_anime_bloc.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
+import 'package:otaku_world/bloc/media_detail/media_detail_bloc.dart';
+import 'package:otaku_world/bloc/recomendations/recomendation_anime_bloc.dart';
+import 'package:otaku_world/bloc/recommended_anime/recommended_anime_bloc.dart';
+import 'package:otaku_world/bloc/recommended_manga/recommended_manga_bloc.dart';
 import 'package:otaku_world/bloc/reviews/review_detail/review_detail_bloc.dart';
 import 'package:otaku_world/bloc/reviews/reviews/review_bloc.dart';
 import 'package:otaku_world/bloc/routes/redirect_route_cubit.dart';
@@ -23,12 +28,11 @@ import 'package:otaku_world/bloc/top_100_anime/top_100_anime_bloc.dart';
 import 'package:otaku_world/bloc/top_100_manga/top_100_manga.dart';
 import 'package:otaku_world/bloc/top_airing_anime/top_airing_anime_bloc.dart';
 import 'package:otaku_world/bloc/top_upcoming_anime/top_upcoming_anime_bloc.dart';
-import 'package:otaku_world/bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
-import 'package:otaku_world/bloc/recommended_anime/recommended_anime_bloc.dart';
-import 'package:otaku_world/bloc/recommended_manga/recommended_manga_bloc.dart';
 import 'package:otaku_world/bloc/trending_anime/trending_anime_bloc.dart';
 import 'package:otaku_world/bloc/trending_manga/trending_manga_bloc.dart';
+import 'package:otaku_world/bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import 'package:otaku_world/theme/app_theme.dart';
+
 import 'bloc/paginated_data/paginated_data_bloc.dart';
 import 'config/router.dart';
 
@@ -83,6 +87,9 @@ class MyApp extends StatelessWidget {
           create: (context) => ReviewDetailBloc(),
         ),
         BlocProvider(
+          create: (context) => MediaDetailBloc(),
+        ),
+        BlocProvider(
           create: (context) => SearchAnimeBloc(),
         ),
         BlocProvider(
@@ -99,6 +106,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SearchUsersBloc(),
+        ),
+        BlocProvider(
+          create: (context) => RecommendationAnimeBloc(),
         ),
         BlocProvider(
           create: (context) => TopAiringAnimeBloc(),
@@ -123,6 +133,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => GenreCubit(),
+        ),
+        BlocProvider(
+          create: (context) => AnimePlatformsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => FilterAnimeBloc(),
         ),
       ],
       child: MultiBlocListener(
@@ -165,6 +181,7 @@ class MyApp extends StatelessWidget {
                 context
                     .read<RecommendedMangaBloc>()
                     .add(LoadData(state.client));
+
                 context.read<TopAiringAnimeBloc>().add(LoadData(state.client));
                 context
                     .read<TopUpcomingAnimeBloc>()
@@ -184,6 +201,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp.router(
           theme: AppTheme.getTheme(),
           routerConfig: router,
+          showSemanticsDebugger: false,
         ),
       ),
     );

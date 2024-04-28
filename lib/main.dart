@@ -6,6 +6,9 @@ import 'package:otaku_world/bloc/auth/auth_cubit.dart';
 import 'package:otaku_world/bloc/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import 'package:otaku_world/bloc/calendar/week_calendar/day/day_bloc.dart';
 import 'package:otaku_world/bloc/calendar/week_calendar/week_calendar_bloc.dart';
+import 'package:otaku_world/bloc/filter/collections/external_links/anime/anime_platforms_cubit.dart';
+import 'package:otaku_world/bloc/filter/collections/genres/genre_cubit.dart';
+import 'package:otaku_world/bloc/filter/filter_anime/filter_anime_bloc.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/media_detail/media_detail_bloc.dart';
 import 'package:otaku_world/bloc/recomendations/recomendation_anime_bloc.dart';
@@ -127,6 +130,15 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => DayBloc(DateTime.now()),
+        ),
+        BlocProvider(
+          create: (context) => GenreCubit(),
+        ),
+        BlocProvider(
+          create: (context) => AnimePlatformsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => FilterAnimeBloc(),
         ),
       ],
       child: MultiBlocListener(

@@ -1,5 +1,8 @@
+<<<<<<< HEAD
+=======
 import 'dart:developer' as dev;
 
+>>>>>>> 15f83ade7ff57d52002e566797bca9e5fded6d76
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -17,7 +20,10 @@ import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 15f83ade7ff57d52002e566797bca9e5fded6d76
 class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
   const MediaSection({
     super.key,
@@ -36,7 +42,6 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    dev.log('Rebuilding the media section', name: 'MediaSection');
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -48,7 +53,6 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
         final currentScroll = scrollController.position.pixels;
 
         if (currentScroll == maxScroll) {
-          dev.log('Max scrolled', name: 'Media');
           final bloc = context.read<B>();
           final hasNextPage = (bloc.state as PaginatedDataLoaded).hasNextPage;
           if (hasNextPage) {
@@ -196,7 +200,11 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
     if (media == null) return const SizedBox();
 
     return InkWell(
+<<<<<<< HEAD
+      onTap: () => context.go('/media-detail?id=${media.id}'),
+=======
       onTap: () => context.push('/media-detail?id=${media.id}'),
+>>>>>>> 15f83ade7ff57d52002e566797bca9e5fded6d76
       child: Container(
         margin: const EdgeInsets.only(
           right: 15,
@@ -282,6 +290,45 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
     );
   }
 
+<<<<<<< HEAD
+// Widget _buildMediaPoster(String? imageUrl, Enum$MediaType type) {
+//   return (imageUrl != null)
+//       ? CachedNetworkImage(
+//           cacheManager: ImageCacheManager.instance,
+//           imageUrl: imageUrl,
+//           width: 115,
+//           height: 169,
+//           fit: BoxFit.cover,
+//           imageBuilder: (context, imageProvider) {
+//             return ClipRRect(
+//               borderRadius: (type == Enum$MediaType.ANIME)
+//                   ? BorderRadius.circular(15)
+//                   : BorderRadius.circular(5),
+//               child: Image(
+//                 image: imageProvider,
+//                 fit: BoxFit.cover,
+//               ),
+//             );
+//           },
+//           placeholder: (context, url) {
+//             return _buildPlaceholderImage115x169(type);
+//           },
+//           errorWidget: (context, url, error) {
+//             return _buildPlaceholderImage115x169(type);
+//           },
+//         )
+//       : _buildPlaceholderImage115x169(type);
+// }
+//
+// Widget _buildPlaceholderImage115x169(Enum$MediaType type) {
+//   return ClipRRect(
+//     borderRadius: (type == Enum$MediaType.ANIME)
+//         ? BorderRadius.circular(15)
+//         : BorderRadius.circular(5),
+//     child: Image.asset(Assets.placeholders115x169),
+//   );
+// }
+=======
   // Widget _buildMediaPoster(String? imageUrl, Enum$MediaType type) {
   //   return (imageUrl != null)
   //       ? CachedNetworkImage(
@@ -319,4 +366,5 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
   //     child: Image.asset(Assets.placeholders115x169),
   //   );
   // }
+>>>>>>> 15f83ade7ff57d52002e566797bca9e5fded6d76
 }

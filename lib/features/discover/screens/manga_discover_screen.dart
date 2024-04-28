@@ -44,6 +44,9 @@ class MangaDiscoverScreen extends StatelessWidget {
                 },
                 clearSearch: () {},
                 onSubmitted: (value) {},
+                onChanged: (p0) {
+
+                },
               ),
             ),
             const SizedBox(

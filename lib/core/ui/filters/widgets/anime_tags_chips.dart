@@ -29,22 +29,16 @@ class AnimeTagsChips extends StatelessWidget {
                 color: AppColors.white,
                 fontFamily: 'Poppins',
               ),
-          chipList: const [
+          chipList: [
             CustomChoiceChip(
               label: "Crunchyroll",
               value: "Crunchyroll",
-            ),
-            CustomChoiceChip(
-              label: "Netflix",
-              value: "Netflix",
-            ),
-            CustomChoiceChip(
-              label: "Hulu",
-              value: "Hulu",
-            ),
-            CustomChoiceChip(
-              label: "YouTube",
-              value: "YouTube",
+              onSelected: (p0) {
+
+              },
+              onUnselected: (p0) {
+
+              },
             ),
           ],
         ),
@@ -57,22 +51,16 @@ class AnimeTagsChips extends StatelessWidget {
                 color: AppColors.white,
                 fontFamily: 'Poppins',
               ),
-          chipList: const [
+          chipList: [
             CustomChoiceChip(
               label: "Crunchyroll",
               value: "Crunchyroll",
-            ),
-            CustomChoiceChip(
-              label: "Netflix",
-              value: "Netflix",
-            ),
-            CustomChoiceChip(
-              label: "Hulu",
-              value: "Hulu",
-            ),
-            CustomChoiceChip(
-              label: "YouTube",
-              value: "YouTube",
+              onSelected: (p0) {
+
+              },
+              onUnselected: (p0) {
+
+              },
             ),
           ],
         ),

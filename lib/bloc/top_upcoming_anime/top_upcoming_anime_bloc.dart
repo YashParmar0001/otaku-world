@@ -1,5 +1,4 @@
-import 'package:graphql/src/core/query_result.dart';
-import 'package:graphql/src/graphql_client.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:otaku_world/graphql/__generated/graphql/discover/anime/top_upcoming_anime.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 
@@ -10,7 +9,8 @@ class TopUpcomingAnimeBloc
     extends PaginatedDataBloc<Query$GetTopUpcomingAnime, Fragment$MediaShort> {
   @override
   Future<QueryResult<Query$GetTopUpcomingAnime>> loadData(
-      GraphQLClient client) {
+    GraphQLClient client,
+  ) {
     return client.query$GetTopUpcomingAnime(
       Options$Query$GetTopUpcomingAnime(
         variables: Variables$Query$GetTopUpcomingAnime(page: page),

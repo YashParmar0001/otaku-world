@@ -10,7 +10,7 @@ class CustomChips extends StatelessWidget {
     this.titleStyle,
   });
   final String title;
-  final List<CustomChoiceChip> chipList;
+  final List<Widget> chipList;
   final TextStyle? titleStyle;
   @override
   Widget build(BuildContext context) {

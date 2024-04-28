@@ -1,5 +1,4 @@
-import 'package:graphql/src/core/query_result.dart';
-import 'package:graphql/src/graphql_client.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:otaku_world/graphql/__generated/graphql/discover/anime/top_100_anime.graphql.dart';
 
 import '../../graphql/__generated/graphql/fragments.graphql.dart';

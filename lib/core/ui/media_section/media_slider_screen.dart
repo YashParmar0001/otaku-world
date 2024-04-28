@@ -270,7 +270,7 @@ class MediaSliderScreen<B extends PaginatedDataBloc> extends StatelessWidget {
           SvgPicture.asset(Assets.iconsLineVertical),
           _buildMediaDetail(
             context,
-            '${FormattingUtils.getSeason(media.season)} ${media.seasonYear}',
+            '${FormattingUtils.getSeasonString(media.season)} ${media.seasonYear}',
             'season',
           ),
         ],

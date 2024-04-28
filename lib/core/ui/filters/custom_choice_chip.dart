@@ -6,17 +6,29 @@ class CustomChoiceChip extends StatefulWidget {
     super.key,
     required this.label,
     required this.value,
+    this.onSelected,
+    this.onUnselected,
+    this.selected = false,
   });
 
+  final Function(String)? onSelected;
+  final Function(String)? onUnselected;
   final String label;
-  final value;
+  final String value;
+  final bool selected;
 
   @override
   State<CustomChoiceChip> createState() => _CustomChoiceChipState();
 }
 
 class _CustomChoiceChipState extends State<CustomChoiceChip> {
-  bool selected = false;
+  late bool selected;
+
+  @override
+  void initState() {
+    selected = widget.selected;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +57,17 @@ class _CustomChoiceChipState extends State<CustomChoiceChip> {
         width: 1,
         style: BorderStyle.solid,
       ),
-      onSelected: (value) {
+      onSelected: (isSelected) {
         setState(() {
+          if (isSelected) {
+            if (widget.onSelected != null) {
+              widget.onSelected!(widget.value);
+            }
+          }else {
+            if (widget.onUnselected != null) {
+              widget.onUnselected!(widget.value);
+            }
+          }
           selected = !selected;
         });
       },

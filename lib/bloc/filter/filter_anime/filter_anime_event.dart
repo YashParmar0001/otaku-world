@@ -11,9 +11,10 @@ class ApplyFilter extends FilterAnimeEvent {
 }
 
 class ApplySearch extends FilterAnimeEvent {
-  const ApplySearch(this.client);
+  const ApplySearch({required this.client, required this.search});
 
   final GraphQLClient client;
+  final String search;
 }
 
 class LoadMore extends FilterAnimeEvent {

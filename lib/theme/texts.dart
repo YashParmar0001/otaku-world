@@ -7,17 +7,10 @@ class AppTexts {
     color: AppColors.white,
   );
   static const TextStyle displayMedium = TextStyle(
-<<<<<<< HEAD
     fontSize: 20,
-    color: AppColors.white,
-    fontWeight: FontWeight.w500,
-    fontFamily: 'Poppins',
-=======
-      fontSize: 20,
       color: AppColors.white,
       fontWeight: FontWeight.w500,
       fontFamily: 'Poppins',
->>>>>>> 15f83ade7ff57d52002e566797bca9e5fded6d76
   );
   static const TextStyle displaySmall = TextStyle(
     fontSize: 18,
@@ -47,8 +40,4 @@ class AppTexts {
   );
   static const TextStyle bodyLarge = TextStyle();
   static const TextStyle bodyMedium = TextStyle();
-<<<<<<< HEAD
-=======
-
->>>>>>> 15f83ade7ff57d52002e566797bca9e5fded6d76
 }

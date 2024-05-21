@@ -84,7 +84,7 @@ class AnimeDiscoverScreen extends HookWidget {
                     bloc.add(ClearSearch(client: client, clearFilter: false));
                   },
                   onSubmitted: (value) {
-                    bloc.add(ApplySearch(client));
+                    bloc.add(ApplySearch(client: client, search: value));
                   },
                   onChanged: (value) {
                     bloc.add(UpdateSearch(value));

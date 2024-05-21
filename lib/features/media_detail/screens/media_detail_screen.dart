@@ -42,10 +42,6 @@ class MediaDetailScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    dev.log('Media id: $mediaId', name: 'MediaDetail');
-=======
->>>>>>> 15f83ade7ff57d52002e566797bca9e5fded6d76
     final tabController = useTabController(initialLength: tabs.length);
     final client =
         (context.read<GraphqlClientCubit>().state as GraphqlClientInitialized)
@@ -66,17 +62,14 @@ class MediaDetailScreen extends HookWidget {
               context.read<MediaDetailBloc>().add(
                     LoadMediaDetail(id: mediaId, client: client),
                   );
-<<<<<<< HEAD
               context.read<RecommendationAnimeBloc>().setId(mediaId);
               context.read<RecommendationAnimeBloc>().add(LoadData(client));
             } else if (state is MediaDetailLoading) {
               // context.read<RecommendationAnimeBloc>().add(ResetData());
-=======
             } else if (state is MediaDetailLoading) {
               context.read<RecommendationAnimeBloc>().add(ResetData());
               context.read<RecommendationAnimeBloc>().setId(mediaId);
               context.read<RecommendationAnimeBloc>().add(LoadData(client));
->>>>>>> 15f83ade7ff57d52002e566797bca9e5fded6d76
 
               return const Center(
                 child: Text(
@@ -90,11 +83,7 @@ class MediaDetailScreen extends HookWidget {
               final media = state.media;
 
               if (media.id != mediaId) {
-<<<<<<< HEAD
-                // context.read<MediaDetailBloc>().add(ResetMediaData());
-=======
                 context.read<MediaDetailBloc>().add(ResetMediaData());
->>>>>>> 15f83ade7ff57d52002e566797bca9e5fded6d76
                 context.read<MediaDetailBloc>().add(
                       LoadMediaDetail(id: mediaId, client: client),
                     );

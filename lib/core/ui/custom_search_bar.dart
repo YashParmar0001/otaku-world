@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:otaku_world/bloc/filter/filter_anime/filter_anime_bloc.dart';
+import 'package:otaku_world/bloc/filter/search/search_anime_cubit.dart';
 
 import '../../bloc/text_field/clear_text_cubit.dart';
 import '../../generated/assets.dart';
@@ -23,15 +25,16 @@ class CustomSearchBar extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final searchController = useTextEditingController();
     final clearTextCubit = context.read<ClearTextCubit>();
+    final searchController =
+        context.read<FilterAnimeBloc>().searchCubit.searchController;
 
     searchController.addListener(() {
       if (searchController.text.isEmpty) {
         if (clearTextCubit.state is ClearTextVisible) {
           clearTextCubit.hideClearText();
         }
-      }else {
+      } else {
         if (clearTextCubit.state is ClearTextNotVisible) {
           clearTextCubit.showClearText();
         }
@@ -91,7 +94,6 @@ class CustomSearchBar extends HookWidget {
                   return InkWell(
                     onTap: () {
                       searchController.clear();
-                      // context.read<ClearTextCubit>().hideClearText();
                       clearSearch();
                     },
                     borderRadius: BorderRadius.circular(15),

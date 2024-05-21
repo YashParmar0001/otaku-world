@@ -59,10 +59,7 @@ dependencies:
   media_kit:
   media_kit_libs_video:
   media_kit_video:
-<<<<<<< HEAD
-=======
   expandable_text: ^2.3.0
->>>>>>> 15f83ade7ff57d52002e566797bca9e5fded6d76
   youtube_player_flutter: ^8.1.2
 
   # Navigation

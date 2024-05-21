@@ -36,7 +36,7 @@ class SearchOption extends StatelessWidget {
         ),
         BlocBuilder<FilterAnimeBloc, FilterAnimeState>(
           builder: (context, state) {
-            return InkWell(
+            return GestureDetector(
               onTap: onPressedFilters,
               child: Container(
                 height: 50,

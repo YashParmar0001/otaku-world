@@ -105,7 +105,6 @@ class FilterAnimeBloc extends Bloc<FilterAnimeEvent, FilterAnimeState> {
 
     page = 1;
     hasNextPage = true;
-    List<Fragment$MediaShort?> tempList = List.from(list);
     list.clear();
 
     final response = await event.client.query$FilterMedia(
@@ -114,7 +113,7 @@ class FilterAnimeBloc extends Bloc<FilterAnimeEvent, FilterAnimeState> {
         variables: Variables$Query$FilterMedia(
           page: page,
           type: Enum$MediaType.ANIME,
-          search: 'Demon',
+          search: event.search,
         ),
       ),
     );
@@ -234,10 +233,12 @@ class FilterAnimeBloc extends Bloc<FilterAnimeEvent, FilterAnimeState> {
     appliedFilter = const AnimeFilter(
       sort: [Enum$MediaSort.POPULARITY_DESC],
     );
+    searchCubit.searchController.clear();
     page = 1;
     hasNextPage = true;
     list.clear();
     _filterApplied = false;
+    searchCubit.searchApplied = false;
     emit(FilterAnimeInitial());
   }
 
@@ -252,11 +253,7 @@ class FilterAnimeBloc extends Bloc<FilterAnimeEvent, FilterAnimeState> {
     filter = filter.copyWith(
       search: '',
     );
-    // if (event.clearFilter) {
-    //   add(RemoveAllFilters());
-    // } else {
-    //   add(ApplyFilter(event.client));
-    // }
+    searchCubit.searchController.clear();
     if (_filterApplied) {
       add(ApplyFilter(event.client));
     }else {

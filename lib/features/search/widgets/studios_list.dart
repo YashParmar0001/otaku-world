@@ -12,7 +12,6 @@ import '../../../bloc/graphql_client/graphql_client_cubit.dart';
 import '../../../bloc/search/search_base/search_bloc.dart';
 import '../../../core/ui/placeholders/anime_character_placeholder.dart';
 import '../../../generated/assets.dart';
-import '../../../theme/colors.dart';
 
 class ResultStudiosList extends HookWidget {
   const ResultStudiosList({super.key});

@@ -25,7 +25,6 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
     useEffect(() {
       reviewsScrollController.addListener(() {
         final maxScroll = reviewsScrollController.position.maxScrollExtent;
-        final minScroll = reviewsScrollController.position.minScrollExtent;
         final currentScroll = reviewsScrollController.position.pixels;
 
         if (currentScroll == maxScroll) {

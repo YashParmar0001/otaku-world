@@ -73,7 +73,7 @@ class MediaGrid extends StatelessWidget {
                   child: CoverImage(
                     imageUrl: media.coverImage!.large!,
                     type: media.type!,
-                    placeHolderName: Assets.placeholders115x169,
+                    // placeHolderName: Assets.placeholders115x169,
                   ),
                 ),
                 // Mean score

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:otaku_world/constants/filter_constants.dart';
 import 'package:otaku_world/generated/assets.dart';
 import '../../../theme/colors.dart';
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:otaku_world/core/ui/filters/custom_check_box.dart';
 
 class MangaCheckBoxOptions extends StatelessWidget {
   const MangaCheckBoxOptions({super.key});

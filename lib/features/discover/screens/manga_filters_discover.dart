@@ -6,11 +6,7 @@ import 'package:otaku_world/core/ui/filters/widgets/manga_tags_chips.dart';
 import 'package:otaku_world/core/ui/filters/widgets/readable_on_chips.dart';
 
 import '../../../core/ui/buttons/primary_button.dart';
-import '../../../core/ui/filters/custom_dropdown.dart';
-import '../../../core/ui/filters/custom_range_slider.dart';
-import '../../../core/ui/filters/widgets/genres_chips.dart';
 import '../../../core/ui/filters/widgets/manga_check_box_options.dart';
-import '../../../core/ui/filters/widgets/source_material_chips.dart';
 import '../../../theme/colors.dart';
 
 class MangaFiltersDiscover extends StatelessWidget {

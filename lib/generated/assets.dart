@@ -4,14 +4,14 @@ class Assets {
 
   static const String assetsAppLogo = 'assets/app_logo.svg';
   static const String assetsAppLogoHorizontal = 'assets/app_logo_horizontal.svg';
-
-  static const String fontsPoppinsMedium = 'assets/fonts/Poppins-Medium.ttf';
+  static const String assetsLogoBw = 'assets/logo_bw.svg';
   static const String charactersCharacters = 'assets/images/discover/characters/characters.png';
   static const String charactersErenYeager = 'assets/images/characters/eren_yeager.png';
   static const String charactersGirl1 = 'assets/images/discover/characters/girl_1.svg';
   static const String charactersSasuke1 = 'assets/images/discover/characters/sasuke_1.svg';
   static const String charactersSchoolGirl = 'assets/images/characters/school_girl.png';
   static const String charactersTamaiokaSa1 = 'assets/images/discover/characters/Tamaioka_sa_1.svg';
+  static const String fontsPoppinsMedium = 'assets/fonts/Poppins-Medium.ttf';
   static const String fontsPoppinsRegular = 'assets/fonts/Poppins-Regular.ttf';
   static const String fontsPoppinsSemiBold = 'assets/fonts/Poppins-SemiBold.ttf';
   static const String fontsPoppinsThin = 'assets/fonts/Poppins-Thin.ttf';
@@ -62,12 +62,6 @@ class Assets {
   static const String onBoardingOnBoarding2 = 'assets/images/on_boarding/on_boarding_2.png';
   static const String onBoardingOnBoarding3 = 'assets/images/on_boarding/on_boarding_3.png';
   static const String onBoardingOnBoarding4 = 'assets/images/on_boarding/on_boarding_4.png';
-  static const String placeholders100x147 = 'assets/images/placeholders/100x147.png';
-  static const String placeholders110x162 = 'assets/images/placeholders/110x162.png';
-  static const String placeholders115x169 = 'assets/images/placeholders/115x169.png';
-  static const String placeholders210x310 = 'assets/images/placeholders/210x310.png';
-  static const String placeholders340x72 = 'assets/images/placeholders/340x72.png';
-  static const String placeholders85x120 = 'assets/images/placeholders/85x120.png';
   static const String studiosKyotoAnimation = 'assets/images/discover/studios/kyoto_animation.png';
   static const String studiosToeiAnimation = 'assets/images/discover/studios/toei_animation.png';
 

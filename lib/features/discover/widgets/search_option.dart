@@ -55,7 +55,12 @@ class SearchOption extends StatelessWidget {
                     width: 24,
                     height: 24,
                     fit: BoxFit.fill,
-                    color: bloc.filterApplied ? AppColors.white : null,
+                    colorFilter: bloc.filterApplied
+                        ? const ColorFilter.mode(
+                            AppColors.white,
+                            BlendMode.srcIn,
+                          )
+                        : null,
                   ),
                 ),
               ),

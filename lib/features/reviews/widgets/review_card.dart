@@ -7,7 +7,7 @@ import 'package:otaku_world/features/reviews/widgets/review_rating.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/formatting_utils.dart';
-import '../../../generated/assets.dart';
+import '../../../core/ui/placeholders/poster_placeholder.dart';
 
 class ReviewCard extends StatelessWidget {
   const ReviewCard({super.key, required this.review});
@@ -17,7 +17,6 @@ class ReviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-
       onTap: () => context.push('/review-detail?id=${review.id}'),
       child: Container(
         margin: const EdgeInsets.symmetric(
@@ -122,7 +121,8 @@ class ReviewCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 5, bottom: 10),
                     child: Text(
-                      "(Last Updated on ${FormattingUtils.formatUnixTimestamp(review.createdAt).toString()})",
+                      "(Last Updated on "
+                      "${FormattingUtils.formatUnixTimestamp(review.createdAt)})",
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontFamily: 'Roboto',
                             color: AppColors.white.withOpacity(0.8),
@@ -145,13 +145,18 @@ Widget _buildBannerImage(BuildContext context, String imageUrl) {
     imageBuilder: (context, imageProvider) => Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
         image: DecorationImage(
           image: imageProvider,
           fit: BoxFit.cover,
         ),
       ),
     ),
+    placeholder: (context, url) {
+      return _buildPlaceHolder();
+    },
     errorWidget: (context, url, error) {
       return _buildPlaceHolder();
     },
@@ -159,15 +164,19 @@ Widget _buildBannerImage(BuildContext context, String imageUrl) {
 }
 
 Widget _buildPlaceHolder() {
-  return ClipRRect(
-    borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-    child: Image.asset(Assets.placeholders340x72),
+  return const ClipRRect(
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(15),
+      topRight: Radius.circular(15),
+    ),
+    child: PosterPlaceholder(size: 50),
   );
 }
 
-Widget buildSummaryText(
-    {required String summary, required BuildContext context}) {
+Widget buildSummaryText({
+  required String summary,
+  required BuildContext context,
+}) {
   return Text(
     summary,
     maxLines: 2,

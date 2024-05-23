@@ -1,4 +1,3 @@
-import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -209,7 +208,7 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
                   child: CoverImage(
                     imageUrl: media.coverImage!.large!,
                     type: media.type!,
-                    placeHolderName: Assets.placeholders115x169,
+                    // placeHolderName: Assets.placeholders115x170,
                   ),
                 ),
                 // Mean score

@@ -69,13 +69,13 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
   }
 
   Future<QueryResult<Query$GetCalendarDay?>> loadData(
-      GraphQLClient client, int airingAtGreater, int airingAt_lesser) {
+      GraphQLClient client, int airingAtGreater, int airingAtLesser) {
     return client.query$GetCalendarDay(Options$Query$GetCalendarDay(
         fetchPolicy: FetchPolicy.networkOnly,
         cacheRereadPolicy: CacheRereadPolicy.ignoreAll,
         variables: Variables$Query$GetCalendarDay(
           airingAt_greater: airingAtGreater,
-          airingAt_lesser: airingAt_lesser,
+          airingAt_lesser: airingAtLesser,
         )));
   }
 

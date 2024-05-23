@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:otaku_world/core/ui/filters/custom_choice_chip.dart';
 import 'package:otaku_world/theme/colors.dart';
 
 class CustomChips extends StatelessWidget {

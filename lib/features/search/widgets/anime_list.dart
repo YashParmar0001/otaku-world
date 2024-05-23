@@ -9,7 +9,6 @@ import 'package:otaku_world/core/ui/placeholders/anime_character_placeholder.dar
 import 'package:otaku_world/features/search/widgets/media_card.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
-import 'package:otaku_world/theme/colors.dart';
 
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
 import '../../../bloc/search/search_base/search_bloc.dart';

@@ -1,4 +1,3 @@
-
 import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -91,7 +90,10 @@ class _AppScaffoldState extends State<AppScaffold> {
         padding: const EdgeInsets.only(bottom: 4),
         child: SvgPicture.asset(
           icon,
-          color: AppColors.white,
+          colorFilter: const ColorFilter.mode(
+            AppColors.white,
+            BlendMode.srcIn,
+          ),
         ),
       ),
       label: label,
@@ -99,7 +101,10 @@ class _AppScaffoldState extends State<AppScaffold> {
         padding: const EdgeInsets.only(bottom: 4),
         child: SvgPicture.asset(
           icon,
-          color: AppColors.sunsetOrange,
+          colorFilter: const ColorFilter.mode(
+            AppColors.sunsetOrange,
+            BlendMode.srcIn,
+          ),
         ),
       ),
     );

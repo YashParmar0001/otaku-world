@@ -101,6 +101,7 @@ class FilterAnimeBloc extends Bloc<FilterAnimeEvent, FilterAnimeState> {
     ApplySearch event,
     Emitter<FilterAnimeState> emit,
   ) async {
+    if (event.search.isEmpty) return;
     emit(ResultsLoading());
 
     page = 1;

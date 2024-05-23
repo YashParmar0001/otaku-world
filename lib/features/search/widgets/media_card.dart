@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
 
+import '../../../core/ui/placeholders/poster_placeholder.dart';
 import '../../../generated/assets.dart';
 import '../../../graphql/__generated/graphql/fragments.graphql.dart';
 import '../../../services/caching/image_cache_manager.dart';
@@ -123,19 +124,21 @@ class ResultMediaCard extends StatelessWidget {
               );
             },
             errorWidget: (context, url, error) {
-              return _buildPlaceholderImage110x162();
+              return _buildPlaceholderImage();
             },
             placeholder: (context, url) {
-              return _buildPlaceholderImage110x162();
+              return _buildPlaceholderImage();
             },
           )
-        : _buildPlaceholderImage110x162();
+        : _buildPlaceholderImage();
   }
 
-  Widget _buildPlaceholderImage110x162() {
+  Widget _buildPlaceholderImage() {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(15),
-      child: Image.asset(Assets.placeholders110x162),
+      borderRadius: (media?.type == Enum$MediaType.ANIME)
+          ? BorderRadius.circular(15)
+          : BorderRadius.circular(5),
+      child: const PosterPlaceholder(),
     );
   }
 }

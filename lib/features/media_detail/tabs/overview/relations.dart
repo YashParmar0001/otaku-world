@@ -6,7 +6,6 @@ import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
 
 import '../../../../bloc/media_detail/media_detail_bloc.dart';
-import '../../../../generated/assets.dart';
 import '../../../../theme/colors.dart';
 
 class Relations extends StatelessWidget {
@@ -68,7 +67,7 @@ class Relation extends StatelessWidget {
             child: CoverImage(
               imageUrl: relation.node!.coverImage!.large.toString(),
               type: Enum$MediaType.ANIME,
-              placeHolderName: Assets.placeholders210x310,
+              // placeHolderName: Assets.placeholders210x310,
             ),
           ),
           const SizedBox(

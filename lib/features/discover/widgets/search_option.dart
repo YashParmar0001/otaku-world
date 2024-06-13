@@ -14,16 +14,17 @@ class SearchOption extends StatelessWidget {
     required this.clearSearch,
     required this.onSubmitted,
     required this.onChanged,
+    required this.filterApplied,
   });
 
   final VoidCallback onPressedFilters;
   final VoidCallback clearSearch;
   final ValueChanged<String> onSubmitted;
   final Function(String) onChanged;
+  final bool filterApplied;
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<FilterAnimeBloc>();
     return Row(
       children: [
         CustomSearchBar(
@@ -42,9 +43,7 @@ class SearchOption extends StatelessWidget {
                 height: 50,
                 width: 50,
                 decoration: ShapeDecoration(
-                  color: bloc.filterApplied
-                      ? AppColors.sunsetOrange
-                      : AppColors.jet,
+                  color: filterApplied ? AppColors.sunsetOrange : AppColors.jet,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -55,7 +54,12 @@ class SearchOption extends StatelessWidget {
                     width: 24,
                     height: 24,
                     fit: BoxFit.fill,
-                    color: bloc.filterApplied ? AppColors.white : null,
+                    colorFilter: filterApplied
+                        ? const ColorFilter.mode(
+                            AppColors.white,
+                            BlendMode.srcIn,
+                          )
+                        : null,
                   ),
                 ),
               ),

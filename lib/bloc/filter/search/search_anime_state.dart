@@ -1,4 +1,4 @@
-part of 'search_anime_cubit.dart';
+part of 'search_media_cubit.dart';
 
 abstract class SearchAnimeState {}
 

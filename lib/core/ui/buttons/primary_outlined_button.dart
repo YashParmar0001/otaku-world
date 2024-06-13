@@ -5,15 +5,19 @@ class PrimaryOutlinedButton extends StatelessWidget {
   const PrimaryOutlinedButton({
     super.key,
     this.horizontalPadding = 12,
+    this.verticalPadding = 14,
     this.width,
+    this.fontSize,
     required this.onTap,
     required this.label,
   });
 
   final double horizontalPadding;
+  final double verticalPadding;
   final double? width;
   final VoidCallback onTap;
   final String label;
+  final double? fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +39,13 @@ class PrimaryOutlinedButton extends StatelessWidget {
           ),
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 14,
+              padding: EdgeInsets.symmetric(
+                vertical: verticalPadding,
               ),
               child: Text(
                 label,
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                  fontSize: fontSize,
                   color: AppColors.white,
                   fontFamily: 'Poppins',
                 ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:media_kit/media_kit.dart';
 import 'package:otaku_world/theme/colors.dart';
 
 class AnimeCharacterPlaceholder extends StatelessWidget {
@@ -18,7 +17,6 @@ class AnimeCharacterPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
       child: Column(

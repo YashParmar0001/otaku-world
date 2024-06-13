@@ -21,7 +21,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     final tabController = useTabController(
       initialLength: 7,
       initialIndex: 0,

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:otaku_world/generated/assets.dart';
+import 'package:otaku_world/core/ui/placeholders/poster_placeholder.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/formatting_utils.dart';
@@ -217,6 +217,9 @@ class CalendarCard extends StatelessWidget {
             ),
           ),
         ),
+        placeholder: (context, url) {
+          return _buildPlaceHolder();
+        },
         errorWidget: (context, url, error) {
           return _buildPlaceHolder();
         },
@@ -225,15 +228,12 @@ class CalendarCard extends StatelessWidget {
   }
 
   Widget _buildPlaceHolder() {
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
+    return const ClipRRect(
+      borderRadius: BorderRadius.only(
         topLeft: Radius.circular(15),
         topRight: Radius.circular(15),
       ),
-      child: Image.asset(
-        Assets.placeholders340x72,
-        fit: BoxFit.cover,
-      ),
+      child: PosterPlaceholder(size: 50),
     );
   }
 }

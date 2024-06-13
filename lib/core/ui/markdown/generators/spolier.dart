@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:markdown_widget/markdown_widget.dart';
 
-import '../../../../config/router.dart';
+import '../../../../config/router/router.dart';
 import '../../../../theme/colors.dart';
 import '../markdown.dart';
 

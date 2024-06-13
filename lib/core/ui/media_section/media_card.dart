@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:otaku_world/core/ui/mean_score.dart';
+import 'package:otaku_world/core/ui/placeholders/poster_placeholder.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/formatting_utils.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
 
-import '../../../generated/assets.dart';
 import '../../../graphql/__generated/graphql/fragments.graphql.dart';
 import '../../../graphql/__generated/graphql/schema.graphql.dart';
 import '../../../services/caching/image_cache_manager.dart';
@@ -158,22 +158,22 @@ class MediaPoster extends StatelessWidget {
                 );
               },
               placeholder: (context, url) {
-                return _buildPlaceholderImage120x172(type);
+                return _buildPlaceholderImage(type);
               },
               errorWidget: (context, url, error) {
-                return _buildPlaceholderImage120x172(type);
+                return _buildPlaceholderImage(type);
               },
             ),
           )
-        : _buildPlaceholderImage120x172(type);
+        : _buildPlaceholderImage(type);
   }
 
-  Widget _buildPlaceholderImage120x172(Enum$MediaType type) {
+  Widget _buildPlaceholderImage(Enum$MediaType type) {
     return ClipRRect(
       borderRadius: (type == Enum$MediaType.ANIME)
           ? BorderRadius.circular(15)
           : BorderRadius.circular(5),
-      child: Image.asset(Assets.placeholders115x169),
+      child: const PosterPlaceholder(),
     );
   }
 }
@@ -189,7 +189,6 @@ class Genres extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
 
     if (media.genres == null) return const Text('No genre');
 
@@ -249,7 +248,6 @@ class SummaryText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
     List<InlineSpan> textSpans = [];
 
     textSpans.add(

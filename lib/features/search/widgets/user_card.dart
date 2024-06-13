@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../generated/assets.dart';
+import '../../../core/ui/placeholders/poster_placeholder.dart';
 import '../../../graphql/__generated/graphql/fragments.graphql.dart';
 import '../../../services/caching/image_cache_manager.dart';
 import '../../../theme/colors.dart';
@@ -95,7 +95,7 @@ class ResultUserCard extends StatelessWidget {
   Widget _buildPlaceholderImage110x162() {
     return ClipRRect(
       borderRadius: BorderRadius.circular(5),
-      child: Image.asset(Assets.placeholders110x162),
+      child: const PosterPlaceholder(),
     );
   }
 }

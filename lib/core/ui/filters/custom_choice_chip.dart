@@ -35,7 +35,7 @@ class _CustomChoiceChipState extends State<CustomChoiceChip> {
     return ChoiceChip(
       label: Text(
         widget.label,
-        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+        style: Theme.of(context).textTheme.titleLarge?.copyWith(
               color: AppColors.white,
               fontFamily: 'Poppins',
             ),
@@ -63,7 +63,7 @@ class _CustomChoiceChipState extends State<CustomChoiceChip> {
             if (widget.onSelected != null) {
               widget.onSelected!(widget.value);
             }
-          }else {
+          } else {
             if (widget.onUnselected != null) {
               widget.onUnselected!(widget.value);
             }

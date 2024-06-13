@@ -6,7 +6,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
-import 'package:otaku_world/bloc/recomendations/recomendation_anime_bloc.dart';
 import 'package:otaku_world/bloc/recommended_anime/recommended_anime_bloc.dart';
 import 'package:otaku_world/bloc/recommended_manga/recommended_manga_bloc.dart';
 import 'package:otaku_world/bloc/trending_anime/trending_anime_bloc.dart';
@@ -108,10 +107,10 @@ class HomeScreen extends HookWidget {
             MediaSection<TrendingAnimeBloc>(
               label: 'Trending Anime',
               onMorePressed: () {
-                context.push('/trending_anime');
+                context.push('/trending-anime');
               },
               onSliderPressed: () {
-                context.push('/trending_anime_slider');
+                context.push('/trending-anime-slider');
               },
               heroTag: 'trending_anime',
             ),
@@ -121,10 +120,10 @@ class HomeScreen extends HookWidget {
             MediaSection<RecommendedAnimeBloc>(
               label: 'Recommended Anime',
               onMorePressed: () {
-                context.push('/recommended_anime');
+                context.push('/recommended-anime');
               },
               onSliderPressed: () {
-                context.push('/recommended_anime_slider');
+                context.push('/recommended-anime-slider');
               },
               heroTag: 'recommended_anime',
             ),
@@ -134,10 +133,10 @@ class HomeScreen extends HookWidget {
             MediaSection<TrendingMangaBloc>(
               label: 'Trending Manga',
               onMorePressed: () {
-                context.push('/trending_manga');
+                context.push('/trending-manga');
               },
               onSliderPressed: () {
-                context.push('/trending_manga_slider');
+                context.push('/trending-manga-slider');
               },
               heroTag: 'trending_manga',
             ),
@@ -147,10 +146,10 @@ class HomeScreen extends HookWidget {
             MediaSection<RecommendedMangaBloc>(
               label: 'Recommended Manga',
               onMorePressed: () {
-                context.push('/recommended_manga');
+                context.push('/recommended-manga');
               },
               onSliderPressed: () {
-                context.push('/recommended_manga_slider');
+                context.push('/recommended-manga-slider');
               },
               heroTag: 'recommended_manga',
             ),

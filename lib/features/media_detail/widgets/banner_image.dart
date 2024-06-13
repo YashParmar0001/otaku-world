@@ -1,12 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart' ;
+import 'package:flutter/material.dart';
 
+import '../../../core/ui/placeholders/poster_placeholder.dart';
 
 class BannerImage extends StatelessWidget {
-  const BannerImage({super.key, required this.url, required this.placeHolderName});
+  const BannerImage({
+    super.key,
+    required this.url,
+    // required this.placeHolderName,
+  });
 
   final String url;
-  final String placeHolderName;
+
+  // final String placeHolderName;
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
@@ -22,8 +28,11 @@ class BannerImage extends StatelessWidget {
           ),
         );
       },
+      placeholder: (context, url) {
+        return const PosterPlaceholder(size: 100);
+      },
       errorWidget: (context, url, error) {
-        return Image.asset(placeHolderName);
+        return const PosterPlaceholder(size: 100);
       },
     );
   }

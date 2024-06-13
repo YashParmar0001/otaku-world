@@ -18,7 +18,6 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-
       leading: CustomBackButton(
         onPressed: () {
           if (context.canPop()) {

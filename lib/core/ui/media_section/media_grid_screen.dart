@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:otaku_world/core/ui/appbars/simple_app_bar.dart';
 import 'package:otaku_world/core/ui/appbars/simple_sliver_app_bar.dart';
 import 'package:otaku_world/core/ui/media_section/scroll_to_top_button.dart';
+import 'package:otaku_world/core/ui/placeholders/poster_placeholder.dart';
 import 'package:otaku_world/core/ui/shimmers/grid_shimmer.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
@@ -286,7 +287,7 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
       borderRadius: (type == Enum$MediaType.ANIME)
           ? BorderRadius.circular(15)
           : BorderRadius.circular(5),
-      child: Image.asset(Assets.placeholders110x162),
+      child: const PosterPlaceholder(),
     );
   }
 }

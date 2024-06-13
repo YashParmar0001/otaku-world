@@ -148,3 +148,21 @@ class SetEpisodesRange extends FilterAnimeEvent {
   final double start;
   final double end;
 }
+
+class SelectAnimeTag extends FilterAnimeEvent {
+  const SelectAnimeTag(this.tag);
+
+  final String tag;
+}
+
+class UnselectAnimeTag extends FilterAnimeEvent {
+  const UnselectAnimeTag(this.tag);
+
+  final String tag;
+}
+
+class SetTagRank extends FilterAnimeEvent {
+  const SetTagRank(this.tagRank);
+
+  final int tagRank;
+}

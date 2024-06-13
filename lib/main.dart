@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otaku_world/bloc/all_time_popular_anime/all_time_popular_anime_bloc.dart';
-import 'package:otaku_world/bloc/all_time_popular_manga/all_time_popular_manga.dart';
+import 'package:otaku_world/bloc/all_time_popular_manga/all_time_popular_manga_bloc.dart';
+import 'package:otaku_world/bloc/all_time_popular_manga/popular_manhwa_bloc.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
 import 'package:otaku_world/bloc/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import 'package:otaku_world/bloc/calendar/week_calendar/day/day_bloc.dart';
 import 'package:otaku_world/bloc/calendar/week_calendar/week_calendar_bloc.dart';
 import 'package:otaku_world/bloc/filter/collections/external_links/anime/anime_platforms_cubit.dart';
+import 'package:otaku_world/bloc/filter/collections/external_links/manga/manga_platforms_cubit.dart';
 import 'package:otaku_world/bloc/filter/collections/genres/genre_cubit.dart';
+import 'package:otaku_world/bloc/filter/collections/tags/media_tags_cubit.dart';
 import 'package:otaku_world/bloc/filter/filter_anime/filter_anime_bloc.dart';
+import 'package:otaku_world/bloc/filter/filter_manga/filter_manga_bloc.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/media_detail/media_detail_bloc.dart';
 import 'package:otaku_world/bloc/recomendations/recomendation_anime_bloc.dart';
@@ -34,7 +38,7 @@ import 'package:otaku_world/bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import 'package:otaku_world/theme/app_theme.dart';
 
 import 'bloc/paginated_data/paginated_data_bloc.dart';
-import 'config/router.dart';
+import 'config/router/router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -123,6 +127,9 @@ class MyApp extends StatelessWidget {
           create: (context) => AllTimePopularMangaBloc(),
         ),
         BlocProvider(
+          create: (context) => PopularManhwaBloc(),
+        ),
+        BlocProvider(
           create: (context) => Top100AnimeBloc(),
         ),
         BlocProvider(
@@ -135,10 +142,19 @@ class MyApp extends StatelessWidget {
           create: (context) => GenreCubit(),
         ),
         BlocProvider(
+          create: (context) => MediaTagsCubit(),
+        ),
+        BlocProvider(
           create: (context) => AnimePlatformsCubit(),
         ),
         BlocProvider(
+          create: (context) => MangaPlatformsCubit(),
+        ),
+        BlocProvider(
           create: (context) => FilterAnimeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => FilterMangaBloc(),
         ),
       ],
       child: MultiBlocListener(
@@ -172,7 +188,7 @@ class MyApp extends StatelessWidget {
                 context
                     .read<UpcomingEpisodesBloc>()
                     .add(LoadData(state.client));
-                context.read<ReviewBloc>().add(LoadData(state.client));
+                // context.read<ReviewBloc>().add(LoadData(state.client));
                 context.read<TrendingAnimeBloc>().add(LoadData(state.client));
                 context
                     .read<RecommendedAnimeBloc>()
@@ -181,19 +197,18 @@ class MyApp extends StatelessWidget {
                 context
                     .read<RecommendedMangaBloc>()
                     .add(LoadData(state.client));
-
-                context.read<TopAiringAnimeBloc>().add(LoadData(state.client));
-                context
-                    .read<TopUpcomingAnimeBloc>()
-                    .add(LoadData(state.client));
-                context
-                    .read<AllTimePopularAnimeBloc>()
-                    .add(LoadData(state.client));
-                context
-                    .read<AllTimePopularMangaBloc>()
-                    .add(LoadData(state.client));
-                context.read<Top100AnimeBloc>().add(LoadData(state.client));
-                context.read<Top100MangaBloc>().add(LoadData(state.client));
+                // context.read<TopAiringAnimeBloc>().add(LoadData(state.client));
+                // context
+                //     .read<TopUpcomingAnimeBloc>()
+                //     .add(LoadData(state.client));
+                // context
+                //     .read<AllTimePopularAnimeBloc>()
+                //     .add(LoadData(state.client));
+                // context
+                //     .read<AllTimePopularMangaBloc>()
+                //     .add(LoadData(state.client));
+                // context.read<Top100AnimeBloc>().add(LoadData(state.client));
+                // context.read<Top100MangaBloc>().add(LoadData(state.client));
               }
             },
           ),

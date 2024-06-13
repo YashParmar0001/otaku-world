@@ -10,8 +10,8 @@ import '../../../bloc/paginated_data/paginated_data_bloc.dart';
 import '../../../bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import '../../../core/ui/error_text.dart';
 import '../../../core/ui/media_section/scroll_to_left_button.dart';
+import '../../../core/ui/placeholders/poster_placeholder.dart';
 import '../../../core/ui/shimmers/shimmer_loader_list.dart';
-import '../../../generated/assets.dart';
 import '../../../graphql/__generated/graphql/home/upcoming_episodes.graphql.dart';
 import '../../../services/caching/image_cache_manager.dart';
 import '../../../theme/colors.dart';
@@ -285,7 +285,7 @@ class UpcomingEpisodesSection extends HookWidget {
   Widget _buildPlaceholderImage85x120() {
     return ClipRRect(
       borderRadius: BorderRadius.circular(15),
-      child: Image.asset(Assets.placeholders85x120),
+      child: const PosterPlaceholder(),
     );
   }
 }

@@ -25,7 +25,6 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
     useEffect(() {
       reviewsScrollController.addListener(() {
         final maxScroll = reviewsScrollController.position.maxScrollExtent;
-        final minScroll = reviewsScrollController.position.minScrollExtent;
         final currentScroll = reviewsScrollController.position.pixels;
 
         if (currentScroll == maxScroll) {
@@ -48,7 +47,13 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
 
     return BlocBuilder<ReviewBloc, PaginatedDataState>(
       builder: (context, state) {
-        if (state is PaginatedDataLoading || state is PaginatedDataInitial) {
+        if (state is PaginatedDataInitial) {
+          final client = (context.read<GraphqlClientCubit>().state
+                  as GraphqlClientInitialized)
+              .client;
+          context.read<ReviewBloc>().add(LoadData(client));
+          return _buildLoadingScaffold();
+        } else if (state is PaginatedDataLoading) {
           return _buildLoadingScaffold();
         } else if (state is PaginatedDataLoaded) {
           return Scaffold(

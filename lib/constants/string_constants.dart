@@ -68,8 +68,12 @@ class CalendarConstants {
 }
 
 class DiscoverConstants {
-  static const String animeDiscoverHeading = 'Uncover the wonders of \nAnime';
-  static const String animeDiscoverSubheading =
+  static const animeDiscoverHeading = 'Uncover the wonders of \nAnime';
+  static const animeDiscoverSubheading =
       'Explore a Universe of Endless Possibilities, '
       'Unveiling Hidden Gems and Beloved Classics';
+
+  static const mangaDiscoverHeading = 'Unravel the World of \nManga';
+  static const mangaDiscoverSubheading = 'Dive into a Universe of Captivating'
+      'Narratives and Artistry';
 }

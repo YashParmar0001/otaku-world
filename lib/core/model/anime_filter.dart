@@ -105,37 +105,37 @@ class AnimeFilter {
     bool? isAdult,
     bool? hideMyAnime,
   }) {
-    Enum$MediaSeason? _season;
-    int? _seasonYear;
-    String? _countryCode;
+    Enum$MediaSeason? season0;
+    int? seasonYear0;
+    String? countryCode;
     if (season != null) {
       if (season == Enum$MediaSeason.$unknown) {
-        _season = null;
+        season0 = null;
       } else {
-        _season = season;
+        season0 = season;
       }
     } else {
-      _season = this.season;
+      season0 = this.season;
     }
 
     if (seasonYear != null) {
       if (seasonYear == 0) {
-        _seasonYear = null;
+        seasonYear0 = null;
       } else {
-        _seasonYear = seasonYear;
+        seasonYear0 = seasonYear;
       }
     } else {
-      _seasonYear = this.seasonYear;
+      seasonYear0 = this.seasonYear;
     }
 
     if (countryOfOrigin != null) {
       if (countryOfOrigin == 'NO') {
-        _countryCode = null;
+        countryCode = null;
       }else {
-        _countryCode = countryOfOrigin;
+        countryCode = countryOfOrigin;
       }
     }else {
-      _countryCode = this.countryOfOrigin;
+      countryCode = this.countryOfOrigin;
     }
 
     return AnimeFilter(
@@ -145,12 +145,12 @@ class AnimeFilter {
       startDateGreater: startDateGreater ?? this.startDateGreater,
       startDateLesser: startDateLesser ?? this.startDateLesser,
       isLicensed: isLicensed ?? this.isLicensed,
-      season: _season,
-      seasonYear: _seasonYear,
+      season: season0,
+      seasonYear: seasonYear0,
       formatIn: formatIn ?? this.formatIn,
       statusIn: statusIn ?? this.statusIn,
       licensedByIn: licensedByIn ?? this.licensedByIn,
-      countryOfOrigin: _countryCode,
+      countryOfOrigin: countryCode,
       sourceIn: sourceIn ?? this.sourceIn,
       episodesGreater: episodesGreater ?? this.episodesGreater,
       episodesLesser: episodesLesser ?? this.episodesLesser,

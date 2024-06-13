@@ -1,9 +1,7 @@
 import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:otaku_world/bloc/filter/filter_anime/filter_anime_bloc.dart';
 
 import '../../../generated/assets.dart';
 import '../../../theme/colors.dart';

@@ -113,8 +113,10 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/images/on_boarding/
-    - assets/images/placeholders/
     - assets/images/discover/
+    - assets/images/discover/anime/
+    - assets/images/discover/manga/
+    - assets/images/discover/staff/
     - assets/images/discover/studios/
     - assets/images/discover/characters/
     - assets/images/characters/

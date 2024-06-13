@@ -5,7 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:otaku_world/bloc/filter/search/search_anime_cubit.dart';
+import 'package:otaku_world/bloc/filter/search/search_media_cubit.dart';
 import 'package:otaku_world/constants/filter_constants.dart';
 import 'package:otaku_world/core/model/anime_filter.dart';
 import 'package:otaku_world/graphql/__generated/graphql/discover/filter_media.graphql.dart';
@@ -45,6 +45,9 @@ class FilterAnimeBloc extends Bloc<FilterAnimeEvent, FilterAnimeState> {
     on<SetYearRange>(_onSetYearRange);
     on<SetDurationRange>(_onSetDurationRange);
     on<SetEpisodesRange>(_onSetEpisodesRange);
+    on<SelectAnimeTag>(_onSelectAnimeTag);
+    on<UnselectAnimeTag>(_onUnselectAnimeTag);
+    on<SetTagRank>(_onSetTagRank);
   }
 
   AnimeFilter appliedFilter = const AnimeFilter(
@@ -54,8 +57,9 @@ class FilterAnimeBloc extends Bloc<FilterAnimeEvent, FilterAnimeState> {
     sort: [Enum$MediaSort.POPULARITY_DESC],
   );
 
-  final searchCubit = SearchAnimeCubit();
+  final searchCubit = SearchMediaCubit();
   bool _filterApplied = false;
+
   bool get filterApplied => _filterApplied;
 
   var page = 1;
@@ -96,11 +100,11 @@ class FilterAnimeBloc extends Bloc<FilterAnimeEvent, FilterAnimeState> {
     }
   }
 
-  // TODO: Complete the function
   Future<void> _onApplySearch(
     ApplySearch event,
     Emitter<FilterAnimeState> emit,
   ) async {
+    if (event.search.isEmpty) return;
     emit(ResultsLoading());
 
     page = 1;
@@ -209,6 +213,10 @@ class FilterAnimeBloc extends Bloc<FilterAnimeEvent, FilterAnimeState> {
           episodes_lesser: filter.episodesLesser == FilterConstants.maxEpisode
               ? null
               : filter.episodesLesser,
+          tag_in: filter.tagIn == null || filter.tagIn!.isEmpty
+              ? null
+              : filter.tagIn,
+          minimumTagRank: filter.minTagRank,
         ),
       ),
     );
@@ -256,7 +264,7 @@ class FilterAnimeBloc extends Bloc<FilterAnimeEvent, FilterAnimeState> {
     searchCubit.searchController.clear();
     if (_filterApplied) {
       add(ApplyFilter(event.client));
-    }else {
+    } else {
       add(RemoveAllFilters());
     }
   }
@@ -471,6 +479,33 @@ class FilterAnimeBloc extends Bloc<FilterAnimeEvent, FilterAnimeState> {
       'Episodes: ${filter.episodesGreater} to ${filter.episodesLesser}',
       name: 'AnimeFilter',
     );
+  }
+
+  void _onSelectAnimeTag(
+    SelectAnimeTag event,
+    Emitter<FilterAnimeState> emit,
+  ) {
+    filter = filter.copyWith(
+      tagIn: (filter.tagIn ?? [])..add(event.tag),
+    );
+    dev.log('Selected tags: ${filter.tagIn}', name: 'AnimeFilter');
+  }
+
+  void _onUnselectAnimeTag(
+    UnselectAnimeTag event,
+    Emitter<FilterAnimeState> emit,
+  ) {
+    filter = filter.copyWith(
+      tagIn: (filter.tagIn ?? [])..remove(event.tag),
+    );
+    dev.log('Selected tags: ${filter.tagIn}', name: 'AnimeFilter');
+  }
+
+  void _onSetTagRank(SetTagRank event, Emitter<FilterAnimeState> emit) {
+    filter = filter.copyWith(
+      minTagRank: event.tagRank,
+    );
+    dev.log('Tag rank: ${filter.minTagRank}', name: 'AnimeFilter');
   }
 
   @override

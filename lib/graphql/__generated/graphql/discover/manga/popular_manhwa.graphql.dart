@@ -1,6 +1,7 @@
 // GENERATED FILE
 // DO NOT MODIFY
 // ignore_for_file: type=lint
+import '../../fragments.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
@@ -305,6 +306,47 @@ const documentNodeQueryGetPopularManhwa = DocumentNode(definitions: [
             ]),
           ),
           FieldNode(
+            name: NameNode(value: 'media'),
+            alias: null,
+            arguments: [
+              ArgumentNode(
+                name: NameNode(value: 'sort'),
+                value: ListValueNode(values: [
+                  EnumValueNode(name: NameNode(value: 'POPULARITY_DESC'))
+                ]),
+              ),
+              ArgumentNode(
+                name: NameNode(value: 'type'),
+                value: EnumValueNode(name: NameNode(value: 'MANGA')),
+              ),
+              ArgumentNode(
+                name: NameNode(value: 'isAdult'),
+                value: BooleanValueNode(value: false),
+              ),
+              ArgumentNode(
+                name: NameNode(value: 'countryOfOrigin'),
+                value: StringValueNode(
+                  value: 'KR',
+                  isBlock: false,
+                ),
+              ),
+            ],
+            directives: [],
+            selectionSet: SelectionSetNode(selections: [
+              FragmentSpreadNode(
+                name: NameNode(value: 'MediaShort'),
+                directives: [],
+              ),
+              FieldNode(
+                name: NameNode(value: '__typename'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+            ]),
+          ),
+          FieldNode(
             name: NameNode(value: '__typename'),
             alias: null,
             arguments: [],
@@ -322,6 +364,7 @@ const documentNodeQueryGetPopularManhwa = DocumentNode(definitions: [
       ),
     ]),
   ),
+  fragmentDefinitionMediaShort,
 ]);
 Query$GetPopularManhwa _parserFn$Query$GetPopularManhwa(
         Map<String, dynamic> data) =>
@@ -483,22 +526,31 @@ class Query$GetPopularManhwa$Widget
 class Query$GetPopularManhwa$Page {
   Query$GetPopularManhwa$Page({
     this.pageInfo,
+    this.media,
     this.$__typename = 'Page',
   });
 
   factory Query$GetPopularManhwa$Page.fromJson(Map<String, dynamic> json) {
     final l$pageInfo = json['pageInfo'];
+    final l$media = json['media'];
     final l$$__typename = json['__typename'];
     return Query$GetPopularManhwa$Page(
       pageInfo: l$pageInfo == null
           ? null
           : Query$GetPopularManhwa$Page$pageInfo.fromJson(
               (l$pageInfo as Map<String, dynamic>)),
+      media: (l$media as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : Fragment$MediaShort.fromJson((e as Map<String, dynamic>)))
+          .toList(),
       $__typename: (l$$__typename as String),
     );
   }
 
   final Query$GetPopularManhwa$Page$pageInfo? pageInfo;
+
+  final List<Fragment$MediaShort?>? media;
 
   final String $__typename;
 
@@ -506,6 +558,8 @@ class Query$GetPopularManhwa$Page {
     final _resultData = <String, dynamic>{};
     final l$pageInfo = pageInfo;
     _resultData['pageInfo'] = l$pageInfo?.toJson();
+    final l$media = media;
+    _resultData['media'] = l$media?.map((e) => e?.toJson()).toList();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -514,9 +568,11 @@ class Query$GetPopularManhwa$Page {
   @override
   int get hashCode {
     final l$pageInfo = pageInfo;
+    final l$media = media;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$pageInfo,
+      l$media == null ? null : Object.hashAll(l$media.map((v) => v)),
       l$$__typename,
     ]);
   }
@@ -533,6 +589,22 @@ class Query$GetPopularManhwa$Page {
     final l$pageInfo = pageInfo;
     final lOther$pageInfo = other.pageInfo;
     if (l$pageInfo != lOther$pageInfo) {
+      return false;
+    }
+    final l$media = media;
+    final lOther$media = other.media;
+    if (l$media != null && lOther$media != null) {
+      if (l$media.length != lOther$media.length) {
+        return false;
+      }
+      for (int i = 0; i < l$media.length; i++) {
+        final l$media$entry = l$media[i];
+        final lOther$media$entry = lOther$media[i];
+        if (l$media$entry != lOther$media$entry) {
+          return false;
+        }
+      }
+    } else if (l$media != lOther$media) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -564,9 +636,14 @@ abstract class CopyWith$Query$GetPopularManhwa$Page<TRes> {
 
   TRes call({
     Query$GetPopularManhwa$Page$pageInfo? pageInfo,
+    List<Fragment$MediaShort?>? media,
     String? $__typename,
   });
   CopyWith$Query$GetPopularManhwa$Page$pageInfo<TRes> get pageInfo;
+  TRes media(
+      Iterable<Fragment$MediaShort?>? Function(
+              Iterable<CopyWith$Fragment$MediaShort<Fragment$MediaShort>?>?)
+          _fn);
 }
 
 class _CopyWithImpl$Query$GetPopularManhwa$Page<TRes>
@@ -584,12 +661,16 @@ class _CopyWithImpl$Query$GetPopularManhwa$Page<TRes>
 
   TRes call({
     Object? pageInfo = _undefined,
+    Object? media = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Query$GetPopularManhwa$Page(
         pageInfo: pageInfo == _undefined
             ? _instance.pageInfo
             : (pageInfo as Query$GetPopularManhwa$Page$pageInfo?),
+        media: media == _undefined
+            ? _instance.media
+            : (media as List<Fragment$MediaShort?>?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
@@ -602,6 +683,18 @@ class _CopyWithImpl$Query$GetPopularManhwa$Page<TRes>
         : CopyWith$Query$GetPopularManhwa$Page$pageInfo(
             local$pageInfo, (e) => call(pageInfo: e));
   }
+
+  TRes media(
+          Iterable<Fragment$MediaShort?>? Function(
+                  Iterable<CopyWith$Fragment$MediaShort<Fragment$MediaShort>?>?)
+              _fn) =>
+      call(
+          media: _fn(_instance.media?.map((e) => e == null
+              ? null
+              : CopyWith$Fragment$MediaShort(
+                  e,
+                  (i) => i,
+                )))?.toList());
 }
 
 class _CopyWithStubImpl$Query$GetPopularManhwa$Page<TRes>
@@ -612,12 +705,15 @@ class _CopyWithStubImpl$Query$GetPopularManhwa$Page<TRes>
 
   call({
     Query$GetPopularManhwa$Page$pageInfo? pageInfo,
+    List<Fragment$MediaShort?>? media,
     String? $__typename,
   }) =>
       _res;
 
   CopyWith$Query$GetPopularManhwa$Page$pageInfo<TRes> get pageInfo =>
       CopyWith$Query$GetPopularManhwa$Page$pageInfo.stub(_res);
+
+  media(_fn) => _res;
 }
 
 class Query$GetPopularManhwa$Page$pageInfo {

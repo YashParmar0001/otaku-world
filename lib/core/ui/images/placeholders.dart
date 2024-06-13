@@ -13,7 +13,7 @@ class PlaceHolders extends StatelessWidget {
       borderRadius: (type == Enum$MediaType.ANIME)
           ? BorderRadius.circular(15)
           : BorderRadius.circular(5),
-      child: Image.asset(placeHolderName),
+      child: Image.asset(placeHolderName, fit: BoxFit.cover),
     );
   }
 }

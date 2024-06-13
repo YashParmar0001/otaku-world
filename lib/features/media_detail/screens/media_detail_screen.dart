@@ -216,7 +216,7 @@ class MediaDetailScreen extends HookWidget {
                   width: width,
                   child: CoverImage(
                     imageUrl: media.bannerImage.toString(),
-                    placeHolderName: Assets.placeholders340x72,
+                    // placeHolderName: Assets.placeholders340x72,
                     type: media.type!,
                   ),
                 ),
@@ -243,7 +243,7 @@ class MediaDetailScreen extends HookWidget {
                         child: CoverImage(
                           imageUrl: media.coverImage!.extraLarge.toString(),
                           type: media.type!,
-                          placeHolderName: Assets.placeholders210x310,
+                          // placeHolderName: Assets.placeholders210x310,
                         ),
                       ),
                       InfoColumn(

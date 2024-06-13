@@ -27,12 +27,18 @@ class FilterConstants {
     'Taiwan',
   ];
 
-  static const double animeYearMinimum = 1970;
-  static double animeYearMaximum = DateTime.now().year + 1;
+  static const double mediaYearMinimum = 1970;
+  static double mediaYearMaximum = DateTime.now().year + 1;
 
   static const double minEpisode = 1;
   static const double maxEpisode = 150;
 
   static const double minDuration = 1;
   static const double maxDuration = 170;
+
+  static const double minChapters = 1;
+  static const double maxChapters = 500;
+
+  static const double minVolumes = 1;
+  static const double maxVolumes = 50;
 }

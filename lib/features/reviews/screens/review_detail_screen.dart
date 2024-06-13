@@ -85,7 +85,7 @@ class ReviewDetailScreen extends StatelessWidget {
                       width: width,
                       child: BannerImage(
                         url :review.media!.coverImage!.extraLarge.toString(),
-                        placeHolderName: Assets.placeholders340x72,
+                        // placeHolderName: Assets.placeholders340x72,
 
                       ),
                     ),

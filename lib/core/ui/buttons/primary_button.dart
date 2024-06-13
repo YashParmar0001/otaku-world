@@ -54,7 +54,7 @@ class PrimaryButton extends StatelessWidget {
               child: Text(
                 label,
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                  fontSize: fontSize,
+                      fontSize: fontSize,
                       color: AppColors.white,
                       fontFamily: 'Poppins',
                     ),

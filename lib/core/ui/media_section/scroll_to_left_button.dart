@@ -7,7 +7,11 @@ import '../../../generated/assets.dart';
 import '../../../theme/colors.dart';
 
 class ScrollToLeftFAB extends StatefulHookWidget {
-  const ScrollToLeftFAB({super.key, required this.controller, required this.tag,});
+  const ScrollToLeftFAB({
+    super.key,
+    required this.controller,
+    required this.tag,
+  });
 
   final ScrollController controller;
   final String tag;
@@ -66,8 +70,10 @@ class _ScrollToLeftFABState extends State<ScrollToLeftFAB> {
                   backgroundColor: AppColors.sunsetOrange.withOpacity(0.60),
                   child: SvgPicture.asset(
                     Assets.iconsArrowLeft,
-
-                    color: AppColors.white,
+                    colorFilter: const ColorFilter.mode(
+                      AppColors.white,
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ),
               ),

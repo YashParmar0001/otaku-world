@@ -22,9 +22,9 @@ class AnimePlatformsChips extends StatelessWidget {
           as GraphqlClientInitialized)
               .client;
           context.read<AnimePlatformsCubit>().loadAnimePlatforms(client);
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         } else if (state is AnimePlatformsLoading) {
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         } else if (state is AnimePlatformsLoaded) {
           return CustomChips(
             title: 'Streaming On',

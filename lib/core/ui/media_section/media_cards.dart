@@ -30,6 +30,7 @@ class MediaCards<B extends PaginatedDataBloc> extends HookWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -71,8 +72,28 @@ class MediaCards<B extends PaginatedDataBloc> extends HookWidget {
         // Media list
         BlocBuilder<B, PaginatedDataState>(
           builder: (context, state) {
-            if (state is PaginatedDataInitial ||
-                state is PaginatedDataLoading) {
+            if (state is PaginatedDataInitial) {
+              final client = (context.read<GraphqlClientCubit>().state
+                      as GraphqlClientInitialized)
+                  .client;
+              context.read<B>().add(LoadData(client));
+              return ShimmerLoaderList(
+                widgetWidth: UIUtils.getWidgetWidth(
+                  targetWidgetWidth: 115,
+                  screenWidth: screenWidth,
+                ),
+                widgetHeight: UIUtils.getWidgetHeight(
+                  targetWidgetHeight: 169,
+                  screenHeight: screenHeight,
+                ),
+                height: UIUtils.getWidgetHeight(
+                  targetWidgetHeight: 169,
+                  screenHeight: screenHeight,
+                ),
+                widgetBorder: 10,
+                direction: Axis.vertical,
+              );
+            } else if (state is PaginatedDataLoading) {
               return ShimmerLoaderList(
                 widgetWidth: UIUtils.getWidgetWidth(
                   targetWidgetWidth: 115,
@@ -95,13 +116,14 @@ class MediaCards<B extends PaginatedDataBloc> extends HookWidget {
               );
             } else if (state is PaginatedDataError) {
               return ErrorText(
-                  message: state.message,
-                  onTryAgain: () {
-                    final client = (context.read<GraphqlClientCubit>().state
-                            as GraphqlClientInitialized)
-                        .client;
-                    context.read<B>().add(LoadData(client));
-                  });
+                message: state.message,
+                onTryAgain: () {
+                  final client = (context.read<GraphqlClientCubit>().state
+                          as GraphqlClientInitialized)
+                      .client;
+                  context.read<B>().add(LoadData(client));
+                },
+              );
             } else {
               return const Text('Unknown State');
             }

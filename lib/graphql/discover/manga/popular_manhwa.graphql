@@ -3,5 +3,8 @@ query GetPopularManhwa($page: Int) {
         pageInfo {
             hasNextPage
         }
+        media(sort: [POPULARITY_DESC], type: MANGA, isAdult: false, countryOfOrigin: "KR") {
+            ...MediaShort
+        }
     }
 }

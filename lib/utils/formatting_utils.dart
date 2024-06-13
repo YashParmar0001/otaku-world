@@ -155,6 +155,12 @@ class FormattingUtils {
         return 'ONA';
       case Enum$MediaFormat.MUSIC:
         return 'Music';
+      case Enum$MediaFormat.MANGA:
+        return 'Manga';
+      case Enum$MediaFormat.NOVEL:
+        return 'Light Novel';
+      case Enum$MediaFormat.ONE_SHOT:
+        return 'One Shot';
       default:
         return 'Unknown';
     }
@@ -176,6 +182,12 @@ class FormattingUtils {
         return Enum$MediaFormat.ONA;
       case 'Music':
         return Enum$MediaFormat.MUSIC;
+      case 'Manga':
+        return Enum$MediaFormat.MANGA;
+      case 'Light Novel':
+        return Enum$MediaFormat.NOVEL;
+      case 'One Shot':
+        return Enum$MediaFormat.ONE_SHOT;
       default:
         return Enum$MediaFormat.$unknown;
     }
@@ -191,6 +203,8 @@ class FormattingUtils {
         return 'Finished';
       case Enum$MediaStatus.CANCELLED:
         return 'Cancelled';
+      case Enum$MediaStatus.HIATUS:
+        return 'Hiatus';
       default:
         return 'Unknown';
     }
@@ -206,6 +220,8 @@ class FormattingUtils {
         return Enum$MediaStatus.FINISHED;
       case 'Cancelled':
         return Enum$MediaStatus.CANCELLED;
+      case 'Hiatus':
+        return Enum$MediaStatus.HIATUS;
       default:
         return Enum$MediaStatus.$unknown;
     }

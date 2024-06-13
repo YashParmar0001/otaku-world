@@ -11,9 +11,13 @@ class GenresChips extends StatelessWidget {
   const GenresChips({
     super.key,
     required this.selectedGenres,
+    required this.onSelected,
+    required this.onUnselected,
   });
 
   final List<String> selectedGenres;
+  final void Function(String genre) onSelected;
+  final void Function(String genre) onUnselected;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +28,10 @@ class GenresChips extends StatelessWidget {
                   as GraphqlClientInitialized)
               .client;
           context.read<GenreCubit>().loadAnimeGenre(client);
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         } else if (state is GenreLoading) {
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         } else if (state is GenreLoaded) {
-          final bloc = context.read<FilterAnimeBloc>();
           return CustomChips(
             title: 'Genres',
             chipList: state.genres.map((genre) {
@@ -37,12 +40,8 @@ class GenresChips extends StatelessWidget {
                   : CustomChoiceChip(
                       label: genre,
                       value: genre,
-                      onSelected: (genre) {
-                        bloc.add(SelectAnimeGenre(genre));
-                      },
-                      onUnselected: (genre) {
-                        bloc.add(UnselectAnimeGenre(genre));
-                      },
+                      onSelected: onSelected,
+                      onUnselected: onUnselected,
                       selected: selectedGenres.contains(genre),
                     );
             }).toList(),

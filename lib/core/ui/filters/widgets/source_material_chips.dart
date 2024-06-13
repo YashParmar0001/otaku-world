@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:otaku_world/bloc/filter/filter_anime/filter_anime_bloc.dart';
 import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 import 'package:otaku_world/utils/formatting_utils.dart';
 
@@ -8,13 +6,19 @@ import '../custom_chips.dart';
 import '../custom_choice_chip.dart';
 
 class SourceMaterialChips extends StatelessWidget {
-  const SourceMaterialChips({super.key, required this.selectedSources});
+  const SourceMaterialChips({
+    super.key,
+    required this.selectedSources,
+    required this.onSelected,
+    required this.onUnselected,
+  });
 
   final List<String> selectedSources;
+  final void Function(String source) onSelected;
+  final void Function(String source) onUnselected;
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<FilterAnimeBloc>();
     return CustomChips(
       title: 'Source Material',
       chipList: Enum$MediaSource.values.map((s) {
@@ -24,12 +28,8 @@ class SourceMaterialChips extends StatelessWidget {
           label: source,
           value: source,
           selected: selectedSources.contains(source),
-          onSelected: (source) {
-            bloc.add(SelectSource(source));
-          },
-          onUnselected: (source) {
-            bloc.add(UnselectSource(source));
-          },
+          onSelected: onSelected,
+          onUnselected: onUnselected,
         );
       }).toList(),
     );

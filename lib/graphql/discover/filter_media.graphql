@@ -23,6 +23,10 @@ query FilterMedia(
     $tag_in: [String],
     $isAdult: Boolean,
     $onList: Boolean,
+    $chapters_greater: Int,
+    $chapters_lesser: Int,
+    $volumes_greater: Int,
+    $volumes_lesser: Int,
 ) {
     Page(page: $page, perPage: 50) {
         pageInfo {
@@ -52,6 +56,10 @@ query FilterMedia(
             tagCategory_in: $tagCategory_in,
             tag_in: $tag_in,
             onList: $onList,
+            chapters_greater: $chapters_greater,
+            chapters_lesser: $chapters_lesser,
+            volumes_greater: $volumes_greater,
+            volumes_lesser: $volumes_lesser,
         ) {
             ...MediaShort
         }

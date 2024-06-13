@@ -35,6 +35,10 @@ class Variables$Query$FilterMedia {
     List<String?>? tag_in,
     bool? isAdult,
     bool? onList,
+    int? chapters_greater,
+    int? chapters_lesser,
+    int? volumes_greater,
+    int? volumes_lesser,
   }) =>
       Variables$Query$FilterMedia._({
         if (page != null) r'page': page,
@@ -61,6 +65,10 @@ class Variables$Query$FilterMedia {
         if (tag_in != null) r'tag_in': tag_in,
         if (isAdult != null) r'isAdult': isAdult,
         if (onList != null) r'onList': onList,
+        if (chapters_greater != null) r'chapters_greater': chapters_greater,
+        if (chapters_lesser != null) r'chapters_lesser': chapters_lesser,
+        if (volumes_greater != null) r'volumes_greater': volumes_greater,
+        if (volumes_lesser != null) r'volumes_lesser': volumes_lesser,
       });
 
   Variables$Query$FilterMedia._(this._$data);
@@ -184,6 +192,22 @@ class Variables$Query$FilterMedia {
       final l$onList = data['onList'];
       result$data['onList'] = (l$onList as bool?);
     }
+    if (data.containsKey('chapters_greater')) {
+      final l$chapters_greater = data['chapters_greater'];
+      result$data['chapters_greater'] = (l$chapters_greater as int?);
+    }
+    if (data.containsKey('chapters_lesser')) {
+      final l$chapters_lesser = data['chapters_lesser'];
+      result$data['chapters_lesser'] = (l$chapters_lesser as int?);
+    }
+    if (data.containsKey('volumes_greater')) {
+      final l$volumes_greater = data['volumes_greater'];
+      result$data['volumes_greater'] = (l$volumes_greater as int?);
+    }
+    if (data.containsKey('volumes_lesser')) {
+      final l$volumes_lesser = data['volumes_lesser'];
+      result$data['volumes_lesser'] = (l$volumes_lesser as int?);
+    }
     return Variables$Query$FilterMedia._(result$data);
   }
 
@@ -241,6 +265,14 @@ class Variables$Query$FilterMedia {
   bool? get isAdult => (_$data['isAdult'] as bool?);
 
   bool? get onList => (_$data['onList'] as bool?);
+
+  int? get chapters_greater => (_$data['chapters_greater'] as int?);
+
+  int? get chapters_lesser => (_$data['chapters_lesser'] as int?);
+
+  int? get volumes_greater => (_$data['volumes_greater'] as int?);
+
+  int? get volumes_lesser => (_$data['volumes_lesser'] as int?);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
@@ -349,6 +381,22 @@ class Variables$Query$FilterMedia {
     if (_$data.containsKey('onList')) {
       final l$onList = onList;
       result$data['onList'] = l$onList;
+    }
+    if (_$data.containsKey('chapters_greater')) {
+      final l$chapters_greater = chapters_greater;
+      result$data['chapters_greater'] = l$chapters_greater;
+    }
+    if (_$data.containsKey('chapters_lesser')) {
+      final l$chapters_lesser = chapters_lesser;
+      result$data['chapters_lesser'] = l$chapters_lesser;
+    }
+    if (_$data.containsKey('volumes_greater')) {
+      final l$volumes_greater = volumes_greater;
+      result$data['volumes_greater'] = l$volumes_greater;
+    }
+    if (_$data.containsKey('volumes_lesser')) {
+      final l$volumes_lesser = volumes_lesser;
+      result$data['volumes_lesser'] = l$volumes_lesser;
     }
     return result$data;
   }
@@ -663,6 +711,42 @@ class Variables$Query$FilterMedia {
     if (l$onList != lOther$onList) {
       return false;
     }
+    final l$chapters_greater = chapters_greater;
+    final lOther$chapters_greater = other.chapters_greater;
+    if (_$data.containsKey('chapters_greater') !=
+        other._$data.containsKey('chapters_greater')) {
+      return false;
+    }
+    if (l$chapters_greater != lOther$chapters_greater) {
+      return false;
+    }
+    final l$chapters_lesser = chapters_lesser;
+    final lOther$chapters_lesser = other.chapters_lesser;
+    if (_$data.containsKey('chapters_lesser') !=
+        other._$data.containsKey('chapters_lesser')) {
+      return false;
+    }
+    if (l$chapters_lesser != lOther$chapters_lesser) {
+      return false;
+    }
+    final l$volumes_greater = volumes_greater;
+    final lOther$volumes_greater = other.volumes_greater;
+    if (_$data.containsKey('volumes_greater') !=
+        other._$data.containsKey('volumes_greater')) {
+      return false;
+    }
+    if (l$volumes_greater != lOther$volumes_greater) {
+      return false;
+    }
+    final l$volumes_lesser = volumes_lesser;
+    final lOther$volumes_lesser = other.volumes_lesser;
+    if (_$data.containsKey('volumes_lesser') !=
+        other._$data.containsKey('volumes_lesser')) {
+      return false;
+    }
+    if (l$volumes_lesser != lOther$volumes_lesser) {
+      return false;
+    }
     return true;
   }
 
@@ -692,6 +776,10 @@ class Variables$Query$FilterMedia {
     final l$tag_in = tag_in;
     final l$isAdult = isAdult;
     final l$onList = onList;
+    final l$chapters_greater = chapters_greater;
+    final l$chapters_lesser = chapters_lesser;
+    final l$volumes_greater = volumes_greater;
+    final l$volumes_lesser = volumes_lesser;
     return Object.hashAll([
       _$data.containsKey('page') ? l$page : const {},
       _$data.containsKey('search') ? l$search : const {},
@@ -749,6 +837,10 @@ class Variables$Query$FilterMedia {
           : const {},
       _$data.containsKey('isAdult') ? l$isAdult : const {},
       _$data.containsKey('onList') ? l$onList : const {},
+      _$data.containsKey('chapters_greater') ? l$chapters_greater : const {},
+      _$data.containsKey('chapters_lesser') ? l$chapters_lesser : const {},
+      _$data.containsKey('volumes_greater') ? l$volumes_greater : const {},
+      _$data.containsKey('volumes_lesser') ? l$volumes_lesser : const {},
     ]);
   }
 }
@@ -787,6 +879,10 @@ abstract class CopyWith$Variables$Query$FilterMedia<TRes> {
     List<String?>? tag_in,
     bool? isAdult,
     bool? onList,
+    int? chapters_greater,
+    int? chapters_lesser,
+    int? volumes_greater,
+    int? volumes_lesser,
   });
 }
 
@@ -828,6 +924,10 @@ class _CopyWithImpl$Variables$Query$FilterMedia<TRes>
     Object? tag_in = _undefined,
     Object? isAdult = _undefined,
     Object? onList = _undefined,
+    Object? chapters_greater = _undefined,
+    Object? chapters_lesser = _undefined,
+    Object? volumes_greater = _undefined,
+    Object? volumes_lesser = _undefined,
   }) =>
       _then(Variables$Query$FilterMedia._({
         ..._instance._$data,
@@ -868,6 +968,14 @@ class _CopyWithImpl$Variables$Query$FilterMedia<TRes>
         if (tag_in != _undefined) 'tag_in': (tag_in as List<String?>?),
         if (isAdult != _undefined) 'isAdult': (isAdult as bool?),
         if (onList != _undefined) 'onList': (onList as bool?),
+        if (chapters_greater != _undefined)
+          'chapters_greater': (chapters_greater as int?),
+        if (chapters_lesser != _undefined)
+          'chapters_lesser': (chapters_lesser as int?),
+        if (volumes_greater != _undefined)
+          'volumes_greater': (volumes_greater as int?),
+        if (volumes_lesser != _undefined)
+          'volumes_lesser': (volumes_lesser as int?),
       }));
 }
 
@@ -902,6 +1010,10 @@ class _CopyWithStubImpl$Variables$Query$FilterMedia<TRes>
     List<String?>? tag_in,
     bool? isAdult,
     bool? onList,
+    int? chapters_greater,
+    int? chapters_lesser,
+    int? volumes_greater,
+    int? volumes_lesser,
   }) =>
       _res;
 }
@@ -1287,6 +1399,42 @@ const documentNodeQueryFilterMedia = DocumentNode(definitions: [
         defaultValue: DefaultValueNode(value: null),
         directives: [],
       ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'chapters_greater')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'Int'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'chapters_lesser')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'Int'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'volumes_greater')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'Int'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'volumes_lesser')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'Int'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
     ],
     directives: [],
     selectionSet: SelectionSetNode(selections: [
@@ -1422,6 +1570,22 @@ const documentNodeQueryFilterMedia = DocumentNode(definitions: [
               ArgumentNode(
                 name: NameNode(value: 'onList'),
                 value: VariableNode(name: NameNode(value: 'onList')),
+              ),
+              ArgumentNode(
+                name: NameNode(value: 'chapters_greater'),
+                value: VariableNode(name: NameNode(value: 'chapters_greater')),
+              ),
+              ArgumentNode(
+                name: NameNode(value: 'chapters_lesser'),
+                value: VariableNode(name: NameNode(value: 'chapters_lesser')),
+              ),
+              ArgumentNode(
+                name: NameNode(value: 'volumes_greater'),
+                value: VariableNode(name: NameNode(value: 'volumes_greater')),
+              ),
+              ArgumentNode(
+                name: NameNode(value: 'volumes_lesser'),
+                value: VariableNode(name: NameNode(value: 'volumes_lesser')),
               ),
             ],
             directives: [],

@@ -8,12 +8,13 @@ import 'package:otaku_world/bloc/filter/filter_anime/filter_anime_bloc.dart';
 import 'package:otaku_world/constants/string_constants.dart';
 import 'package:otaku_world/core/ui/appbars/simple_app_bar.dart';
 import 'package:otaku_world/core/ui/discover_header.dart';
-import 'package:otaku_world/features/discover/widgets/discover_anime_section.dart';
+import 'package:otaku_world/features/discover/discover_anime/widgets/discover_anime_section.dart';
 import 'package:otaku_world/features/discover/widgets/filtered_media_section.dart';
 import 'package:otaku_world/features/discover/widgets/search_option.dart';
 import 'package:otaku_world/features/reviews/widgets/scroll_to_top_fab.dart';
+import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 
-import '../../../bloc/graphql_client/graphql_client_cubit.dart';
+import '../../../../bloc/graphql_client/graphql_client_cubit.dart';
 
 class AnimeDiscoverScreen extends HookWidget {
   const AnimeDiscoverScreen({super.key});
@@ -46,10 +47,10 @@ class AnimeDiscoverScreen extends HookWidget {
 
     final bloc = context.read<FilterAnimeBloc>();
     return PopScope(
-      canPop: false,
+      canPop: true,
       onPopInvoked: (_) {
         bloc.add(RemoveAllFilters());
-        context.pop();
+        // context.pop();
       },
       child: Scaffold(
         appBar: const SimpleAppBar(title: 'Anime'),
@@ -76,18 +77,25 @@ class AnimeDiscoverScreen extends HookWidget {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 15,
                 ),
-                child: SearchOption(
-                  onPressedFilters: () {
-                    context.push('/anime-filters-discover');
-                  },
-                  clearSearch: () {
-                    bloc.add(ClearSearch(client: client, clearFilter: false));
-                  },
-                  onSubmitted: (value) {
-                    bloc.add(ApplySearch(client: client, search: value));
-                  },
-                  onChanged: (value) {
-                    bloc.add(UpdateSearch(value));
+                child: BlocBuilder<FilterAnimeBloc, FilterAnimeState>(
+                  builder: (context, state) {
+                    return SearchOption(
+                      onPressedFilters: () {
+                        context.push('/anime-filters');
+                      },
+                      clearSearch: () {
+                        bloc.add(
+                          ClearSearch(client: client, clearFilter: false),
+                        );
+                      },
+                      onSubmitted: (value) {
+                        bloc.add(ApplySearch(client: client, search: value));
+                      },
+                      onChanged: (value) {
+                        bloc.add(UpdateSearch(value));
+                      },
+                      filterApplied: bloc.filterApplied,
+                    );
                   },
                 ),
               ),
@@ -100,6 +108,7 @@ class AnimeDiscoverScreen extends HookWidget {
                     return FilteredMediaSection(
                       list: state.list,
                       hasNextPage: state.hasNextPage,
+                      type: Enum$MediaType.ANIME,
                     );
                   } else if (state is ResultsLoading) {
                     return const Center(child: CircularProgressIndicator());

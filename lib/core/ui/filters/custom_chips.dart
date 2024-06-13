@@ -8,9 +8,11 @@ class CustomChips extends StatelessWidget {
     required this.chipList,
     this.titleStyle,
   });
+
   final String title;
   final List<Widget> chipList;
   final TextStyle? titleStyle;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,13 +20,12 @@ class CustomChips extends StatelessWidget {
       children: [
         Text(
           title,
-          style: (titleStyle == null)
-              ? Theme.of(context).textTheme.displayMedium!.copyWith(
+          style: titleStyle ??
+              Theme.of(context).textTheme.displayMedium!.copyWith(
                     color: AppColors.white,
                     fontWeight: FontWeight.w600,
                     fontFamily: 'Poppins',
-                  )
-              : titleStyle,
+                  ),
         ),
         const SizedBox(
           height: 10,

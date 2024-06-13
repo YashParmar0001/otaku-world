@@ -2,6 +2,9 @@
 class Assets {
   Assets._();
 
+  static const String animeDemonSlayer = 'assets/images/discover/anime/demon_slayer.png';
+  static const String animeFrieren = 'assets/images/discover/anime/frieren.jpg';
+  static const String animeNaruto = 'assets/images/discover/anime/naruto.png';
   static const String assetsAppLogo = 'assets/app_logo.svg';
   static const String assetsAppLogoHorizontal = 'assets/app_logo_horizontal.svg';
   static const String assetsLogoBw = 'assets/logo_bw.svg';
@@ -48,7 +51,9 @@ class Assets {
   static const String iconsTrendUp = 'assets/icons/trend-up.svg';
   static const String iconsUserGroup = 'assets/icons/user-group.svg';
   static const String iconsViewSlider = 'assets/icons/view-slider.svg';
-  static const String imagesAnimeImage = 'assets/images/anime_image.png';
+  static const String mangaHorimiya = 'assets/images/discover/manga/horimiya.png';
+  static const String mangaOnePunchMan = 'assets/images/discover/manga/one-punch-man.jpg';
+  static const String mangaSpyxfamily = 'assets/images/discover/manga/spyxfamily.jpg';
   static const String myRefreshIndicatorForest = 'assets/my_refresh_indicator/forest.png';
   static const String myRefreshIndicatorFullMoon = 'assets/my_refresh_indicator/full_moon.svg';
   static const String myRefreshIndicatorMeteorite1 = 'assets/my_refresh_indicator/meteorite1.svg';
@@ -62,6 +67,9 @@ class Assets {
   static const String onBoardingOnBoarding2 = 'assets/images/on_boarding/on_boarding_2.png';
   static const String onBoardingOnBoarding3 = 'assets/images/on_boarding/on_boarding_3.png';
   static const String onBoardingOnBoarding4 = 'assets/images/on_boarding/on_boarding_4.png';
+  static const String staffKana = 'assets/images/discover/staff/kana.png';
+  static const String staffKenjirou = 'assets/images/discover/staff/kenjirou.jpg';
+  static const String staffMamoru = 'assets/images/discover/staff/mamoru.png';
   static const String studiosKyotoAnimation = 'assets/images/discover/studios/kyoto_animation.png';
   static const String studiosToeiAnimation = 'assets/images/discover/studios/toei_animation.png';
 

@@ -13,11 +13,13 @@ class DiscoverCard extends HookWidget {
     required this.title,
     required this.onTap,
   });
+
   final Widget child;
   final Color beginColors;
   final Color endColors;
   final String title;
   final GestureTapCallback onTap;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -59,17 +61,18 @@ class DiscoverCard extends HookWidget {
               ),
               ClipRRect(
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 3,sigmaY: 3),
+                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                   child: SizedBox(
                     height: 42,
                     child: Center(
                       child: Text(
                         title,
-                        style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Poppins',
-                        ),
+                        style:
+                            Theme.of(context).textTheme.displayMedium!.copyWith(
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Poppins',
+                                ),
                       ),
                     ),
                   ),

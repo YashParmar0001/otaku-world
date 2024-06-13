@@ -82,7 +82,6 @@ fragment MediaDetailed on Media{
 
 }
 
-
 fragment MediaShort on Media {
     id
     title {
@@ -127,8 +126,6 @@ fragment MediaShort on Media {
     }
 }
 
-
-
 fragment SearchResultMedia on Media {
     id
     coverImage {
@@ -144,7 +141,6 @@ fragment SearchResultMedia on Media {
     format
     meanScore
 }
-
 
 fragment Review on Review{
     id
@@ -256,4 +252,12 @@ fragment CalendarAiringSchedule on AiringSchedule {
     airingAt
     timeUntilAiring
     episode
+}
+
+fragment MediaTag on MediaTag {
+    id
+    name
+    category
+    description
+    isAdult
 }

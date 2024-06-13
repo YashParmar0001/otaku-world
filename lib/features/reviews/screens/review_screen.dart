@@ -47,7 +47,13 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
 
     return BlocBuilder<ReviewBloc, PaginatedDataState>(
       builder: (context, state) {
-        if (state is PaginatedDataLoading || state is PaginatedDataInitial) {
+        if (state is PaginatedDataInitial) {
+          final client = (context.read<GraphqlClientCubit>().state
+                  as GraphqlClientInitialized)
+              .client;
+          context.read<ReviewBloc>().add(LoadData(client));
+          return _buildLoadingScaffold();
+        } else if (state is PaginatedDataLoading) {
           return _buildLoadingScaffold();
         } else if (state is PaginatedDataLoaded) {
           return Scaffold(

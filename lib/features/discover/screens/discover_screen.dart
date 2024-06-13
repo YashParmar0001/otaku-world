@@ -1,47 +1,27 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:otaku_world/constants/color_constants.dart';
+import 'package:otaku_world/constants/image_constants.dart';
 import 'package:otaku_world/core/ui/discover_header.dart';
 import 'package:otaku_world/features/discover/widgets/discover_card.dart';
 import 'package:otaku_world/generated/assets.dart';
+import 'package:otaku_world/services/caching/image_cache_manager.dart';
 import 'package:otaku_world/theme/colors.dart';
-
-
-import '../../../bloc/bottom_nav_bar/bottom_nav_bar_cubit.dart';
+import 'package:otaku_world/utils/poster_utils.dart';
 
 class DiscoverScreen extends HookWidget {
   const DiscoverScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
-    final scaffoldController = useScrollController();
-
-    final bottomBarBloc = context.read<BottomNavBarCubit>();
-
-    useEffect(() {
-      scaffoldController.addListener(() {
-        final direction = scaffoldController.position.userScrollDirection;
-        if (direction == ScrollDirection.forward) {
-          if (bottomBarBloc.state is BottomNavBarNotVisible) {
-            bottomBarBloc.showBottomBar();
-          }
-        } else if (direction == ScrollDirection.reverse) {
-          if (bottomBarBloc.state is BottomNavBarVisible) {
-            bottomBarBloc.hideBottomBar();
-          }
-        }
-      });
-      return null;
-    }, const []);
+    log('Building discover screen', name: 'Discover');
 
     return SingleChildScrollView(
-      controller: scaffoldController,
-      scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -50,10 +30,11 @@ class DiscoverScreen extends HookWidget {
               horizontal: 15,
             ),
             child: DiscoverHeader(
-                title: "Ignite your Anime \nAdveture",
-                subtitle:
-                    "Immerse Yourself in a World of Discovery, Uncovering Exciting"
-                    " Animes, Fascinating Mangas, and Iconic Characters."),
+              title: "Ignite your Anime \nAdventure",
+              subtitle:
+                  "Immerse Yourself in a World of Discovery, Uncovering Exciting"
+                  " Anime, Fascinating Mangas, and Iconic Characters.",
+            ),
           ),
           const SizedBox(
             height: 10,
@@ -62,12 +43,16 @@ class DiscoverScreen extends HookWidget {
             onTap: () {
               context.push('/discover-anime');
             },
-            title: "Anime",
+            title: 'Anime',
             beginColors: AppColors.raisinBlack,
-            endColors: AppColors.sunsetOrange,
-            child: const DiscoverCardImage(
+            endColors: ColorConstants.discoverColors[0],
+            child: DiscoverCardImage(
               radius: 15.0,
               angle: 0.11,
+              posters: PosterUtils.getRandomImages(
+                AnimeImageConstants.animePosters,
+              ),
+              type: 'Anime',
             ),
           ),
           const SizedBox(
@@ -77,12 +62,16 @@ class DiscoverScreen extends HookWidget {
             onTap: () {
               context.push('/discover-manga');
             },
-            title: "Manga",
+            title: 'Manga',
             beginColors: AppColors.raisinBlack,
-            endColors: AppColors.kiwi,
-            child: const DiscoverCardImage(
-              radius: 15.0,
+            endColors: ColorConstants.discoverColors[1],
+            child: DiscoverCardImage(
+              radius: 5.0,
               angle: 0.11,
+              posters: PosterUtils.getRandomImages(
+                MangaImageConstants.mangaPosters,
+              ),
+              type: 'Manga',
             ),
           ),
           const SizedBox(
@@ -94,7 +83,7 @@ class DiscoverScreen extends HookWidget {
             },
             title: "Characters",
             beginColors: AppColors.raisinBlack,
-            endColors: AppColors.crayola,
+            endColors: ColorConstants.discoverColors[2],
             child: const DiscoverCharacterPosters(),
           ),
           const SizedBox(
@@ -104,12 +93,16 @@ class DiscoverScreen extends HookWidget {
             onTap: () {
               context.push('/discover-staff');
             },
-            title: "Staff",
+            title: 'Staff',
             beginColors: AppColors.raisinBlack,
-            endColors: AppColors.trueBlue,
-            child: const DiscoverCardImage(
+            endColors: ColorConstants.discoverColors[3],
+            child: DiscoverCardImage(
               radius: 15.0,
               angle: 0.11,
+              posters: PosterUtils.getRandomImages(
+                StaffImageConstants.staffPosters,
+              ),
+              type: 'Staff',
             ),
           ),
           const SizedBox(
@@ -121,7 +114,7 @@ class DiscoverScreen extends HookWidget {
             },
             title: "Studios",
             beginColors: AppColors.raisinBlack,
-            endColors: AppColors.darkMagenta,
+            endColors: ColorConstants.discoverColors[4],
             child: const DiscoverStudiosPosters(),
           ),
           const SizedBox(
@@ -158,6 +151,7 @@ class DiscoverStudiosPosters extends StatelessWidget {
   });
 
   final double radius;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -226,12 +220,42 @@ class DiscoverCardImage extends StatelessWidget {
     super.key,
     this.angle = 0.0,
     this.radius = 0.0,
+    required this.posters,
+    required this.type,
   });
 
   final double radius;
   final double angle;
+  final List<String> posters;
+  final String type;
+
   @override
   Widget build(BuildContext context) {
+    List<String> assets;
+    switch (type) {
+      case 'Anime':
+        assets = [
+          Assets.animeDemonSlayer,
+          Assets.animeFrieren,
+          Assets.animeNaruto,
+        ];
+        break;
+      case 'Manga':
+        assets = [
+          Assets.mangaOnePunchMan,
+          Assets.mangaHorimiya,
+          Assets.mangaSpyxfamily,
+        ];
+        break;
+      default:
+        assets = [
+          Assets.staffKenjirou,
+          Assets.staffKana,
+          Assets.staffMamoru,
+        ];
+        break;
+    }
+
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -254,9 +278,9 @@ class DiscoverCardImage extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Image.asset(
-                  Assets.imagesAnimeImage,
-                  fit: BoxFit.cover,
+                child: _buildImage(
+                  url: posters[0],
+                  asset: assets[0],
                 ),
               ),
             ),
@@ -275,13 +299,13 @@ class DiscoverCardImage extends StatelessWidget {
                     BoxShadow(
                       color: Colors.black.withOpacity(0.7),
                       blurRadius: 3,
-                      offset: const Offset(0, 0),
+                      offset: Offset.zero,
                     ),
                   ],
                 ),
-                child: Image.asset(
-                  Assets.imagesAnimeImage,
-                  fit: BoxFit.cover,
+                child: _buildImage(
+                  url: posters[2],
+                  asset: assets[2],
                 ),
               ),
             ),
@@ -297,18 +321,41 @@ class DiscoverCardImage extends StatelessWidget {
               BoxShadow(
                 color: Colors.black.withOpacity(0.7),
                 blurRadius: 3,
-                offset: const Offset(0, 0),
+                offset: Offset.zero,
               ),
             ],
           ),
-          child: Image.asset(
-            Assets.imagesAnimeImage,
-            height: 125,
-            width: 80,
-            fit: BoxFit.cover,
+          child: _buildImage(
+            url: posters[1],
+            asset: assets[1],
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildImage({required String url, required String asset}) {
+    return CachedNetworkImage(
+      imageUrl: url,
+      cacheManager: ImageCacheManager.instance,
+      imageBuilder: (context, imageProvider) {
+        return Image(
+          image: imageProvider,
+          fit: BoxFit.cover,
+        );
+      },
+      placeholder: (context, url) {
+        return Image.asset(
+          asset,
+          fit: BoxFit.cover,
+        );
+      },
+      errorWidget: (context, url, error) {
+        return Image.asset(
+          asset,
+          fit: BoxFit.cover,
+        );
+      },
     );
   }
 }

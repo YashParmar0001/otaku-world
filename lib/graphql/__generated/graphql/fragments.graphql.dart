@@ -13579,3 +13579,293 @@ class _CopyWithStubImpl$Fragment$CalendarAiringSchedule$media$mediaListEntry<
   }) =>
       _res;
 }
+
+class Fragment$MediaTag {
+  Fragment$MediaTag({
+    required this.id,
+    required this.name,
+    this.category,
+    this.description,
+    this.isAdult,
+    this.$__typename = 'MediaTag',
+  });
+
+  factory Fragment$MediaTag.fromJson(Map<String, dynamic> json) {
+    final l$id = json['id'];
+    final l$name = json['name'];
+    final l$category = json['category'];
+    final l$description = json['description'];
+    final l$isAdult = json['isAdult'];
+    final l$$__typename = json['__typename'];
+    return Fragment$MediaTag(
+      id: (l$id as int),
+      name: (l$name as String),
+      category: (l$category as String?),
+      description: (l$description as String?),
+      isAdult: (l$isAdult as bool?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final int id;
+
+  final String name;
+
+  final String? category;
+
+  final String? description;
+
+  final bool? isAdult;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$id = id;
+    _resultData['id'] = l$id;
+    final l$name = name;
+    _resultData['name'] = l$name;
+    final l$category = category;
+    _resultData['category'] = l$category;
+    final l$description = description;
+    _resultData['description'] = l$description;
+    final l$isAdult = isAdult;
+    _resultData['isAdult'] = l$isAdult;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$id = id;
+    final l$name = name;
+    final l$category = category;
+    final l$description = description;
+    final l$isAdult = isAdult;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$id,
+      l$name,
+      l$category,
+      l$description,
+      l$isAdult,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Fragment$MediaTag) || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) {
+      return false;
+    }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
+    final l$category = category;
+    final lOther$category = other.category;
+    if (l$category != lOther$category) {
+      return false;
+    }
+    final l$description = description;
+    final lOther$description = other.description;
+    if (l$description != lOther$description) {
+      return false;
+    }
+    final l$isAdult = isAdult;
+    final lOther$isAdult = other.isAdult;
+    if (l$isAdult != lOther$isAdult) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Fragment$MediaTag on Fragment$MediaTag {
+  CopyWith$Fragment$MediaTag<Fragment$MediaTag> get copyWith =>
+      CopyWith$Fragment$MediaTag(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Fragment$MediaTag<TRes> {
+  factory CopyWith$Fragment$MediaTag(
+    Fragment$MediaTag instance,
+    TRes Function(Fragment$MediaTag) then,
+  ) = _CopyWithImpl$Fragment$MediaTag;
+
+  factory CopyWith$Fragment$MediaTag.stub(TRes res) =
+      _CopyWithStubImpl$Fragment$MediaTag;
+
+  TRes call({
+    int? id,
+    String? name,
+    String? category,
+    String? description,
+    bool? isAdult,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Fragment$MediaTag<TRes>
+    implements CopyWith$Fragment$MediaTag<TRes> {
+  _CopyWithImpl$Fragment$MediaTag(
+    this._instance,
+    this._then,
+  );
+
+  final Fragment$MediaTag _instance;
+
+  final TRes Function(Fragment$MediaTag) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? id = _undefined,
+    Object? name = _undefined,
+    Object? category = _undefined,
+    Object? description = _undefined,
+    Object? isAdult = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Fragment$MediaTag(
+        id: id == _undefined || id == null ? _instance.id : (id as int),
+        name: name == _undefined || name == null
+            ? _instance.name
+            : (name as String),
+        category:
+            category == _undefined ? _instance.category : (category as String?),
+        description: description == _undefined
+            ? _instance.description
+            : (description as String?),
+        isAdult: isAdult == _undefined ? _instance.isAdult : (isAdult as bool?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Fragment$MediaTag<TRes>
+    implements CopyWith$Fragment$MediaTag<TRes> {
+  _CopyWithStubImpl$Fragment$MediaTag(this._res);
+
+  TRes _res;
+
+  call({
+    int? id,
+    String? name,
+    String? category,
+    String? description,
+    bool? isAdult,
+    String? $__typename,
+  }) =>
+      _res;
+}
+
+const fragmentDefinitionMediaTag = FragmentDefinitionNode(
+  name: NameNode(value: 'MediaTag'),
+  typeCondition: TypeConditionNode(
+      on: NamedTypeNode(
+    name: NameNode(value: 'MediaTag'),
+    isNonNull: false,
+  )),
+  directives: [],
+  selectionSet: SelectionSetNode(selections: [
+    FieldNode(
+      name: NameNode(value: 'id'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'name'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'category'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'description'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'isAdult'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
+const documentNodeFragmentMediaTag = DocumentNode(definitions: [
+  fragmentDefinitionMediaTag,
+]);
+
+extension ClientExtension$Fragment$MediaTag on graphql.GraphQLClient {
+  void writeFragment$MediaTag({
+    required Fragment$MediaTag data,
+    required Map<String, dynamic> idFields,
+    bool broadcast = true,
+  }) =>
+      this.writeFragment(
+        graphql.FragmentRequest(
+          idFields: idFields,
+          fragment: const graphql.Fragment(
+            fragmentName: 'MediaTag',
+            document: documentNodeFragmentMediaTag,
+          ),
+        ),
+        data: data.toJson(),
+        broadcast: broadcast,
+      );
+  Fragment$MediaTag? readFragment$MediaTag({
+    required Map<String, dynamic> idFields,
+    bool optimistic = true,
+  }) {
+    final result = this.readFragment(
+      graphql.FragmentRequest(
+        idFields: idFields,
+        fragment: const graphql.Fragment(
+          fragmentName: 'MediaTag',
+          document: documentNodeFragmentMediaTag,
+        ),
+      ),
+      optimistic: optimistic,
+    );
+    return result == null ? null : Fragment$MediaTag.fromJson(result);
+  }
+}

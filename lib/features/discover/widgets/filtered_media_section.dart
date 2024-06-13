@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
+import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 
+import '../../../core/ui/placeholders/anime_character_placeholder.dart';
 import '../../../generated/assets.dart';
 import 'media_grid.dart';
 
 class FilteredMediaSection extends StatelessWidget {
-  const FilteredMediaSection({super.key, required this.list, required this.hasNextPage,});
+  const FilteredMediaSection({
+    super.key,
+    required this.list,
+    required this.hasNextPage,
+    required this.type,
+  });
 
+  final Enum$MediaType type;
   final List<Fragment$MediaShort?> list;
   final bool hasNextPage;
 
@@ -26,11 +35,15 @@ class FilteredMediaSection extends StatelessWidget {
               Text(
                 'Results',
                 style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                  fontFamily: 'Roboto-Condensed',
-                ),
+                      fontFamily: 'Roboto-Condensed',
+                    ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (type == Enum$MediaType.ANIME) {
+                    context.push('/filter-anime-slider');
+                  }
+                },
                 icon: Padding(
                   padding: const EdgeInsets.only(
                     left: 12,
@@ -44,10 +57,18 @@ class FilteredMediaSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 5),
-        MediaGrid(
-          list: list,
-          hasNextPage: hasNextPage,
-        ),
+        list.isEmpty
+            ? const Center(
+              child: AnimeCharacterPlaceholder(
+                  asset: Assets.charactersErenYeager,
+                  heading: 'Oops! No matches found!',
+                  subheading: 'Try searching something else.',
+                ),
+            )
+            : MediaGrid(
+                list: list,
+                hasNextPage: hasNextPage,
+              ),
       ],
     );
   }

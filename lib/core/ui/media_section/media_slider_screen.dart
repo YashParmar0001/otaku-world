@@ -1,23 +1,15 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
 import 'package:otaku_world/core/ui/media_section/media_carousel_card.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
-import 'package:otaku_world/services/caching/image_cache_manager.dart';
 import 'package:otaku_world/theme/colors.dart';
-import 'package:otaku_world/utils/formatting_utils.dart';
 import 'dart:developer' as dev;
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
-import '../../../generated/assets.dart';
-import '../../../graphql/__generated/graphql/schema.graphql.dart';
 import '../../../utils/ui_utils.dart';
 import '../appbars/simple_app_bar.dart';
-import '../buttons/primary_button.dart';
 import '../error_text.dart';
-import '../placeholders/poster_placeholder.dart';
 
 class MediaSliderScreen<B extends PaginatedDataBloc> extends StatelessWidget {
   const MediaSliderScreen({

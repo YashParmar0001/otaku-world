@@ -104,13 +104,13 @@ class OverallInfo extends StatelessWidget {
           InfoTile(
             title: 'Start Date',
             data:
-               media.startDate == null ?  "${media.startDate!.day}/${media.startDate!.month}/${media.startDate!.year}" : "- -",
+               media.startDate != null ?  "${media.startDate!.day}/${media.startDate!.month}/${media.startDate!.year}" : "- -",
           ),
           tenHeightSizedBox,
           InfoTile(
             title: 'End Date',
             data:
-               media.endDate == null ? "${media.endDate!.day}/${media.endDate!.month}/${media.endDate!.year}" : "- -",
+               media.endDate !=  null ? "${media.endDate!.day}/${media.endDate!.month}/${media.endDate!.year}" : "- -",
           ),
           tenHeightSizedBox,
           InfoTile(

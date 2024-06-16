@@ -1,5 +1,6 @@
 import 'dart:developer' as dev;
 
+import 'package:bloc/bloc.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:otaku_world/graphql/__generated/graphql/details/recomendation.graphql.dart';
 
@@ -12,7 +13,11 @@ class RecommendationAnimeBloc
 
   void setId(int id) {
     this.id = id;
-    dev.log("Recommendation id : $id", name: "Recomendations Anime");
+    dev.log("Recommendation id : $id", name: "Recommendations Anime");
+  }
+
+  void resetId() {
+    id = -1;
   }
 
   @override
@@ -39,5 +44,12 @@ class RecommendationAnimeBloc
         .toList());
     dev.log('Episodes list size: ${list.length}',
         name: 'Recommendation Anime Bloc');
+  }
+
+  @override
+  void onTransition(
+      Transition<PaginatedDataEvent, PaginatedDataState> transition) {
+    super.onTransition(transition);
+    dev.log(transition.toString(), name: "Recommendation Bloc ");
   }
 }

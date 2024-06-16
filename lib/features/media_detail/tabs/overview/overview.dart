@@ -8,12 +8,10 @@ import 'package:otaku_world/features/media_detail/tabs/overview/overall_informat
 import 'package:otaku_world/features/media_detail/tabs/overview/relations.dart';
 import 'package:otaku_world/features/media_detail/tabs/overview/tags.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import 'dart:developer' as dev;
 import '../../../../../bloc/media_detail/media_detail_bloc.dart';
 import '../../../../../theme/colors.dart';
 import '../../../../core/ui/media_section/media_section.dart';
 import '../../../../utils/app_texts.dart';
-
 class Overview extends StatefulHookWidget {
   const Overview({super.key});
 
@@ -33,10 +31,21 @@ class _OverviewState extends State<Overview> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+  }
+
+  @override
   Widget build(BuildContext context) {
     final media =
-        (context.read<MediaDetailBloc>().state as MediaDetailLoaded).media;
+        (context
+            .read<MediaDetailBloc>()
+            .state as MediaDetailLoaded).media;
     youtubeId = media.trailer == null ? "" : media.trailer!.id.toString();
+
+    final recommendationBloc  = context.read<MediaDetailBloc>().recommendationAnimeBloc ;
+
     youtubePlayerController = YoutubePlayerController(
       initialVideoId: youtubeId,
       flags: const YoutubePlayerFlags(
@@ -72,17 +81,17 @@ class _OverviewState extends State<Overview> {
         youtubeId == ""
             ? const SizedBox()
             : const Text(
-                "Trailer",
-                style: AppTextStyles.titleSectionStyle,
-              ),
+          "Trailer",
+          style: AppTextStyles.titleSectionStyle,
+        ),
         SizedBox(
           height: youtubeId == "" ? 0 : 5,
         ),
         youtubeId == ""
             ? const SizedBox()
             : YoutubePlayer(
-                controller: youtubePlayerController,
-              ),
+          controller: youtubePlayerController,
+        ),
         const SizedBox(
           height: 20,
         ),
@@ -111,12 +120,15 @@ class _OverviewState extends State<Overview> {
         // Recommendations
 
         if (media.recommendations!.nodes!.isNotEmpty) ...[
-          MediaSection<RecommendationAnimeBloc>(
-            label: "Recommendations",
-            onSliderPressed: () {},
-            onMorePressed: () {},
-            heroTag: 'trending_anime',
-            leftPadding: 0,
+          BlocProvider.value(
+            value: recommendationBloc,
+            child: MediaSection<RecommendationAnimeBloc>(
+              label: "Recommendations",
+              onSliderPressed: () {},
+              onMorePressed: () {},
+              heroTag: 'trending_anime',
+              leftPadding: 0,
+            ),
           ),
           const SizedBox(
             height: 20,
@@ -158,15 +170,18 @@ class _OverviewState extends State<Overview> {
       // }
 
       String genre = genres[i].toString();
-      dev.log(genre ,name: "Overview Detail Genre");
       textSpans.add(
         TextSpan(
           text: genre,
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: AppColors.white,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Poppins',
-              ),
+          style: Theme
+              .of(context)
+              .textTheme
+              .headlineSmall
+              ?.copyWith(
+            color: AppColors.white,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Poppins',
+          ),
         ),
       );
 
@@ -174,11 +189,15 @@ class _OverviewState extends State<Overview> {
         textSpans.add(
           TextSpan(
             text: ' · ',
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  color: AppColors.sunsetOrange,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Poppins',
-                ),
+            style: Theme
+                .of(context)
+                .textTheme
+                .headlineSmall
+                ?.copyWith(
+              color: AppColors.sunsetOrange,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Poppins',
+            ),
           ),
         );
       }

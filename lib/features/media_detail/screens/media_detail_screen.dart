@@ -5,8 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
-import 'package:otaku_world/bloc/recomendations/recomendation_anime_bloc.dart';
 import 'package:otaku_world/core/ui/error_text.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 
@@ -28,8 +26,7 @@ import '../widgets/info_col.dart';
 import '../widgets/status_row.dart';
 
 class MediaDetailScreen extends HookWidget {
-  const MediaDetailScreen({super.key, required this.mediaId});
-
+  const MediaDetailScreen({Key? key, required this.mediaId}) : super(key: key);
   final int mediaId;
   static final tabs = [
     'Overview',
@@ -42,6 +39,7 @@ class MediaDetailScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    dev.log('Key is $key', name: 'Key Value');
     final tabController = useTabController(initialLength: tabs.length);
     final client =
         (context.read<GraphqlClientCubit>().state as GraphqlClientInitialized)
@@ -58,37 +56,15 @@ class MediaDetailScreen extends HookWidget {
         extendBody: true,
         body: BlocBuilder<MediaDetailBloc, MediaDetailState>(
           builder: (context, state) {
-            if (state is MediaDetailInitial) {
-              context.read<MediaDetailBloc>().add(
-                    LoadMediaDetail(id: mediaId, client: client),
-                  );
-              context.read<RecommendationAnimeBloc>().setId(mediaId);
-              context.read<RecommendationAnimeBloc>().add(LoadData(client));
-            } else if (state is MediaDetailLoading) {
-              // context.read<RecommendationAnimeBloc>().add(ResetData());
-            } else if (state is MediaDetailLoading) {
-              context.read<RecommendationAnimeBloc>().add(ResetData());
-              context.read<RecommendationAnimeBloc>().setId(mediaId);
-              context.read<RecommendationAnimeBloc>().add(LoadData(client));
-
-              return const Center(
-                child: Text(
-                  'Loading...',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              );
+            if (state is MediaDetailInitial || state is MediaDetailLoading) {
+              return _buildLoading(context);
             } else if (state is MediaDetailLoaded) {
               final media = state.media;
 
-              if (media.id != mediaId) {
-                context.read<MediaDetailBloc>().add(ResetMediaData());
-                context.read<MediaDetailBloc>().add(
-                      LoadMediaDetail(id: mediaId, client: client),
-                    );
-              }
-
+              dev.log(
+                "query Id : $mediaId ---> State Id : ${media.id}  Key Id : ---> $key ",
+                name: "MediaDetailScreenMatched",
+              );
               return NestedScrollView(
                 headerSliverBuilder: (context, innerBoxIsScrolled) {
                   dev.log("The InnerBox is scrolled : $innerBoxIsScrolled",
@@ -126,11 +102,11 @@ class MediaDetailScreen extends HookWidget {
                 child: ErrorText(
                   message: state.message,
                   onTryAgain: () => context.read<MediaDetailBloc>().add(
-                        LoadMediaDetail(
-                          id: mediaId,
-                          client: client,
-                        ),
-                      ),
+                    LoadMediaDetail(
+                      id: mediaId,
+                      client: client,
+                    ),
+                  ),
                 ),
               );
             }
@@ -150,16 +126,12 @@ class MediaDetailScreen extends HookWidget {
   }
 
   AppBar buildAppBar(
-    BuildContext context,
-  ) {
+      BuildContext context,
+      ) {
     return AppBar(
       leading: CustomBackButton(
         onPressed: () {
-          if (context.canPop()) {
-            context.pop();
-          } else {
-            context.go('/home');
-          }
+          _onPopInvoked(context);
         },
       ),
       backgroundColor: AppColors.transparent,
@@ -182,12 +154,12 @@ class MediaDetailScreen extends HookWidget {
   }
 
   Widget buildPosterContent(
-    BuildContext context,
-    Fragment$MediaDetailed media,
-    double height,
-    double width,
-    TabController tabController,
-  ) {
+      BuildContext context,
+      Fragment$MediaDetailed media,
+      double height,
+      double width,
+      TabController tabController,
+      ) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -250,7 +222,9 @@ class MediaDetailScreen extends HookWidget {
                         averageScore: media.averageScore.toString(),
                         favourites: media.favourites.toString(),
                         popularity: media.popularity.toString(),
-                        startDate: media.startDate == null ? "- -" : media.startDate!.year.toString(),
+                        startDate: media.startDate == null
+                            ? "- -"
+                            : media.startDate!.year.toString(),
                         episodes: media.episodes.toString(),
                         duration: media.duration.toString(),
                         format: media.format,
@@ -304,8 +278,13 @@ class MediaDetailScreen extends HookWidget {
     );
   }
 
+  Widget _buildLoading(BuildContext context) {
+    return const Center(child: CircularProgressIndicator());
+  }
+
   _onPopInvoked(BuildContext context) {
     dev.log('Pop called!', name: 'MediaDetail');
+    context.read<MediaDetailBloc>().add(ResetMediaData());
     if (context.canPop()) {
       context.pop();
     } else {

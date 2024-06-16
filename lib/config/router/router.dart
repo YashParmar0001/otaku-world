@@ -37,6 +37,8 @@ import 'package:otaku_world/features/search/screens/search_screen.dart';
 import 'package:otaku_world/features/splash/screens/splash_screen.dart';
 import 'package:otaku_world/observers/go_route_observer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../bloc/graphql_client/graphql_client_cubit.dart';
+import '../../bloc/media_detail/media_detail_bloc.dart';
 import '../../core/ui/app_scaffold.dart';
 import '../../features/anime_lists/slider_lists/recommended_manga_slider.dart';
 import '../../features/anime_lists/slider_lists/trending_manga_slider.dart';
@@ -76,17 +78,27 @@ final router = GoRouter(
     bottomNavRoutes,
     ...homeRoutes,
     ...discoverRoutes,
-    SlideTransitionRoute(
+    GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/media-detail',
-      builder: (state) {
-        return MediaDetailScreen(
-          mediaId: int.parse(
-            state.queryParameters['id']!,
+      builder: (context, state) {
+        final client = (context.read<GraphqlClientCubit>().state
+        as GraphqlClientInitialized)
+            .client;
+        final mediaId = int.parse(
+          state.queryParameters['id']!,
+        );
+        return BlocProvider(
+          create: (context) => MediaDetailBloc()
+            ..add(
+              LoadMediaDetail(id: mediaId, client: client),
+            ),
+          child: MediaDetailScreen(
+            key: ValueKey<int>(mediaId),
+            mediaId: mediaId,
           ),
         );
       },
-      directionTween: SlideTransitionRoute.leftToRightTween,
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,

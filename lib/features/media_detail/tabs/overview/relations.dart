@@ -18,20 +18,19 @@ class Relations extends StatelessWidget {
             .media
             .relations!
             .edges;
-    return Expanded(
-      child: ListView.separated(
-        physics: const ClampingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        separatorBuilder: (context, index) => const SizedBox(
-          width: 10,
-        ),
-        itemBuilder: (context, index) {
-          return Relation(
-            relation: relation[index]!,
-          );
-        },
-        itemCount: relation!.length,
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      separatorBuilder: (context, index) => const SizedBox(
+        width: 10,
       ),
+      itemBuilder: (context, index) {
+        return Relation(
+          relation: relation[index]!,
+        );
+      },
+      itemCount: relation!.length,
     );
   }
 }
@@ -67,7 +66,6 @@ class Relation extends StatelessWidget {
             child: CoverImage(
               imageUrl: relation.node!.coverImage!.large.toString(),
               type: Enum$MediaType.ANIME,
-              // placeHolderName: Assets.placeholders210x310,
             ),
           ),
           const SizedBox(

@@ -56,7 +56,14 @@ class MediaDetailScreen extends HookWidget {
         extendBody: true,
         body: BlocBuilder<MediaDetailBloc, MediaDetailState>(
           builder: (context, state) {
-            if (state is MediaDetailInitial || state is MediaDetailLoading) {
+            if (state is MediaDetailInitial) {
+              context.read<MediaDetailBloc>().add(
+                    LoadMediaDetail(
+                      id: mediaId,
+                      client: client,
+                    ),
+                  );
+            } else if (state is MediaDetailLoading) {
               return _buildLoading(context);
             } else if (state is MediaDetailLoaded) {
               final media = state.media;
@@ -102,11 +109,11 @@ class MediaDetailScreen extends HookWidget {
                 child: ErrorText(
                   message: state.message,
                   onTryAgain: () => context.read<MediaDetailBloc>().add(
-                    LoadMediaDetail(
-                      id: mediaId,
-                      client: client,
-                    ),
-                  ),
+                        LoadMediaDetail(
+                          id: mediaId,
+                          client: client,
+                        ),
+                      ),
                 ),
               );
             }
@@ -126,8 +133,8 @@ class MediaDetailScreen extends HookWidget {
   }
 
   AppBar buildAppBar(
-      BuildContext context,
-      ) {
+    BuildContext context,
+  ) {
     return AppBar(
       leading: CustomBackButton(
         onPressed: () {
@@ -154,12 +161,12 @@ class MediaDetailScreen extends HookWidget {
   }
 
   Widget buildPosterContent(
-      BuildContext context,
-      Fragment$MediaDetailed media,
-      double height,
-      double width,
-      TabController tabController,
-      ) {
+    BuildContext context,
+    Fragment$MediaDetailed media,
+    double height,
+    double width,
+    TabController tabController,
+  ) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,4 +1,5 @@
 import 'dart:developer' as dev;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -16,28 +17,31 @@ import 'package:otaku_world/features/anime_lists/view_more_lists/all_time_popula
 import 'package:otaku_world/features/anime_lists/view_more_lists/all_time_popular_manga_screen.dart';
 import 'package:otaku_world/features/anime_lists/view_more_lists/recommended_anime_screen.dart';
 import 'package:otaku_world/features/anime_lists/view_more_lists/top_airing_anime_screen.dart';
-import 'package:otaku_world/features/anime_lists/view_more_lists/top_upcoming_anime_screen.dart';
 import 'package:otaku_world/features/anime_lists/view_more_lists/top_anime.dart';
 import 'package:otaku_world/features/anime_lists/view_more_lists/top_manga.dart';
+import 'package:otaku_world/features/anime_lists/view_more_lists/top_upcoming_anime_screen.dart';
 import 'package:otaku_world/features/auth/screens/login_screen.dart';
 import 'package:otaku_world/features/calendar/screens/calendar_screen.dart';
 import 'package:otaku_world/features/discover/discover_anime/screens/anime_discover_screen.dart';
 import 'package:otaku_world/features/discover/discover_anime/screens/anime_slider_screen.dart';
 import 'package:otaku_world/features/discover/discover_anime/screens/filter_anime_screen.dart';
-import 'package:otaku_world/features/discover/screens/characters_discover_screen.dart';
-import 'package:otaku_world/features/discover/discover_manga/screens/manga_discover_screen.dart';
 import 'package:otaku_world/features/discover/discover_manga/screens/filter_manga_screen.dart';
+import 'package:otaku_world/features/discover/discover_manga/screens/manga_discover_screen.dart';
+import 'package:otaku_world/features/discover/screens/characters_discover_screen.dart';
 import 'package:otaku_world/features/discover/screens/staff_discover_screen.dart';
 import 'package:otaku_world/features/discover/screens/studios_discover_screen.dart';
 import 'package:otaku_world/features/home/screens/home_screen.dart';
 import 'package:otaku_world/features/media_detail/screens/media_detail_screen.dart';
+import 'package:otaku_world/features/media_detail/screens/recommendations_grid_screen.dart';
+import 'package:otaku_world/features/media_detail/screens/recommendations_slider_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_detail_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_screen.dart';
 import 'package:otaku_world/features/search/screens/search_screen.dart';
 import 'package:otaku_world/features/splash/screens/splash_screen.dart';
+import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 import 'package:otaku_world/observers/go_route_observer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../bloc/graphql_client/graphql_client_cubit.dart';
+
 import '../../bloc/media_detail/media_detail_bloc.dart';
 import '../../core/ui/app_scaffold.dart';
 import '../../features/anime_lists/slider_lists/recommended_manga_slider.dart';
@@ -53,16 +57,16 @@ import '../../features/social/screens/social_screen.dart';
 
 part 'bottom_nav_routes.dart';
 
-part 'home_routes.dart';
-
 part 'discover_routes.dart';
+
+part 'home_routes.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorHomeKey = GlobalKey<NavigatorState>();
 final _shellNavigatorDiscoverKey = GlobalKey<NavigatorState>();
 final _shellNavigatorSocialKey = GlobalKey<NavigatorState>();
 final _shellNavigatorMyListKey = GlobalKey<NavigatorState>();
-
+final _mediaDetailNavigatorKey = GlobalKey<NavigatorState>();
 final router = GoRouter(
   initialLocation: '/',
   navigatorKey: _rootNavigatorKey,
@@ -79,26 +83,38 @@ final router = GoRouter(
     ...homeRoutes,
     ...discoverRoutes,
     GoRoute(
+     // parentNavigatorKey: _mediaDetailNavigatorKey,
       parentNavigatorKey: _rootNavigatorKey,
       path: '/media-detail',
       builder: (context, state) {
-        final client = (context.read<GraphqlClientCubit>().state
-        as GraphqlClientInitialized)
-            .client;
         final mediaId = int.parse(
           state.queryParameters['id']!,
         );
         return BlocProvider(
-          create: (context) => MediaDetailBloc()
-            ..add(
-              LoadMediaDetail(id: mediaId, client: client),
-            ),
+          create: (context) => MediaDetailBloc(),
           child: MediaDetailScreen(
             key: ValueKey<int>(mediaId),
             mediaId: mediaId,
           ),
         );
       },
+      routes: [
+        GoRoute(
+          // parentNavigatorKey: _mediaDetailNavigatorKey,
+          path: 'recommendations-slider',
+          builder: (context, state) => const RecommendationsSliderScreen(),
+        ),
+        GoRoute(
+          // parentNavigatorKey: _mediaDetailNavigatorKey,
+          path: 'recommendations-grid',
+          builder: (context, state) {
+            final mediaType = state.extra! as Enum$MediaType;
+            return RecommendationsGridScreen(
+              mediaType: mediaType,
+            );
+          },
+        ),
+      ],
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,

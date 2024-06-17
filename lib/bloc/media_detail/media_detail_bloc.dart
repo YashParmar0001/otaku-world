@@ -19,7 +19,7 @@ class MediaDetailBloc extends Bloc<MediaDetailEvent, MediaDetailState> {
     on<ResetMediaData>(_onResetMedia);
   }
 
-  late final RecommendationAnimeBloc recommendationAnimeBloc;
+  late  RecommendationAnimeBloc recommendationAnimeBloc;
 
   FutureOr<void> _onLoadMediaDetail(
     LoadMediaDetail event,

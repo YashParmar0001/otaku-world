@@ -90,9 +90,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ReviewDetailBloc(),
         ),
-        BlocProvider(
-          create: (context) => MediaDetailBloc(),
-        ),
+        // BlocProvider(
+        //   create: (context) => MediaDetailBloc(),
+        // ),
         BlocProvider(
           create: (context) => SearchAnimeBloc(),
         ),

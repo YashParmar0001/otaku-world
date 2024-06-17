@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/recomendations/recomendation_anime_bloc.dart';
+import 'package:otaku_world/config/router/router.dart';
 import 'package:otaku_world/features/media_detail/tabs/overview/description.dart';
 import 'package:otaku_world/features/media_detail/tabs/overview/links_section.dart';
 import 'package:otaku_world/features/media_detail/tabs/overview/overall_information.dart';
 import 'package:otaku_world/features/media_detail/tabs/overview/relations.dart';
 import 'package:otaku_world/features/media_detail/tabs/overview/tags.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
 import '../../../../../bloc/media_detail/media_detail_bloc.dart';
 import '../../../../../theme/colors.dart';
 import '../../../../core/ui/media_section/media_section.dart';
 import '../../../../utils/app_texts.dart';
+
 class Overview extends StatefulHookWidget {
   const Overview({super.key});
 
@@ -33,18 +37,16 @@ class _OverviewState extends State<Overview> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
   Widget build(BuildContext context) {
     final media =
-        (context
-            .read<MediaDetailBloc>()
-            .state as MediaDetailLoaded).media;
+        (context.read<MediaDetailBloc>().state as MediaDetailLoaded).media;
     youtubeId = media.trailer == null ? "" : media.trailer!.id.toString();
 
-    final recommendationBloc  = context.read<MediaDetailBloc>().recommendationAnimeBloc ;
+    final recommendationBloc =
+        context.read<MediaDetailBloc>().recommendationAnimeBloc;
 
     youtubePlayerController = YoutubePlayerController(
       initialVideoId: youtubeId,
@@ -81,17 +83,17 @@ class _OverviewState extends State<Overview> {
         youtubeId == ""
             ? const SizedBox()
             : const Text(
-          "Trailer",
-          style: AppTextStyles.titleSectionStyle,
-        ),
+                "Trailer",
+                style: AppTextStyles.titleSectionStyle,
+              ),
         SizedBox(
           height: youtubeId == "" ? 0 : 5,
         ),
         youtubeId == ""
             ? const SizedBox()
             : YoutubePlayer(
-          controller: youtubePlayerController,
-        ),
+                controller: youtubePlayerController,
+              ),
         const SizedBox(
           height: 20,
         ),
@@ -124,8 +126,13 @@ class _OverviewState extends State<Overview> {
             value: recommendationBloc,
             child: MediaSection<RecommendationAnimeBloc>(
               label: "Recommendations",
-              onSliderPressed: () {},
-              onMorePressed: () {},
+              onSliderPressed: () {
+                // context.push('/media-detail/recommendations-slider?id=${media.id}');
+                context.push('recommendations-slider');
+              },
+              onMorePressed: () {
+                context.push('/media-detail/recommendations-grid?id=${media.id}', extra: media.type,);
+              },
               heroTag: 'trending_anime',
               leftPadding: 0,
             ),
@@ -134,8 +141,10 @@ class _OverviewState extends State<Overview> {
             height: 20,
           ),
         ],
-        if(media.tags!.isNotEmpty )
-          Tags(tags: media.tags!,),
+        if (media.tags!.isNotEmpty)
+          Tags(
+            tags: media.tags!,
+          ),
         if (media.externalLinks?.isNotEmpty == true) ...[
           const Text(
             "External & Streaming Links",
@@ -154,7 +163,6 @@ class _OverviewState extends State<Overview> {
           ),
           const SizedBox(height: 20)
         ],
-
       ],
     );
   }
@@ -173,15 +181,11 @@ class _OverviewState extends State<Overview> {
       textSpans.add(
         TextSpan(
           text: genre,
-          style: Theme
-              .of(context)
-              .textTheme
-              .headlineSmall
-              ?.copyWith(
-            color: AppColors.white,
-            fontWeight: FontWeight.w500,
-            fontFamily: 'Poppins',
-          ),
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                color: AppColors.white,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Poppins',
+              ),
         ),
       );
 
@@ -189,15 +193,11 @@ class _OverviewState extends State<Overview> {
         textSpans.add(
           TextSpan(
             text: ' · ',
-            style: Theme
-                .of(context)
-                .textTheme
-                .headlineSmall
-                ?.copyWith(
-              color: AppColors.sunsetOrange,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Poppins',
-            ),
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: AppColors.sunsetOrange,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Poppins',
+                ),
           ),
         );
       }

@@ -1,7 +1,7 @@
 import 'dart:developer' as dev;
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 part 'graphql_client_state.dart';

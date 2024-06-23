@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
+import 'package:otaku_world/bloc/recomendations/recomendation_anime_bloc.dart';
 import 'package:otaku_world/bloc/routes/redirect_route_cubit.dart';
 import 'package:otaku_world/core/routes/slide_transition_route.dart';
 import 'package:otaku_world/features/anime_lists/slider_lists/all_time_popular_anime_slider.dart';
@@ -31,6 +32,7 @@ import 'package:otaku_world/features/discover/screens/characters_discover_screen
 import 'package:otaku_world/features/discover/screens/staff_discover_screen.dart';
 import 'package:otaku_world/features/discover/screens/studios_discover_screen.dart';
 import 'package:otaku_world/features/home/screens/home_screen.dart';
+import 'package:otaku_world/features/media_detail/models/recommendations_parameters.dart';
 import 'package:otaku_world/features/media_detail/screens/media_detail_screen.dart';
 import 'package:otaku_world/features/media_detail/screens/recommendations_grid_screen.dart';
 import 'package:otaku_world/features/media_detail/screens/recommendations_slider_screen.dart';
@@ -38,7 +40,6 @@ import 'package:otaku_world/features/reviews/screens/review_detail_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_screen.dart';
 import 'package:otaku_world/features/search/screens/search_screen.dart';
 import 'package:otaku_world/features/splash/screens/splash_screen.dart';
-import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 import 'package:otaku_world/observers/go_route_observer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -56,9 +57,7 @@ import '../../features/onboarding/screens/onboarding_screen.dart';
 import '../../features/social/screens/social_screen.dart';
 
 part 'bottom_nav_routes.dart';
-
 part 'discover_routes.dart';
-
 part 'home_routes.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -83,7 +82,7 @@ final router = GoRouter(
     ...homeRoutes,
     ...discoverRoutes,
     GoRoute(
-     // parentNavigatorKey: _mediaDetailNavigatorKey,
+      // parentNavigatorKey: _mediaDetailNavigatorKey,
       parentNavigatorKey: _rootNavigatorKey,
       path: '/media-detail',
       builder: (context, state) {
@@ -98,23 +97,28 @@ final router = GoRouter(
           ),
         );
       },
-      routes: [
-        GoRoute(
-          // parentNavigatorKey: _mediaDetailNavigatorKey,
-          path: 'recommendations-slider',
-          builder: (context, state) => const RecommendationsSliderScreen(),
-        ),
-        GoRoute(
-          // parentNavigatorKey: _mediaDetailNavigatorKey,
-          path: 'recommendations-grid',
-          builder: (context, state) {
-            final mediaType = state.extra! as Enum$MediaType;
-            return RecommendationsGridScreen(
-              mediaType: mediaType,
-            );
-          },
-        ),
-      ],
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/recommendations-slider',
+      builder: (context, state) {
+        final recommendationBloc = state.extra as RecommendationAnimeBloc;
+        return RecommendationsSliderScreen(
+          bloc: recommendationBloc,
+        );
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/recommendations-grid',
+      builder: (context, state) {
+        final recommendationParameters =
+            state.extra! as RecommendationsParameters;
+        return RecommendationsGridScreen(
+          bloc: recommendationParameters.bloc,
+          mediaType: recommendationParameters.mediaType,
+        );
+      },
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,

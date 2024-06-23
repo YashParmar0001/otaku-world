@@ -57,7 +57,7 @@ dependencies:
   html: ^0.15.4
   swipe_to: ^1.0.6
   media_kit:
-  media_kit_libs_video:
+#  media_kit_libs_video:
   media_kit_video:
   expandable_text: ^2.3.0
   youtube_player_flutter: ^8.1.2

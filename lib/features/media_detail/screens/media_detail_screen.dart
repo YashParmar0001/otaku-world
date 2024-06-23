@@ -195,7 +195,6 @@ class MediaDetailScreen extends HookWidget {
                   width: width,
                   child: CoverImage(
                     imageUrl: media.bannerImage.toString(),
-                    // placeHolderName: Assets.placeholders340x72,
                     type: media.type!,
                   ),
                 ),
@@ -219,10 +218,13 @@ class MediaDetailScreen extends HookWidget {
                           targetWidgetWidth: 200,
                           screenWidth: width,
                         ),
-                        child: CoverImage(
-                          imageUrl: media.coverImage!.extraLarge.toString(),
-                          type: media.type!,
-                          // placeHolderName: Assets.placeholders210x310,
+                        child: Hero(
+                          tag: mediaId,
+                          child: CoverImage(
+                            imageUrl: media.coverImage!.extraLarge.toString(),
+                            type: media.type!,
+                            // placeHolderName: Assets.placeholders210x310,
+                          ),
                         ),
                       ),
                       InfoColumn(
@@ -291,7 +293,7 @@ class MediaDetailScreen extends HookWidget {
 
   _onPopInvoked(BuildContext context) {
     dev.log('Pop called!', name: 'MediaDetail');
-    context.read<MediaDetailBloc>().add(ResetMediaData());
+    // context.read<MediaDetailBloc>().add(ResetMediaData());
     if (context.canPop()) {
       context.pop();
     } else {

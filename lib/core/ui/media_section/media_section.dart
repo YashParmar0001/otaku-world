@@ -210,7 +210,7 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
   Widget _buildMediaCard(BuildContext context, Fragment$MediaShort? media) {
     if (media == null) return const SizedBox();
 
-    return InkWell(
+    return GestureDetector(
       onTap: () => context.push('/media-detail?id=${media.id}'),
       child: Container(
         margin: const EdgeInsets.only(
@@ -224,10 +224,13 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
                 SizedBox(
                   height: 169,
                   width: 115,
-                  child: CoverImage(
-                    imageUrl: media.coverImage!.large!,
-                    type: media.type!,
-                    // placeHolderName: Assets.placeholders115x170,
+                  child: Hero(
+                    tag: media.id,
+                    child: CoverImage(
+                      imageUrl: media.coverImage!.large!,
+                      type: media.type!,
+                      // placeHolderName: Assets.placeholders115x170,
+                    ),
                   ),
                 ),
                 // Mean score

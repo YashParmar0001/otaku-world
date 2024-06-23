@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
 import 'package:otaku_world/bloc/recomendations/recomendation_anime_bloc.dart';
-import 'package:otaku_world/config/router/router.dart';
+import 'package:otaku_world/features/media_detail/models/recommendations_parameters.dart';
 import 'package:otaku_world/features/media_detail/tabs/overview/description.dart';
 import 'package:otaku_world/features/media_detail/tabs/overview/links_section.dart';
 import 'package:otaku_world/features/media_detail/tabs/overview/overall_information.dart';
 import 'package:otaku_world/features/media_detail/tabs/overview/relations.dart';
 import 'package:otaku_world/features/media_detail/tabs/overview/tags.dart';
+import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../../bloc/media_detail/media_detail_bloc.dart';
 import '../../../../../theme/colors.dart';
+import '../../../../bloc/graphql_client/graphql_client_cubit.dart';
 import '../../../../core/ui/media_section/media_section.dart';
 import '../../../../utils/app_texts.dart';
 
@@ -45,6 +48,9 @@ class _OverviewState extends State<Overview> {
         (context.read<MediaDetailBloc>().state as MediaDetailLoaded).media;
     youtubeId = media.trailer == null ? "" : media.trailer!.id.toString();
 
+    final client =
+        (context.read<GraphqlClientCubit>().state as GraphqlClientInitialized)
+            .client;
     final recommendationBloc =
         context.read<MediaDetailBloc>().recommendationAnimeBloc;
 
@@ -127,11 +133,21 @@ class _OverviewState extends State<Overview> {
             child: MediaSection<RecommendationAnimeBloc>(
               label: "Recommendations",
               onSliderPressed: () {
-                // context.push('/media-detail/recommendations-slider?id=${media.id}');
-                context.push('recommendations-slider');
+                recommendationBloc.add(LoadData(client));
+                context.push(
+                  '/recommendations-slider',
+                  extra: recommendationBloc,
+                );
               },
               onMorePressed: () {
-                context.push('/media-detail/recommendations-grid?id=${media.id}', extra: media.type,);
+                recommendationBloc.add(LoadData(client));
+                context.push(
+                  '/recommendations-grid',
+                  extra: RecommendationsParameters(
+                    bloc: recommendationBloc,
+                    mediaType: media.type ?? Enum$MediaType.$unknown,
+                  ),
+                );
               },
               heroTag: 'trending_anime',
               leftPadding: 0,

@@ -363,6 +363,7 @@ const documentNodeQueryGetTopAiringAnime = DocumentNode(definitions: [
     ]),
   ),
   fragmentDefinitionMediaShort,
+  fragmentDefinitionFuzzyDate,
 ]);
 Query$GetTopAiringAnime _parserFn$Query$GetTopAiringAnime(
         Map<String, dynamic> data) =>

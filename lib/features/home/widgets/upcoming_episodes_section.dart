@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
 import '../../../bloc/paginated_data/paginated_data_bloc.dart';
@@ -29,12 +30,13 @@ class UpcomingEpisodesSection extends HookWidget {
     if (MediaQuery.of(context).orientation == Orientation.portrait) {
       screenWidth = MediaQuery.of(context).size.width;
       screenHeight = MediaQuery.of(context).size.height;
-    }else {
+    } else {
       screenWidth = MediaQuery.of(context).size.height;
       screenHeight = MediaQuery.of(context).size.width;
     }
 
-    dev.log('Screen width: $screenWidth | Screen height: $screenHeight', name: 'UpcomingEpisodes');
+    dev.log('Screen width: $screenWidth | Screen height: $screenHeight',
+        name: 'UpcomingEpisodes');
     final controller = useScrollController();
 
     useEffect(() {
@@ -177,7 +179,10 @@ class UpcomingEpisodesSection extends HookWidget {
                 ),
             ],
           ),
-          ScrollToLeftFAB(controller: controller, tag: 'up_episodes',),
+          ScrollToLeftFAB(
+            controller: controller,
+            tag: 'up_episodes',
+          ),
         ],
       ),
     );
@@ -254,24 +259,27 @@ class UpcomingEpisodesSection extends HookWidget {
               padding: const EdgeInsets.only(top: 7, right: 7),
               child: media.coverImage?.large == null
                   ? _buildPlaceholderImage85x120()
-                  : CachedNetworkImage(
-                      cacheManager: ImageCacheManager.instance,
-                      imageUrl: media.coverImage!.large!,
-                      width: 85,
-                      height: 120,
-                      imageBuilder: (context, imageProvider) {
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Image(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
-                        );
-                      },
-                      placeholder: (context, url) =>
-                          _buildPlaceholderImage85x120(),
-                      errorWidget: (context, url, error) =>
-                          _buildPlaceholderImage85x120(),
+                  : GestureDetector(
+                      onTap: () => context.push('/media-detail?id=${media.id}'),
+                      child: CachedNetworkImage(
+                        cacheManager: ImageCacheManager.instance,
+                        imageUrl: media.coverImage!.large!,
+                        width: 85,
+                        height: 120,
+                        imageBuilder: (context, imageProvider) {
+                          return ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Image(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          );
+                        },
+                        placeholder: (context, url) =>
+                            _buildPlaceholderImage85x120(),
+                        errorWidget: (context, url, error) =>
+                            _buildPlaceholderImage85x120(),
+                      ),
                     ),
             ),
           ],

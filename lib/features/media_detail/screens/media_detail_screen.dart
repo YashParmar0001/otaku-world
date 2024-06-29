@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/core/ui/error_text.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
+import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
 import '../../../bloc/media_detail/media_detail_bloc.dart';
@@ -195,7 +196,6 @@ class MediaDetailScreen extends HookWidget {
                   width: width,
                   child: CoverImage(
                     imageUrl: media.bannerImage.toString(),
-                    // placeHolderName: Assets.placeholders340x72,
                     type: media.type!,
                   ),
                 ),
@@ -219,22 +219,28 @@ class MediaDetailScreen extends HookWidget {
                           targetWidgetWidth: 200,
                           screenWidth: width,
                         ),
-                        child: CoverImage(
-                          imageUrl: media.coverImage!.extraLarge.toString(),
-                          type: media.type!,
-                          // placeHolderName: Assets.placeholders210x310,
+                        child: Hero(
+                          tag: mediaId,
+                          child: CoverImage(
+                            imageUrl: media.coverImage!.extraLarge.toString(),
+                            type: media.type!,
+                            // placeHolderName: Assets.placeholders210x310,
+                          ),
                         ),
                       ),
                       InfoColumn(
                         averageScore: media.averageScore.toString(),
                         favourites: media.favourites.toString(),
                         popularity: media.popularity.toString(),
-                        startDate: media.startDate == null
-                            ? "- -"
+                        startDate: media.startDate?.year == null
+                            ? ""
                             : media.startDate!.year.toString(),
                         episodes: media.episodes.toString(),
                         duration: media.duration.toString(),
                         format: media.format,
+                        mediaType: media.type ?? Enum$MediaType.$unknown,
+                        chapters: media.chapters.toString(),
+                        volumes: media.volumes.toString(),
                       ),
                     ],
                   ),
@@ -253,7 +259,13 @@ class MediaDetailScreen extends HookWidget {
           ),
           child: Text(
             media.title!.userPreferred.toString(),
-            style: Theme.of(context).textTheme.displayMedium,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w600,
+              height: 0,
+            ),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
@@ -291,7 +303,7 @@ class MediaDetailScreen extends HookWidget {
 
   _onPopInvoked(BuildContext context) {
     dev.log('Pop called!', name: 'MediaDetail');
-    context.read<MediaDetailBloc>().add(ResetMediaData());
+    // context.read<MediaDetailBloc>().add(ResetMediaData());
     if (context.canPop()) {
       context.pop();
     } else {

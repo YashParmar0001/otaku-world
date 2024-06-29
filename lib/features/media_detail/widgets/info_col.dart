@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
+import 'package:otaku_world/utils/extensions.dart';
 
 import '../../../generated/assets.dart';
 import '../../../theme/colors.dart';
@@ -15,6 +16,9 @@ class InfoColumn extends StatelessWidget {
     required this.episodes,
     required this.duration,
     required this.format,
+    required this.mediaType,
+    this.chapters,
+    this.volumes,
   });
 
   final String averageScore;
@@ -24,6 +28,9 @@ class InfoColumn extends StatelessWidget {
   final String? episodes;
   final String duration;
   final Enum$MediaFormat? format;
+  final Enum$MediaType mediaType;
+  final String? chapters;
+  final String? volumes;
 
   @override
   Widget build(BuildContext context) {
@@ -66,19 +73,20 @@ class InfoColumn extends StatelessWidget {
         const SizedBox(
           height: 15,
         ),
-        Text(
-          startDate,
-          style: const TextStyle(
-            fontSize: 14,
-            color: AppColors.white,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w500,
+        if (startDate != 'null' || startDate != '')
+          Text(
+            startDate,
+            style: const TextStyle(
+              fontSize: 14,
+              color: AppColors.white,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
         Text(
           toJson$Enum$MediaFormat(
-           format ?? Enum$MediaFormat.$unknown,
-          ),
+            format ?? Enum$MediaFormat.$unknown,
+          ).capitalize(),
           style: const TextStyle(
             fontSize: 14,
             color: AppColors.white,
@@ -86,15 +94,30 @@ class InfoColumn extends StatelessWidget {
             fontWeight: FontWeight.w100,
           ),
         ),
-        Text(
-          episodes == "null" ? "- ep, $duration min":"$episodes ep, $duration min",
-          style: const TextStyle(
-            fontSize: 14,
-            color: AppColors.white,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w100,
+        if (mediaType == Enum$MediaType.ANIME)
+          Text(
+            (episodes == "null" ? "" : "$episodes ep") +
+                ((episodes != "null" && duration != "null") ? ", " : "") +
+                (duration == "null" ? "" : "$duration min"),
+            style: const TextStyle(
+              fontSize: 14,
+              color: AppColors.white,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w100,
+            ),
           ),
-        ),
+        if (mediaType == Enum$MediaType.MANGA)
+          Text(
+            (chapters == "null" ? "" : "$chapters Chap") +
+                (chapters != "null" && volumes != "null" ? ", " : "") +
+                (volumes == "null" ? "" : "$volumes Vol"),
+            style: const TextStyle(
+              fontSize: 14,
+              color: AppColors.white,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w100,
+            ),
+          ),
       ],
     );
   }

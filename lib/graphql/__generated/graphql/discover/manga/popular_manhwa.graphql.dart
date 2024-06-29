@@ -365,6 +365,7 @@ const documentNodeQueryGetPopularManhwa = DocumentNode(definitions: [
     ]),
   ),
   fragmentDefinitionMediaShort,
+  fragmentDefinitionFuzzyDate,
 ]);
 Query$GetPopularManhwa _parserFn$Query$GetPopularManhwa(
         Map<String, dynamic> data) =>

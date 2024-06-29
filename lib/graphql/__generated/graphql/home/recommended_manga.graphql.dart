@@ -361,6 +361,7 @@ const documentNodeQueryGetRecommendedManga = DocumentNode(definitions: [
     ]),
   ),
   fragmentDefinitionMediaShort,
+  fragmentDefinitionFuzzyDate,
 ]);
 Query$GetRecommendedManga _parserFn$Query$GetRecommendedManga(
         Map<String, dynamic> data) =>

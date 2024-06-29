@@ -23,8 +23,8 @@ class InfoData extends StatelessWidget {
       children: [
         SvgPicture.asset(
           iconName,
-          height: 21,
-          width: 21,
+          height: 16,
+          width: 16,
         ),
         SizedBox(
           width: separateWidth,

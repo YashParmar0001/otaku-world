@@ -365,6 +365,7 @@ const documentNodeQueryGetTopUpcomingAnime = DocumentNode(definitions: [
     ]),
   ),
   fragmentDefinitionMediaShort,
+  fragmentDefinitionFuzzyDate,
 ]);
 Query$GetTopUpcomingAnime _parserFn$Query$GetTopUpcomingAnime(
         Map<String, dynamic> data) =>

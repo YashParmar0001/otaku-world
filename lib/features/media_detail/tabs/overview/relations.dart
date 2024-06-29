@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:otaku_world/core/ui/images/cover_image.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
+import 'package:otaku_world/utils/extensions.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
 
 import '../../../../bloc/media_detail/media_detail_bloc.dart';
@@ -83,7 +84,7 @@ class Relation extends StatelessWidget {
                 Text(
                   toJson$Enum$MediaRelation(
                     relation.relationType ?? Enum$MediaRelation.$unknown,
-                  ).toString().capitalize().replaceAll("_", " "),
+                  ).toString().capitalize(),
                   style: const TextStyle(
                     fontSize: 12,
                     fontFamily: 'Roboto',
@@ -107,9 +108,9 @@ class Relation extends StatelessWidget {
                 Text(
                   "${toJson$Enum$MediaFormat(
                     relation.node?.format ?? Enum$MediaFormat.$unknown,
-                  ).toString().capitalize()},${toJson$Enum$MediaStatus(
+                  ).toString().capitalize()}, ${toJson$Enum$MediaStatus(
                     relation.node?.status ?? Enum$MediaStatus.$unknown,
-                  ).toString().capitalize().replaceAll("_", " ")}",
+                  ).toString().capitalize()}",
                   style: const TextStyle(
                     fontSize: 12,
                     fontFamily: 'Roboto',

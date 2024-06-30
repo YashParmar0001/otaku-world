@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/ui/appbars/simple_app_bar.dart';
 import '../../../core/ui/custom_search_bar.dart';
@@ -32,6 +33,7 @@ class StaffDiscoverScreen extends StatelessWidget {
               onChanged: (p0) {
 
               },
+              searchCubit: context.read(),
             ),
             const SizedBox(
               height: 15,

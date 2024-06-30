@@ -5,11 +5,11 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-part 'search_event.dart';
-part 'search_state.dart';
+part 'search_base_event.dart';
+part 'search_base_state.dart';
 
-abstract class SearchBloc<Q, E> extends Bloc<SearchEvent, SearchState> {
-  SearchBloc() : super(SearchInitial()) {
+abstract class SearchBaseBloc<Q, E> extends Bloc<SearchBaseEvent, SearchBaseState> {
+  SearchBaseBloc() : super(SearchInitial()) {
     on<SearchMedia>(
       _onSearchMedia,
       transformer: droppable(),
@@ -26,7 +26,7 @@ abstract class SearchBloc<Q, E> extends Bloc<SearchEvent, SearchState> {
   var searchContent = '';
   final List<E?> list = [];
 
-  void _onClearSearch(ClearSearch event, Emitter<SearchState> emit) {
+  void _onClearSearch(ClearSearch event, Emitter<SearchBaseState> emit) {
     page = 1;
     hasNextPage = true;
     list.clear();
@@ -34,7 +34,7 @@ abstract class SearchBloc<Q, E> extends Bloc<SearchEvent, SearchState> {
     emit(SearchInitial());
   }
 
-  Future<void> _onSearchMedia(SearchMedia event, Emitter<SearchState> emit) async {
+  Future<void> _onSearchMedia(SearchMedia event, Emitter<SearchBaseState> emit) async {
     emit(SearchResultLoading());
     page = 1;
     hasNextPage = true;
@@ -65,7 +65,7 @@ abstract class SearchBloc<Q, E> extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-  Future<void> _onLoadMore(LoadMore event, Emitter<SearchState> emit) async {
+  Future<void> _onLoadMore(LoadMore event, Emitter<SearchBaseState> emit) async {
     final response = await loadData(event.client, searchContent);
 
     if (!response.hasException) {

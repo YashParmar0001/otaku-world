@@ -9,7 +9,7 @@ import 'package:otaku_world/features/search/widgets/character_card.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
-import '../../../bloc/search/search_base/search_bloc.dart';
+import '../../../bloc/search/search_base/search_base_bloc.dart';
 import '../../../core/ui/placeholders/anime_character_placeholder.dart';
 import '../../../generated/assets.dart';
 
@@ -46,7 +46,7 @@ class ResultCharactersList extends HookWidget {
         horizontal: 10,
         vertical: 5,
       ),
-      child: BlocBuilder<SearchCharactersBloc, SearchState>(
+      child: BlocBuilder<SearchCharactersBloc, SearchBaseState>(
         builder: (context, state) {
           if (state is SearchInitial) {
             return const AnimeCharacterPlaceholder(

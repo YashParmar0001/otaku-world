@@ -94,6 +94,7 @@ class MangaDiscoverScreen extends HookWidget {
                         bloc.add(UpdateSearch(value));
                       },
                       filterApplied: bloc.filterApplied,
+                      searchCubit: bloc.searchCubit,
                     );
                   },
                 ),

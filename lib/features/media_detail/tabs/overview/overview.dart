@@ -128,7 +128,7 @@ class _OverviewState extends State<Overview> {
               label: "Recommendations",
               onSliderPressed: () {
                 // context.push('/media-detail/recommendations-slider?id=${media.id}');
-                context.push('recommendations-slider');
+                context.push('/media-detail/recommendations-slider');
               },
               onMorePressed: () {
                 context.push('/media-detail/recommendations-grid?id=${media.id}', extra: media.type,);

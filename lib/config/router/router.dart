@@ -67,6 +67,7 @@ final _shellNavigatorDiscoverKey = GlobalKey<NavigatorState>();
 final _shellNavigatorSocialKey = GlobalKey<NavigatorState>();
 final _shellNavigatorMyListKey = GlobalKey<NavigatorState>();
 final _mediaDetailNavigatorKey = GlobalKey<NavigatorState>();
+
 final router = GoRouter(
   initialLocation: '/',
   navigatorKey: _rootNavigatorKey,
@@ -100,7 +101,7 @@ final router = GoRouter(
       },
       routes: [
         GoRoute(
-          // parentNavigatorKey: _mediaDetailNavigatorKey,
+          parentNavigatorKey: _rootNavigatorKey,
           path: 'recommendations-slider',
           builder: (context, state) => const RecommendationsSliderScreen(),
         ),

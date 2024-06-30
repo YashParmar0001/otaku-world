@@ -12,7 +12,7 @@ import 'package:otaku_world/features/search/widgets/studios_list.dart';
 import 'package:otaku_world/features/search/widgets/users_list.dart';
 
 import '../../../bloc/search/search_anime/search_anime_bloc.dart';
-import '../../../bloc/search/search_base/search_bloc.dart';
+import '../../../bloc/search/search_base/search_base_bloc.dart';
 import '../../../bloc/search/search_characters/search_characters_bloc.dart';
 import '../../../bloc/search/search_manga/search_manga_bloc.dart';
 import '../../../bloc/search/search_staff/search_staff_bloc.dart';

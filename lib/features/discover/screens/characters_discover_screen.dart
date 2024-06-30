@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otaku_world/core/ui/custom_search_bar.dart';
 
 import '../../../core/ui/appbars/simple_app_bar.dart';
@@ -31,7 +32,7 @@ class CharactersDiscoverScreen extends StatelessWidget {
               onSubmitted: (value) {},
               onChanged: (p0) {
 
-              },
+              }, searchCubit: context.read(),
             ),
             const SizedBox(
               height: 15,

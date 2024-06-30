@@ -6,7 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
-import 'package:otaku_world/bloc/search/search_base/search_bloc.dart';
+import 'package:otaku_world/bloc/search/search_base/search_base_bloc.dart';
 import 'package:otaku_world/bloc/search/search_characters/search_characters_bloc.dart';
 import 'package:otaku_world/bloc/search/search_manga/search_manga_bloc.dart';
 import 'package:otaku_world/bloc/search/search_staff/search_staff_bloc.dart';
@@ -132,32 +132,34 @@ class SearchAppBar extends HookWidget implements PreferredSizeWidget {
             },
             onSubmitted: (value) {
               dev.log('Searching for $value', name: 'Search');
-              final client = (context.read<GraphqlClientCubit>().state as GraphqlClientInitialized).client;
+              final client = (context.read<GraphqlClientCubit>().state
+                      as GraphqlClientInitialized)
+                  .client;
 
               context.read<SearchAnimeBloc>().add(SearchMedia(
                     client: client,
                     searchContent: value,
                   ));
               context.read<SearchMangaBloc>().add(SearchMedia(
-                client: client,
-                searchContent: value,
-              ));
+                    client: client,
+                    searchContent: value,
+                  ));
               context.read<SearchCharactersBloc>().add(SearchMedia(
-                client: client,
-                searchContent: value,
-              ));
+                    client: client,
+                    searchContent: value,
+                  ));
               context.read<SearchStaffBloc>().add(SearchMedia(
-                client: client,
-                searchContent: value,
-              ));
+                    client: client,
+                    searchContent: value,
+                  ));
               context.read<SearchStudiosBloc>().add(SearchMedia(
-                client: client,
-                searchContent: value,
-              ));
+                    client: client,
+                    searchContent: value,
+                  ));
               context.read<SearchUsersBloc>().add(SearchMedia(
-                client: client,
-                searchContent: value,
-              ));
+                    client: client,
+                    searchContent: value,
+                  ));
             },
           ),
         ),

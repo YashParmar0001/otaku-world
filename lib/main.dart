@@ -27,7 +27,7 @@ import 'package:otaku_world/bloc/search/search_manga/search_manga_bloc.dart';
 import 'package:otaku_world/bloc/search/search_staff/search_staff_bloc.dart';
 import 'package:otaku_world/bloc/search/search_studios/search_studios_bloc.dart';
 import 'package:otaku_world/bloc/search/search_users/search_users_bloc.dart';
-import 'package:otaku_world/bloc/text_field/clear_text_cubit.dart';
+// import 'package:otaku_world/bloc/text_field/clear_text_cubit.dart';
 import 'package:otaku_world/bloc/top_100_anime/top_100_anime_bloc.dart';
 import 'package:otaku_world/bloc/top_100_manga/top_100_manga.dart';
 import 'package:otaku_world/bloc/top_airing_anime/top_airing_anime_bloc.dart';
@@ -63,9 +63,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => BottomNavBarCubit(),
         ),
-        BlocProvider(
-          create: (context) => ClearTextCubit(),
-        ),
+        // BlocProvider(
+        //   create: (context) => ClearTextCubit(),
+        // ),
         BlocProvider(
           create: (context) => UpcomingEpisodesBloc(),
         ),

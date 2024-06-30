@@ -11,7 +11,7 @@ import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
-import '../../../bloc/search/search_base/search_bloc.dart';
+import '../../../bloc/search/search_base/search_base_bloc.dart';
 
 class ResultAnimeList extends HookWidget {
   const ResultAnimeList({super.key});
@@ -46,7 +46,7 @@ class ResultAnimeList extends HookWidget {
         horizontal: 10,
         vertical: 5,
       ),
-      child: BlocBuilder<SearchAnimeBloc, SearchState>(
+      child: BlocBuilder<SearchAnimeBloc, SearchBaseState>(
         builder: (context, state) {
           if (state is SearchInitial) {
             return const AnimeCharacterPlaceholder(

@@ -2,12 +2,12 @@ import 'dart:developer' as dev;
 
 import 'package:bloc/bloc.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:otaku_world/bloc/search/search_base/search_bloc.dart';
+import 'package:otaku_world/bloc/search/search_base/search_base_bloc.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/search/search_media.graphql.dart';
 
-class SearchMangaBloc extends SearchBloc<Query$SearchMedia, Fragment$SearchResultMedia> {
+class SearchMangaBloc extends SearchBaseBloc<Query$SearchMedia, Fragment$SearchResultMedia> {
   @override
   Future<QueryResult<Query$SearchMedia>> loadData(GraphQLClient client, String search,) {
     return client.query$SearchMedia(
@@ -32,7 +32,7 @@ class SearchMangaBloc extends SearchBloc<Query$SearchMedia, Fragment$SearchResul
   }
 
   @override
-  void onTransition(Transition<SearchEvent, SearchState> transition) {
+  void onTransition(Transition<SearchBaseEvent, SearchBaseState> transition) {
     dev.log(transition.toString(), name: 'SearchMangaBloc');
     super.onTransition(transition);
   }

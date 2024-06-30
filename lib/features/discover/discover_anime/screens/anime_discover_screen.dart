@@ -95,6 +95,7 @@ class AnimeDiscoverScreen extends HookWidget {
                         bloc.add(UpdateSearch(value));
                       },
                       filterApplied: bloc.filterApplied,
+                      searchCubit: bloc.searchCubit,
                     );
                   },
                 ),

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:otaku_world/bloc/filter/filter_anime/filter_anime_bloc.dart';
+import 'package:otaku_world/bloc/filter/search/search_media_cubit.dart';
 
 import '../../bloc/text_field/clear_text_cubit.dart';
 import '../../generated/assets.dart';
@@ -15,33 +16,20 @@ class CustomSearchBar extends HookWidget {
     required this.clearSearch,
     required this.onSubmitted,
     required this.onChanged,
+    required this.searchCubit,
   });
 
   final VoidCallback clearSearch;
   final ValueChanged<String> onSubmitted;
   final Function(String) onChanged;
+  final SearchMediaCubit searchCubit;
 
   @override
   Widget build(BuildContext context) {
-    final clearTextCubit = context.read<ClearTextCubit>();
-    final searchController =
-        context.read<FilterAnimeBloc>().searchCubit.searchController;
-
-    searchController.addListener(() {
-      if (searchController.text.isEmpty) {
-        if (clearTextCubit.state is ClearTextVisible) {
-          clearTextCubit.hideClearText();
-        }
-      } else {
-        if (clearTextCubit.state is ClearTextNotVisible) {
-          clearTextCubit.showClearText();
-        }
-      }
-    });
 
     return Expanded(
       child: TextField(
-        controller: searchController,
+        controller: searchCubit.searchController,
         style: Theme.of(context).textTheme.headlineMedium,
         textCapitalization: TextCapitalization.words,
         keyboardType: TextInputType.text,
@@ -86,21 +74,26 @@ class CustomSearchBar extends HookWidget {
               left: 15,
               right: 10,
             ),
-            child: BlocBuilder<ClearTextCubit, ClearTextState>(
+            child: BlocBuilder<SearchMediaCubit, SearchMediaState>(
+              bloc: searchCubit,
               builder: (context, state) {
-                if (state is ClearTextVisible) {
-                  return InkWell(
-                    onTap: () {
-                      searchController.clear();
-                      clearSearch();
-                    },
-                    borderRadius: BorderRadius.circular(15),
-                    child: SvgPicture.asset(
-                      Assets.iconsClose,
-                      fit: BoxFit.cover,
-                    ),
-                  );
-                } else {
+                if (state is SearchContentChanged) {
+                  if (state.content.isEmpty || state.content == '') {
+                    return const SizedBox();
+                  }else {
+                    return InkWell(
+                      onTap: () {
+                        searchCubit.searchController.clear();
+                        clearSearch();
+                      },
+                      borderRadius: BorderRadius.circular(15),
+                      child: SvgPicture.asset(
+                        Assets.iconsClose,
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  }
+                }else {
                   return const SizedBox();
                 }
               },

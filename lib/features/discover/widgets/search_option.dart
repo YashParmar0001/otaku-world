@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:otaku_world/bloc/filter/filter_anime/filter_anime_bloc.dart';
+import 'package:otaku_world/bloc/filter/search/search_media_cubit.dart';
 import 'package:otaku_world/core/ui/custom_search_bar.dart';
 
 import '../../../generated/assets.dart';
@@ -15,6 +16,7 @@ class SearchOption extends StatelessWidget {
     required this.onSubmitted,
     required this.onChanged,
     required this.filterApplied,
+    required this.searchCubit,
   });
 
   final VoidCallback onPressedFilters;
@@ -22,6 +24,7 @@ class SearchOption extends StatelessWidget {
   final ValueChanged<String> onSubmitted;
   final Function(String) onChanged;
   final bool filterApplied;
+  final SearchMediaCubit searchCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,7 @@ class SearchOption extends StatelessWidget {
           clearSearch: clearSearch,
           onSubmitted: onSubmitted,
           onChanged: onChanged,
+          searchCubit: searchCubit,
         ),
         const SizedBox(
           width: 10,

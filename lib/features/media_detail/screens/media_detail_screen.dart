@@ -12,6 +12,7 @@ import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
 import '../../../bloc/media_detail/media_detail_bloc.dart';
 import '../../../core/ui/buttons/back_button.dart';
+import '../../../core/ui/image_viewer.dart';
 import '../../../core/ui/images/cover_image.dart';
 import '../../../core/ui/tabs/custom_tab_bar.dart';
 import '../../../generated/assets.dart';
@@ -219,8 +220,8 @@ class MediaDetailScreen extends HookWidget {
                           targetWidgetWidth: 200,
                           screenWidth: width,
                         ),
-                        child: Hero(
-                          tag: mediaId,
+                        child:  GestureDetector(
+                          onTap: () => showImage(context, media.coverImage!.extraLarge.toString(), ),
                           child: CoverImage(
                             imageUrl: media.coverImage!.extraLarge.toString(),
                             type: media.type!,

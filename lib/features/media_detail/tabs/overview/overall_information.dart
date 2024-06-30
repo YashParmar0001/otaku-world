@@ -67,8 +67,9 @@ class OverallInfo extends StatelessWidget {
           tenHeightSizedBox,
           InfoTile(
             title: 'Synonyms',
-            data:
-                media.synonyms!.isEmpty ? StringConstants.nullStringConstant : media.synonyms!.join("\n"),
+            data: media.synonyms!.isEmpty
+                ? StringConstants.nullStringConstant
+                : media.synonyms!.join("\n"),
           ),
           tenHeightSizedBox,
           Container(
@@ -133,8 +134,9 @@ class OverallInfo extends StatelessWidget {
           tenHeightSizedBox,
           InfoTile(
             title: 'End Date',
-            data:
-                media.endDate != null ? media.endDate!.toDateString() : StringConstants.nullStringConstant,
+            data: media.endDate != null
+                ? media.endDate!.toDateString()
+                : StringConstants.nullStringConstant,
           ),
           if (media.type == Enum$MediaType.ANIME) ...[
             tenHeightSizedBox,
@@ -142,7 +144,7 @@ class OverallInfo extends StatelessWidget {
               title: 'Season',
               data: "${toJson$Enum$MediaSeason(
                 media.season ?? Enum$MediaSeason.$unknown,
-              ).capitalize()} ${media.seasonYear.toString()}",
+              ).capitalize()} ${media.seasonYear.toString() == 'null' ? '' : media.seasonYear.toString()}",
             ),
             tenHeightSizedBox,
             Container(
@@ -156,11 +158,15 @@ class OverallInfo extends StatelessWidget {
                   )
                 : InfoTile(
                     title: "Studios",
-                    data: getStudios(media.studios!.edges!),
+                    data: getStudios(media.studios!.edges!).isEmpty
+                        ? StringConstants.nullStringConstant
+                        : getStudios(media.studios!.edges!),
                   ),
             InfoTile(
               title: 'Producers',
-              data: getProducers(media.studios!.edges!).isEmpty ? StringConstants.nullStringConstant:getProducers(media.studios!.edges!),
+              data: getProducers(media.studios!.edges!).isEmpty
+                  ? StringConstants.nullStringConstant
+                  : getProducers(media.studios!.edges!),
             ),
           ],
         ],

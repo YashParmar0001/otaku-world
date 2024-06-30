@@ -50,12 +50,12 @@ class _ScrollToTopFABState extends State<ScrollToTopFAB> {
             effects: const [ScaleEffect()],
             child: IconButton(
               style: ButtonStyle(
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
-                backgroundColor: MaterialStateColor.resolveWith(
+                backgroundColor: WidgetStateColor.resolveWith(
                   (states) => AppColors.sunsetOrange.withOpacity(0.6),
                 ),
               ),

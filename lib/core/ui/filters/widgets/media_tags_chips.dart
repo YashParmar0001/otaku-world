@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/filter/collections/tags/media_tags_cubit.dart';
 import 'package:otaku_world/core/ui/buttons/primary_outlined_button.dart';
 import 'package:otaku_world/core/ui/filters/custom_slider.dart';
+import 'package:otaku_world/utils/ui_utils.dart';
 
 import '../../../../bloc/graphql_client/graphql_client_cubit.dart';
 import '../../../../theme/colors.dart';
@@ -99,7 +100,7 @@ class MediaTagsChips extends StatelessWidget {
                               ),
                       chipList: tags.map((tag) {
                         return GestureDetector(
-                          onLongPress: () => _showInfoDialog(
+                          onLongPress: () => UIUtils.showInfoDialog(
                             context,
                             tag.name,
                             tag.description ?? 'No description available!',
@@ -128,33 +129,5 @@ class MediaTagsChips extends StatelessWidget {
     );
   }
 
-  void _showInfoDialog(BuildContext context, String title, String description) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(
-            title,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-          ),
-          content: Text(
-            description,
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          backgroundColor: AppColors.japaneseIndigo,
-          actions: [
-            PrimaryOutlinedButton(
-              onTap: context.pop,
-              label: 'Ok',
-              horizontalPadding: 5,
-              verticalPadding: 10,
-              fontSize: 14,
-            ),
-          ],
-        );
-      },
-    );
-  }
+
 }

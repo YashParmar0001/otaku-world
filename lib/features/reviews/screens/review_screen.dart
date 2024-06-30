@@ -19,7 +19,7 @@ class ReviewScreen<B extends PaginatedDataBloc> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    dev.log('Rebuilding review screen', name: 'ReviewScreen');
+    dev.log('Rebuilding Some screen', name: 'ReviewScreen');
     final reviewsScrollController = useScrollController();
 
     useEffect(() {

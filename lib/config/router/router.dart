@@ -41,7 +41,6 @@ import 'package:otaku_world/features/reviews/screens/review_detail_screen.dart';
 import 'package:otaku_world/features/reviews/screens/review_screen.dart';
 import 'package:otaku_world/features/search/screens/search_screen.dart';
 import 'package:otaku_world/features/splash/screens/splash_screen.dart';
-import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/observers/go_route_observer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -72,7 +71,7 @@ final _shellNavigatorSocialKey = GlobalKey<NavigatorState>();
 final _shellNavigatorMyListKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
-  initialLocation: '/',
+  initialLocation: RouteConstants.splash,
   navigatorKey: _rootNavigatorKey,
   observers: [CustomRouteObserver()],
   routes: [
@@ -168,7 +167,7 @@ final router = GoRouter(
           state.queryParameters,
         );
       }
-      return '/login';
+      return RouteConstants.login;
     } else {
       if (state.matchedLocation == RouteConstants.home &&
           routeCubit.isDesiredRouteSet()) {

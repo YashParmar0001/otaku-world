@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:otaku_world/config/router/router_constants.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 
 import '../../../generated/assets.dart';
@@ -154,7 +155,7 @@ class MediaCarouselCard extends StatelessWidget {
           radius: 8,
         ),
         PrimaryButton(
-          onTap: () => context.push('/media-detail?id=$id'),
+          onTap: () => context.push('${RouteConstants.mediaDetail}?id=$id'),
           label: 'View more',
           width: UIUtils.getWidgetWidth(
             targetWidgetWidth: 100,

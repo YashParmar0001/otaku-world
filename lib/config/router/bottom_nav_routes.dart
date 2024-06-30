@@ -22,7 +22,7 @@ final bottomNavRoutes = StatefulShellRoute.indexedStack(
       navigatorKey: _shellNavigatorDiscoverKey,
       routes: [
         GoRoute(
-          path: HomeConstants.discover,
+          path: RouteConstants.discover,
           pageBuilder: (context, state) {
             return const NoTransitionPage(
               child: DiscoverScreen(),

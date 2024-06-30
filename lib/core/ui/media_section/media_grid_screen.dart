@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:otaku_world/config/router/router_constants.dart';
 import 'package:otaku_world/core/ui/appbars/simple_app_bar.dart';
 import 'package:otaku_world/core/ui/appbars/simple_sliver_app_bar.dart';
 import 'package:otaku_world/core/ui/images/cover_image.dart';
@@ -118,7 +119,7 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
                                         children: [
                                           GestureDetector(
                                             onTap: () => context.push(
-                                                '/media-detail?id=${state.list[index].id}'),
+                                                '${RouteConstants.mediaDetail}?id=${state.list[index].id}'),
                                             child: _buildMediaPoster(
                                               state.list[index]?.coverImage
                                                   ?.large,

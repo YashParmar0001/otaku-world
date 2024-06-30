@@ -15,6 +15,8 @@ import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
 
+import '../../../config/router/router_constants.dart';
+
 class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
   const MediaSection({
     super.key,
@@ -211,7 +213,7 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
     if (media == null) return const SizedBox();
 
     return GestureDetector(
-      onTap: () => context.push('/media-detail?id=${media.id}'),
+      onTap: () => context.push('${RouteConstants.mediaDetail}?id=${media.id}'),
       child: Container(
         margin: const EdgeInsets.only(
           right: 15,

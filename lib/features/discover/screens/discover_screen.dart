@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/constants/color_constants.dart';
@@ -13,6 +12,8 @@ import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/services/caching/image_cache_manager.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/poster_utils.dart';
+
+import '../../../config/router/router_constants.dart';
 
 class DiscoverScreen extends HookWidget {
   const DiscoverScreen({super.key});
@@ -41,7 +42,7 @@ class DiscoverScreen extends HookWidget {
           ),
           DiscoverCard(
             onTap: () {
-              context.push('/discover-anime');
+              context.push(RouteConstants.discoverAnime);
             },
             title: 'Anime',
             beginColors: AppColors.raisinBlack,
@@ -60,7 +61,7 @@ class DiscoverScreen extends HookWidget {
           ),
           DiscoverCard(
             onTap: () {
-              context.push('/discover-manga');
+              context.push(RouteConstants.discoverManga);
             },
             title: 'Manga',
             beginColors: AppColors.raisinBlack,
@@ -79,7 +80,7 @@ class DiscoverScreen extends HookWidget {
           ),
           DiscoverCard(
             onTap: () {
-              context.push('/discover-characters');
+              context.push(RouteConstants.discoverCharacters);
             },
             title: "Characters",
             beginColors: AppColors.raisinBlack,
@@ -91,7 +92,7 @@ class DiscoverScreen extends HookWidget {
           ),
           DiscoverCard(
             onTap: () {
-              context.push('/discover-staff');
+              context.push(RouteConstants.discoverStaff);
             },
             title: 'Staff',
             beginColors: AppColors.raisinBlack,
@@ -110,7 +111,7 @@ class DiscoverScreen extends HookWidget {
           ),
           DiscoverCard(
             onTap: () {
-              context.push('/discover-studios');
+              context.push(RouteConstants.discoverStudios);
             },
             title: "Studios",
             beginColors: AppColors.raisinBlack,

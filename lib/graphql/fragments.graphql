@@ -235,6 +235,7 @@ fragment SearchResultUser on User {
 fragment CalendarAiringSchedule on AiringSchedule {
     id
     media {
+        id
         title {
             userPreferred
             english

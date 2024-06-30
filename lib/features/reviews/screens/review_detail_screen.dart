@@ -22,6 +22,7 @@ import 'package:otaku_world/utils/ui_utils.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../config/router/router_constants.dart';
 import '../../../core/ui/appbars/simple_app_bar.dart';
 import '../../../theme/colors.dart';
 import '../../../utils/formatting_utils.dart';
@@ -297,7 +298,7 @@ class ReviewDetailScreen extends StatelessWidget {
               BottomSheetComponent(
                 onTap: () {
                   context.pop(); //to close the bottom sheet
-                  context.push('/media-detail?id=$id');
+                  context.push('${RouteConstants.mediaDetail}?id=$id');
                 },
                 iconName: Assets.iconsOpenLink2,
                 text: 'Open Media Page',

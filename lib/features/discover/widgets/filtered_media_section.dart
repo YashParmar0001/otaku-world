@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:otaku_world/config/router/router_constants.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 
@@ -41,7 +42,7 @@ class FilteredMediaSection extends StatelessWidget {
               IconButton(
                 onPressed: () {
                   if (type == Enum$MediaType.ANIME) {
-                    context.push('/filter-anime-slider');
+                    context.push(RouteConstants.filterAnimeSlider);
                   }
                 },
                 icon: Padding(

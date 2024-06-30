@@ -195,9 +195,12 @@ class MediaDetailScreen extends HookWidget {
                     screenHeight: height,
                   ),
                   width: width,
-                  child: CoverImage(
-                    imageUrl: media.bannerImage.toString(),
-                    type: media.type!,
+                  child: GestureDetector(
+                    onTap: () => showImage(context, media.bannerImage!.toString(), ),
+                    child: CoverImage(
+                      imageUrl: media.bannerImage.toString(),
+                      type: media.type!,
+                    ),
                   ),
                 ),
               ),

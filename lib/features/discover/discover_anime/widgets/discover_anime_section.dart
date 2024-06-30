@@ -7,6 +7,7 @@ import '../../../../bloc/top_100_anime/top_100_anime_bloc.dart';
 import '../../../../bloc/top_airing_anime/top_airing_anime_bloc.dart';
 import '../../../../bloc/top_upcoming_anime/top_upcoming_anime_bloc.dart';
 import '../../../../bloc/trending_anime/trending_anime_bloc.dart';
+import '../../../../config/router/router_constants.dart';
 import '../../../../core/ui/media_section/media_cards.dart';
 import '../../../../core/ui/media_section/media_section.dart';
 
@@ -20,10 +21,10 @@ class DiscoverAnimeSection extends StatelessWidget {
         MediaSection<TrendingAnimeBloc>(
           label: 'Trending now',
           onMorePressed: () {
-            context.push('/trending-anime');
+            context.push(RouteConstants.trendingAnime);
           },
           onSliderPressed: () {
-            context.push('/trending-anime-slider');
+            context.push(RouteConstants.trendingAnimeSlider);
           },
           heroTag: 'trending_anime',
         ),
@@ -33,10 +34,10 @@ class DiscoverAnimeSection extends StatelessWidget {
         MediaSection<RecommendedAnimeBloc>(
           label: 'Recommended',
           onMorePressed: () {
-            context.push('/recommended-anime');
+            context.push(RouteConstants.recommendedAnime);
           },
           onSliderPressed: () {
-            context.push('/recommended-anime-slider');
+            context.push(RouteConstants.recommendedAnimeSlider);
           },
           heroTag: 'recommended_anime',
         ),
@@ -46,10 +47,10 @@ class DiscoverAnimeSection extends StatelessWidget {
         MediaSection<TopAiringAnimeBloc>(
           label: 'Top Airing',
           onMorePressed: () {
-            context.push('/top-airing-anime');
+            context.push(RouteConstants.topAiringAnime);
           },
           onSliderPressed: () {
-            context.push('/top-airing-anime-slider');
+            context.push(RouteConstants.topAiringAnimeSlider);
           },
           heroTag: 'top_airing_anime',
         ),
@@ -59,10 +60,10 @@ class DiscoverAnimeSection extends StatelessWidget {
         MediaSection<TopUpcomingAnimeBloc>(
           label: 'Top Upcoming',
           onMorePressed: () {
-            context.push('/top-upcoming-anime');
+            context.push(RouteConstants.topUpcomingAnime);
           },
           onSliderPressed: () {
-            context.push('/top-upcoming-anime-slider');
+            context.push(RouteConstants.topUpcomingAnimeSlider);
           },
           heroTag: 'top_upcoming_anime',
         ),
@@ -72,10 +73,10 @@ class DiscoverAnimeSection extends StatelessWidget {
         MediaSection<AllTimePopularAnimeBloc>(
           label: 'All Time Popular',
           onMorePressed: () {
-            context.push('/all-time-popular-anime');
+            context.push(RouteConstants.allTimePopularAnime);
           },
           onSliderPressed: () {
-            context.push('/all-time-popular-anime-slider');
+            context.push(RouteConstants.allTimePopularAnimeSlider);
           },
           heroTag: 'all_time_popular_anime',
         ),
@@ -85,7 +86,7 @@ class DiscoverAnimeSection extends StatelessWidget {
         MediaCards<Top100AnimeBloc>(
           label: 'Top 100 Anime',
           onMorePressed: () {
-            context.push('/top-anime');
+            context.push(RouteConstants.topAnime);
           },
           heroTag: 'top_100_anime',
         ),

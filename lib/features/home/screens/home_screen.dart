@@ -20,6 +20,7 @@ import '../../../bloc/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import '../../../bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import '../../../constants/string_constants.dart';
 import '../widgets/feature_card.dart';
+import '../../../../config/router/router_constants.dart';
 
 class HomeScreen extends HookWidget {
   const HomeScreen({super.key});
@@ -77,7 +78,7 @@ class HomeScreen extends HookWidget {
               ),
               child: FeatureCard(
                 onTap: () {
-                  context.push('/reviews');
+                  context.push(RouteConstants.reviews);
                 },
                 heading: HomeConstants.reviewsHeading,
                 subheading: HomeConstants.reviewsSubheading,
@@ -94,7 +95,7 @@ class HomeScreen extends HookWidget {
               ),
               child: FeatureCard(
                 onTap: () {
-                  context.push('/calendar');
+                  context.push(RouteConstants.calendar);
                 },
                 heading: HomeConstants.calendarHeading,
                 subheading: HomeConstants.calendarSubheading,
@@ -107,10 +108,10 @@ class HomeScreen extends HookWidget {
             MediaSection<TrendingAnimeBloc>(
               label: 'Trending Anime',
               onMorePressed: () {
-                context.push('/trending-anime');
+                context.push(RouteConstants.trendingAnime);
               },
               onSliderPressed: () {
-                context.push('/trending-anime-slider');
+                context.push(RouteConstants.trendingAnimeSlider);
               },
               heroTag: 'trending_anime',
             ),
@@ -120,10 +121,10 @@ class HomeScreen extends HookWidget {
             MediaSection<RecommendedAnimeBloc>(
               label: 'Recommended Anime',
               onMorePressed: () {
-                context.push('/recommended-anime');
+                context.push(RouteConstants.recommendedAnime);
               },
               onSliderPressed: () {
-                context.push('/recommended-anime-slider');
+                context.push(RouteConstants.recommendedAnimeSlider);
               },
               heroTag: 'recommended_anime',
             ),
@@ -133,10 +134,10 @@ class HomeScreen extends HookWidget {
             MediaSection<TrendingMangaBloc>(
               label: 'Trending Manga',
               onMorePressed: () {
-                context.push('/trending-manga');
+                context.push(RouteConstants.trendingManga);
               },
               onSliderPressed: () {
-                context.push('/trending-manga-slider');
+                context.push(RouteConstants.trendingMangaSlider);
               },
               heroTag: 'trending_manga',
             ),
@@ -146,18 +147,16 @@ class HomeScreen extends HookWidget {
             MediaSection<RecommendedMangaBloc>(
               label: 'Recommended Manga',
               onMorePressed: () {
-                context.push('/recommended-manga');
+                context.push(RouteConstants.recommendedManga);
               },
               onSliderPressed: () {
-                context.push('/recommended-manga-slider');
+                context.push(RouteConstants.recommendedMangaSlider);
               },
               heroTag: 'recommended_manga',
             ),
             const SizedBox(
               height: 15,
             ),
-
-
           ],
         ),
       ),
@@ -186,7 +185,7 @@ class HomeScreen extends HookWidget {
           ),
           child: InkWell(
             onTap: () {
-              context.push('/search');
+              context.push(RouteConstants.search);
             },
             borderRadius: BorderRadius.circular(15),
             child: Container(

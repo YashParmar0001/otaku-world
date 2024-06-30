@@ -6,6 +6,7 @@ import '../../../../bloc/all_time_popular_manga/popular_manhwa_bloc.dart';
 import '../../../../bloc/recommended_manga/recommended_manga_bloc.dart';
 import '../../../../bloc/top_100_manga/top_100_manga.dart';
 import '../../../../bloc/trending_manga/trending_manga_bloc.dart';
+import '../../../../config/router/router_constants.dart';
 import '../../../../core/ui/media_section/media_cards.dart';
 import '../../../../core/ui/media_section/media_section.dart';
 
@@ -19,10 +20,10 @@ class DiscoverMangaSection extends StatelessWidget {
         MediaSection<TrendingMangaBloc>(
           label: 'Trending now',
           onMorePressed: () {
-            context.push('/trending-manga');
+            context.push(RouteConstants.trendingManga);
           },
           onSliderPressed: () {
-            context.push('/trending-manga-slider');
+            context.push(RouteConstants.trendingMangaSlider);
           },
           heroTag: 'trending_manga',
         ),
@@ -32,10 +33,10 @@ class DiscoverMangaSection extends StatelessWidget {
         MediaSection<RecommendedMangaBloc>(
           label: 'Recommended',
           onMorePressed: () {
-            context.push('/recommended-manga');
+            context.push(RouteConstants.recommendedManga);
           },
           onSliderPressed: () {
-            context.push('/recommended-manga-slider');
+            context.push(RouteConstants.recommendedMangaSlider);
           },
           heroTag: 'recommended_manga',
         ),
@@ -45,10 +46,10 @@ class DiscoverMangaSection extends StatelessWidget {
         MediaSection<AllTimePopularMangaBloc>(
           label: 'All Time Popular',
           onMorePressed: () {
-            context.push('/all-time-popular-manga');
+            context.push(RouteConstants.allTimePopularManga);
           },
           onSliderPressed: () {
-            context.push('/all-time-popular-manga-slider');
+            context.push(RouteConstants.allTimePopularMangaSlider);
           },
           heroTag: 'all_time_popular_manga',
         ),
@@ -58,10 +59,10 @@ class DiscoverMangaSection extends StatelessWidget {
         MediaSection<PopularManhwaBloc>(
           label: 'Popular Manhwa',
           onMorePressed: () {
-            context.push('/popular-manhwa');
+            context.push(RouteConstants.popularManhwa);
           },
           onSliderPressed: () {
-            context.push('/popular-manhwa-slider');
+            context.push(RouteConstants.popularManhwaSlider);
           },
           heroTag: 'popular_manhwa',
         ),
@@ -71,9 +72,9 @@ class DiscoverMangaSection extends StatelessWidget {
         MediaCards<Top100MangaBloc>(
           label: 'Top 100 Manga',
           onMorePressed: () {
-            context.push('/top-manga');
+            context.push(RouteConstants.topManga);
           },
-          heroTag: 'top_100_anime',
+          heroTag: 'top_100_manga',
         ),
         const SizedBox(
           height: 15,

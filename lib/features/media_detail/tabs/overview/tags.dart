@@ -26,13 +26,26 @@ class _TagsState extends State<Tags> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
             const Text(
               "Tags",
               style: AppTextStyles.titleSectionStyle,
             ),
-            if (widget.tags.any((element) => element!.isMediaSpoiler == true))
+            const SizedBox(width: 10,),
+            const Tooltip(
+              triggerMode: TooltipTriggerMode.tap,
+              message: 'Press and hold on tags for information',
+              showDuration: Duration(seconds: 5),
+              child: Icon(
+                Icons.info,
+                color: AppColors.white,
+                size: 20,
+              ),
+            ),
+            if (widget.tags
+                .any((element) => element!.isMediaSpoiler == true)) ...[
+              const Spacer(),
               TextButton(
                 onPressed: () => setState(() => showSpoilers = !showSpoilers),
                 child: Text(
@@ -45,6 +58,7 @@ class _TagsState extends State<Tags> {
                   ),
                 ),
               ),
+            ],
           ],
         ),
         const SizedBox(

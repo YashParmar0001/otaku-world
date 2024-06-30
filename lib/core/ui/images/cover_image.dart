@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 
 import '../../../services/caching/image_cache_manager.dart';
+import '../image_viewer.dart';
 import '../placeholders/poster_placeholder.dart';
 
 class CoverImage extends StatelessWidget {

@@ -6,15 +6,13 @@ import '../graphql/__generated/graphql/fragments.graphql.dart';
 extension StringExtension on String {
   String capitalize() {
     return replaceAll('_', " ")
+        .replaceAll('\$', '')
         .split(' ')
         .map(
           (element) => toBeginningOfSentenceCase(element.toLowerCase())!,
         )
         .join(' ');
   }
-}
-
-extension StringExtensionOfNull on String {
   String checkIfNull() {
     return this == 'null' ? StringConstants.nullStringConstant : this;
   }

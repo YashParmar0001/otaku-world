@@ -27,7 +27,6 @@ class _ScrollToTopFABState extends State<ScrollToTopFAB> {
 
   @override
   Widget build(BuildContext context) {
-    dev.log('Rebuilding go to top button', name: 'ReviewScreen');
     useEffect(() {
       widget.controller.addListener(() {
         final minScroll = widget.controller.position.minScrollExtent;
@@ -36,14 +35,12 @@ class _ScrollToTopFABState extends State<ScrollToTopFAB> {
         if (mounted) {
           if (currentScroll > minScroll + 250) {
             if (!_isVisible) {
-              dev.log('Setting back to top true', name: 'ReviewScreen');
               setState(() {
                 _isVisible = true;
               });
             }
           } else {
             if (_isVisible) {
-              dev.log('Setting back to top false', name: 'ReviewScreen');
               setState(() {
                 _isVisible = false;
               });

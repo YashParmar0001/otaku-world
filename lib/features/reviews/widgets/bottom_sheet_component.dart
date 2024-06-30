@@ -12,20 +12,20 @@ class BottomSheetComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SvgPicture.asset(iconName),
-        const SizedBox(
-          width: 10,
-        ),
-        GestureDetector(
-          onTap: onTap,
-          child: Text(
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        children: [
+          SvgPicture.asset(iconName),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
             text,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -44,7 +44,7 @@ class InfoColumn extends StatelessWidget {
         InfoData(
           iconName: Assets.iconsStar,
           separateWidth: 2,
-          info: averageScore,
+          info: averageScore.checkIfNull(),
         ),
         const SizedBox(
           height: 15,

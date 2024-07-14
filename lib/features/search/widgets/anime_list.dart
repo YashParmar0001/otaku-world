@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:otaku_world/bloc/search/search_anime/search_anime_bloc.dart';
+import 'package:otaku_world/bloc/search/search_bloc/search_bloc.dart';
 import 'package:otaku_world/core/ui/error_text.dart';
 import 'package:otaku_world/core/ui/placeholders/anime_character_placeholder.dart';
 import 'package:otaku_world/features/search/widgets/media_card.dart';
@@ -19,6 +20,7 @@ class ResultAnimeList extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final controller = useScrollController();
+    final searchAnimeBloc = context.read<SearchBloc>().searchBlocs[0];
 
     useEffect(() {
       controller.addListener(() {
@@ -27,7 +29,6 @@ class ResultAnimeList extends HookWidget {
 
         if (currentScroll == maxScroll) {
           dev.log('Max scrolled', name: 'AnimeSearch');
-          final searchAnimeBloc = context.read<SearchAnimeBloc>();
           final hasNextPage =
               (searchAnimeBloc.state as SearchResultLoaded).hasNextPage;
           if (hasNextPage) {
@@ -47,6 +48,7 @@ class ResultAnimeList extends HookWidget {
         vertical: 5,
       ),
       child: BlocBuilder<SearchAnimeBloc, SearchBaseState>(
+        bloc: searchAnimeBloc as SearchAnimeBloc,
         builder: (context, state) {
           if (state is SearchInitial) {
             return const AnimeCharacterPlaceholder(

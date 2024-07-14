@@ -43,6 +43,7 @@ import 'package:otaku_world/observers/go_route_observer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../bloc/media_detail/media_detail_bloc.dart';
+import '../../bloc/search/search_bloc/search_bloc.dart';
 import '../../core/ui/app_scaffold.dart';
 import '../../features/anime_lists/slider_lists/recommended_manga_slider.dart';
 import '../../features/anime_lists/slider_lists/trending_manga_slider.dart';

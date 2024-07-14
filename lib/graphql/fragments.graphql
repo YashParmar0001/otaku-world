@@ -261,3 +261,9 @@ fragment MediaTag on MediaTag {
     description
     isAdult
 }
+
+fragment FuzzyDate on FuzzyDate {
+    day
+    month
+    year
+}

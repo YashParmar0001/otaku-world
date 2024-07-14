@@ -32,7 +32,10 @@ final homeRoutes = [
   GoRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: '/search',
-    builder: (context, state) => const SearchScreen(),
+    builder: (context, state) => BlocProvider(
+      create: (context) => SearchBloc(),
+      child: const SearchScreen(),
+    ),
   ),
   // Trending Anime
   SlideTransitionRoute(

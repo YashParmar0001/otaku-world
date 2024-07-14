@@ -1,4 +1,6 @@
-class StringConstants {}
+class StringConstants {
+  static const String nullStringConstant = ' - - ';
+}
 
 class LoginConstants {
   static const String loginToAniListHeading = 'Login to Your AniList Account';

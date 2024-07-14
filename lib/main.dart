@@ -93,24 +93,24 @@ class MyApp extends StatelessWidget {
         // BlocProvider(
         //   create: (context) => MediaDetailBloc(),
         // ),
-        BlocProvider(
-          create: (context) => SearchAnimeBloc(),
-        ),
-        BlocProvider(
-          create: (context) => SearchMangaBloc(),
-        ),
-        BlocProvider(
-          create: (context) => SearchCharactersBloc(),
-        ),
-        BlocProvider(
-          create: (context) => SearchStaffBloc(),
-        ),
-        BlocProvider(
-          create: (context) => SearchStudiosBloc(),
-        ),
-        BlocProvider(
-          create: (context) => SearchUsersBloc(),
-        ),
+        // BlocProvider(
+        //   create: (context) => SearchAnimeBloc(),
+        // ),
+        // BlocProvider(
+        //   create: (context) => SearchMangaBloc(),
+        // ),
+        // BlocProvider(
+        //   create: (context) => SearchCharactersBloc(),
+        // ),
+        // BlocProvider(
+        //   create: (context) => SearchStaffBloc(),
+        // ),
+        // BlocProvider(
+        //   create: (context) => SearchStudiosBloc(),
+        // ),
+        // BlocProvider(
+        //   create: (context) => SearchUsersBloc(),
+        // ),
         BlocProvider(
           create: (context) => RecommendationAnimeBloc(),
         ),

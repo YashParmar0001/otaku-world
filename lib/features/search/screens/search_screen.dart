@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
-import 'package:otaku_world/bloc/text_field/clear_text_cubit.dart';
 import 'package:otaku_world/features/search/widgets/anime_list.dart';
 import 'package:otaku_world/features/search/widgets/characters_list.dart';
 import 'package:otaku_world/features/search/widgets/manga_list.dart';
@@ -51,12 +50,11 @@ class SearchScreen extends HookWidget {
   }
 
   void _clearSearch(BuildContext context) {
-    context.read<ClearTextCubit>().hideClearText();
-    context.read<SearchAnimeBloc>().add(ClearSearch());
-    context.read<SearchMangaBloc>().add(ClearSearch());
-    context.read<SearchCharactersBloc>().add(ClearSearch());
-    context.read<SearchStaffBloc>().add(ClearSearch());
-    context.read<SearchStudiosBloc>().add(ClearSearch());
-    context.read<SearchUsersBloc>().add(ClearSearch());
+    // context.read<SearchAnimeBloc>().add(ClearSearch());
+    // context.read<SearchMangaBloc>().add(ClearSearch());
+    // context.read<SearchCharactersBloc>().add(ClearSearch());
+    // context.read<SearchStaffBloc>().add(ClearSearch());
+    // context.read<SearchStudiosBloc>().add(ClearSearch());
+    // context.read<SearchUsersBloc>().add(ClearSearch());
   }
 }

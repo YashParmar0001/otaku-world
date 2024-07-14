@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../constants/dimensions_constants.dart';
+import '../core/ui/buttons/primary_outlined_button.dart';
+import '../theme/colors.dart';
 
 class UIUtils {
   static void showSnackBar(BuildContext context, String message) {
@@ -41,11 +44,34 @@ class UIUtils {
     return Color(int.parse(hexColor.substring(1, 7), radix: 16) + 0xFF000000);
   }
 
-
-}
-
-extension StringExtension on String {
-  String capitalize() {
-    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  static void showInfoDialog(BuildContext context, String title, String description) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            title,
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          content: Text(
+            description,
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          backgroundColor: AppColors.japaneseIndigo,
+          actions: [
+            PrimaryOutlinedButton(
+              onTap: context.pop,
+              label: 'Ok',
+              horizontalPadding: 5,
+              verticalPadding: 10,
+              fontSize: 14,
+            ),
+          ],
+        );
+      },
+    );
   }
 }
+

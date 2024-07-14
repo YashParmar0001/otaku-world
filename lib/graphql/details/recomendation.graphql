@@ -4,11 +4,11 @@ query  GetRecommendation($id : Int,$page : Int){
             pageInfo {
                 hasNextPage
             }
-
             edges {
                 node {
                     mediaRecommendation{
-                       ...MediaShort
+                        ...MediaShort
+
                     }
                 }
             }

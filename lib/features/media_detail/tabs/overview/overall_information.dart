@@ -1,10 +1,14 @@
+import 'dart:developer' as dev;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otaku_world/bloc/media_detail/media_detail_bloc.dart';
+import 'package:otaku_world/constants/string_constants.dart';
 import 'package:otaku_world/features/media_detail/tabs/overview/info_tile.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
-import 'dart:developer' as dev;
+import 'package:otaku_world/utils/extensions.dart';
+
 import '../../../../theme/colors.dart';
 
 class OverallInfo extends StatelessWidget {
@@ -48,22 +52,24 @@ class OverallInfo extends StatelessWidget {
         children: [
           InfoTile(
             title: "Romaji",
-            data: media.title!.romaji.toString() == "null" ? "-" :  media.title!.romaji.toString(),
+            data: media.title!.romaji.toString().checkIfNull(),
           ),
           tenHeightSizedBox,
           InfoTile(
             title: "English",
-            data: media.title!.english.toString(),
+            data: media.title!.english.toString().checkIfNull(),
           ),
           tenHeightSizedBox,
           InfoTile(
             title: "Native",
-            data: media.title!.native.toString(),
+            data: media.title!.native.toString().checkIfNull(),
           ),
           tenHeightSizedBox,
           InfoTile(
             title: 'Synonyms',
-            data: media.synonyms!.join("\n"),
+            data: media.synonyms!.isEmpty
+                ? StringConstants.nullStringConstant
+                : media.synonyms!.join("\n"),
           ),
           tenHeightSizedBox,
           Container(
@@ -75,51 +81,71 @@ class OverallInfo extends StatelessWidget {
             title: 'Format',
             data: toJson$Enum$MediaFormat(
                     media.format ?? Enum$MediaFormat.$unknown)
-                .toString(),
+                .toString()
+                .capitalize(),
           ),
-          tenHeightSizedBox,
-          InfoTile(
-            title: 'Episodes',
-            data: media.episodes.toString(),
-          ),
-          tenHeightSizedBox,
-          InfoTile(
-            title: 'Episodes Duration',
-            data: "${media.duration} mins",
-          ),
+          if (media.type == Enum$MediaType.ANIME) ...[
+            tenHeightSizedBox,
+            InfoTile(
+              title: 'Episodes',
+              data: media.episodes.toString().checkIfNull(),
+            ),
+            tenHeightSizedBox,
+            InfoTile(
+              title: 'Episodes Duration',
+              data: media.duration.toString() == "null"
+                  ? StringConstants.nullStringConstant
+                  : "${media.duration} mins",
+            ),
+          ],
+          if (media.type == Enum$MediaType.MANGA) ...[
+            tenHeightSizedBox,
+            InfoTile(
+              title: 'Chapters',
+              data: media.chapters.toString().checkIfNull(),
+            ),
+            tenHeightSizedBox,
+            InfoTile(
+              title: 'Volumes',
+              data: media.volumes.toString().checkIfNull(),
+            ),
+          ],
           tenHeightSizedBox,
           InfoTile(
             title: 'Source',
             data: toJson$Enum$MediaSource(
               media.source ?? Enum$MediaSource.$unknown,
-            ).toString(),
+            ).toString().capitalize(),
           ),
           tenHeightSizedBox,
           InfoTile(
-              title: 'Status',
-              data: toJson$Enum$MediaStatus(
-                media.status ?? Enum$MediaStatus.$unknown,
-              ).toString()),
+            title: 'Status',
+            data: toJson$Enum$MediaStatus(
+              media.status ?? Enum$MediaStatus.$unknown,
+            ).toString().capitalize(),
+          ),
           tenHeightSizedBox,
           InfoTile(
             title: 'Start Date',
-            data:
-               media.startDate != null ?  "${media.startDate!.day}/${media.startDate!.month}/${media.startDate!.year}" : "- -",
+            data: media.startDate == null
+                ? StringConstants.nullStringConstant
+                : media.startDate!.toDateString(),
           ),
           tenHeightSizedBox,
           InfoTile(
             title: 'End Date',
-            data:
-               media.endDate !=  null ? "${media.endDate!.day}/${media.endDate!.month}/${media.endDate!.year}" : "- -",
-          ),
-          tenHeightSizedBox,
-          InfoTile(
-            title: 'Season',
-            data: "${toJson$Enum$MediaSeason(
-              media.season ?? Enum$MediaSeason.$unknown,
-            )} ${media.seasonYear.toString()}",
+            data: media.endDate != null
+                ? media.endDate!.toDateString()
+                : StringConstants.nullStringConstant,
           ),
           if (media.type == Enum$MediaType.ANIME) ...[
+            tenHeightSizedBox,
+            InfoTile(
+              title: 'Season',
+              data: "${toJson$Enum$MediaSeason(
+                media.season ?? Enum$MediaSeason.$unknown,
+              ).capitalize()} ${media.seasonYear.toString() == 'null' ? '' : media.seasonYear.toString()}",
+            ),
             tenHeightSizedBox,
             Container(
               color: AppColors.white.withOpacity(0.5),
@@ -132,11 +158,15 @@ class OverallInfo extends StatelessWidget {
                   )
                 : InfoTile(
                     title: "Studios",
-                    data: getStudios(media.studios!.edges!),
+                    data: getStudios(media.studios!.edges!).isEmpty
+                        ? StringConstants.nullStringConstant
+                        : getStudios(media.studios!.edges!),
                   ),
             InfoTile(
               title: 'Producers',
-              data: getProducers(media.studios!.edges!),
+              data: getProducers(media.studios!.edges!).isEmpty
+                  ? StringConstants.nullStringConstant
+                  : getProducers(media.studios!.edges!),
             ),
           ],
         ],

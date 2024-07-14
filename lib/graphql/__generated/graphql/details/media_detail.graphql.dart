@@ -300,6 +300,7 @@ const documentNodeQueryGetMediaDetail = DocumentNode(definitions: [
   ),
   fragmentDefinitionMediaDetailed,
   fragmentDefinitionMediaShort,
+  fragmentDefinitionFuzzyDate,
 ]);
 Query$GetMediaDetail _parserFn$Query$GetMediaDetail(
         Map<String, dynamic> data) =>

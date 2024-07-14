@@ -3,9 +3,6 @@ fragment MediaDetailed on Media{
     bannerImage
 
     popularity
-    startDate {
-        year
-    }
     nextAiringEpisode {
         episode
     }
@@ -18,6 +15,8 @@ fragment MediaDetailed on Media{
     synonyms
     episodes
     duration
+    volumes
+    chapters
     source
 
     externalLinks {
@@ -112,14 +111,10 @@ fragment MediaShort on Media {
     season
     seasonYear
     startDate {
-        day
-        month
-        year
+       ...FuzzyDate
     }
     endDate {
-        day
-        month
-        year
+       ...FuzzyDate
     }
     mediaListEntry {
         id
@@ -240,6 +235,7 @@ fragment SearchResultUser on User {
 fragment CalendarAiringSchedule on AiringSchedule {
     id
     media {
+        id
         title {
             userPreferred
             english
@@ -261,7 +257,10 @@ fragment MediaTag on MediaTag {
     description
     isAdult
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> d8cb6a9c910499ab3f77062e00aff4a49e5d1c31
 fragment FuzzyDate on FuzzyDate {
     day
     month

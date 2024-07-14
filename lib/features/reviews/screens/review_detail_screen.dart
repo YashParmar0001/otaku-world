@@ -1,4 +1,5 @@
 import 'dart:developer' as dev;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,6 +21,8 @@ import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../config/router/router_constants.dart';
 import '../../../core/ui/appbars/simple_app_bar.dart';
 import '../../../theme/colors.dart';
 import '../../../utils/formatting_utils.dart';
@@ -84,9 +87,8 @@ class ReviewDetailScreen extends StatelessWidget {
                       ),
                       width: width,
                       child: BannerImage(
-                        url :review.media!.coverImage!.extraLarge.toString(),
+                        url: review.media!.coverImage!.extraLarge.toString(),
                         // placeHolderName: Assets.placeholders340x72,
-
                       ),
                     ),
                     Padding(
@@ -99,7 +101,12 @@ class ReviewDetailScreen extends StatelessWidget {
                                 ),
                       ),
                     ),
-                    _buildTitleSection(width, review, context),
+                    _buildTitleSection(
+                      width,
+                      review,
+                      context,
+                      review.mediaId,
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(left: 15.0),
                       child: buildSummaryText(
@@ -204,8 +211,8 @@ class ReviewDetailScreen extends StatelessWidget {
     return type == Enum$MediaType.ANIME ? 'Anime' : 'Manga';
   }
 
-  Widget _buildTitleSection(
-      double screenWidth, Fragment$ReviewDetail review, BuildContext context) {
+  Widget _buildTitleSection(double screenWidth, Fragment$ReviewDetail review,
+      BuildContext context, int id) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -223,7 +230,7 @@ class ReviewDetailScreen extends StatelessWidget {
           padding: const EdgeInsets.only(right: 10),
           child: IconButton(
             onPressed: () {
-              showModalBottomsheet(context);
+              showModalBottomSheetCustom(context, id);
             },
             icon: SvgPicture.asset(Assets.iconsMoreHorizontal),
           ),
@@ -231,7 +238,6 @@ class ReviewDetailScreen extends StatelessWidget {
       ],
     );
   }
-
 
   Widget _buildProfileSection(
       BuildContext context, Fragment$ReviewDetail review) {
@@ -255,7 +261,7 @@ class ReviewDetailScreen extends StatelessWidget {
     );
   }
 
-  void showModalBottomsheet(BuildContext context) {
+  void showModalBottomSheetCustom(BuildContext context, int id) {
     showModalBottomSheet(
       backgroundColor: AppColors.darkCharcoal,
       context: context,
@@ -290,7 +296,10 @@ class ReviewDetailScreen extends StatelessWidget {
                 height: 20,
               ),
               BottomSheetComponent(
-                onTap: () {},
+                onTap: () {
+                  context.pop(); //to close the bottom sheet
+                  context.push('${RouteConstants.mediaDetail}?id=$id');
+                },
                 iconName: Assets.iconsOpenLink2,
                 text: 'Open Media Page',
               ),
@@ -319,7 +328,7 @@ class ReviewDetailScreen extends StatelessWidget {
               BottomSheetComponent(
                 onTap: () {
                   Share.share(
-                      "hi this is shit do not open : https://otaku-world-8a7f4.firebaseapp.com/review-detail?id=$reviewId");
+                      "Check out this anime review: https://otaku-world-8a7f4.firebaseapp.com/review-detail?id=$reviewId");
                   context.pop();
                 },
                 iconName: Assets.iconsShare,

@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:otaku_world/bloc/search/search_anime/search_anime_bloc.dart';
 import 'package:otaku_world/bloc/search/search_base/search_base_bloc.dart';

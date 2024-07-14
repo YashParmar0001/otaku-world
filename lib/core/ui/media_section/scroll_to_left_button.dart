@@ -1,8 +1,8 @@
-import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
+
 import '../../../generated/assets.dart';
 import '../../../theme/colors.dart';
 
@@ -25,7 +25,6 @@ class _ScrollToLeftFABState extends State<ScrollToLeftFAB> {
 
   @override
   Widget build(BuildContext context) {
-    dev.log('Rebuilding go to top button', name: 'ReviewScreen');
     useEffect(() {
       widget.controller.addListener(() {
         final minScroll = widget.controller.position.minScrollExtent;

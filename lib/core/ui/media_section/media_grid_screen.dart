@@ -1,22 +1,25 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:developer' as dev;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:otaku_world/config/router/router_constants.dart';
 import 'package:otaku_world/core/ui/appbars/simple_app_bar.dart';
 import 'package:otaku_world/core/ui/appbars/simple_sliver_app_bar.dart';
+import 'package:otaku_world/core/ui/images/cover_image.dart';
 import 'package:otaku_world/core/ui/media_section/scroll_to_top_button.dart';
 import 'package:otaku_world/core/ui/placeholders/poster_placeholder.dart';
 import 'package:otaku_world/core/ui/shimmers/grid_shimmer.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/formatting_utils.dart';
+
 import '../../../bloc/graphql_client/graphql_client_cubit.dart';
 import '../../../bloc/paginated_data/paginated_data_bloc.dart';
 import '../../../generated/assets.dart';
 import '../../../graphql/__generated/graphql/schema.graphql.dart';
-import '../../../services/caching/image_cache_manager.dart';
-import 'dart:developer' as dev;
 import '../error_text.dart';
 
 class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
@@ -114,11 +117,17 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
                                               : BorderRadius.circular(5),
                                       child: Stack(
                                         children: [
-                                          _buildMediaPoster(
-                                            state
-                                                .list[index]?.coverImage?.large,
-                                            state.list[index]!.type!,
-                                            size,
+                                          GestureDetector(
+                                            onTap: () => context.push(
+                                                '${RouteConstants.mediaDetail}?id=${state.list[index].id}'),
+                                            child: _buildMediaPoster(
+                                              state.list[index]?.coverImage
+                                                  ?.large,
+                                              state.list[index]?.type ??
+                                                  Enum$MediaType.$unknown,
+                                              size,
+                                              state.list[index].id,
+                                            ),
                                           ),
                                           // Mean score
                                           Positioned(
@@ -256,27 +265,18 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
     );
   }
 
-  Widget _buildMediaPoster(String? imageUrl, Enum$MediaType type, Size size) {
+  Widget _buildMediaPoster(
+      String? imageUrl, Enum$MediaType type, Size size, int id) {
     return (imageUrl != null)
         ? AspectRatio(
             aspectRatio: 0.70005,
-            child: CachedNetworkImage(
-              cacheManager: ImageCacheManager.instance,
-              imageUrl: imageUrl,
-              height: 150,
-              fit: BoxFit.cover,
-              imageBuilder: (context, imageProvider) {
-                return Image(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                );
-              },
-              errorWidget: (context, url, error) {
-                return _buildPlaceholderImage110x162(type);
-              },
-              placeholder: (context, url) {
-                return _buildPlaceholderImage110x162(type);
-              },
+            //
+            child: Hero(
+              tag: id,
+              child: CoverImage(
+                imageUrl: imageUrl,
+                type: type,
+              ),
             ),
           )
         : _buildPlaceholderImage110x162(type);

@@ -10,13 +10,14 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
     this.averageScore,
     this.bannerImage,
     this.popularity,
-    this.startDate,
     this.nextAiringEpisode,
     this.description,
     this.trailer,
     this.synonyms,
     this.episodes,
     this.duration,
+    this.volumes,
+    this.chapters,
     this.source,
     this.externalLinks,
     this.studios,
@@ -32,12 +33,12 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
     this.favourites,
     this.format,
     this.type,
-    this.chapters,
     this.status,
     this.airingSchedule,
     this.genres,
     this.season,
     this.seasonYear,
+    this.startDate,
     this.endDate,
     this.mediaListEntry,
     this.$__typename = 'Media',
@@ -47,13 +48,14 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
     final l$averageScore = json['averageScore'];
     final l$bannerImage = json['bannerImage'];
     final l$popularity = json['popularity'];
-    final l$startDate = json['startDate'];
     final l$nextAiringEpisode = json['nextAiringEpisode'];
     final l$description = json['description'];
     final l$trailer = json['trailer'];
     final l$synonyms = json['synonyms'];
     final l$episodes = json['episodes'];
     final l$duration = json['duration'];
+    final l$volumes = json['volumes'];
+    final l$chapters = json['chapters'];
     final l$source = json['source'];
     final l$externalLinks = json['externalLinks'];
     final l$studios = json['studios'];
@@ -69,12 +71,12 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
     final l$favourites = json['favourites'];
     final l$format = json['format'];
     final l$type = json['type'];
-    final l$chapters = json['chapters'];
     final l$status = json['status'];
     final l$airingSchedule = json['airingSchedule'];
     final l$genres = json['genres'];
     final l$season = json['season'];
     final l$seasonYear = json['seasonYear'];
+    final l$startDate = json['startDate'];
     final l$endDate = json['endDate'];
     final l$mediaListEntry = json['mediaListEntry'];
     final l$$__typename = json['__typename'];
@@ -82,10 +84,6 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
       averageScore: (l$averageScore as int?),
       bannerImage: (l$bannerImage as String?),
       popularity: (l$popularity as int?),
-      startDate: l$startDate == null
-          ? null
-          : Fragment$MediaDetailed$startDate.fromJson(
-              (l$startDate as Map<String, dynamic>)),
       nextAiringEpisode: l$nextAiringEpisode == null
           ? null
           : Fragment$MediaDetailed$nextAiringEpisode.fromJson(
@@ -99,6 +97,8 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
           (l$synonyms as List<dynamic>?)?.map((e) => (e as String?)).toList(),
       episodes: (l$episodes as int?),
       duration: (l$duration as int?),
+      volumes: (l$volumes as int?),
+      chapters: (l$chapters as int?),
       source: l$source == null
           ? null
           : fromJson$Enum$MediaSource((l$source as String)),
@@ -143,7 +143,6 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
           ? null
           : fromJson$Enum$MediaFormat((l$format as String)),
       type: l$type == null ? null : fromJson$Enum$MediaType((l$type as String)),
-      chapters: (l$chapters as int?),
       status: l$status == null
           ? null
           : fromJson$Enum$MediaStatus((l$status as String)),
@@ -156,10 +155,12 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
           ? null
           : fromJson$Enum$MediaSeason((l$season as String)),
       seasonYear: (l$seasonYear as int?),
+      startDate: l$startDate == null
+          ? null
+          : Fragment$FuzzyDate.fromJson((l$startDate as Map<String, dynamic>)),
       endDate: l$endDate == null
           ? null
-          : Fragment$MediaDetailed$endDate.fromJson(
-              (l$endDate as Map<String, dynamic>)),
+          : Fragment$FuzzyDate.fromJson((l$endDate as Map<String, dynamic>)),
       mediaListEntry: l$mediaListEntry == null
           ? null
           : Fragment$MediaDetailed$mediaListEntry.fromJson(
@@ -174,8 +175,6 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
 
   final int? popularity;
 
-  final Fragment$MediaDetailed$startDate? startDate;
-
   final Fragment$MediaDetailed$nextAiringEpisode? nextAiringEpisode;
 
   final String? description;
@@ -187,6 +186,10 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
   final int? episodes;
 
   final int? duration;
+
+  final int? volumes;
+
+  final int? chapters;
 
   final Enum$MediaSource? source;
 
@@ -218,8 +221,6 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
 
   final Enum$MediaType? type;
 
-  final int? chapters;
-
   final Enum$MediaStatus? status;
 
   final Fragment$MediaDetailed$airingSchedule? airingSchedule;
@@ -230,7 +231,9 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
 
   final int? seasonYear;
 
-  final Fragment$MediaDetailed$endDate? endDate;
+  final Fragment$FuzzyDate? startDate;
+
+  final Fragment$FuzzyDate? endDate;
 
   final Fragment$MediaDetailed$mediaListEntry? mediaListEntry;
 
@@ -244,8 +247,6 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
     _resultData['bannerImage'] = l$bannerImage;
     final l$popularity = popularity;
     _resultData['popularity'] = l$popularity;
-    final l$startDate = startDate;
-    _resultData['startDate'] = l$startDate?.toJson();
     final l$nextAiringEpisode = nextAiringEpisode;
     _resultData['nextAiringEpisode'] = l$nextAiringEpisode?.toJson();
     final l$description = description;
@@ -258,6 +259,10 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
     _resultData['episodes'] = l$episodes;
     final l$duration = duration;
     _resultData['duration'] = l$duration;
+    final l$volumes = volumes;
+    _resultData['volumes'] = l$volumes;
+    final l$chapters = chapters;
+    _resultData['chapters'] = l$chapters;
     final l$source = source;
     _resultData['source'] =
         l$source == null ? null : toJson$Enum$MediaSource(l$source);
@@ -291,8 +296,6 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
         l$format == null ? null : toJson$Enum$MediaFormat(l$format);
     final l$type = type;
     _resultData['type'] = l$type == null ? null : toJson$Enum$MediaType(l$type);
-    final l$chapters = chapters;
-    _resultData['chapters'] = l$chapters;
     final l$status = status;
     _resultData['status'] =
         l$status == null ? null : toJson$Enum$MediaStatus(l$status);
@@ -305,6 +308,8 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
         l$season == null ? null : toJson$Enum$MediaSeason(l$season);
     final l$seasonYear = seasonYear;
     _resultData['seasonYear'] = l$seasonYear;
+    final l$startDate = startDate;
+    _resultData['startDate'] = l$startDate?.toJson();
     final l$endDate = endDate;
     _resultData['endDate'] = l$endDate?.toJson();
     final l$mediaListEntry = mediaListEntry;
@@ -319,13 +324,14 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
     final l$averageScore = averageScore;
     final l$bannerImage = bannerImage;
     final l$popularity = popularity;
-    final l$startDate = startDate;
     final l$nextAiringEpisode = nextAiringEpisode;
     final l$description = description;
     final l$trailer = trailer;
     final l$synonyms = synonyms;
     final l$episodes = episodes;
     final l$duration = duration;
+    final l$volumes = volumes;
+    final l$chapters = chapters;
     final l$source = source;
     final l$externalLinks = externalLinks;
     final l$studios = studios;
@@ -341,12 +347,12 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
     final l$favourites = favourites;
     final l$format = format;
     final l$type = type;
-    final l$chapters = chapters;
     final l$status = status;
     final l$airingSchedule = airingSchedule;
     final l$genres = genres;
     final l$season = season;
     final l$seasonYear = seasonYear;
+    final l$startDate = startDate;
     final l$endDate = endDate;
     final l$mediaListEntry = mediaListEntry;
     final l$$__typename = $__typename;
@@ -354,13 +360,14 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
       l$averageScore,
       l$bannerImage,
       l$popularity,
-      l$startDate,
       l$nextAiringEpisode,
       l$description,
       l$trailer,
       l$synonyms == null ? null : Object.hashAll(l$synonyms.map((v) => v)),
       l$episodes,
       l$duration,
+      l$volumes,
+      l$chapters,
       l$source,
       l$externalLinks == null
           ? null
@@ -378,12 +385,12 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
       l$favourites,
       l$format,
       l$type,
-      l$chapters,
       l$status,
       l$airingSchedule,
       l$genres == null ? null : Object.hashAll(l$genres.map((v) => v)),
       l$season,
       l$seasonYear,
+      l$startDate,
       l$endDate,
       l$mediaListEntry,
       l$$__typename,
@@ -412,11 +419,6 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
     final l$popularity = popularity;
     final lOther$popularity = other.popularity;
     if (l$popularity != lOther$popularity) {
-      return false;
-    }
-    final l$startDate = startDate;
-    final lOther$startDate = other.startDate;
-    if (l$startDate != lOther$startDate) {
       return false;
     }
     final l$nextAiringEpisode = nextAiringEpisode;
@@ -458,6 +460,16 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
     final l$duration = duration;
     final lOther$duration = other.duration;
     if (l$duration != lOther$duration) {
+      return false;
+    }
+    final l$volumes = volumes;
+    final lOther$volumes = other.volumes;
+    if (l$volumes != lOther$volumes) {
+      return false;
+    }
+    final l$chapters = chapters;
+    final lOther$chapters = other.chapters;
+    if (l$chapters != lOther$chapters) {
       return false;
     }
     final l$source = source;
@@ -557,11 +569,6 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
     if (l$type != lOther$type) {
       return false;
     }
-    final l$chapters = chapters;
-    final lOther$chapters = other.chapters;
-    if (l$chapters != lOther$chapters) {
-      return false;
-    }
     final l$status = status;
     final lOther$status = other.status;
     if (l$status != lOther$status) {
@@ -596,6 +603,11 @@ class Fragment$MediaDetailed implements Fragment$MediaShort {
     final l$seasonYear = seasonYear;
     final lOther$seasonYear = other.seasonYear;
     if (l$seasonYear != lOther$seasonYear) {
+      return false;
+    }
+    final l$startDate = startDate;
+    final lOther$startDate = other.startDate;
+    if (l$startDate != lOther$startDate) {
       return false;
     }
     final l$endDate = endDate;
@@ -638,13 +650,14 @@ abstract class CopyWith$Fragment$MediaDetailed<TRes> {
     int? averageScore,
     String? bannerImage,
     int? popularity,
-    Fragment$MediaDetailed$startDate? startDate,
     Fragment$MediaDetailed$nextAiringEpisode? nextAiringEpisode,
     String? description,
     Fragment$MediaDetailed$trailer? trailer,
     List<String?>? synonyms,
     int? episodes,
     int? duration,
+    int? volumes,
+    int? chapters,
     Enum$MediaSource? source,
     List<Fragment$MediaDetailed$externalLinks?>? externalLinks,
     Fragment$MediaDetailed$studios? studios,
@@ -660,17 +673,16 @@ abstract class CopyWith$Fragment$MediaDetailed<TRes> {
     int? favourites,
     Enum$MediaFormat? format,
     Enum$MediaType? type,
-    int? chapters,
     Enum$MediaStatus? status,
     Fragment$MediaDetailed$airingSchedule? airingSchedule,
     List<String?>? genres,
     Enum$MediaSeason? season,
     int? seasonYear,
-    Fragment$MediaDetailed$endDate? endDate,
+    Fragment$FuzzyDate? startDate,
+    Fragment$FuzzyDate? endDate,
     Fragment$MediaDetailed$mediaListEntry? mediaListEntry,
     String? $__typename,
   });
-  CopyWith$Fragment$MediaDetailed$startDate<TRes> get startDate;
   CopyWith$Fragment$MediaDetailed$nextAiringEpisode<TRes> get nextAiringEpisode;
   CopyWith$Fragment$MediaDetailed$trailer<TRes> get trailer;
   TRes externalLinks(
@@ -691,7 +703,8 @@ abstract class CopyWith$Fragment$MediaDetailed<TRes> {
   CopyWith$Fragment$MediaDetailed$title<TRes> get title;
   CopyWith$Fragment$MediaDetailed$coverImage<TRes> get coverImage;
   CopyWith$Fragment$MediaDetailed$airingSchedule<TRes> get airingSchedule;
-  CopyWith$Fragment$MediaDetailed$endDate<TRes> get endDate;
+  CopyWith$Fragment$FuzzyDate<TRes> get startDate;
+  CopyWith$Fragment$FuzzyDate<TRes> get endDate;
   CopyWith$Fragment$MediaDetailed$mediaListEntry<TRes> get mediaListEntry;
 }
 
@@ -712,13 +725,14 @@ class _CopyWithImpl$Fragment$MediaDetailed<TRes>
     Object? averageScore = _undefined,
     Object? bannerImage = _undefined,
     Object? popularity = _undefined,
-    Object? startDate = _undefined,
     Object? nextAiringEpisode = _undefined,
     Object? description = _undefined,
     Object? trailer = _undefined,
     Object? synonyms = _undefined,
     Object? episodes = _undefined,
     Object? duration = _undefined,
+    Object? volumes = _undefined,
+    Object? chapters = _undefined,
     Object? source = _undefined,
     Object? externalLinks = _undefined,
     Object? studios = _undefined,
@@ -734,12 +748,12 @@ class _CopyWithImpl$Fragment$MediaDetailed<TRes>
     Object? favourites = _undefined,
     Object? format = _undefined,
     Object? type = _undefined,
-    Object? chapters = _undefined,
     Object? status = _undefined,
     Object? airingSchedule = _undefined,
     Object? genres = _undefined,
     Object? season = _undefined,
     Object? seasonYear = _undefined,
+    Object? startDate = _undefined,
     Object? endDate = _undefined,
     Object? mediaListEntry = _undefined,
     Object? $__typename = _undefined,
@@ -754,9 +768,6 @@ class _CopyWithImpl$Fragment$MediaDetailed<TRes>
         popularity: popularity == _undefined
             ? _instance.popularity
             : (popularity as int?),
-        startDate: startDate == _undefined
-            ? _instance.startDate
-            : (startDate as Fragment$MediaDetailed$startDate?),
         nextAiringEpisode: nextAiringEpisode == _undefined
             ? _instance.nextAiringEpisode
             : (nextAiringEpisode as Fragment$MediaDetailed$nextAiringEpisode?),
@@ -773,6 +784,9 @@ class _CopyWithImpl$Fragment$MediaDetailed<TRes>
             episodes == _undefined ? _instance.episodes : (episodes as int?),
         duration:
             duration == _undefined ? _instance.duration : (duration as int?),
+        volumes: volumes == _undefined ? _instance.volumes : (volumes as int?),
+        chapters:
+            chapters == _undefined ? _instance.chapters : (chapters as int?),
         source: source == _undefined
             ? _instance.source
             : (source as Enum$MediaSource?),
@@ -812,8 +826,6 @@ class _CopyWithImpl$Fragment$MediaDetailed<TRes>
             ? _instance.format
             : (format as Enum$MediaFormat?),
         type: type == _undefined ? _instance.type : (type as Enum$MediaType?),
-        chapters:
-            chapters == _undefined ? _instance.chapters : (chapters as int?),
         status: status == _undefined
             ? _instance.status
             : (status as Enum$MediaStatus?),
@@ -829,9 +841,12 @@ class _CopyWithImpl$Fragment$MediaDetailed<TRes>
         seasonYear: seasonYear == _undefined
             ? _instance.seasonYear
             : (seasonYear as int?),
+        startDate: startDate == _undefined
+            ? _instance.startDate
+            : (startDate as Fragment$FuzzyDate?),
         endDate: endDate == _undefined
             ? _instance.endDate
-            : (endDate as Fragment$MediaDetailed$endDate?),
+            : (endDate as Fragment$FuzzyDate?),
         mediaListEntry: mediaListEntry == _undefined
             ? _instance.mediaListEntry
             : (mediaListEntry as Fragment$MediaDetailed$mediaListEntry?),
@@ -839,14 +854,6 @@ class _CopyWithImpl$Fragment$MediaDetailed<TRes>
             ? _instance.$__typename
             : ($__typename as String),
       ));
-
-  CopyWith$Fragment$MediaDetailed$startDate<TRes> get startDate {
-    final local$startDate = _instance.startDate;
-    return local$startDate == null
-        ? CopyWith$Fragment$MediaDetailed$startDate.stub(_then(_instance))
-        : CopyWith$Fragment$MediaDetailed$startDate(
-            local$startDate, (e) => call(startDate: e));
-  }
 
   CopyWith$Fragment$MediaDetailed$nextAiringEpisode<TRes>
       get nextAiringEpisode {
@@ -942,12 +949,19 @@ class _CopyWithImpl$Fragment$MediaDetailed<TRes>
             local$airingSchedule, (e) => call(airingSchedule: e));
   }
 
-  CopyWith$Fragment$MediaDetailed$endDate<TRes> get endDate {
+  CopyWith$Fragment$FuzzyDate<TRes> get startDate {
+    final local$startDate = _instance.startDate;
+    return local$startDate == null
+        ? CopyWith$Fragment$FuzzyDate.stub(_then(_instance))
+        : CopyWith$Fragment$FuzzyDate(
+            local$startDate, (e) => call(startDate: e));
+  }
+
+  CopyWith$Fragment$FuzzyDate<TRes> get endDate {
     final local$endDate = _instance.endDate;
     return local$endDate == null
-        ? CopyWith$Fragment$MediaDetailed$endDate.stub(_then(_instance))
-        : CopyWith$Fragment$MediaDetailed$endDate(
-            local$endDate, (e) => call(endDate: e));
+        ? CopyWith$Fragment$FuzzyDate.stub(_then(_instance))
+        : CopyWith$Fragment$FuzzyDate(local$endDate, (e) => call(endDate: e));
   }
 
   CopyWith$Fragment$MediaDetailed$mediaListEntry<TRes> get mediaListEntry {
@@ -969,13 +983,14 @@ class _CopyWithStubImpl$Fragment$MediaDetailed<TRes>
     int? averageScore,
     String? bannerImage,
     int? popularity,
-    Fragment$MediaDetailed$startDate? startDate,
     Fragment$MediaDetailed$nextAiringEpisode? nextAiringEpisode,
     String? description,
     Fragment$MediaDetailed$trailer? trailer,
     List<String?>? synonyms,
     int? episodes,
     int? duration,
+    int? volumes,
+    int? chapters,
     Enum$MediaSource? source,
     List<Fragment$MediaDetailed$externalLinks?>? externalLinks,
     Fragment$MediaDetailed$studios? studios,
@@ -991,20 +1006,17 @@ class _CopyWithStubImpl$Fragment$MediaDetailed<TRes>
     int? favourites,
     Enum$MediaFormat? format,
     Enum$MediaType? type,
-    int? chapters,
     Enum$MediaStatus? status,
     Fragment$MediaDetailed$airingSchedule? airingSchedule,
     List<String?>? genres,
     Enum$MediaSeason? season,
     int? seasonYear,
-    Fragment$MediaDetailed$endDate? endDate,
+    Fragment$FuzzyDate? startDate,
+    Fragment$FuzzyDate? endDate,
     Fragment$MediaDetailed$mediaListEntry? mediaListEntry,
     String? $__typename,
   }) =>
       _res;
-
-  CopyWith$Fragment$MediaDetailed$startDate<TRes> get startDate =>
-      CopyWith$Fragment$MediaDetailed$startDate.stub(_res);
 
   CopyWith$Fragment$MediaDetailed$nextAiringEpisode<TRes>
       get nextAiringEpisode =>
@@ -1035,8 +1047,11 @@ class _CopyWithStubImpl$Fragment$MediaDetailed<TRes>
   CopyWith$Fragment$MediaDetailed$airingSchedule<TRes> get airingSchedule =>
       CopyWith$Fragment$MediaDetailed$airingSchedule.stub(_res);
 
-  CopyWith$Fragment$MediaDetailed$endDate<TRes> get endDate =>
-      CopyWith$Fragment$MediaDetailed$endDate.stub(_res);
+  CopyWith$Fragment$FuzzyDate<TRes> get startDate =>
+      CopyWith$Fragment$FuzzyDate.stub(_res);
+
+  CopyWith$Fragment$FuzzyDate<TRes> get endDate =>
+      CopyWith$Fragment$FuzzyDate.stub(_res);
 
   CopyWith$Fragment$MediaDetailed$mediaListEntry<TRes> get mediaListEntry =>
       CopyWith$Fragment$MediaDetailed$mediaListEntry.stub(_res);
@@ -1071,28 +1086,6 @@ const fragmentDefinitionMediaDetailed = FragmentDefinitionNode(
       arguments: [],
       directives: [],
       selectionSet: null,
-    ),
-    FieldNode(
-      name: NameNode(value: 'startDate'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: SelectionSetNode(selections: [
-        FieldNode(
-          name: NameNode(value: 'year'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        FieldNode(
-          name: NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
     ),
     FieldNode(
       name: NameNode(value: 'nextAiringEpisode'),
@@ -1175,6 +1168,20 @@ const fragmentDefinitionMediaDetailed = FragmentDefinitionNode(
     ),
     FieldNode(
       name: NameNode(value: 'duration'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'volumes'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'chapters'),
       alias: null,
       arguments: [],
       directives: [],
@@ -1584,6 +1591,7 @@ const fragmentDefinitionMediaDetailed = FragmentDefinitionNode(
 const documentNodeFragmentMediaDetailed = DocumentNode(definitions: [
   fragmentDefinitionMediaDetailed,
   fragmentDefinitionMediaShort,
+  fragmentDefinitionFuzzyDate,
 ]);
 
 extension ClientExtension$Fragment$MediaDetailed on graphql.GraphQLClient {
@@ -1619,166 +1627,6 @@ extension ClientExtension$Fragment$MediaDetailed on graphql.GraphQLClient {
     );
     return result == null ? null : Fragment$MediaDetailed.fromJson(result);
   }
-}
-
-class Fragment$MediaDetailed$startDate
-    implements Fragment$MediaShort$startDate {
-  Fragment$MediaDetailed$startDate({
-    this.year,
-    this.$__typename = 'FuzzyDate',
-    this.day,
-    this.month,
-  });
-
-  factory Fragment$MediaDetailed$startDate.fromJson(Map<String, dynamic> json) {
-    final l$year = json['year'];
-    final l$$__typename = json['__typename'];
-    final l$day = json['day'];
-    final l$month = json['month'];
-    return Fragment$MediaDetailed$startDate(
-      year: (l$year as int?),
-      $__typename: (l$$__typename as String),
-      day: (l$day as int?),
-      month: (l$month as int?),
-    );
-  }
-
-  final int? year;
-
-  final String $__typename;
-
-  final int? day;
-
-  final int? month;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$year = year;
-    _resultData['year'] = l$year;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    final l$day = day;
-    _resultData['day'] = l$day;
-    final l$month = month;
-    _resultData['month'] = l$month;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$year = year;
-    final l$$__typename = $__typename;
-    final l$day = day;
-    final l$month = month;
-    return Object.hashAll([
-      l$year,
-      l$$__typename,
-      l$day,
-      l$month,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (!(other is Fragment$MediaDetailed$startDate) ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$year = year;
-    final lOther$year = other.year;
-    if (l$year != lOther$year) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    final l$day = day;
-    final lOther$day = other.day;
-    if (l$day != lOther$day) {
-      return false;
-    }
-    final l$month = month;
-    final lOther$month = other.month;
-    if (l$month != lOther$month) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Fragment$MediaDetailed$startDate
-    on Fragment$MediaDetailed$startDate {
-  CopyWith$Fragment$MediaDetailed$startDate<Fragment$MediaDetailed$startDate>
-      get copyWith => CopyWith$Fragment$MediaDetailed$startDate(
-            this,
-            (i) => i,
-          );
-}
-
-abstract class CopyWith$Fragment$MediaDetailed$startDate<TRes> {
-  factory CopyWith$Fragment$MediaDetailed$startDate(
-    Fragment$MediaDetailed$startDate instance,
-    TRes Function(Fragment$MediaDetailed$startDate) then,
-  ) = _CopyWithImpl$Fragment$MediaDetailed$startDate;
-
-  factory CopyWith$Fragment$MediaDetailed$startDate.stub(TRes res) =
-      _CopyWithStubImpl$Fragment$MediaDetailed$startDate;
-
-  TRes call({
-    int? year,
-    String? $__typename,
-    int? day,
-    int? month,
-  });
-}
-
-class _CopyWithImpl$Fragment$MediaDetailed$startDate<TRes>
-    implements CopyWith$Fragment$MediaDetailed$startDate<TRes> {
-  _CopyWithImpl$Fragment$MediaDetailed$startDate(
-    this._instance,
-    this._then,
-  );
-
-  final Fragment$MediaDetailed$startDate _instance;
-
-  final TRes Function(Fragment$MediaDetailed$startDate) _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? year = _undefined,
-    Object? $__typename = _undefined,
-    Object? day = _undefined,
-    Object? month = _undefined,
-  }) =>
-      _then(Fragment$MediaDetailed$startDate(
-        year: year == _undefined ? _instance.year : (year as int?),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-        day: day == _undefined ? _instance.day : (day as int?),
-        month: month == _undefined ? _instance.month : (month as int?),
-      ));
-}
-
-class _CopyWithStubImpl$Fragment$MediaDetailed$startDate<TRes>
-    implements CopyWith$Fragment$MediaDetailed$startDate<TRes> {
-  _CopyWithStubImpl$Fragment$MediaDetailed$startDate(this._res);
-
-  TRes _res;
-
-  call({
-    int? year,
-    String? $__typename,
-    int? day,
-    int? month,
-  }) =>
-      _res;
 }
 
 class Fragment$MediaDetailed$nextAiringEpisode {
@@ -4848,165 +4696,6 @@ class _CopyWithStubImpl$Fragment$MediaDetailed$airingSchedule$nodes<TRes>
       _res;
 }
 
-class Fragment$MediaDetailed$endDate implements Fragment$MediaShort$endDate {
-  Fragment$MediaDetailed$endDate({
-    this.day,
-    this.month,
-    this.year,
-    this.$__typename = 'FuzzyDate',
-  });
-
-  factory Fragment$MediaDetailed$endDate.fromJson(Map<String, dynamic> json) {
-    final l$day = json['day'];
-    final l$month = json['month'];
-    final l$year = json['year'];
-    final l$$__typename = json['__typename'];
-    return Fragment$MediaDetailed$endDate(
-      day: (l$day as int?),
-      month: (l$month as int?),
-      year: (l$year as int?),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final int? day;
-
-  final int? month;
-
-  final int? year;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$day = day;
-    _resultData['day'] = l$day;
-    final l$month = month;
-    _resultData['month'] = l$month;
-    final l$year = year;
-    _resultData['year'] = l$year;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$day = day;
-    final l$month = month;
-    final l$year = year;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      l$day,
-      l$month,
-      l$year,
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (!(other is Fragment$MediaDetailed$endDate) ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$day = day;
-    final lOther$day = other.day;
-    if (l$day != lOther$day) {
-      return false;
-    }
-    final l$month = month;
-    final lOther$month = other.month;
-    if (l$month != lOther$month) {
-      return false;
-    }
-    final l$year = year;
-    final lOther$year = other.year;
-    if (l$year != lOther$year) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Fragment$MediaDetailed$endDate
-    on Fragment$MediaDetailed$endDate {
-  CopyWith$Fragment$MediaDetailed$endDate<Fragment$MediaDetailed$endDate>
-      get copyWith => CopyWith$Fragment$MediaDetailed$endDate(
-            this,
-            (i) => i,
-          );
-}
-
-abstract class CopyWith$Fragment$MediaDetailed$endDate<TRes> {
-  factory CopyWith$Fragment$MediaDetailed$endDate(
-    Fragment$MediaDetailed$endDate instance,
-    TRes Function(Fragment$MediaDetailed$endDate) then,
-  ) = _CopyWithImpl$Fragment$MediaDetailed$endDate;
-
-  factory CopyWith$Fragment$MediaDetailed$endDate.stub(TRes res) =
-      _CopyWithStubImpl$Fragment$MediaDetailed$endDate;
-
-  TRes call({
-    int? day,
-    int? month,
-    int? year,
-    String? $__typename,
-  });
-}
-
-class _CopyWithImpl$Fragment$MediaDetailed$endDate<TRes>
-    implements CopyWith$Fragment$MediaDetailed$endDate<TRes> {
-  _CopyWithImpl$Fragment$MediaDetailed$endDate(
-    this._instance,
-    this._then,
-  );
-
-  final Fragment$MediaDetailed$endDate _instance;
-
-  final TRes Function(Fragment$MediaDetailed$endDate) _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? day = _undefined,
-    Object? month = _undefined,
-    Object? year = _undefined,
-    Object? $__typename = _undefined,
-  }) =>
-      _then(Fragment$MediaDetailed$endDate(
-        day: day == _undefined ? _instance.day : (day as int?),
-        month: month == _undefined ? _instance.month : (month as int?),
-        year: year == _undefined ? _instance.year : (year as int?),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ));
-}
-
-class _CopyWithStubImpl$Fragment$MediaDetailed$endDate<TRes>
-    implements CopyWith$Fragment$MediaDetailed$endDate<TRes> {
-  _CopyWithStubImpl$Fragment$MediaDetailed$endDate(this._res);
-
-  TRes _res;
-
-  call({
-    int? day,
-    int? month,
-    int? year,
-    String? $__typename,
-  }) =>
-      _res;
-}
-
 class Fragment$MediaDetailed$mediaListEntry
     implements Fragment$MediaShort$mediaListEntry {
   Fragment$MediaDetailed$mediaListEntry({
@@ -5206,12 +4895,10 @@ class Fragment$MediaShort {
       seasonYear: (l$seasonYear as int?),
       startDate: l$startDate == null
           ? null
-          : Fragment$MediaShort$startDate.fromJson(
-              (l$startDate as Map<String, dynamic>)),
+          : Fragment$FuzzyDate.fromJson((l$startDate as Map<String, dynamic>)),
       endDate: l$endDate == null
           ? null
-          : Fragment$MediaShort$endDate.fromJson(
-              (l$endDate as Map<String, dynamic>)),
+          : Fragment$FuzzyDate.fromJson((l$endDate as Map<String, dynamic>)),
       mediaListEntry: l$mediaListEntry == null
           ? null
           : Fragment$MediaShort$mediaListEntry.fromJson(
@@ -5248,9 +4935,9 @@ class Fragment$MediaShort {
 
   final int? seasonYear;
 
-  final Fragment$MediaShort$startDate? startDate;
+  final Fragment$FuzzyDate? startDate;
 
-  final Fragment$MediaShort$endDate? endDate;
+  final Fragment$FuzzyDate? endDate;
 
   final Fragment$MediaShort$mediaListEntry? mediaListEntry;
 
@@ -5487,16 +5174,16 @@ abstract class CopyWith$Fragment$MediaShort<TRes> {
     List<String?>? genres,
     Enum$MediaSeason? season,
     int? seasonYear,
-    Fragment$MediaShort$startDate? startDate,
-    Fragment$MediaShort$endDate? endDate,
+    Fragment$FuzzyDate? startDate,
+    Fragment$FuzzyDate? endDate,
     Fragment$MediaShort$mediaListEntry? mediaListEntry,
     String? $__typename,
   });
   CopyWith$Fragment$MediaShort$title<TRes> get title;
   CopyWith$Fragment$MediaShort$coverImage<TRes> get coverImage;
   CopyWith$Fragment$MediaShort$airingSchedule<TRes> get airingSchedule;
-  CopyWith$Fragment$MediaShort$startDate<TRes> get startDate;
-  CopyWith$Fragment$MediaShort$endDate<TRes> get endDate;
+  CopyWith$Fragment$FuzzyDate<TRes> get startDate;
+  CopyWith$Fragment$FuzzyDate<TRes> get endDate;
   CopyWith$Fragment$MediaShort$mediaListEntry<TRes> get mediaListEntry;
 }
 
@@ -5571,10 +5258,10 @@ class _CopyWithImpl$Fragment$MediaShort<TRes>
             : (seasonYear as int?),
         startDate: startDate == _undefined
             ? _instance.startDate
-            : (startDate as Fragment$MediaShort$startDate?),
+            : (startDate as Fragment$FuzzyDate?),
         endDate: endDate == _undefined
             ? _instance.endDate
-            : (endDate as Fragment$MediaShort$endDate?),
+            : (endDate as Fragment$FuzzyDate?),
         mediaListEntry: mediaListEntry == _undefined
             ? _instance.mediaListEntry
             : (mediaListEntry as Fragment$MediaShort$mediaListEntry?),
@@ -5607,20 +5294,19 @@ class _CopyWithImpl$Fragment$MediaShort<TRes>
             local$airingSchedule, (e) => call(airingSchedule: e));
   }
 
-  CopyWith$Fragment$MediaShort$startDate<TRes> get startDate {
+  CopyWith$Fragment$FuzzyDate<TRes> get startDate {
     final local$startDate = _instance.startDate;
     return local$startDate == null
-        ? CopyWith$Fragment$MediaShort$startDate.stub(_then(_instance))
-        : CopyWith$Fragment$MediaShort$startDate(
+        ? CopyWith$Fragment$FuzzyDate.stub(_then(_instance))
+        : CopyWith$Fragment$FuzzyDate(
             local$startDate, (e) => call(startDate: e));
   }
 
-  CopyWith$Fragment$MediaShort$endDate<TRes> get endDate {
+  CopyWith$Fragment$FuzzyDate<TRes> get endDate {
     final local$endDate = _instance.endDate;
     return local$endDate == null
-        ? CopyWith$Fragment$MediaShort$endDate.stub(_then(_instance))
-        : CopyWith$Fragment$MediaShort$endDate(
-            local$endDate, (e) => call(endDate: e));
+        ? CopyWith$Fragment$FuzzyDate.stub(_then(_instance))
+        : CopyWith$Fragment$FuzzyDate(local$endDate, (e) => call(endDate: e));
   }
 
   CopyWith$Fragment$MediaShort$mediaListEntry<TRes> get mediaListEntry {
@@ -5653,8 +5339,8 @@ class _CopyWithStubImpl$Fragment$MediaShort<TRes>
     List<String?>? genres,
     Enum$MediaSeason? season,
     int? seasonYear,
-    Fragment$MediaShort$startDate? startDate,
-    Fragment$MediaShort$endDate? endDate,
+    Fragment$FuzzyDate? startDate,
+    Fragment$FuzzyDate? endDate,
     Fragment$MediaShort$mediaListEntry? mediaListEntry,
     String? $__typename,
   }) =>
@@ -5669,11 +5355,11 @@ class _CopyWithStubImpl$Fragment$MediaShort<TRes>
   CopyWith$Fragment$MediaShort$airingSchedule<TRes> get airingSchedule =>
       CopyWith$Fragment$MediaShort$airingSchedule.stub(_res);
 
-  CopyWith$Fragment$MediaShort$startDate<TRes> get startDate =>
-      CopyWith$Fragment$MediaShort$startDate.stub(_res);
+  CopyWith$Fragment$FuzzyDate<TRes> get startDate =>
+      CopyWith$Fragment$FuzzyDate.stub(_res);
 
-  CopyWith$Fragment$MediaShort$endDate<TRes> get endDate =>
-      CopyWith$Fragment$MediaShort$endDate.stub(_res);
+  CopyWith$Fragment$FuzzyDate<TRes> get endDate =>
+      CopyWith$Fragment$FuzzyDate.stub(_res);
 
   CopyWith$Fragment$MediaShort$mediaListEntry<TRes> get mediaListEntry =>
       CopyWith$Fragment$MediaShort$mediaListEntry.stub(_res);
@@ -5903,26 +5589,9 @@ const fragmentDefinitionMediaShort = FragmentDefinitionNode(
       arguments: [],
       directives: [],
       selectionSet: SelectionSetNode(selections: [
-        FieldNode(
-          name: NameNode(value: 'day'),
-          alias: null,
-          arguments: [],
+        FragmentSpreadNode(
+          name: NameNode(value: 'FuzzyDate'),
           directives: [],
-          selectionSet: null,
-        ),
-        FieldNode(
-          name: NameNode(value: 'month'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        FieldNode(
-          name: NameNode(value: 'year'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
         ),
         FieldNode(
           name: NameNode(value: '__typename'),
@@ -5939,26 +5608,9 @@ const fragmentDefinitionMediaShort = FragmentDefinitionNode(
       arguments: [],
       directives: [],
       selectionSet: SelectionSetNode(selections: [
-        FieldNode(
-          name: NameNode(value: 'day'),
-          alias: null,
-          arguments: [],
+        FragmentSpreadNode(
+          name: NameNode(value: 'FuzzyDate'),
           directives: [],
-          selectionSet: null,
-        ),
-        FieldNode(
-          name: NameNode(value: 'month'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        FieldNode(
-          name: NameNode(value: 'year'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
         ),
         FieldNode(
           name: NameNode(value: '__typename'),
@@ -6002,6 +5654,7 @@ const fragmentDefinitionMediaShort = FragmentDefinitionNode(
 );
 const documentNodeFragmentMediaShort = DocumentNode(definitions: [
   fragmentDefinitionMediaShort,
+  fragmentDefinitionFuzzyDate,
 ]);
 
 extension ClientExtension$Fragment$MediaShort on graphql.GraphQLClient {
@@ -6688,324 +6341,6 @@ class _CopyWithStubImpl$Fragment$MediaShort$airingSchedule$nodes<TRes>
   call({
     int? timeUntilAiring,
     int? episode,
-    String? $__typename,
-  }) =>
-      _res;
-}
-
-class Fragment$MediaShort$startDate {
-  Fragment$MediaShort$startDate({
-    this.day,
-    this.month,
-    this.year,
-    this.$__typename = 'FuzzyDate',
-  });
-
-  factory Fragment$MediaShort$startDate.fromJson(Map<String, dynamic> json) {
-    final l$day = json['day'];
-    final l$month = json['month'];
-    final l$year = json['year'];
-    final l$$__typename = json['__typename'];
-    return Fragment$MediaShort$startDate(
-      day: (l$day as int?),
-      month: (l$month as int?),
-      year: (l$year as int?),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final int? day;
-
-  final int? month;
-
-  final int? year;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$day = day;
-    _resultData['day'] = l$day;
-    final l$month = month;
-    _resultData['month'] = l$month;
-    final l$year = year;
-    _resultData['year'] = l$year;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$day = day;
-    final l$month = month;
-    final l$year = year;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      l$day,
-      l$month,
-      l$year,
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (!(other is Fragment$MediaShort$startDate) ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$day = day;
-    final lOther$day = other.day;
-    if (l$day != lOther$day) {
-      return false;
-    }
-    final l$month = month;
-    final lOther$month = other.month;
-    if (l$month != lOther$month) {
-      return false;
-    }
-    final l$year = year;
-    final lOther$year = other.year;
-    if (l$year != lOther$year) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Fragment$MediaShort$startDate
-    on Fragment$MediaShort$startDate {
-  CopyWith$Fragment$MediaShort$startDate<Fragment$MediaShort$startDate>
-      get copyWith => CopyWith$Fragment$MediaShort$startDate(
-            this,
-            (i) => i,
-          );
-}
-
-abstract class CopyWith$Fragment$MediaShort$startDate<TRes> {
-  factory CopyWith$Fragment$MediaShort$startDate(
-    Fragment$MediaShort$startDate instance,
-    TRes Function(Fragment$MediaShort$startDate) then,
-  ) = _CopyWithImpl$Fragment$MediaShort$startDate;
-
-  factory CopyWith$Fragment$MediaShort$startDate.stub(TRes res) =
-      _CopyWithStubImpl$Fragment$MediaShort$startDate;
-
-  TRes call({
-    int? day,
-    int? month,
-    int? year,
-    String? $__typename,
-  });
-}
-
-class _CopyWithImpl$Fragment$MediaShort$startDate<TRes>
-    implements CopyWith$Fragment$MediaShort$startDate<TRes> {
-  _CopyWithImpl$Fragment$MediaShort$startDate(
-    this._instance,
-    this._then,
-  );
-
-  final Fragment$MediaShort$startDate _instance;
-
-  final TRes Function(Fragment$MediaShort$startDate) _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? day = _undefined,
-    Object? month = _undefined,
-    Object? year = _undefined,
-    Object? $__typename = _undefined,
-  }) =>
-      _then(Fragment$MediaShort$startDate(
-        day: day == _undefined ? _instance.day : (day as int?),
-        month: month == _undefined ? _instance.month : (month as int?),
-        year: year == _undefined ? _instance.year : (year as int?),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ));
-}
-
-class _CopyWithStubImpl$Fragment$MediaShort$startDate<TRes>
-    implements CopyWith$Fragment$MediaShort$startDate<TRes> {
-  _CopyWithStubImpl$Fragment$MediaShort$startDate(this._res);
-
-  TRes _res;
-
-  call({
-    int? day,
-    int? month,
-    int? year,
-    String? $__typename,
-  }) =>
-      _res;
-}
-
-class Fragment$MediaShort$endDate {
-  Fragment$MediaShort$endDate({
-    this.day,
-    this.month,
-    this.year,
-    this.$__typename = 'FuzzyDate',
-  });
-
-  factory Fragment$MediaShort$endDate.fromJson(Map<String, dynamic> json) {
-    final l$day = json['day'];
-    final l$month = json['month'];
-    final l$year = json['year'];
-    final l$$__typename = json['__typename'];
-    return Fragment$MediaShort$endDate(
-      day: (l$day as int?),
-      month: (l$month as int?),
-      year: (l$year as int?),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final int? day;
-
-  final int? month;
-
-  final int? year;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$day = day;
-    _resultData['day'] = l$day;
-    final l$month = month;
-    _resultData['month'] = l$month;
-    final l$year = year;
-    _resultData['year'] = l$year;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$day = day;
-    final l$month = month;
-    final l$year = year;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      l$day,
-      l$month,
-      l$year,
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (!(other is Fragment$MediaShort$endDate) ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$day = day;
-    final lOther$day = other.day;
-    if (l$day != lOther$day) {
-      return false;
-    }
-    final l$month = month;
-    final lOther$month = other.month;
-    if (l$month != lOther$month) {
-      return false;
-    }
-    final l$year = year;
-    final lOther$year = other.year;
-    if (l$year != lOther$year) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Fragment$MediaShort$endDate
-    on Fragment$MediaShort$endDate {
-  CopyWith$Fragment$MediaShort$endDate<Fragment$MediaShort$endDate>
-      get copyWith => CopyWith$Fragment$MediaShort$endDate(
-            this,
-            (i) => i,
-          );
-}
-
-abstract class CopyWith$Fragment$MediaShort$endDate<TRes> {
-  factory CopyWith$Fragment$MediaShort$endDate(
-    Fragment$MediaShort$endDate instance,
-    TRes Function(Fragment$MediaShort$endDate) then,
-  ) = _CopyWithImpl$Fragment$MediaShort$endDate;
-
-  factory CopyWith$Fragment$MediaShort$endDate.stub(TRes res) =
-      _CopyWithStubImpl$Fragment$MediaShort$endDate;
-
-  TRes call({
-    int? day,
-    int? month,
-    int? year,
-    String? $__typename,
-  });
-}
-
-class _CopyWithImpl$Fragment$MediaShort$endDate<TRes>
-    implements CopyWith$Fragment$MediaShort$endDate<TRes> {
-  _CopyWithImpl$Fragment$MediaShort$endDate(
-    this._instance,
-    this._then,
-  );
-
-  final Fragment$MediaShort$endDate _instance;
-
-  final TRes Function(Fragment$MediaShort$endDate) _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? day = _undefined,
-    Object? month = _undefined,
-    Object? year = _undefined,
-    Object? $__typename = _undefined,
-  }) =>
-      _then(Fragment$MediaShort$endDate(
-        day: day == _undefined ? _instance.day : (day as int?),
-        month: month == _undefined ? _instance.month : (month as int?),
-        year: year == _undefined ? _instance.year : (year as int?),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ));
-}
-
-class _CopyWithStubImpl$Fragment$MediaShort$endDate<TRes>
-    implements CopyWith$Fragment$MediaShort$endDate<TRes> {
-  _CopyWithStubImpl$Fragment$MediaShort$endDate(this._res);
-
-  TRes _res;
-
-  call({
-    int? day,
-    int? month,
-    int? year,
     String? $__typename,
   }) =>
       _res;
@@ -12954,6 +12289,13 @@ const fragmentDefinitionCalendarAiringSchedule = FragmentDefinitionNode(
       directives: [],
       selectionSet: SelectionSetNode(selections: [
         FieldNode(
+          name: NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        FieldNode(
           name: NameNode(value: 'title'),
           alias: null,
           arguments: [],
@@ -13094,6 +12436,7 @@ extension ClientExtension$Fragment$CalendarAiringSchedule
 
 class Fragment$CalendarAiringSchedule$media {
   Fragment$CalendarAiringSchedule$media({
+    required this.id,
     this.title,
     this.bannerImage,
     this.mediaListEntry,
@@ -13102,11 +12445,13 @@ class Fragment$CalendarAiringSchedule$media {
 
   factory Fragment$CalendarAiringSchedule$media.fromJson(
       Map<String, dynamic> json) {
+    final l$id = json['id'];
     final l$title = json['title'];
     final l$bannerImage = json['bannerImage'];
     final l$mediaListEntry = json['mediaListEntry'];
     final l$$__typename = json['__typename'];
     return Fragment$CalendarAiringSchedule$media(
+      id: (l$id as int),
       title: l$title == null
           ? null
           : Fragment$CalendarAiringSchedule$media$title.fromJson(
@@ -13120,6 +12465,8 @@ class Fragment$CalendarAiringSchedule$media {
     );
   }
 
+  final int id;
+
   final Fragment$CalendarAiringSchedule$media$title? title;
 
   final String? bannerImage;
@@ -13130,6 +12477,8 @@ class Fragment$CalendarAiringSchedule$media {
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
+    final l$id = id;
+    _resultData['id'] = l$id;
     final l$title = title;
     _resultData['title'] = l$title?.toJson();
     final l$bannerImage = bannerImage;
@@ -13143,11 +12492,13 @@ class Fragment$CalendarAiringSchedule$media {
 
   @override
   int get hashCode {
+    final l$id = id;
     final l$title = title;
     final l$bannerImage = bannerImage;
     final l$mediaListEntry = mediaListEntry;
     final l$$__typename = $__typename;
     return Object.hashAll([
+      l$id,
       l$title,
       l$bannerImage,
       l$mediaListEntry,
@@ -13162,6 +12513,11 @@ class Fragment$CalendarAiringSchedule$media {
     }
     if (!(other is Fragment$CalendarAiringSchedule$media) ||
         runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) {
       return false;
     }
     final l$title = title;
@@ -13208,6 +12564,7 @@ abstract class CopyWith$Fragment$CalendarAiringSchedule$media<TRes> {
       _CopyWithStubImpl$Fragment$CalendarAiringSchedule$media;
 
   TRes call({
+    int? id,
     Fragment$CalendarAiringSchedule$media$title? title,
     String? bannerImage,
     Fragment$CalendarAiringSchedule$media$mediaListEntry? mediaListEntry,
@@ -13232,12 +12589,14 @@ class _CopyWithImpl$Fragment$CalendarAiringSchedule$media<TRes>
   static const _undefined = <dynamic, dynamic>{};
 
   TRes call({
+    Object? id = _undefined,
     Object? title = _undefined,
     Object? bannerImage = _undefined,
     Object? mediaListEntry = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Fragment$CalendarAiringSchedule$media(
+        id: id == _undefined || id == null ? _instance.id : (id as int),
         title: title == _undefined
             ? _instance.title
             : (title as Fragment$CalendarAiringSchedule$media$title?),
@@ -13280,6 +12639,7 @@ class _CopyWithStubImpl$Fragment$CalendarAiringSchedule$media<TRes>
   TRes _res;
 
   call({
+    int? id,
     Fragment$CalendarAiringSchedule$media$title? title,
     String? bannerImage,
     Fragment$CalendarAiringSchedule$media$mediaListEntry? mediaListEntry,

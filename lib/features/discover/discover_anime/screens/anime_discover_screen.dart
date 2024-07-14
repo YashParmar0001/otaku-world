@@ -15,6 +15,7 @@ import 'package:otaku_world/features/reviews/widgets/scroll_to_top_fab.dart';
 import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 
 import '../../../../bloc/graphql_client/graphql_client_cubit.dart';
+import '../../../../config/router/router_constants.dart';
 
 class AnimeDiscoverScreen extends HookWidget {
   const AnimeDiscoverScreen({super.key});
@@ -81,7 +82,7 @@ class AnimeDiscoverScreen extends HookWidget {
                   builder: (context, state) {
                     return SearchOption(
                       onPressedFilters: () {
-                        context.push('/anime-filters');
+                        context.push(RouteConstants.animeFilters);
                       },
                       clearSearch: () {
                         bloc.add(

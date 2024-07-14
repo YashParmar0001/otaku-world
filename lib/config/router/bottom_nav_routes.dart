@@ -9,7 +9,7 @@ final bottomNavRoutes = StatefulShellRoute.indexedStack(
       navigatorKey: _shellNavigatorHomeKey,
       routes: [
         GoRoute(
-          path: '/home',
+          path: RouteConstants.home,
           pageBuilder: (context, state) {
             return const NoTransitionPage(
               child: HomeScreen(),
@@ -22,7 +22,7 @@ final bottomNavRoutes = StatefulShellRoute.indexedStack(
       navigatorKey: _shellNavigatorDiscoverKey,
       routes: [
         GoRoute(
-          path: '/discover',
+          path: RouteConstants.discover,
           pageBuilder: (context, state) {
             return const NoTransitionPage(
               child: DiscoverScreen(),
@@ -35,7 +35,7 @@ final bottomNavRoutes = StatefulShellRoute.indexedStack(
       navigatorKey: _shellNavigatorSocialKey,
       routes: [
         GoRoute(
-          path: '/social',
+          path: RouteConstants.social,
           pageBuilder: (context, state) {
             return const NoTransitionPage(
               child: SocialScreen(),
@@ -48,7 +48,7 @@ final bottomNavRoutes = StatefulShellRoute.indexedStack(
       navigatorKey: _shellNavigatorMyListKey,
       routes: [
         GoRoute(
-          path: '/my-list',
+          path: RouteConstants.myList,
           pageBuilder: (context, state) {
             return const NoTransitionPage(
               child: MyListScreen(),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/features/search/widgets/anime_list.dart';
@@ -10,13 +9,6 @@ import 'package:otaku_world/features/search/widgets/staff_list.dart';
 import 'package:otaku_world/features/search/widgets/studios_list.dart';
 import 'package:otaku_world/features/search/widgets/users_list.dart';
 
-import '../../../bloc/search/search_anime/search_anime_bloc.dart';
-import '../../../bloc/search/search_base/search_base_bloc.dart';
-import '../../../bloc/search/search_characters/search_characters_bloc.dart';
-import '../../../bloc/search/search_manga/search_manga_bloc.dart';
-import '../../../bloc/search/search_staff/search_staff_bloc.dart';
-import '../../../bloc/search/search_studios/search_studios_bloc.dart';
-import '../../../bloc/search/search_users/search_users_bloc.dart';
 
 class SearchScreen extends HookWidget {
   const SearchScreen({super.key});

@@ -14,19 +14,12 @@ import 'package:otaku_world/bloc/filter/collections/tags/media_tags_cubit.dart';
 import 'package:otaku_world/bloc/filter/filter_anime/filter_anime_bloc.dart';
 import 'package:otaku_world/bloc/filter/filter_manga/filter_manga_bloc.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
-import 'package:otaku_world/bloc/media_detail/media_detail_bloc.dart';
 import 'package:otaku_world/bloc/recomendations/recomendation_anime_bloc.dart';
 import 'package:otaku_world/bloc/recommended_anime/recommended_anime_bloc.dart';
 import 'package:otaku_world/bloc/recommended_manga/recommended_manga_bloc.dart';
 import 'package:otaku_world/bloc/reviews/review_detail/review_detail_bloc.dart';
 import 'package:otaku_world/bloc/reviews/reviews/review_bloc.dart';
 import 'package:otaku_world/bloc/routes/redirect_route_cubit.dart';
-import 'package:otaku_world/bloc/search/search_anime/search_anime_bloc.dart';
-import 'package:otaku_world/bloc/search/search_characters/search_characters_bloc.dart';
-import 'package:otaku_world/bloc/search/search_manga/search_manga_bloc.dart';
-import 'package:otaku_world/bloc/search/search_staff/search_staff_bloc.dart';
-import 'package:otaku_world/bloc/search/search_studios/search_studios_bloc.dart';
-import 'package:otaku_world/bloc/search/search_users/search_users_bloc.dart';
 // import 'package:otaku_world/bloc/text_field/clear_text_cubit.dart';
 import 'package:otaku_world/bloc/top_100_anime/top_100_anime_bloc.dart';
 import 'package:otaku_world/bloc/top_100_manga/top_100_manga.dart';
@@ -188,7 +181,6 @@ class MyApp extends StatelessWidget {
                 context
                     .read<UpcomingEpisodesBloc>()
                     .add(LoadData(state.client));
-                // context.read<ReviewBloc>().add(LoadData(state.client));
                 context.read<TrendingAnimeBloc>().add(LoadData(state.client));
                 context
                     .read<RecommendedAnimeBloc>()

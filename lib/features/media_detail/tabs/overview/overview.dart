@@ -57,9 +57,9 @@ class _OverviewState extends State<Overview> {
     youtubePlayerController = YoutubePlayerController(
       initialVideoId: youtubeId,
       flags: const YoutubePlayerFlags(
-        useHybridComposition: false,
+
         autoPlay: false,
-        mute: true,
+        showLiveFullscreenButton: false,
       ),
     );
     return ListView(
@@ -98,6 +98,19 @@ class _OverviewState extends State<Overview> {
         youtubeId == ""
             ? const SizedBox()
             : YoutubePlayer(
+                aspectRatio: 16 / 9,
+                bottomActions: [
+                  CurrentPosition(),
+                  ProgressBar(
+                    controller: youtubePlayerController,
+                    colors: const ProgressBarColors(
+                      handleColor: AppColors.sunsetOrange,
+                      playedColor: AppColors.sunsetOrange,
+                    ),
+                    isExpanded: true,
+                  ),
+                  RemainingDuration(),
+                ],
                 controller: youtubePlayerController,
               ),
         const SizedBox(
@@ -189,10 +202,6 @@ class _OverviewState extends State<Overview> {
     List<InlineSpan> textSpans = [];
 
     for (int i = 0; i < genres.length; i++) {
-      // if (textSpans.length >= 5) {
-      //   break;
-      // }
-
       String genre = genres[i].toString();
       textSpans.add(
         TextSpan(

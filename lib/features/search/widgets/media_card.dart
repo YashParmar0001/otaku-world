@@ -19,12 +19,15 @@ class ResultMediaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final size = MediaQuery
+        .of(context)
+        .size;
 
     if (media == null) return const SizedBox();
 
     return GestureDetector(
-      onTap: () => context.push('${RouteConstants.mediaDetail}?id=${media!.id}'),
+      onTap: () =>
+          context.push('${RouteConstants.mediaDetail}?id=${media!.id}'),
       child: Container(
         height: 150,
         margin: const EdgeInsets.symmetric(
@@ -63,21 +66,32 @@ class ResultMediaCard extends StatelessWidget {
                       child: Text(
                         media!.title!.userPreferred!,
                         style:
-                            Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  fontFamily: 'Poppins',
-                                ),
+                        Theme
+                            .of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.copyWith(
+                          fontFamily: 'Poppins',
+                        ),
                         maxLines: 5,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Text(
                       // '2020, TV',
-                      '${media!.startDate?.year == null ? '?' : media!.startDate!.year},'
-                      ' ${media!.format == null ? 'Unknown' : toJson$Enum$MediaFormat(media!.format!)}',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            color: AppColors.white.withOpacity(0.8),
-                            fontFamily: 'Poppins',
-                          ),
+                      '${media!.startDate?.year == null ? '?' : media!
+                          .startDate!.year},'
+                          ' ${media!.format == null
+                          ? 'Unknown'
+                          : toJson$Enum$MediaFormat(media!.format!)}',
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(
+                        color: AppColors.white.withOpacity(0.8),
+                        fontFamily: 'Poppins',
+                      ),
                     ),
                   ],
                 ),
@@ -90,9 +104,13 @@ class ResultMediaCard extends StatelessWidget {
                     const SizedBox(width: 1),
                     Text(
                       '${media!.meanScore ?? '?'}',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontFamily: 'Poppins',
-                          ),
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(
+                        fontFamily: 'Poppins',
+                      ),
                     ),
                   ],
                 ),
@@ -107,34 +125,34 @@ class ResultMediaCard extends StatelessWidget {
   Widget _buildMediaPoster(String? imageUrl, Size size) {
     return (imageUrl != null)
         ? CachedNetworkImage(
-            cacheManager: ImageCacheManager.instance,
-            imageUrl: imageUrl,
-            width: UIUtils.getWidgetWidth(
-              targetWidgetWidth: 91,
-              screenWidth: size.width,
+      cacheManager: ImageCacheManager.instance,
+      imageUrl: imageUrl,
+      width: UIUtils.getWidgetWidth(
+        targetWidgetWidth: 91,
+        screenWidth: size.width,
+      ),
+      fit: BoxFit.cover,
+      imageBuilder: (context, imageProvider) {
+        return AspectRatio(
+          aspectRatio: 0.7,
+          child: ClipRRect(
+            borderRadius: (media!.type == Enum$MediaType.ANIME)
+                ? BorderRadius.circular(15)
+                : BorderRadius.circular(5),
+            child: Image(
+              image: imageProvider,
+              fit: BoxFit.cover,
             ),
-            fit: BoxFit.cover,
-            imageBuilder: (context, imageProvider) {
-              return AspectRatio(
-                aspectRatio: 0.7,
-                child: ClipRRect(
-                  borderRadius: (media!.type == Enum$MediaType.ANIME)
-                      ? BorderRadius.circular(15)
-                      : BorderRadius.circular(5),
-                  child: Image(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              );
-            },
-            errorWidget: (context, url, error) {
-              return _buildPlaceholderImage();
-            },
-            placeholder: (context, url) {
-              return _buildPlaceholderImage();
-            },
-          )
+          ),
+        );
+      },
+      errorWidget: (context, url, error) {
+        return _buildPlaceholderImage();
+      },
+      placeholder: (context, url) {
+        return _buildPlaceholderImage();
+      },
+    )
         : _buildPlaceholderImage();
   }
 

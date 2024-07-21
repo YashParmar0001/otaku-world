@@ -20,7 +20,7 @@ class MediaDetailBloc extends Bloc<MediaDetailEvent, MediaDetailState> {
   }
 
   late  RecommendationAnimeBloc recommendationAnimeBloc;
-
+  bool isBodyExtended = true;
   FutureOr<void> _onLoadMediaDetail(
     LoadMediaDetail event,
     Emitter<MediaDetailState> emit,

@@ -5,7 +5,6 @@ import 'package:otaku_world/core/ui/images/cover_image.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 import 'package:otaku_world/utils/extensions.dart';
-import 'package:otaku_world/utils/ui_utils.dart';
 
 import '../../../../bloc/media_detail/media_detail_bloc.dart';
 import '../../../../theme/colors.dart';
@@ -67,12 +66,9 @@ class Relation extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: 0.692307,
-              child: Hero(
-                tag: relation.node!.id,
-                child: CoverImage(
-                  imageUrl: relation.node!.coverImage!.large.toString(),
-                  type: Enum$MediaType.ANIME,
-                ),
+              child: CoverImage(
+                imageUrl: relation.node!.coverImage!.large.toString(),
+                type: Enum$MediaType.ANIME,
               ),
             ),
             const SizedBox(

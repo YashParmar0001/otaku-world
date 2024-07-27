@@ -45,18 +45,10 @@ class MediaDetailScreen extends HookWidget {
     dev.log('Key is $key', name: 'Key Value');
     final tabController = useTabController(initialLength: tabs.length);
     final client =
-        (context
-            .read<GraphqlClientCubit>()
-            .state as GraphqlClientInitialized)
+        (context.read<GraphqlClientCubit>().state as GraphqlClientInitialized)
             .client;
-    final height = MediaQuery
-        .of(context)
-        .size
-        .height;
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
 
     // return PopScope(
     //   canPop: false,
@@ -153,34 +145,33 @@ class MediaDetailScreen extends HookWidget {
           builder: (context, state) {
             if (state is MediaDetailInitial) {
               context.read<MediaDetailBloc>().add(
-                LoadMediaDetail(
-                  id: mediaId,
-                  client: client,
-                ),
-              );
+                    LoadMediaDetail(
+                      id: mediaId,
+                      client: client,
+                    ),
+                  );
             } else if (state is MediaDetailLoading) {
               return _buildLoading(context);
             } else if (state is MediaDetailLoaded) {
               final media = state.media;
 
               dev.log(
-                "query Id : $mediaId ---> State Id : ${media
-                    .id}  Key Id : ---> $key ",
+                "query Id : $mediaId ---> State Id : ${media.id}  Key Id : ---> $key ",
                 name: "MediaDetailScreenMatched",
               );
 
               return NestedScrollView(
                 headerSliverBuilder: (context, innerBoxIsScrolled) {
                   return [
-                  buildAppBar(
-                        context,
-                        tabController,
-                        media,
-                        height,
-                        width,
-                        tabs,
-                        innerBoxIsScrolled,
-                      ),
+                    buildAppBar(
+                      context,
+                      tabController,
+                      media,
+                      height,
+                      width,
+                      tabs,
+                      innerBoxIsScrolled,
+                    ),
                   ];
                 },
                 body: TabBarView(
@@ -189,8 +180,7 @@ class MediaDetailScreen extends HookWidget {
                     const Overview(),
                     BlocProvider(
                       create: (context) =>
-                      CharactersBloc(mediaId: mediaId)
-                        ..loadData(client),
+                          CharactersBloc(mediaId: mediaId)..loadData(client),
                       child: const ch.Characters(),
                     ),
                     const Staff(),
@@ -216,26 +206,26 @@ class MediaDetailScreen extends HookWidget {
   }
 }
 
-Widget buildAppBar(BuildContext context,
-    TabController tabController,
-    Fragment$MediaDetailed media,
-    double height,
-    double width,
-    List<String> tabs,
-    bool innerBoxScrolled,) {
+Widget buildAppBar(
+  BuildContext context,
+  TabController tabController,
+  Fragment$MediaDetailed media,
+  double height,
+  double width,
+  List<String> tabs,
+  bool innerBoxScrolled,
+) {
   return SliverAppBar(
     shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        bottomRight: Radius.circular(20) ,
-        bottomLeft:  Radius.circular(20),
-      )
-    ),
+        borderRadius: BorderRadius.only(
+      bottomRight: Radius.circular(20),
+      bottomLeft: Radius.circular(20),
+    )),
     pinned: true,
     expandedHeight: UIUtils.getWidgetHeight(
       targetWidgetHeight: 515,
       screenHeight: height,
     ),
-
     leading: CustomBackButton(
       onPressed: () {
         _onPopInvoked(context);
@@ -258,7 +248,6 @@ Widget buildAppBar(BuildContext context,
       ),
     ],
     flexibleSpace: FlexibleSpaceBar(
-
       collapseMode: CollapseMode.parallax,
       background: buildPosterContent(
         context,
@@ -276,12 +265,14 @@ Widget buildAppBar(BuildContext context,
   );
 }
 
-Widget buildPosterContent(BuildContext context,
-    Fragment$MediaDetailed media,
-    double height,
-    double width,
-    TabController tabController,
-    List<String> tabs,) {
+Widget buildPosterContent(
+  BuildContext context,
+  Fragment$MediaDetailed media,
+  double height,
+  double width,
+  TabController tabController,
+  List<String> tabs,
+) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.start,
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -309,14 +300,17 @@ Widget buildPosterContent(BuildContext context,
                 ),
                 width: width,
                 child: GestureDetector(
-                  onTap: () =>
-                      showImage(
-                        context,
-                        media.bannerImage!.toString(),
-                      ),
-                  child: CoverImage(
-                    imageUrl: media.bannerImage.toString(),
-                    type: media.type!,
+                  onTap: () => media.bannerImage != null ? showImage(
+                    context,
+                    media.bannerImage.toString(),
+                    tag: media.bannerImage.toString(),
+                  ): null ,
+                  child: Hero(
+                    tag: media.bannerImage.toString(),
+                    child: CoverImage(
+                      imageUrl: media.bannerImage.toString(),
+                      type: media.type!,
+                    ),
                   ),
                 ),
               ),
@@ -341,15 +335,18 @@ Widget buildPosterContent(BuildContext context,
                         screenWidth: width,
                       ),
                       child: GestureDetector(
-                        onTap: () =>
-                            showImage(
-                              context,
-                              media.coverImage!.extraLarge.toString(),
-                            ),
-                        child: CoverImage(
-                          imageUrl: media.coverImage!.extraLarge.toString(),
-                          type: media.type!,
-                          // placeHolderName: Assets.placeholders210x310,
+                        onTap: () =>  media.coverImage?.extraLarge != null ? showImage(
+                          context,
+                          media.coverImage!.extraLarge.toString(),
+                          tag: media.coverImage!.extraLarge.toString(),
+                        ) : null,
+                        child: Hero(
+                          tag:media.coverImage!.extraLarge.toString(),
+                          child: CoverImage(
+                            imageUrl: media.coverImage!.extraLarge.toString(),
+                            type: media.type!,
+                            // placeHolderName: Assets.placeholders210x310,
+                          ),
                         ),
                       ),
                     ),
@@ -384,7 +381,6 @@ Widget buildPosterContent(BuildContext context,
         ),
         child: Text(
           media.title!.userPreferred.toString(),
-
           style: const TextStyle(
             overflow: TextOverflow.ellipsis,
             color: Colors.white,

@@ -271,12 +271,9 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
         ? AspectRatio(
             aspectRatio: 0.70005,
             //
-            child: Hero(
-              tag: id,
-              child: CoverImage(
-                imageUrl: imageUrl,
-                type: type,
-              ),
+            child: CoverImage(
+              imageUrl: imageUrl,
+              type: type,
             ),
           )
         : _buildPlaceholderImage110x162(type);

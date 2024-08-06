@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:otaku_world/bloc/all_time_popular_anime/all_time_popular_anime_bloc.dart';
 
-import '../../../bloc/discover/anime/all_time_popular_anime/all_time_popular_anime_bloc.dart';
 import '../../../core/ui/media_section/media_grid_screen.dart';
 import '../../../graphql/__generated/graphql/schema.graphql.dart';
 

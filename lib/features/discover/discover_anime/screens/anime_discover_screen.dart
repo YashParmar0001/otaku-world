@@ -1,6 +1,5 @@
 import 'dart:developer' as dev;
 
-import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -48,74 +47,79 @@ class AnimeDiscoverScreen extends HookWidget {
     }, const []);
 
     final bloc = context.read<FilterAnimeBloc>();
-    return Scaffold(
-      appBar: const SimpleAppBar(title: 'Anime'),
-      floatingActionButton: ScrollToTopFAB(
-        controller: scrollController,
-        tag: 'discover_anime_fab',
-      ),
-      body: SingleChildScrollView(
-        controller: scrollController,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: DiscoverHeader(
-                title: DiscoverConstants.animeDiscoverHeading,
-                subtitle: DiscoverConstants.animeDiscoverSubheading,
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (_) {
+        bloc.add(RemoveAllFilters());
+        // context.pop();
+      },
+      child: Scaffold(
+        appBar: const SimpleAppBar(title: 'Anime'),
+        floatingActionButton: ScrollToTopFAB(
+          controller: scrollController,
+          tag: 'discover_anime_fab',
+        ),
+        body: SingleChildScrollView(
+          controller: scrollController,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: DiscoverHeader(
+                  title: DiscoverConstants.animeDiscoverHeading,
+                  subtitle: DiscoverConstants.animeDiscoverSubheading,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 15,
+              const SizedBox(
+                height: 15,
               ),
-              child: BlocBuilder<FilterAnimeBloc, FilterAnimeState>(
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                ),
+                child: BlocBuilder<FilterAnimeBloc, FilterAnimeState>(
+                  builder: (context, state) {
+                    return SearchOption(
+                      onPressedFilters: () {
+                        context.push(RouteConstants.animeFilters);
+                      },
+                      clearSearch: () {
+                        bloc.add(
+                          ClearSearch(client: client, clearFilter: false),
+                        );
+                      },
+                      onSubmitted: (value) {
+                        bloc.add(ApplySearch(client: client, search: value));
+                      },
+                      onChanged: (value) {
+                        bloc.add(UpdateSearch(value));
+                      },
+                      filterApplied: bloc.filterApplied,
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              BlocBuilder<FilterAnimeBloc, FilterAnimeState>(
                 builder: (context, state) {
-                  return SearchOption(
-                    onPressedFilters: () {
-                      context.push(RouteConstants.animeFilters);
-                    },
-                    clearSearch: () {
-                      bloc.add(
-                        ClearSearch(client: client, clearFilter: false),
-                      );
-                    },
-                    onSubmitted: (value) {
-                      bloc.add(ApplySearch(client: client, search: value));
-                    },
-                    onChanged: (value) {
-                      bloc.add(UpdateSearch(value));
-                    },
-                    filterApplied: bloc.filterApplied,
-                    searchCubit: bloc.searchCubit,
-                    hint: 'Search anime...',
-                  );
+                  if (state is ResultsLoaded) {
+                    return FilteredMediaSection(
+                      list: state.list,
+                      hasNextPage: state.hasNextPage,
+                      type: Enum$MediaType.ANIME,
+                    );
+                  } else if (state is ResultsLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else {
+                    return const DiscoverAnimeSection();
+                  }
                 },
               ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            BlocBuilder<FilterAnimeBloc, FilterAnimeState>(
-              builder: (context, state) {
-                if (state is ResultsLoaded) {
-                  return FilteredMediaSection(
-                    list: state.list,
-                    hasNextPage: state.hasNextPage,
-                    type: Enum$MediaType.ANIME,
-                  );
-                } else if (state is ResultsLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                } else {
-                  return const DiscoverAnimeSection();
-                }
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

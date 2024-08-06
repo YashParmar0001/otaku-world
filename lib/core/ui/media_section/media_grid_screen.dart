@@ -70,10 +70,8 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
           if (state is PaginatedDataInitial || state is PaginatedDataLoading) {
             return Scaffold(
               appBar: SimpleAppBar(title: appbarTitle),
-              body: Center(
-                child: GridShimmer(
-                  mediaType: mediaType,
-                ),
+              body: GridShimmer(
+                mediaType: mediaType,
               ),
             );
           } else if (state is PaginatedDataLoaded) {
@@ -93,8 +91,8 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
                         const SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 150,
                       crossAxisSpacing: 10,
-                      // mainAxisSpacing: 0.001,
-                      childAspectRatio: 100 / 182,
+                      mainAxisSpacing: 0.001,
+                      childAspectRatio: 0.5556,
                     ),
                     delegate: SliverChildBuilderDelegate(
                       childCount: state.list.length,
@@ -273,12 +271,9 @@ class MediaGridScreen<B extends PaginatedDataBloc> extends HookWidget {
         ? AspectRatio(
             aspectRatio: 0.70005,
             //
-            child: Hero(
-              tag: id,
-              child: CoverImage(
-                imageUrl: imageUrl,
-                type: type,
-              ),
+            child: CoverImage(
+              imageUrl: imageUrl,
+              type: type,
             ),
           )
         : _buildPlaceholderImage110x162(type);

@@ -1,9 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:otaku_world/bloc/filter/search/search_media_cubit.dart';
+import 'package:otaku_world/bloc/filter/filter_anime/filter_anime_bloc.dart';
 
+import '../../bloc/text_field/clear_text_cubit.dart';
 import '../../generated/assets.dart';
 import '../../theme/colors.dart';
 
@@ -13,21 +15,33 @@ class CustomSearchBar extends HookWidget {
     required this.clearSearch,
     required this.onSubmitted,
     required this.onChanged,
-    required this.searchCubit,
-    required this.hint,
   });
 
   final VoidCallback clearSearch;
   final ValueChanged<String> onSubmitted;
   final Function(String) onChanged;
-  final SearchMediaCubit searchCubit;
-  final String hint;
 
   @override
   Widget build(BuildContext context) {
+    final clearTextCubit = context.read<ClearTextCubit>();
+    final searchController =
+        context.read<FilterAnimeBloc>().searchCubit.searchController;
+
+    searchController.addListener(() {
+      if (searchController.text.isEmpty) {
+        if (clearTextCubit.state is ClearTextVisible) {
+          clearTextCubit.hideClearText();
+        }
+      } else {
+        if (clearTextCubit.state is ClearTextNotVisible) {
+          clearTextCubit.showClearText();
+        }
+      }
+    });
+
     return Expanded(
       child: TextField(
-        controller: searchCubit.searchController,
+        controller: searchController,
         style: Theme.of(context).textTheme.headlineMedium,
         textCapitalization: TextCapitalization.words,
         keyboardType: TextInputType.text,
@@ -67,34 +81,25 @@ class CustomSearchBar extends HookWidget {
           ),
           fillColor: AppColors.jet,
           filled: true,
-          hintText: hint,
-          hintStyle: Theme.of(context).textTheme.headlineMedium?.copyWith(
-            color: AppColors.white.withOpacity(0.5),
-          ),
           suffixIcon: Padding(
             padding: const EdgeInsets.only(
               left: 15,
               right: 10,
             ),
-            child: BlocBuilder<SearchMediaCubit, SearchMediaState>(
-              bloc: searchCubit,
+            child: BlocBuilder<ClearTextCubit, ClearTextState>(
               builder: (context, state) {
-                if (state is SearchContentChanged) {
-                  if (state.content.isEmpty || state.content == '') {
-                    return const SizedBox();
-                  } else {
-                    return InkWell(
-                      onTap: () {
-                        searchCubit.searchController.clear();
-                        clearSearch();
-                      },
-                      borderRadius: BorderRadius.circular(15),
-                      child: SvgPicture.asset(
-                        Assets.iconsClose,
-                        fit: BoxFit.cover,
-                      ),
-                    );
-                  }
+                if (state is ClearTextVisible) {
+                  return InkWell(
+                    onTap: () {
+                      searchController.clear();
+                      clearSearch();
+                    },
+                    borderRadius: BorderRadius.circular(15),
+                    child: SvgPicture.asset(
+                      Assets.iconsClose,
+                      fit: BoxFit.cover,
+                    ),
+                  );
                 } else {
                   return const SizedBox();
                 }

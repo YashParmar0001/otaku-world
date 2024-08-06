@@ -5,7 +5,6 @@ final bottomNavRoutes = StatefulShellRoute.indexedStack(
     return AppScaffold(navigationShell: navigationShell);
   },
   branches: [
-
     StatefulShellBranch(
       navigatorKey: _shellNavigatorHomeKey,
       routes: [

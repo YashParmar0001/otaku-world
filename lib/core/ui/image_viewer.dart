@@ -15,7 +15,7 @@ class ImageViewer extends StatelessWidget {
     return GestureDetector(
       onTap: () => context.pop(),
       child: Scaffold(
-        backgroundColor: Colors.black.withOpacity(0.7),
+        backgroundColor: Colors.black.withOpacity(0.3),
         body: Stack(
           fit: StackFit.expand,
           children: [

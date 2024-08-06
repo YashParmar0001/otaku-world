@@ -60,12 +60,12 @@ class FilteredMediaSection extends StatelessWidget {
         const SizedBox(height: 5),
         list.isEmpty
             ? const Center(
-              child: AnimeCharacterPlaceholder(
+                child: AnimeCharacterPlaceholder(
                   asset: Assets.charactersErenYeager,
                   heading: 'Oops! No matches found!',
                   subheading: 'Try searching something else.',
                 ),
-            )
+              )
             : MediaGrid(
                 list: list,
                 hasNextPage: hasNextPage,

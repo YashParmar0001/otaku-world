@@ -4,10 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/auth/auth_cubit.dart';
-import 'package:otaku_world/bloc/recomendations/recomendation_anime_bloc.dart';
+import 'package:otaku_world/bloc/discover/characters/birthday_characters_bloc.dart';
+import 'package:otaku_world/bloc/discover/characters/most_favorite_characters_bloc.dart';
+import 'package:otaku_world/bloc/discover/staff/birthday_staff_bloc.dart';
+import 'package:otaku_world/bloc/discover/staff/most_favorite_staff_bloc.dart';
+import 'package:otaku_world/bloc/discover/studios/most_favorite_studios_bloc.dart';
+import 'package:otaku_world/bloc/recommendations/recommendation_anime_bloc.dart';
 import 'package:otaku_world/bloc/routes/redirect_route_cubit.dart';
+import 'package:otaku_world/bloc/search/search_studios/search_studios_bloc.dart';
 import 'package:otaku_world/config/router/router_constants.dart';
 import 'package:otaku_world/core/routes/slide_transition_route.dart';
+import 'package:otaku_world/core/routes/slide_transition_shell_route.dart';
 import 'package:otaku_world/features/anime_lists/slider_lists/all_time_popular_anime_slider.dart';
 import 'package:otaku_world/features/anime_lists/slider_lists/all_time_popular_manga_slider.dart';
 import 'package:otaku_world/features/anime_lists/slider_lists/popular_manhwa_slider.dart';
@@ -29,9 +36,12 @@ import 'package:otaku_world/features/discover/discover_anime/screens/anime_slide
 import 'package:otaku_world/features/discover/discover_anime/screens/filter_anime_screen.dart';
 import 'package:otaku_world/features/discover/discover_manga/screens/filter_manga_screen.dart';
 import 'package:otaku_world/features/discover/discover_manga/screens/manga_discover_screen.dart';
-import 'package:otaku_world/features/discover/screens/characters_discover_screen.dart';
-import 'package:otaku_world/features/discover/screens/staff_discover_screen.dart';
-import 'package:otaku_world/features/discover/screens/studios_discover_screen.dart';
+import 'package:otaku_world/features/discover/discover_characters/screens/characters_discover_screen.dart';
+import 'package:otaku_world/features/discover/discover_staff/screens/staff_discover_screen.dart';
+import 'package:otaku_world/features/discover/discover_studios/screens/studios_discover_screen.dart';
+import 'package:otaku_world/features/discover/screens/discover_characters_wrapper.dart';
+import 'package:otaku_world/features/discover/screens/discover_staff_wrapper.dart';
+import 'package:otaku_world/features/discover/screens/entity_screen.dart';
 import 'package:otaku_world/features/home/screens/home_screen.dart';
 import 'package:otaku_world/features/media_detail/models/recommendations_parameters.dart';
 import 'package:otaku_world/features/media_detail/screens/media_detail_screen.dart';
@@ -45,7 +55,7 @@ import 'package:otaku_world/observers/go_route_observer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../bloc/media_detail/media_detail_bloc.dart';
-import '../../constants/string_constants.dart';
+import '../../bloc/search/search_bloc/search_bloc.dart';
 import '../../core/ui/app_scaffold.dart';
 import '../../features/anime_lists/slider_lists/recommended_manga_slider.dart';
 import '../../features/anime_lists/slider_lists/trending_manga_slider.dart';
@@ -90,7 +100,7 @@ final router = GoRouter(
       path: RouteConstants.mediaDetail,
       builder: (context, state) {
         final mediaId = int.parse(
-          state.queryParameters['id']!,
+          state.uri.queryParameters['id']!,
         );
         return BlocProvider(
           create: (context) => MediaDetailBloc(),
@@ -164,7 +174,7 @@ final router = GoRouter(
               state.matchedLocation != RouteConstants.onBoarding)) {
         routeCubit.setDesiredRoute(
           state.matchedLocation,
-          state.queryParameters,
+          state.uri.queryParameters,
         );
       }
       return RouteConstants.login;

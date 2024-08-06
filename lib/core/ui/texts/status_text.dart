@@ -42,7 +42,7 @@ class StatusText extends StatelessWidget {
         );
       case Enum$MediaStatus.NOT_YET_RELEASED:
         return Text(
-          'Not Yet Released',
+          'Not yet Released',
           style: style?.copyWith(
             color: AppColors.chineseWhite,
           ),

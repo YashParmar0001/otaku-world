@@ -35,6 +35,7 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
             tabAlignment: TabAlignment.start,
             indicatorSize: TabBarIndicatorSize.tab,
             indicatorPadding: const EdgeInsets.all(5),
+      
             indicator: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: AppColors.sunsetOrange,
@@ -59,8 +60,8 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
           child: Text(
             label,
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontFamily: 'Poppins',
-                ),
+              fontFamily: 'Poppins',
+            ),
           ),
         ),
       ),

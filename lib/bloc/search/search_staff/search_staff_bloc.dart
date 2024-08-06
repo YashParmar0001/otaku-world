@@ -2,12 +2,12 @@ import 'dart:developer' as dev;
 
 import 'package:bloc/bloc.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:otaku_world/bloc/search/search_base/search_bloc.dart';
+import 'package:otaku_world/bloc/search/search_base/search_base_bloc.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/search/search_staff.graphql.dart';
 
 class SearchStaffBloc
-    extends SearchBloc<Query$SearchStaff, Fragment$SearchResultStaff> {
+    extends SearchBaseBloc<Query$SearchStaff, Fragment$SearchResultStaff> {
   @override
   Future<QueryResult<Query$SearchStaff>> loadData(
     GraphQLClient client,
@@ -37,7 +37,7 @@ class SearchStaffBloc
   }
 
   @override
-  void onTransition(Transition<SearchEvent, SearchState> transition) {
+  void onTransition(Transition<SearchBaseEvent, SearchBaseState> transition) {
     dev.log(transition.toString(), name: 'SearchStaffBloc');
     super.onTransition(transition);
   }

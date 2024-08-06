@@ -66,9 +66,12 @@ class Relation extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: 0.692307,
-              child: CoverImage(
-                imageUrl: relation.node!.coverImage!.large.toString(),
-                type: Enum$MediaType.ANIME,
+              child: Hero(
+                tag: relation.node!.id,
+                child: CoverImage(
+                  imageUrl: relation.node!.coverImage!.large.toString(),
+                  type: Enum$MediaType.ANIME,
+                ),
               ),
             ),
             const SizedBox(

@@ -217,6 +217,7 @@ fragment SearchResultStudio on Studio {
     favourites
     media(perPage: 1, sort: [TRENDING_DESC, POPULARITY_DESC]) {
         nodes {
+            isAdult
             coverImage {
                 large
             }
@@ -257,8 +258,31 @@ fragment MediaTag on MediaTag {
     description
     isAdult
 }
+
 fragment FuzzyDate on FuzzyDate {
     day
     month
     year
+}
+
+fragment CharacterShort on Character {
+    id
+    name {
+        userPreferred
+    }
+    image {
+        large
+    }
+    favourites
+}
+
+fragment StaffShort on Staff {
+    id
+    name {
+        userPreferred
+    }
+    image {
+        large
+    }
+    favourites
 }

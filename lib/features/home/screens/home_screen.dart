@@ -1,3 +1,4 @@
+import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,11 +17,11 @@ import 'package:otaku_world/features/home/widgets/upcoming_episodes_section.dart
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/theme/colors.dart';
 
-import '../../../../config/router/router_constants.dart';
 import '../../../bloc/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import '../../../bloc/upcoming_episodes/upcoming_episodes_bloc.dart';
 import '../../../constants/string_constants.dart';
 import '../widgets/feature_card.dart';
+import '../../../../config/router/router_constants.dart';
 
 class HomeScreen extends HookWidget {
   const HomeScreen({super.key});
@@ -50,114 +51,117 @@ class HomeScreen extends HookWidget {
       return null;
     }, const []);
 
-    return MyRefreshIndicator(
-      onRefresh: () async {
-        return _refreshPage(context);
-      },
-      child: SingleChildScrollView(
-        controller: scaffoldController,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            // Search Option
-            _buildSearchOption(context),
-            const SizedBox(
-              height: 15,
-            ),
-            const UpcomingEpisodesSection(),
-            const SizedBox(
-              height: 15,
-            ),
-            // Reviews feature card
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 15,
+    return PopScope(
+      canPop: false,
+      child: MyRefreshIndicator(
+        onRefresh: () async {
+          return _refreshPage(context);
+        },
+        child: SingleChildScrollView(
+          controller: scaffoldController,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 10,
               ),
-              child: FeatureCard(
-                onTap: () {
-                  context.push(RouteConstants.reviews);
+              // Search Option
+              _buildSearchOption(context),
+              const SizedBox(
+                height: 15,
+              ),
+              const UpcomingEpisodesSection(),
+              const SizedBox(
+                height: 15,
+              ),
+              // Reviews feature card
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                ),
+                child: FeatureCard(
+                  onTap: () {
+                    context.push(RouteConstants.reviews);
+                  },
+                  heading: HomeConstants.reviewsHeading,
+                  subheading: HomeConstants.reviewsSubheading,
+                  icon: Assets.iconsChatBubble,
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              // Calendar feature card
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                ),
+                child: FeatureCard(
+                  onTap: () {
+                    context.push(RouteConstants.calendar);
+                  },
+                  heading: HomeConstants.calendarHeading,
+                  subheading: HomeConstants.calendarSubheading,
+                  icon: Assets.iconsCalendar,
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              MediaSection<TrendingAnimeBloc>(
+                label: 'Trending Anime',
+                onMorePressed: () {
+                  context.push(RouteConstants.trendingAnime);
                 },
-                heading: HomeConstants.reviewsHeading,
-                subheading: HomeConstants.reviewsSubheading,
-                icon: Assets.iconsChatBubble,
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            // Calendar feature card
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 15,
-              ),
-              child: FeatureCard(
-                onTap: () {
-                  context.push(RouteConstants.calendar);
+                onSliderPressed: () {
+                  context.push(RouteConstants.trendingAnimeSlider);
                 },
-                heading: HomeConstants.calendarHeading,
-                subheading: HomeConstants.calendarSubheading,
-                icon: Assets.iconsCalendar,
+                heroTag: 'trending_anime',
               ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            MediaSection<TrendingAnimeBloc>(
-              label: 'Trending Anime',
-              onMorePressed: () {
-                context.push(RouteConstants.trendingAnime);
-              },
-              onSliderPressed: () {
-                context.push(RouteConstants.trendingAnimeSlider);
-              },
-              heroTag: 'trending_anime',
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            MediaSection<RecommendedAnimeBloc>(
-              label: 'Recommended Anime',
-              onMorePressed: () {
-                context.push(RouteConstants.recommendedAnime);
-              },
-              onSliderPressed: () {
-                context.push(RouteConstants.recommendedAnimeSlider);
-              },
-              heroTag: 'recommended_anime',
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            MediaSection<TrendingMangaBloc>(
-              label: 'Trending Manga',
-              onMorePressed: () {
-                context.push(RouteConstants.trendingManga);
-              },
-              onSliderPressed: () {
-                context.push(RouteConstants.trendingMangaSlider);
-              },
-              heroTag: 'trending_manga',
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            MediaSection<RecommendedMangaBloc>(
-              label: 'Recommended Manga',
-              onMorePressed: () {
-                context.push(RouteConstants.recommendedManga);
-              },
-              onSliderPressed: () {
-                context.push(RouteConstants.recommendedMangaSlider);
-              },
-              heroTag: 'recommended_manga',
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-          ],
+              const SizedBox(
+                height: 15,
+              ),
+              MediaSection<RecommendedAnimeBloc>(
+                label: 'Recommended Anime',
+                onMorePressed: () {
+                  context.push(RouteConstants.recommendedAnime);
+                },
+                onSliderPressed: () {
+                  context.push(RouteConstants.recommendedAnimeSlider);
+                },
+                heroTag: 'recommended_anime',
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              MediaSection<TrendingMangaBloc>(
+                label: 'Trending Manga',
+                onMorePressed: () {
+                  context.push(RouteConstants.trendingManga);
+                },
+                onSliderPressed: () {
+                  context.push(RouteConstants.trendingMangaSlider);
+                },
+                heroTag: 'trending_manga',
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              MediaSection<RecommendedMangaBloc>(
+                label: 'Recommended Manga',
+                onMorePressed: () {
+                  context.push(RouteConstants.recommendedManga);
+                },
+                onSliderPressed: () {
+                  context.push(RouteConstants.recommendedMangaSlider);
+                },
+                heroTag: 'recommended_manga',
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+            ],
+          ),
         ),
       ),
     );

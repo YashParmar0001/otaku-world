@@ -7,6 +7,8 @@ class TrendingAnimeSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const  MediaSliderScreen<TrendingAnimeBloc>(sectionHeader: 'Trending Anime');
+    return const MediaSliderScreen<TrendingAnimeBloc>(
+      sectionHeader: 'Trending Anime',
+    );
   }
 }

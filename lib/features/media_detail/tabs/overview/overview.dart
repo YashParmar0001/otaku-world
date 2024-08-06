@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
-import 'package:otaku_world/bloc/recomendations/recomendation_anime_bloc.dart';
+import 'package:otaku_world/bloc/recommendations/recommendation_anime_bloc.dart';
 import 'package:otaku_world/features/media_detail/models/recommendations_parameters.dart';
 import 'package:otaku_world/features/media_detail/tabs/overview/description.dart';
 import 'package:otaku_world/features/media_detail/tabs/overview/links_section.dart';
@@ -57,9 +57,9 @@ class _OverviewState extends State<Overview> {
     youtubePlayerController = YoutubePlayerController(
       initialVideoId: youtubeId,
       flags: const YoutubePlayerFlags(
-
+        useHybridComposition: false,
         autoPlay: false,
-        showLiveFullscreenButton: false,
+        mute: true,
       ),
     );
     return ListView(
@@ -98,19 +98,6 @@ class _OverviewState extends State<Overview> {
         youtubeId == ""
             ? const SizedBox()
             : YoutubePlayer(
-                aspectRatio: 16 / 9,
-                bottomActions: [
-                  CurrentPosition(),
-                  ProgressBar(
-                    controller: youtubePlayerController,
-                    colors: const ProgressBarColors(
-                      handleColor: AppColors.sunsetOrange,
-                      playedColor: AppColors.sunsetOrange,
-                    ),
-                    isExpanded: true,
-                  ),
-                  RemainingDuration(),
-                ],
                 controller: youtubePlayerController,
               ),
         const SizedBox(
@@ -202,6 +189,10 @@ class _OverviewState extends State<Overview> {
     List<InlineSpan> textSpans = [];
 
     for (int i = 0; i < genres.length; i++) {
+      // if (textSpans.length >= 5) {
+      //   break;
+      // }
+
       String genre = genres[i].toString();
       textSpans.add(
         TextSpan(

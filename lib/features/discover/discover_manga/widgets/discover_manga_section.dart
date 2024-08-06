@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../bloc/all_time_popular_manga/all_time_popular_manga_bloc.dart';
-import '../../../../bloc/all_time_popular_manga/popular_manhwa_bloc.dart';
+import '../../../../bloc/discover/manga/all_time_popular_manga/all_time_popular_manga_bloc.dart';
+import '../../../../bloc/discover/manga/all_time_popular_manga/popular_manhwa_bloc.dart';
+import '../../../../bloc/discover/manga/top_100_manga/top_100_manga.dart';
 import '../../../../bloc/recommended_manga/recommended_manga_bloc.dart';
-import '../../../../bloc/top_100_manga/top_100_manga.dart';
 import '../../../../bloc/trending_manga/trending_manga_bloc.dart';
 import '../../../../config/router/router_constants.dart';
 import '../../../../core/ui/media_section/media_cards.dart';

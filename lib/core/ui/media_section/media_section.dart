@@ -226,10 +226,13 @@ class MediaSection<B extends PaginatedDataBloc> extends HookWidget {
                 SizedBox(
                   height: 169,
                   width: 115,
-                  child: CoverImage(
-                    imageUrl: media.coverImage!.large!,
-                    type: media.type!,
-                    // placeHolderName: Assets.placeholders115x170,
+                  child: Hero(
+                    tag: media.id,
+                    child: CoverImage(
+                      imageUrl: media.coverImage!.large!,
+                      type: media.type!,
+                      // placeHolderName: Assets.placeholders115x170,
+                    ),
                   ),
                 ),
                 // Mean score

@@ -1,4 +1,5 @@
 query GetReviews($page:Int){
+
     Page(perPage: 20, page:$page){
         pageInfo{
             hasNextPage

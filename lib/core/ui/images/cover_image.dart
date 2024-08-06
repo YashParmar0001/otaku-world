@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
 
 import '../../../services/caching/image_cache_manager.dart';
+import '../image_viewer.dart';
 import '../placeholders/poster_placeholder.dart';
 
 class CoverImage extends StatelessWidget {
@@ -30,7 +31,7 @@ class CoverImage extends StatelessWidget {
         useOldImageOnUrlChange: true,
         // width: 115,
         // height: 169,
-
+        fit: BoxFit.fill,
         imageBuilder: (context, imageProvider) {
           // return ClipRRect(
           //   borderRadius: (type == Enum$MediaType.ANIME)

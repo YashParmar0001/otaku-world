@@ -47,73 +47,78 @@ class MangaDiscoverScreen extends HookWidget {
     }, const []);
 
     final bloc = context.read<FilterMangaBloc>();
-    return Scaffold(
-      appBar: const SimpleAppBar(title: 'Manga'),
-      floatingActionButton: ScrollToTopFAB(
-        controller: scrollController,
-        tag: 'discover_manga_fab',
-      ),
-      body: SingleChildScrollView(
-        controller: scrollController,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: DiscoverHeader(
-                title: DiscoverConstants.mangaDiscoverHeading,
-                subtitle: DiscoverConstants.mangaDiscoverSubheading,
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (_) {
+        bloc.add(RemoveAllFilters());
+        // context.pop();
+      },
+      child: Scaffold(
+        appBar: const SimpleAppBar(title: 'Manga'),
+        floatingActionButton: ScrollToTopFAB(
+          controller: scrollController,
+          tag: 'discover_manga_fab',
+        ),
+        body: SingleChildScrollView(
+          controller: scrollController,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: DiscoverHeader(
+                  title: DiscoverConstants.mangaDiscoverHeading,
+                  subtitle: DiscoverConstants.mangaDiscoverSubheading,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 15,
+              const SizedBox(
+                height: 15,
               ),
-              child: BlocBuilder<FilterMangaBloc, FilterMangaState>(
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                ),
+                child: BlocBuilder<FilterMangaBloc, FilterMangaState>(
+                  builder: (context, state) {
+                    return SearchOption(
+                      onPressedFilters: () {
+                        context.push(RouteConstants.mangaFilters);
+                      },
+                      clearSearch: () {
+                        bloc.add(
+                            ClearSearch(client: client, clearFilter: false));
+                      },
+                      onSubmitted: (value) {
+                        bloc.add(ApplySearch(client: client, search: value));
+                      },
+                      onChanged: (value) {
+                        bloc.add(UpdateSearch(value));
+                      },
+                      filterApplied: bloc.filterApplied,
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              BlocBuilder<FilterMangaBloc, FilterMangaState>(
                 builder: (context, state) {
-                  return SearchOption(
-                    onPressedFilters: () {
-                      context.push(RouteConstants.mangaFilters);
-                    },
-                    clearSearch: () {
-                      bloc.add(
-                          ClearSearch(client: client, clearFilter: false));
-                    },
-                    onSubmitted: (value) {
-                      bloc.add(ApplySearch(client: client, search: value));
-                    },
-                    onChanged: (value) {
-                      bloc.add(UpdateSearch(value));
-                    },
-                    filterApplied: bloc.filterApplied,
-                    searchCubit: bloc.searchCubit,
-                    hint: 'Search manga...',
-                  );
+                  if (state is ResultsLoaded) {
+                    return FilteredMediaSection(
+                      list: state.list,
+                      hasNextPage: state.hasNextPage,
+                      type: Enum$MediaType.MANGA,
+                    );
+                  } else if (state is ResultsLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else {
+                    return const DiscoverMangaSection();
+                  }
                 },
               ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            BlocBuilder<FilterMangaBloc, FilterMangaState>(
-              builder: (context, state) {
-                if (state is ResultsLoaded) {
-                  return FilteredMediaSection(
-                    list: state.list,
-                    hasNextPage: state.hasNextPage,
-                    type: Enum$MediaType.MANGA,
-                  );
-                } else if (state is ResultsLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                } else {
-                  return const DiscoverMangaSection();
-                }
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

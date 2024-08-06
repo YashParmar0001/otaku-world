@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:otaku_world/generated/assets.dart';
 
 import '../../../bloc/auth/auth_cubit.dart';
 
@@ -17,18 +18,27 @@ class SplashScreen extends StatelessWidget {
           context.go('/login');
         }
       },
+
       child: Scaffold(
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'This is Splash Screen',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const SizedBox(height: 5),
-              const CircularProgressIndicator(),
-            ],
+          // child: Column(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     Text(
+          //       'This is Splash Screen',
+          //       style: Theme.of(context).textTheme.headlineMedium,
+          //     ),
+          //     const SizedBox(
+          //       height: 5,
+          //     ),
+          //     const CircularProgressIndicator(),
+          //   ],
+          child: SizedBox(
+            height: 128,
+            width: 128,
+            child: Image.asset(
+              Assets.logosAppLogo,
+            ),
           ),
         ),
       ),

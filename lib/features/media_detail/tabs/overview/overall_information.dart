@@ -147,27 +147,26 @@ class OverallInfo extends StatelessWidget {
               ).capitalize()} ${media.seasonYear.toString() == 'null' ? '' : media.seasonYear.toString()}",
             ),
             tenHeightSizedBox,
-            Container(
-              color: AppColors.white.withOpacity(0.5),
-              height: 1,
-            ),
-            tenHeightSizedBox,
-            media.studios?.edges == null
-                ? const SizedBox(
-                    height: 0,
-                  )
-                : InfoTile(
-                    title: "Studios",
-                    data: getStudios(media.studios!.edges!).isEmpty
-                        ? StringConstants.nullStringConstant
-                        : getStudios(media.studios!.edges!),
-                  ),
-            InfoTile(
-              title: 'Producers',
-              data: getProducers(media.studios!.edges!).isEmpty
-                  ? StringConstants.nullStringConstant
-                  : getProducers(media.studios!.edges!),
-            ),
+            if (media.studios?.edges != null) ...[
+              Container(
+                color: AppColors.white.withOpacity(0.5),
+                height: 1,
+              ),
+              tenHeightSizedBox,
+              InfoTile(
+                title: "Studios",
+                data: getStudios(media.studios!.edges!).isEmpty
+                    ? StringConstants.nullStringConstant
+                    : getStudios(media.studios!.edges!),
+              ),
+              tenHeightSizedBox,
+              InfoTile(
+                title: 'Producers',
+                data: getProducers(media.studios!.edges!).isEmpty
+                    ? StringConstants.nullStringConstant
+                    : getProducers(media.studios!.edges!),
+              ),
+            ]
           ],
         ],
       ),
@@ -183,7 +182,7 @@ class OverallInfo extends StatelessWidget {
 
     for (Fragment$MediaDetailed$studios$edges? edge in edges) {
       if (edge != null && edge.isMain) {
-        studios = "$studios${edge.node!.name}\n";
+        studios += "$studios${edge.node!.name}";
       }
     }
     return studios;
@@ -196,7 +195,6 @@ class OverallInfo extends StatelessWidget {
     }
     for (Fragment$MediaDetailed$studios$edges? edge in edges) {
       if (edge != null && !edge.isMain) {
-        dev.log(edge.node!.name, name: "MediaDetailScreenProducers");
         producers = "$producers${edge.node!.name}\n";
       }
     }

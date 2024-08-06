@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:otaku_world/bloc/top_airing_anime/top_airing_anime_bloc.dart';
 import 'package:otaku_world/core/ui/media_section/media_grid_screen.dart';
 
-import '../../../bloc/discover/anime/top_airing_anime/top_airing_anime_bloc.dart';
 import '../../../graphql/__generated/graphql/schema.graphql.dart';
 
 class TopAiringAnimeScreen extends StatelessWidget {

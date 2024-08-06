@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../bloc/all_time_popular_anime/all_time_popular_anime_bloc.dart';
+import '../../../../bloc/discover/anime/all_time_popular_anime/all_time_popular_anime_bloc.dart';
+import '../../../../bloc/discover/anime/top_100_anime/top_100_anime_bloc.dart';
+import '../../../../bloc/discover/anime/top_airing_anime/top_airing_anime_bloc.dart';
+import '../../../../bloc/discover/anime/top_upcoming_anime/top_upcoming_anime_bloc.dart';
 import '../../../../bloc/recommended_anime/recommended_anime_bloc.dart';
-import '../../../../bloc/top_100_anime/top_100_anime_bloc.dart';
-import '../../../../bloc/top_airing_anime/top_airing_anime_bloc.dart';
-import '../../../../bloc/top_upcoming_anime/top_upcoming_anime_bloc.dart';
 import '../../../../bloc/trending_anime/trending_anime_bloc.dart';
 import '../../../../config/router/router_constants.dart';
 import '../../../../core/ui/media_section/media_cards.dart';

@@ -2,7 +2,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:otaku_world/graphql/__generated/graphql/discover/anime/top_upcoming_anime.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 
-import '../paginated_data/paginated_data_bloc.dart';
+import '../../../paginated_data/paginated_data_bloc.dart';
 import 'dart:developer' as dev;
 
 class TopUpcomingAnimeBloc

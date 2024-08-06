@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:otaku_world/bloc/top_upcoming_anime/top_upcoming_anime_bloc.dart';
 
+import '../../../bloc/discover/anime/top_upcoming_anime/top_upcoming_anime_bloc.dart';
 import '../../../core/ui/media_section/media_slider_screen.dart';
 
 class TopUpcomingAnimeSlider extends StatelessWidget {

@@ -17,6 +17,7 @@ class SearchOption extends StatelessWidget {
     required this.onChanged,
     required this.filterApplied,
     required this.searchCubit,
+    required this.hint,
   });
 
   final VoidCallback onPressedFilters;
@@ -25,6 +26,7 @@ class SearchOption extends StatelessWidget {
   final Function(String) onChanged;
   final bool filterApplied;
   final SearchMediaCubit searchCubit;
+  final String hint;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class SearchOption extends StatelessWidget {
           onSubmitted: onSubmitted,
           onChanged: onChanged,
           searchCubit: searchCubit,
+          hint: hint,
         ),
         const SizedBox(
           width: 10,

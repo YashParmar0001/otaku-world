@@ -19,4 +19,6 @@ class SearchMediaCubit extends Cubit<SearchMediaState> {
 
   final searchController = TextEditingController();
   bool searchApplied = false;
+
+  String get searchText => (state as SearchContentChanged).content;
 }

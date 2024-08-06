@@ -7,9 +7,14 @@ class SlideTransitionRoute extends GoRoute {
     end: Offset.zero,
   );
 
+  static final bottomToTopTween = Tween<Offset>(
+    begin: const Offset(0.0, 1.0),
+    end: Offset.zero,
+  );
+
   SlideTransitionRoute({
     required String path,
-    required GlobalKey<NavigatorState> parentNavigatorKey,
+    GlobalKey<NavigatorState>? parentNavigatorKey,
     required Widget Function(GoRouterState state) builder,
     required Tween<Offset> directionTween,
     GoRouterRedirect? redirect,

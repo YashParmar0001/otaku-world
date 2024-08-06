@@ -26,9 +26,7 @@ class SplashScreen extends StatelessWidget {
                 'This is Splash Screen',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
-              const SizedBox(
-                height: 5,
-              ),
+              const SizedBox(height: 5),
               const CircularProgressIndicator(),
             ],
           ),

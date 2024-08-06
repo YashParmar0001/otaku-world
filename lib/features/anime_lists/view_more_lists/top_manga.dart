@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:otaku_world/bloc/top_100_manga/top_100_manga.dart';
 
+import '../../../bloc/discover/manga/top_100_manga/top_100_manga.dart';
 import '../../../core/ui/media_section/media_grid_screen.dart';
 import '../../../graphql/__generated/graphql/schema.graphql.dart';
 
-class TopManga extends StatelessWidget {
-  const TopManga({super.key});
+class TopMangaScreen extends StatelessWidget {
+  const TopMangaScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

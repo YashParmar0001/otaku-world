@@ -1,104 +1,181 @@
 part of 'router.dart';
 
 final discoverRoutes = [
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.discoverAnime,
-    builder: (context, state) => const AnimeDiscoverScreen(),
+    builder: (context) => const AnimeDiscoverScreen(),
+    directionTween: SlideTransitionRoute.leftToRightTween,
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.animeFilters,
-    builder: (context, state) => const AnimeFilters(),
+    builder: (context) => const AnimeFilters(),
+    directionTween: SlideTransitionRoute.bottomToTopTween,
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.filterAnimeSlider,
-    builder: (context, state) => const AnimeSliderScreen(),
+    builder: (context) => const AnimeSliderScreen(),
+    directionTween: SlideTransitionRoute.bottomToTopTween,
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.topAiringAnime,
-    builder: (context, state) => const TopAiringAnimeScreen(),
+    builder: (context) => const TopAiringAnimeScreen(),
+    directionTween: SlideTransitionRoute.bottomToTopTween,
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.topAiringAnimeSlider,
-    builder: (context, state) => const TopAiringAnimeSlider(),
+    builder: (context) => const TopAiringAnimeSlider(),
+    directionTween: SlideTransitionRoute.bottomToTopTween,
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.topUpcomingAnime,
-    builder: (context, state) => const TopUpcomingAnimeScreen(),
+    builder: (context) => const TopUpcomingAnimeScreen(),
+    directionTween: SlideTransitionRoute.bottomToTopTween,
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.topUpcomingAnimeSlider,
-    builder: (context, state) => const TopUpcomingAnimeSlider(),
+    builder: (context) => const TopUpcomingAnimeSlider(),
+    directionTween: SlideTransitionRoute.bottomToTopTween,
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.allTimePopularAnime,
-    builder: (context, state) => const AllTimePopularAnimeScreen(),
+    builder: (context) => const AllTimePopularAnimeScreen(),
+    directionTween: SlideTransitionRoute.bottomToTopTween,
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.allTimePopularAnimeSlider,
-    builder: (context, state) => const AllTimePopularAnimeSlider(),
+    builder: (context) => const AllTimePopularAnimeSlider(),
+    directionTween: SlideTransitionRoute.bottomToTopTween,
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.topAnime,
-    builder: (context, state) => const TopAnime(),
+    builder: (context) => const TopAnimeScreen(),
+    directionTween: SlideTransitionRoute.bottomToTopTween,
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.discoverManga,
-    builder: (context, state) => const MangaDiscoverScreen(),
+    builder: (context) => const MangaDiscoverScreen(),
+    directionTween: SlideTransitionRoute.leftToRightTween,
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.mangaFilters,
-    builder: (context, state) => const MangaFilters(),
+    builder: (context) => const MangaFilters(),
+    directionTween: SlideTransitionRoute.bottomToTopTween,
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.allTimePopularManga,
-    builder: (context, state) => const AllTimePopularMangaScreen(),
+    builder: (context) => const AllTimePopularMangaScreen(),
+    directionTween: SlideTransitionRoute.bottomToTopTween,
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.allTimePopularMangaSlider,
-    builder: (context, state) => const AllTimePopularMangaSlider(),
+    builder: (context) => const AllTimePopularMangaSlider(),
+    directionTween: SlideTransitionRoute.bottomToTopTween,
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.popularManhwa,
-    builder: (context, state) => const PopularManhwaScreen(),
+    builder: (context) => const PopularManhwaScreen(),
+    directionTween: SlideTransitionRoute.bottomToTopTween,
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.popularManhwaSlider,
-    builder: (context, state) => const PopularManhwaSlider(),
+    builder: (context) => const PopularManhwaSlider(),
+    directionTween: SlideTransitionRoute.bottomToTopTween,
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.topManga,
-    builder: (context, state) => const TopManga(),
+    builder: (context) => const TopMangaScreen(),
+    directionTween: SlideTransitionRoute.bottomToTopTween,
   ),
-  GoRoute(
+  SlideTransitionShellRoute(
     parentNavigatorKey: _rootNavigatorKey,
-    path: RouteConstants.discoverCharacters,
-    builder: (context, state) => const CharactersDiscoverScreen(),
+    builder: (context, state, child) {
+      return DiscoverCharactersWrapper(child: child);
+    },
+    directionTween: SlideTransitionRoute.leftToRightTween,
+    routes: [
+      GoRoute(
+        path: RouteConstants.discoverCharacters,
+        pageBuilder: (context, state) {
+          return const NoTransitionPage(child: CharactersDiscoverScreen());
+        },
+        // directionTween: SlideTransitionRoute.leftToRightTween,
+        routes: [
+          SlideTransitionRoute(
+            path: RouteConstants.birthdayCharactersPath,
+            directionTween: SlideTransitionRoute.bottomToTopTween,
+            builder: (context) => const EntityScreen<BirthdayCharactersBloc>(
+              title: 'Birthdays',
+            ),
+          ),
+          SlideTransitionRoute(
+            path: RouteConstants.mostFavoriteCharactersPath,
+            directionTween: SlideTransitionRoute.bottomToTopTween,
+            builder: (context) =>
+                const EntityScreen<MostFavoriteCharactersBloc>(
+              title: 'Most Favorite Characters',
+            ),
+          ),
+        ],
+      ),
+    ],
   ),
-  GoRoute(
+  SlideTransitionShellRoute(
     parentNavigatorKey: _rootNavigatorKey,
-    path: RouteConstants.discoverStaff,
-    builder: (context, state) => const StaffDiscoverScreen(),
+    builder: (context, state, child) {
+      return DiscoverStaffWrapper(child: child);
+    },
+    directionTween: SlideTransitionRoute.leftToRightTween,
+    routes: [
+      GoRoute(
+        path: RouteConstants.discoverStaff,
+        builder: (context, state) => const StaffDiscoverScreen(),
+        // directionTween: SlideTransitionRoute.leftToRightTween,
+        routes: [
+          SlideTransitionRoute(
+            path: RouteConstants.birthdayStaffPath,
+            directionTween: SlideTransitionRoute.bottomToTopTween,
+            builder: (context) => const EntityScreen<BirthdayStaffBloc>(
+              title: 'Birthdays',
+            ),
+          ),
+          SlideTransitionRoute(
+            path: RouteConstants.mostFavoriteStaffPath,
+            directionTween: SlideTransitionRoute.bottomToTopTween,
+            builder: (context) => const EntityScreen<MostFavoriteStaffBloc>(
+              title: 'Most Favorite Staff',
+            ),
+          ),
+        ],
+      ),
+    ],
   ),
-  GoRoute(
+  SlideTransitionRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: RouteConstants.discoverStudios,
-    builder: (context, state) => const StudiosDiscoverScreen(),
+    directionTween: SlideTransitionRoute.leftToRightTween,
+    builder: (context) => MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => MostFavoriteStudiosBloc()),
+        BlocProvider(create: (context) => SearchStudiosBloc()),
+      ],
+      child: const StudiosDiscoverScreen(),
+    ),
   ),
 ];

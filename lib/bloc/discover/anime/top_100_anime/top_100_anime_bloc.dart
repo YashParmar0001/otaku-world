@@ -1,9 +1,10 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:otaku_world/graphql/__generated/graphql/discover/anime/top_100_anime.graphql.dart';
 
-import '../../graphql/__generated/graphql/fragments.graphql.dart';
-import '../paginated_data/paginated_data_bloc.dart';
 import 'dart:developer' as dev;
+
+import '../../../../graphql/__generated/graphql/fragments.graphql.dart';
+import '../../../paginated_data/paginated_data_bloc.dart';
 
 class Top100AnimeBloc
     extends PaginatedDataBloc<Query$GetTop100Anime, Fragment$MediaShort> {

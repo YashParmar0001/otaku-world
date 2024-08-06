@@ -30,7 +30,7 @@ class CoverImage extends StatelessWidget {
         useOldImageOnUrlChange: true,
         // width: 115,
         // height: 169,
-        fit: BoxFit.fill,
+
         imageBuilder: (context, imageProvider) {
           // return ClipRRect(
           //   borderRadius: (type == Enum$MediaType.ANIME)

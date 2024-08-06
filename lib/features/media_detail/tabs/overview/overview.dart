@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/paginated_data/paginated_data_bloc.dart';
-import 'package:otaku_world/bloc/recomendations/recomendation_anime_bloc.dart';
+import 'package:otaku_world/bloc/recommendations/recommendation_anime_bloc.dart';
 import 'package:otaku_world/features/media_detail/models/recommendations_parameters.dart';
 import 'package:otaku_world/features/media_detail/tabs/overview/description.dart';
 import 'package:otaku_world/features/media_detail/tabs/overview/links_section.dart';

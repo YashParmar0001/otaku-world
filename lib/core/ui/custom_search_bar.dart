@@ -14,12 +14,14 @@ class CustomSearchBar extends HookWidget {
     required this.onSubmitted,
     required this.onChanged,
     required this.searchCubit,
+    required this.hint,
   });
 
   final VoidCallback clearSearch;
   final ValueChanged<String> onSubmitted;
   final Function(String) onChanged;
   final SearchMediaCubit searchCubit;
+  final String hint;
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +67,10 @@ class CustomSearchBar extends HookWidget {
           ),
           fillColor: AppColors.jet,
           filled: true,
+          hintText: hint,
+          hintStyle: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            color: AppColors.white.withOpacity(0.5),
+          ),
           suffixIcon: Padding(
             padding: const EdgeInsets.only(
               left: 15,

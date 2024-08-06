@@ -6,9 +6,11 @@ import 'package:equatable/equatable.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 part 'search_base_event.dart';
+
 part 'search_base_state.dart';
 
-abstract class SearchBaseBloc<Q, E> extends Bloc<SearchBaseEvent, SearchBaseState> {
+abstract class SearchBaseBloc<Q, E>
+    extends Bloc<SearchBaseEvent, SearchBaseState> {
   SearchBaseBloc() : super(SearchInitial()) {
     on<SearchMedia>(
       _onSearchMedia,
@@ -34,38 +36,46 @@ abstract class SearchBaseBloc<Q, E> extends Bloc<SearchBaseEvent, SearchBaseStat
     emit(SearchInitial());
   }
 
-  Future<void> _onSearchMedia(SearchMedia event, Emitter<SearchBaseState> emit) async {
-    emit(SearchResultLoading());
-    page = 1;
-    hasNextPage = true;
-    list.clear();
-    // This is for checking shimmer effect (Uncomment below code)
-    // await Future.delayed(const Duration(seconds: 20));
-
-    searchContent = event.searchContent;
-    final response = await loadData(event.client, searchContent);
-
-    if (response.hasException) {
-      final exception = response.exception!;
-
-      if (exception.linkException != null) {
-        emit(
-          const SearchError('Please check your internet connection!'),
-        );
-      } else {
-        emit(const SearchError('Some Unexpected error occurred!'));
-      }
+  Future<void> _onSearchMedia(
+    SearchMedia event,
+    Emitter<SearchBaseState> emit,
+  ) async {
+    if (event.searchContent.isEmpty) {
+      add(ClearSearch());
     } else {
-      processData(response);
+      emit(SearchResultLoading());
+      page = 1;
+      hasNextPage = true;
+      list.clear();
+      // This is for checking shimmer effect (Uncomment below code)
+      // await Future.delayed(const Duration(seconds: 20));
 
-      emit(SearchResultLoaded<E?>(
-        list: List.from(list),
-        hasNextPage: hasNextPage,
-      ));
+      searchContent = event.searchContent;
+      final response = await loadData(event.client, searchContent);
+
+      if (response.hasException) {
+        final exception = response.exception!;
+
+        if (exception.linkException != null) {
+          emit(
+            const SearchError('Please check your internet connection!'),
+          );
+        } else {
+          emit(const SearchError('Some Unexpected error occurred!'));
+        }
+      } else {
+        processData(response);
+
+        emit(SearchResultLoaded<E?>(
+          list: List.from(list),
+          hasNextPage: hasNextPage,
+        ));
+      }
     }
   }
 
-  Future<void> _onLoadMore(LoadMore event, Emitter<SearchBaseState> emit) async {
+  Future<void> _onLoadMore(
+      LoadMore event, Emitter<SearchBaseState> emit) async {
     final response = await loadData(event.client, searchContent);
 
     if (!response.hasException) {

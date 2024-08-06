@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/bloc/graphql_client/graphql_client_cubit.dart';
 import 'package:otaku_world/bloc/search/search_bloc/search_bloc.dart';
+import 'package:otaku_world/config/router/router_constants.dart';
 import 'package:otaku_world/core/ui/tabs/custom_tab_bar.dart';
 import 'package:otaku_world/generated/assets.dart';
 import 'package:otaku_world/theme/colors.dart';
@@ -34,7 +35,7 @@ class SearchAppBar extends HookWidget implements PreferredSizeWidget {
             if (context.canPop()) {
               context.pop();
             } else {
-              context.go('/home');
+              context.go(RouteConstants.home);
             }
           },
         ),
